@@ -5,6 +5,7 @@ import sphelp from './Commands/sphelp'
 import spsetamount from './Commands/spsetamount'
 import spstatus from './Commands/spstatus'
 import spsettarget from './Commands/spsettarget'
+import spremovetarget from './Commands/spremovetarget'
 require('dotenv').config()
 
 
@@ -45,7 +46,7 @@ const main = async (): Promise<void> => {
             else if (commandName === 'spstatus') await spstatus(interaction)
             else if (commandName === 'sptarget') {
                 if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction)
-                else if (interaction.options.getSubcommand() === 'remove') await spsettarget(interaction)
+                else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction)
             } 
         });
 
