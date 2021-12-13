@@ -20,12 +20,12 @@ const generateMsg = async (updateMsg: boolean): Promise<string> => {
             const current = stockpiles[i]
             stockpileMsg += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>)\n`
             for (const item in current.items) {
-                stockpileMsg += itemToName[item] + " - " + current.items[item]
+                stockpileMsg += itemToName[item] + " - " + current.items[item] + "\n"
 
                 if (item in totals) totals[item] += current.items[item]
                 else totals[item] = current.items[item]
             }
-            stockpileMsg += "\n-----"
+            stockpileMsg += "\n-----\n"
         }
 
         let targetMsg = "**__Targets__** \n\n"

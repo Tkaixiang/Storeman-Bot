@@ -1,7 +1,9 @@
-import { CommandInteraction } from "discord.js";
+import { Client, CommandInteraction } from "discord.js";
 import { getCollections } from './../mongoDB'
+import generateStockpileMsg from "./../Utils/generateStockpileMsg"
+import updateStockpileMsg from "../Utils/updateStockpileMsg";
 
-const spremovetarget = async (interaction: CommandInteraction): Promise<boolean> => {
+const spremovetarget = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
     const item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
 
     if (!item) {
@@ -19,6 +21,9 @@ const spremovetarget = async (interaction: CommandInteraction): Promise<boolean>
         });
     }
 
+    const newMsg = await generateStockpileMsg(true)
+    await updateStockpileMsg(client, newMsg)
+    
     await interaction.reply({
         content: "Item '" + item + "' has been removed from the target list."
     });

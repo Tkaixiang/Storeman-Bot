@@ -20,7 +20,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
         stockpileExist.items[item] = amount
-        await collections.stockpiles.updateOne({ name: stockpileName }, { $set: {items: stockpileExist.items} })
+        await collections.stockpiles.updateOne({ name: stockpileName }, { $set: {items: stockpileExist.items, lastUpdated: new Date()} })
     }
     else {
         // Stockpile doesn't exist
@@ -34,7 +34,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     await updateStockpileMsg(client, newMsg)
 
     await interaction.reply({
-        content: "Item '" + item + "' has been set to " + amount + " crates inside the stockpile " + stockpileName
+        content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`"
     });
 
     return true;

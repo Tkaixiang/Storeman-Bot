@@ -53,8 +53,8 @@ const main = async (): Promise<void> => {
             else if (commandName === 'spsetamount') await spsetamount(interaction, client)
             else if (commandName === 'spstatus') await spstatus(interaction)
             else if (commandName === 'sptarget') {
-                if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction)
-                else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction)
+                if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction, client)
+                else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction, client)
             }
             else if (commandName === 'spsetpassword') await spsetpassword(interaction)
             else if (commandName === 'splogichannel') {
