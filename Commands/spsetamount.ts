@@ -11,7 +11,8 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
 
     if (!amount || !stockpileName || !item) {
         await interaction.reply({
-            content: "Missing parameters"
+            content: "Missing parameters",
+            ephemeral: true
         });
         return false
     }

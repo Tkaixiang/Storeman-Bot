@@ -7,7 +7,8 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
 
     if (!channel) {
         await interaction.reply({
-            content: "Missing parameters"
+            content: "Missing parameters",
+            ephemeral: true
         });
         return false
     }

@@ -8,7 +8,8 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
 
     if (!stockpile) {
         await interaction.reply({
-            content: "Missing parameters"
+            content: "Missing parameters",
+            ephemeral: true
         });
         return false
     }
