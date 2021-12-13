@@ -10,6 +10,7 @@ import spsetpassword from './Commands/spsetpassword'
 import spsetlogichannel from './Commands/spsetlogichannel'
 import spremovelogichannel from './Commands/spremovelogichannel'
 import NodeCache from 'node-cache'
+import spremovestockpile from './Commands/spremovestockpile'
 require('dotenv').config()
 
 declare global {
@@ -61,6 +62,7 @@ const main = async (): Promise<void> => {
                 if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
                 else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
             }
+            else if (commandName === "spremovestockpile") await spremovestockpile(interaction, client)
         });
 
         // Connect by logging into Discord

@@ -39,6 +39,8 @@ const commands = [
     new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current stockpile and target information'),
     new SlashCommandBuilder().setName('spsetpassword').setDescription('Sets the password the Stockpiler app uses to update information to the database.')
         .addStringOption((option) => option.setName("password").setDescription("The new password").setRequired(true)),
+    new SlashCommandBuilder().setName('spremovestockpile').setDescription('Removes the stockpile specified by <name>')
+        .addStringOption((option) => option.setName("stockpile").setDescription("Stockpile name").setRequired(true)),
     new SlashCommandBuilder().setName('splogichannel')
         .setDescription('Logi channel settings to broadcast the stockpile status.')
         .addSubcommand(subcommand =>
