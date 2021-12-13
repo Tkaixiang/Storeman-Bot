@@ -9,6 +9,7 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 - \`/spsetamount <item> <amount> <stockpile>\` Sets the \`<amount>\` that an \`<item>\` has in **__crates__** inside the \`<stockpile>\`. (E.g \`/spsettarget Bmats 100\`)
 - \`/sptarget set <item> <amount>\` Sets the target \`<amount>\` that an \`<item>\` should have in **__crates__**. (E.g \`/spsettarget Bmats 100\`)
 - \`/sptarget remove <item>\` Removes a target item off the stockpile. 
+- \`/spsetpassword <password>\` Sets the password used to update information to the HTTP endpoint from the Stockpiler app.
 - \`/splogichannel set <channel>\` Sets a logi channel in which stockpile information would always be displayed and updated on.
 - \`/splogichannel remove <channel>\` Removes a logi channel in which stockpile information would always be displayed and updated on.
 - \`/sprole add user <role>\` Add a role which will be allowed to update the stockpile information, but not manage the bot (normal user)

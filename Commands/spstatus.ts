@@ -17,7 +17,7 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     let stockpileMsg = "**__Stockpiles__** \n\n"
     for (let i = 0; i < stockpiles.length; i++) {
         const current = stockpiles[i]
-        stockpileMsg += `**${current.name}**\n`
+        stockpileMsg += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>)\n`
         for (const item in current.items) {
             stockpileMsg += itemToName[item] + " - " + current.items[item]
             
@@ -35,7 +35,7 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     }
 
     await interaction.reply({
-        content: `**__Current Stockpile Information__** (as of <t:${Math.floor(new Date().getTime() / 1000)}>)
+        content: `**__Current Stockpile Information__** 
 _Note that all amounts are in **crates**_
 
 ${targetMsg}
