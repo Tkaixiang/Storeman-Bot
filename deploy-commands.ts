@@ -13,10 +13,11 @@ const commands = [
             option.setName("item").setDescription("The item name").setRequired(true).addChoices(item_name)
         ).addIntegerOption(option =>
             option.setName("amount").setDescription("The amount of that item").setRequired(true)
-        )
+        ).addStringOption(option =>
+            option.setName("stockpile").setDescription("The name of the stockpile").setRequired(true))
     ,
     new SlashCommandBuilder().setName('sptarget')
-        .setDescription('Sets the <amount> that an <item> that should be targetted to reach.')
+        .setDescription('Command to edit the stockpile targets that the regiment (clan) should aim towards')
         .addSubcommand(subcommand =>
             subcommand
                 .setName("set")
@@ -36,6 +37,21 @@ const commands = [
                 )
         ),
     new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current stockpile and target information'),
+    new SlashCommandBuilder().setName('spsetpassword').setDescription('Sets the password the Stockpiler app uses to update information to the database.')
+        .addStringOption((option) => option.setName("password").setDescription("The new password").setRequired(true)),
+    new SlashCommandBuilder().setName('splogichannel')
+        .setDescription('Logi channel settings to broadcast the stockpile status.')
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("set")
+                .setDescription("Sets the target <channel> that the logi message will be in")
+                .addChannelOption(option => option.setName("channel").setDescription("The channel the message will be in").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("Removes logi message from the set channel.")
+        ),
 ]
     .map(command => command.toJSON());
 

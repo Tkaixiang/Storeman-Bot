@@ -2,8 +2,14 @@ import { CommandInteraction } from "discord.js";
 import { getCollections } from './../mongoDB'
 
 const spremovetarget = async (interaction: CommandInteraction): Promise<boolean> => {
-    const item = <string>interaction.options.getString("item") // Tell typescript to shut up cause it's gonna return a string and not null
+    const item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
 
+    if (!item) {
+        await interaction.reply({
+            content: "Missing parameters"
+        });
+        return false
+    }
     const collections = getCollections()
     let updateObj: any = {}
     updateObj[item] = false
