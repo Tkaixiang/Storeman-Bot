@@ -39,16 +39,20 @@ const main = async (): Promise<void> => {
         const collections = getCollections()
 
         // Start HTTP server
-        const server = http.createServer(function (request, response) {
+        const server = http.createServer((request, response) => {
             if (request.method == 'POST') {
                 let body = ''
-                request.on('data', function (data) {
+                request.on('data', (data) => {
                     body += data
                 })
-                request.on('end', function () {
-                    response.writeHead(200, { 'Content-Type': 'application/json' })
-                    response.end(JSON.stringify({ sucess: true }))
-                    stockpilerUpdateStockpile(client, JSON.parse(body))
+                request.on('end', () => {
+                    try {
+                        stockpilerUpdateStockpile(client, JSON.parse(body), response)
+                    }
+                    catch (e) {
+                        console.error(e)
+                    } 
+                   
                 })
             }
         })

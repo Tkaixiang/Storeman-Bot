@@ -1,9 +1,5 @@
 import { getCollections } from '../mongoDB';
 
-interface itemToNameType {
-    [key: string]: string
-}
-const itemToName: itemToNameType = { "bmats": "Basic Materials", "hemats": "Heavy Explosive Materials", "emats": "Explosive Materials" }
 
 const generateMsg = async (updateMsg: boolean): Promise<string> => {
     const collections = getCollections()
@@ -20,7 +16,7 @@ const generateMsg = async (updateMsg: boolean): Promise<string> => {
             const current = stockpiles[i]
             stockpileMsg += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>)\n`
             for (const item in current.items) {
-                stockpileMsg += itemToName[item] + " - " + current.items[item] + "\n"
+                stockpileMsg += item + " - " + current.items[item] + "\n"
 
                 if (item in totals) totals[item] += current.items[item]
                 else totals[item] = current.items[item]
@@ -31,7 +27,7 @@ const generateMsg = async (updateMsg: boolean): Promise<string> => {
         let targetMsg = "**__Targets__** \n\n"
         for (const target in targets) {
             if (target !== "_id") {
-                targetMsg += `${itemToName[target]} - ${totals[target]}/${targets[target]} ${totals[target] >= targets[target] ? "✅" : "❌"}\n`
+                targetMsg += `${target} - ${totals[target]}/${targets[target]} ${totals[target] >= targets[target] ? "✅" : "❌"}\n`
             }
         }
 
