@@ -15,6 +15,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             return false
         }
 
+        console.log(body)
         const stockpile = await collections.stockpiles.findOne({name: body.name})
         if (stockpile) {
             for (let i = 0; i < body.data.length; i++) {
