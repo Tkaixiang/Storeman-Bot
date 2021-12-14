@@ -1,12 +1,15 @@
-import { Client, CommandInteraction } from "discord.js";
+import { Client, CommandInteraction, GuildMember } from "discord.js";
 import { getCollections } from './../mongoDB'
 import generateStockpileMsg from "./../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
+import checkPermissions from "../Utils/checkPermissions";
 
 const spsettarget = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
     const item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
     const amount = interaction.options.getInteger("amount")
 
+    if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
+    
     if (!amount || !item) {
         await interaction.reply({
             content: "Missing parameters",

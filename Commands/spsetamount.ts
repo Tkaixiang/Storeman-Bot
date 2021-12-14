@@ -1,6 +1,7 @@
-import { Client, CommandInteraction } from "discord.js";
+import { Client, CommandInteraction, GuildMember } from "discord.js";
 import generateStockpileMsg from "./../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
+import checkPermissions from "../Utils/checkPermissions";
 import { getCollections } from './../mongoDB'
 
 const spsetamount = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
@@ -8,6 +9,8 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     const amount = interaction.options.getInteger("amount")
     const stockpileName = interaction.options.getString("stockpile")
     const collections = getCollections()
+
+    if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
     if (!amount || !stockpileName || !item) {
         await interaction.reply({
@@ -21,7 +24,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
         stockpileExist.items[item] = amount
-        await collections.stockpiles.updateOne({ name: stockpileName }, { $set: {items: stockpileExist.items, lastUpdated: new Date()} })
+        await collections.stockpiles.updateOne({ name: stockpileName }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
     }
     else {
         // Stockpile doesn't exist

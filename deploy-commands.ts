@@ -54,6 +54,22 @@ const commands = [
                 .setName("remove")
                 .setDescription("Removes logi message from the set channel.")
         ),
+    new SlashCommandBuilder().setName('sprole')
+        .setDescription('Role and permissions settings')
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("set")
+                .setDescription("Add <perms> to a specified <role>")
+                .addStringOption(option => option.setName("perms").setDescription("Can be either 'User' or 'Admin'.").setRequired(true))
+                .addRoleOption(option => option.setName("role").setDescription("The role to operate on").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("Remove any perms from a specified <role>")
+                .addRoleOption(option => option.setName("role").setDescription("The role to operate on").setRequired(true))
+
+        ),
 ]
     .map(command => command.toJSON());
 

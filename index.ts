@@ -11,6 +11,7 @@ import spsetlogichannel from './Commands/spsetlogichannel'
 import spremovelogichannel from './Commands/spremovelogichannel'
 import NodeCache from 'node-cache'
 import spremovestockpile from './Commands/spremovestockpile'
+import sprole from './Commands/sprole'
 require('dotenv').config()
 
 declare global {
@@ -33,12 +34,13 @@ const main = async (): Promise<void> => {
     if (await open()) {
         const collections = getCollections()
 
-        /*const configOptions = await collections.config.findOne({}, {})
+        if (process.env.NODE_ENV === "development") insertCommands()
+        const configOptions = await collections.config.findOne({}, {})
         if (configOptions) {
             if (!configOptions.firstSetup) firstTimeSetup()
         }
-        else firstTimeSetup()*/
-        firstTimeSetup()
+        else firstTimeSetup()
+
 
         // This is called once client(the bot) is ready
         client.once('ready', () => {
@@ -50,7 +52,7 @@ const main = async (): Promise<void> => {
 
             const commandName = interaction.commandName;
 
-            if (commandName === 'sphelp') await sphelp(interaction) 
+            if (commandName === 'sphelp') await sphelp(interaction)
             else if (commandName === 'spsetamount') await spsetamount(interaction, client)
             else if (commandName === 'spstatus') await spstatus(interaction)
             else if (commandName === 'sptarget') {
@@ -63,6 +65,10 @@ const main = async (): Promise<void> => {
                 else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
             }
             else if (commandName === "spremovestockpile") await spremovestockpile(interaction, client)
+            else if (commandName === "sprole") {
+                if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
+                else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
+            }
         });
 
         // Connect by logging into Discord
