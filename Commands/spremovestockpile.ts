@@ -17,14 +17,21 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         return false
     }
     const collections = getCollections()
-    await collections.stockpiles.deleteOne({name: stockpile})
+    if ((await collections.stockpiles.deleteOne({name: stockpile})).deletedCount > 0) {
+        const newMsg = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, newMsg)
+        
+        await interaction.reply({
+            content: "Successfully deleted the stockpile " + stockpile
+        });
+    }
+    else {
+        await interaction.reply({
+            content: stockpile + " stockpile does not exist."
+        });
+    }
 
-    const newMsg = await generateStockpileMsg(true)
-    await updateStockpileMsg(client, newMsg)
     
-    await interaction.reply({
-        content: "Successfully deleted the stockpile " + stockpile
-    });
 
     return true;
 }

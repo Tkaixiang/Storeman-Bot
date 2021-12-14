@@ -12,7 +12,11 @@ import spremovelogichannel from './Commands/spremovelogichannel'
 import NodeCache from 'node-cache'
 import spremovestockpile from './Commands/spremovestockpile'
 import sprole from './Commands/sprole'
+import stockpilerUpdateStockpile from './Utils/stockpilerUpdateStockpile'
+import http from 'http'
 require('dotenv').config()
+const port = 8090
+const host = '0.0.0.0'
 
 declare global {
     var NodeCacheObj: NodeCache;
@@ -33,6 +37,24 @@ const main = async (): Promise<void> => {
     // Connect to mongoDB
     if (await open()) {
         const collections = getCollections()
+
+        // Start HTTP server
+        const server = http.createServer(function (request, response) {
+            if (request.method == 'POST') {
+                let body = ''
+                request.on('data', function (data) {
+                    body += data
+                })
+                request.on('end', function () {
+                    response.writeHead(200, { 'Content-Type': 'application/json' })
+                    response.end(JSON.stringify({ sucess: true }))
+                    stockpilerUpdateStockpile(client, JSON.parse(body))
+                })
+            }
+        })
+
+        server.listen(port, host)
+        console.log(`HTTP server now listening at http://${host}:${port}`)
 
         if (process.env.NODE_ENV === "development") insertCommands()
         const configOptions = await collections.config.findOne({}, {})
