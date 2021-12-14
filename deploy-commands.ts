@@ -1,16 +1,15 @@
-import { SlashCommandBuilder, SlashCommandStringOption } from '@discordjs/builders';
+import { SlashCommandBuilder } from '@discordjs/builders';
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v9';
+import fs from 'fs';
 require('dotenv').config();
 
-
-const item_name: [name: string, value: string][] = [["Basic Materials", "bmats"], ["Explosive Materials", "emats"], ["Heavy Explosive Materials", "hemats"]]
 const commands = [
     new SlashCommandBuilder().setName('sphelp').setDescription('View commands and information regarding the bot.'),
     new SlashCommandBuilder().setName('spsetamount')
         .setDescription('Sets the <amount> that an <item> has in crates inside the <stockpile>')
         .addStringOption((option) =>
-            option.setName("item").setDescription("The item name").setRequired(true).addChoices(item_name)
+            option.setName("item").setDescription("The item name").setRequired(true)
         ).addIntegerOption(option =>
             option.setName("amount").setDescription("The amount of that item").setRequired(true)
         ).addStringOption(option =>
@@ -23,7 +22,7 @@ const commands = [
                 .setName("set")
                 .setDescription("Sets the target <amount> that an <item> should have in crates.")
                 .addStringOption((option) =>
-                    option.setName("item").setDescription("The item name").setRequired(true).addChoices(item_name)
+                    option.setName("item").setDescription("The item name").setRequired(true)
                 ).addIntegerOption(option =>
                     option.setName("amount").setDescription("The amount of that item").setRequired(true)
                 )
@@ -33,7 +32,7 @@ const commands = [
                 .setName("remove")
                 .setDescription("Removes target <item> from the target goals to achieve.")
                 .addStringOption((option) =>
-                    option.setName("item").setDescription("The item name").setRequired(true).addChoices(item_name)
+                    option.setName("item").setDescription("The item name").setRequired(true)
                 )
         ),
     new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current stockpile and target information'),

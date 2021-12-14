@@ -13,6 +13,7 @@ import NodeCache from 'node-cache'
 import spremovestockpile from './Commands/spremovestockpile'
 import sprole from './Commands/sprole'
 import stockpilerUpdateStockpile from './Utils/stockpilerUpdateStockpile'
+import spitems from './Commands/spitems'
 import http from 'http'
 require('dotenv').config()
 const port = 8090
@@ -96,6 +97,7 @@ const main = async (): Promise<void> => {
                 if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
                 else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
             }
+            else if (commandName === "spitems") await spitems(interaction)
         });
 
         // Connect by logging into Discord
