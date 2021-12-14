@@ -15,6 +15,8 @@ import sprole from './Commands/sprole'
 import stockpilerUpdateStockpile from './Utils/stockpilerUpdateStockpile'
 import spitems from './Commands/spitems'
 import http from 'http'
+import crypto from 'crypto'
+
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
@@ -27,8 +29,10 @@ const firstTimeSetup = async (): Promise<void> => {
     // Run first-time setup
     const collections = getCollections()
     insertCommands()
-    await collections.config.insertOne({ firstSetup: true })
+    const password = crypto.randomBytes(64).toString('hex')
+    await collections.config.insertOne({ firstSetup: true, password: password })
     console.info("First time setup completed.")
+    console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
 }
 const main = async (): Promise<void> => {
     // Create a new client instance 
