@@ -11,8 +11,8 @@ const checkPermissions = async (interaction: CommandInteraction, roleType: "admi
             if (member.roles.cache.has(permsInfo.admin[i])) permsLevel = 2
         }
     }
-    
-    if (member.guild.me?.permissions.has(Permissions.FLAGS.ADMINISTRATOR)|| member.id === member.guild.ownerId) permsLevel = 2
+
+    if (member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)|| member.id === member.guild.ownerId) permsLevel = 2
     if ("user" in permsInfo && permsLevel === 0) {
         for (let i = 0; i < permsInfo.user.length; i++) {
             if (member.roles.cache.has(permsInfo.user[i])) permsLevel = 1
