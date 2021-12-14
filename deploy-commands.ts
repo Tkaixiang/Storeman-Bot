@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const commands = [
     new SlashCommandBuilder().setName('sphelp').setDescription('View commands and information regarding the bot.'),
+    new SlashCommandBuilder().setName('spitems').setDescription('View list of items'),
     new SlashCommandBuilder().setName('spsetamount')
         .setDescription('Sets the <amount> that an <item> has in crates inside the <stockpile>')
         .addStringOption((option) =>
