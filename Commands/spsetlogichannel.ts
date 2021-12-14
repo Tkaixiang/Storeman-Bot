@@ -17,7 +17,6 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     }
 
     const collections = getCollections()
-    await collections.config.updateOne({}, { $set: { logiChannel: channel.id } })
     const channelObj = client.channels.cache.get(channel.id) as TextChannel
 
     const configDoc = (await collections.config.findOne({}))!
@@ -25,7 +24,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
         // Delete previous message if it exists
         const newChannelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
         const msg = await newChannelObj.messages.fetch(configDoc.logiMessage)
-        await msg.delete()
+        if (msg) await msg.delete()
     }
     const finalMsg = await generateMsg(false)
     const newMsg = await channelObj.send(finalMsg)

@@ -11,7 +11,7 @@ const spremovelogichannel = async (interaction: CommandInteraction, client: Clie
     if ("channelId" in configDoc) {
         const channelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
         const msg = await channelObj.messages.fetch(configDoc.logiMessage)
-        await msg.delete()
+        if (msg) await msg.delete()
 
         await interaction.reply({
             content: "Logi channel was successfully deleted",

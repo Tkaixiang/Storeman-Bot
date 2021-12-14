@@ -13,7 +13,7 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     if (set) {
-        const perms = interaction.options.getString("perms")
+        const perms = interaction.options.getString("perms")?.toLowerCase()
         if (!perms || !role) {
             await interaction.reply({
                 content: "Missing parameters",
@@ -21,7 +21,7 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
             });
             return false
         }
-        if (!permsList.includes(perms.toLowerCase())) {
+        if (!permsList.includes(perms)) {
             await interaction.reply({
                 content: "Invalid permissions. Please use either 'admin' or 'user' (case-insensitive).",
                 ephemeral: true
