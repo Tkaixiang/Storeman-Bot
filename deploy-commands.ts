@@ -80,10 +80,9 @@ const insertCommands = async () => {
     // Guild based commands for development
     // ClientId is the bot "Copy ID"
     // GuildId is the server "Copy ID"
-    console.log(process.env.NODE_ENV)
     if (process.env.NODE_ENV === "development") {
         await rest.put(Routes.applicationGuildCommands(<string>process.env.clientId, <string>process.env.guildId), { body: commands })
-            .then(() => console.log('Successfully registered application commands.'))
+            .then(() => console.log('Successfully registered application commands to guild.'))
             .catch(console.error);
     }
     // Global commands for deployment (Global commands take at least 1 hour to update after each change)
@@ -91,7 +90,8 @@ const insertCommands = async () => {
         await rest.put(
             Routes.applicationCommands(<string>process.env.clientId),
             { body: commands },
-        );
+        ).then(() => console.log('Successfully registered application commands globally.'))
+        .catch(console.error);
     }
 }
 

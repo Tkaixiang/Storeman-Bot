@@ -67,6 +67,7 @@ const main = async (): Promise<void> => {
         // This is called once client(the bot) is ready
         client.once('ready', () => {
             console.log("Stockpiler Discord Bot is ready!")
+            client.user?.setActivity("/sphelp")
         })
 
         client.on('interactionCreate', async (interaction) => {
