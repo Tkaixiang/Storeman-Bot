@@ -15,7 +15,6 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             return false
         }
 
-        console.log(body)
         const stockpile = await collections.stockpiles.findOne({name: body.name})
         if (stockpile) {
             for (let i = 0; i < body.data.length; i++) {
@@ -24,7 +23,6 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             await collections.stockpiles.updateOne({ name: body.name }, { $set: { items: stockpile.items, lastUpdated: new Date() } })
         }
         else {
-            console.log(body)
             let newItems: any = {}
             for (let i = 0; i < body.data.length; i++) {
                 newItems[body.data[i][0]] = parseInt(body.data[i][1])
