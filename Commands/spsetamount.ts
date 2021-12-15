@@ -32,7 +32,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         else {
             const bestItem = findBestMatchItem(item)
             await interaction.reply({
-                content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + "Crate"}' instead?`
+                content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`
             });
             return false
         }

@@ -24,7 +24,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     if (!itemList.includes(item)) {
         const bestItem = findBestMatchItem(item)
         await interaction.reply({
-            content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + "Crate"}' instead?` 
+            content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?` 
         });
         return false
     }
