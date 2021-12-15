@@ -30,12 +30,13 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
             await collections.stockpiles.updateOne({ name: stockpileName }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
         }
         else {
+            const bestItem = findBestMatchItem(item)
             await interaction.reply({
-                content: `Item ${item} was not found. Did you mean: '${findBestMatchItem(item)}' instead?` 
+                content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + "Crate"}' instead?`
             });
             return false
         }
-       
+
     }
     else {
         // Stockpile doesn't exist
