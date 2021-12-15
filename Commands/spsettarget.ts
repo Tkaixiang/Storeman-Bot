@@ -20,8 +20,8 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     const collections = getCollections()
-    const itemList = NodeCacheObj.get("itemList") as Array<string>
-    if (!itemList.includes(item)) {
+    const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
+    if (!listWithCrates.includes(item)) {
         const bestItem = findBestMatchItem(item)
         await interaction.reply({
             content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?` 

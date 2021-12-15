@@ -22,10 +22,10 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName })
-    const itemList = NodeCacheObj.get("itemList") as Array<string>
+    const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
-        if (itemList.includes(item)) {
+        if (listWithCrates.includes(item)) {
             stockpileExist.items[item] = amount
             await collections.stockpiles.updateOne({ name: stockpileName }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
         }
