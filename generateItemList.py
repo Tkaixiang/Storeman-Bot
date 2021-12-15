@@ -7,6 +7,7 @@ with open('ItemNumbering.csv') as csv_file:
     line_count = 0
     for row in csv_reader:
         if line_count > 1:
-            print("- " + row[3])
+            outputData.append(row[3])
         line_count += 1
-    
+
+print(outputData)

@@ -3,6 +3,7 @@ import { CommandInteraction } from "discord.js";
 const spitems = async (interaction: CommandInteraction): Promise<boolean> => {
     await interaction.reply({
         content: `**__Items List__** 
+**Add a "\`Crate\`" at the end to specify crated versions of the items**
 - Dusk ce.III
 - Booker Storm Rifle Model 838
 - Aalto Storm Rifle 24
@@ -16,7 +17,7 @@ const spitems = async (interaction: CommandInteraction): Promise<boolean> => {
 - Cascadier 873
 - 8mm
 - Cometa T2-9
-- The Hangman 757
+- The Hangman 757wdddddddddd
 - 0.44
 - Sampo Auto-Rifle 77
 - Argentir r.II Rifle

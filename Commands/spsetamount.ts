@@ -3,6 +3,7 @@ import generateStockpileMsg from "./../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
 import { getCollections } from './../mongoDB'
+import findBestMatchItem from '../Utils/findBestMatchItem'
 
 const spsetamount = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
     const item = <string>interaction.options.getString("item") // Tell typescript to shut up cause it's gonna return a string and not null
@@ -21,10 +22,20 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName })
+    const itemList = NodeCacheObj.get("itemList") as Array<string>
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
-        stockpileExist.items[item] = amount
-        await collections.stockpiles.updateOne({ name: stockpileName }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
+        if (itemList.includes(item)) {
+            stockpileExist.items[item] = amount
+            await collections.stockpiles.updateOne({ name: stockpileName }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
+        }
+        else {
+            await interaction.reply({
+                content: `Item ${item} was not found. Did you mean: '${findBestMatchItem(item)}' instead?` 
+            });
+            return false
+        }
+       
     }
     else {
         // Stockpile doesn't exist
