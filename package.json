@@ -24,6 +24,7 @@
     "discord-api-types": "^0.24.0",
     "discord.js": "^13.3.1",
     "dotenv": "^10.0.0",
+    "express-mongo-sanitize": "^2.1.0",
     "mongodb": "^4.2.1",
     "node-cache": "^5.1.2",
     "string-similarity": "^4.0.4"
