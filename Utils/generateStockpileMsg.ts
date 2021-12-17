@@ -32,7 +32,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         
         for (const target in targets) {
             if (target !== "_id") {
-                targetMsg += `${target} - ${target in totals? totals[target] : "0"}/${targets[target]} ${totals[target] >= targets[target] ? "✅" : "❌"}\n`
+                targetMsg += `${target.replace("_", ".")} - ${target in totals? totals[target] : "0"}/${targets[target]} ${totals[target] >= targets[target] ? "✅" : "❌"}\n`
             }
         }
 

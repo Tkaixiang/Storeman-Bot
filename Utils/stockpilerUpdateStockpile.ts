@@ -4,6 +4,7 @@ import { getCollections } from './../mongoDB'
 import http from 'http'
 import generateStockpileMsg from "./generateStockpileMsg";
 import updateStockpileMsg from "./updateStockpileMsg";
+import mongoSanitize from 'express-mongo-sanitize';
 
 const stockpilerUpdateStockpile = async (client: Client, body: any, response: http.ServerResponse) => {
     const collections = getCollections()
@@ -20,14 +21,18 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             for (let i = 0; i < body.data.length; i++) {
                 stockpile.items[body.data[i][0]] = parseInt(body.data[i][1])
             }
-            await collections.stockpiles.updateOne({ name: body.name }, { $set: { items: stockpile.items, lastUpdated: new Date() } })
+            mongoSanitize.sanitize(stockpile.items, {
+  replaceWith: '_'
+});
+            await collections.stockpiles.updateOne({ name: body.name.replace(".", "").replace("$","") }, { $set: { items: stockpile.items, lastUpdated: new Date() } })
         }
         else {
             let newItems: any = {}
             for (let i = 0; i < body.data.length; i++) {
                 newItems[body.data[i][0]] = parseInt(body.data[i][1])
             }
-            await collections.stockpiles.insertOne({ name: body.name, items: newItems, lastUpdated: new Date() })
+            mongoSanitize.sanitize(newItems, { replaceWith: '_'});
+            await collections.stockpiles.insertOne({ name: body.name.replace(".", "").replace("$",""), items: newItems, lastUpdated: new Date() })
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg] = await generateStockpileMsg(true)

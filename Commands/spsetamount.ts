@@ -4,9 +4,10 @@ import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
 import { getCollections } from './../mongoDB'
 import findBestMatchItem from '../Utils/findBestMatchItem'
+import mongoSanitize from "express-mongo-sanitize";
 
 const spsetamount = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
-    const item = <string>interaction.options.getString("item") // Tell typescript to shut up cause it's gonna return a string and not null
+    let item = <string>interaction.options.getString("item") // Tell typescript to shut up cause it's gonna return a string and not null
     const amount = interaction.options.getInteger("amount")
     const stockpileName = interaction.options.getString("stockpile")
     const collections = getCollections()
@@ -23,14 +24,16 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
 
     const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName })
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
+    const cleanitem = item.replace(".", "_")
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
-        if (listWithCrates.includes(item)) {
-            stockpileExist.items[item] = amount
-            await collections.stockpiles.updateOne({ name: stockpileName }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
+        if (listWithCrates.includes(cleanitem)) {
+            stockpileExist.items[cleanitem] = amount
+            mongoSanitize.sanitize(stockpileExist.items, {replaceWith: "_"})
+            await collections.stockpiles.updateOne({ name: stockpileName.replace(".", "").replace("$", "") }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
         }
         else {
-            const bestItem = findBestMatchItem(item)
+            const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
             await interaction.reply({
                 content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`
             });
@@ -41,9 +44,10 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     else {
         // Stockpile doesn't exist
         let itemObject: any = {}
-        itemObject[item] = amount
+        itemObject[cleanitem] = amount
 
-        await collections.stockpiles.insertOne({ name: stockpileName, items: itemObject, lastUpdated: new Date() })
+        mongoSanitize.sanitize(itemObject, {replaceWith: "_"})
+        await collections.stockpiles.insertOne({ name: stockpileName.replace(".","").replace("$",""), items: itemObject, lastUpdated: new Date() })
     }
 
     const [stockpileHeader, stockpileMsgs, targetMsg] = await generateStockpileMsg(true)

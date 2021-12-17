@@ -4,9 +4,10 @@ import generateStockpileMsg from "./../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
 import findBestMatchItem from "../Utils/findBestMatchItem";
+import mongoSanitize from "express-mongo-sanitize";
 
 const spsettarget = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
-    const item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
+    let item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
     const amount = interaction.options.getInteger("amount")
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
@@ -21,8 +22,10 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
 
     const collections = getCollections()
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
-    if (!listWithCrates.includes(item)) {
-        const bestItem = findBestMatchItem(item)
+
+    const cleanitem = item.replace(".", "_")
+    if (!listWithCrates.includes(cleanitem)) {
+        const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
         await interaction.reply({
             content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?` 
         });
@@ -30,7 +33,8 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     let updateObj: any = {}
-    updateObj[item] = amount
+    updateObj[cleanitem] = amount
+    mongoSanitize.sanitize(updateObj, {replaceWith: "_"})
     if ((await collections.targets.updateOne({}, { $set: updateObj })).modifiedCount === 0) {
         await collections.targets.insertOne(updateObj)
     }
