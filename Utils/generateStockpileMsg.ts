@@ -5,12 +5,13 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     const collections = getCollections()
     let stockpileHeader = "**__Stockpiles__** \n\n"
     let stockpileMsgs = NodeCacheObj.get("stockpileHeader") as Array<string>
-    let targetMsg = "**__Targets__** \n\n"
+    let targetMsg = NodeCacheObj.get("targetMsg") as string
 
-    if (!stockpileMsgs || updateMsg) {
+    if (updateMsg || !stockpileMsgs || !targetMsg) {
         const targets = await collections.targets.findOne({})
         const stockpiles = await collections.stockpiles.find({}).toArray()
 
+        stockpileMsgs = []
         const totals: any = {}
 
       
@@ -26,17 +27,17 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
 
                 
             }
+            
             stockpileMsgs[i] += "\n-----\n"
         }
 
-        
+        targetMsg = "**__Targets__** \n\n"
         for (const target in targets) {
             if (target !== "_id") {
                 targetMsg += `${target.replace("_", ".")} - ${target in totals? totals[target] : "0"}/${targets[target]} ${totals[target] >= targets[target] ? "✅" : "❌"}\n`
             }
         }
 
-        NodeCacheObj.set("stockpileHeader", stockpileHeader)
         NodeCacheObj.set("stockpileMsgs", stockpileMsgs)
         NodeCacheObj.set("targetMsg", targetMsg)
     }
