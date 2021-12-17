@@ -24,7 +24,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
 
                 if (item in totals) totals[item] += current.items[item]
                 else totals[item] = current.items[item]
-
+                stockpileMsgs[i] += "----------"
                 
             }
         }
