@@ -29,8 +29,8 @@ const spremovetarget = async (interaction: CommandInteraction, client: Client): 
         });
     }
 
-    const [stockpileHeader, stockpileMsgs, targetMsg] = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg])
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     
     await interaction.reply({
         content: "Item '" + item + "' has been removed from the target list."

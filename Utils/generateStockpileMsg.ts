@@ -4,6 +4,7 @@ import { getCollections } from '../mongoDB';
 const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     const collections = getCollections()
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n\n"
+    let stockpileMsgsHeader = "**__Stockpiles__**\n\n"
     let stockpileMsgs = NodeCacheObj.get("stockpileHeader") as Array<string>
     let targetMsg = NodeCacheObj.get("targetMsg") as string
 
@@ -35,12 +36,13 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                 targetMsg += `${target.replace("_", ".")} - ${target in totals? totals[target] : "0"}/${targets[target]} ${totals[target] >= targets[target] ? "✅" : "❌"}\n`
             }
         }
+        targetMsg += "\n"
 
         NodeCacheObj.set("stockpileMsgs", stockpileMsgs)
         NodeCacheObj.set("targetMsg", targetMsg)
     }
 
-    return [stockpileHeader, stockpileMsgs, targetMsg]
+    return [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader]
 }
 
 

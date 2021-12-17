@@ -1,7 +1,7 @@
 import { Client, TextChannel } from "discord.js"
 import { getCollections } from '../mongoDB';
 
-const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, string]): Promise<Boolean> => {
+const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
     const collections = getCollections()
 
     const configObj = (await collections.config.findOne({}))!
@@ -14,6 +14,8 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
         await msgObj.edit(msg[0])
         msgObj = await channelObj.messages.fetch(configObj.targetMsg)
         await msgObj.edit(msg[2])
+        msgObj = await channelObj.messages.fetch(configObj.stockpileMsgsHeader)
+        await msgObj.edit(msg[3])
         for (let i = 0; i < msg[1].length; i++) {
             if (i < configObj.stockpileMsgs.length) {
                 msgObj = await channelObj.messages.fetch(configObj.stockpileMsgs[i])
