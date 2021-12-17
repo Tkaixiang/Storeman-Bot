@@ -18,6 +18,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
     }
     const collections = getCollections()
     if ((await collections.stockpiles.deleteOne({name: stockpile.replace(".", "").replace("$", "")})).deletedCount > 0) {
+        await collections.config.updateOne({}, {$pop: {stockpileMsgs: -1}})
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
         
