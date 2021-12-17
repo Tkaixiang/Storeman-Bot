@@ -16,6 +16,8 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
         return false
     }
 
+    await interaction.reply('Working on it');
+
     const collections = getCollections()
     const channelObj = client.channels.cache.get(channel.id) as TextChannel
 
@@ -44,9 +46,8 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id, stockpileMsgs: stockpileMsgIDs, targetMsg: targetMsgID.id, channelId: channel.id, stockpileMsgsHeader: stockpileMsgsHeaderID.id } })
 
 
-    await interaction.reply({
+    await interaction.editReply({
         content: "Logi channel successfully set to '" + channel.name + "'",
-        ephemeral: true
     });
     return true;
 }
