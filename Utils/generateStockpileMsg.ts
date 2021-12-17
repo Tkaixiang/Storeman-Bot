@@ -27,8 +27,6 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
 
                 
             }
-            
-            stockpileMsgs[i] += "\n-----\n"
         }
 
         targetMsg = "**__Targets__** \n\n"
