@@ -29,8 +29,8 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
             const stockpileMsg = await newChannelObj.messages.fetch(configDoc.stockpileMsgs[i])
             if (stockpileMsg) await stockpileMsg.delete()
         }
-        const targetMsg = await newChannelObj.messages.fetch(configDoc.targetMsg)
-        if (targetMsg) await targetMsg.delete()
+        const targetMsgObj = await newChannelObj.messages.fetch(configDoc.targetMsg)
+        if (targetMsgObj) await targetMsgObj.delete()
     }
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateMsg(false)
     const newMsg = await channelObj.send(stockpileHeader)
@@ -39,9 +39,9 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     let stockpileMsgIDs: any = []
     for (let i = 0; i < stockpileMsgs.length; i++) {
         const temp = await channelObj.send(stockpileMsgs[i])
-        stockpileMsgIDs.push(temp)
+        stockpileMsgIDs.push(temp.id)
     }
-    await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id, stockpileMsgs: stockpileMsgIDs, targetMsg: targetMsgID, channelId: channel.id, stockpileMsgsHeader: stockpileMsgsHeaderID } })
+    await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id, stockpileMsgs: stockpileMsgIDs, targetMsg: targetMsgID.id, channelId: channel.id, stockpileMsgsHeader: stockpileMsgsHeaderID.id } })
 
 
     await interaction.reply({
