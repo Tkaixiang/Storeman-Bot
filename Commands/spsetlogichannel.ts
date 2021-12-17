@@ -7,7 +7,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     const channel = interaction.options.getChannel("channel")! // Tell typescript to shut up and it is non-null
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
-    
+
     if (!channel) {
         await interaction.reply({
             content: "Missing parameters",
@@ -20,15 +20,26 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     const channelObj = client.channels.cache.get(channel.id) as TextChannel
 
     const configDoc = (await collections.config.findOne({}))!
-    if ("logiMessage" in configDoc) {
+    if ("stockpileHeader" in configDoc) {
         // Delete previous message if it exists
         const newChannelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
-        const msg = await newChannelObj.messages.fetch(configDoc.logiMessage)
+        const msg = await newChannelObj.messages.fetch(configDoc.stockpileHeader)
         if (msg) await msg.delete()
+        for (let i = 0; i < configDoc.stockpileMsgs.length; i++) {
+            const stockpileMsg = await newChannelObj.messages.fetch(configDoc.stockpileMsgs[i])
+            if (stockpileMsg) await stockpileMsg.delete()
+        }
+        const targetMsg = await newChannelObj.messages.fetch(configDoc.targetMsg)
+        if (targetMsg) await targetMsg.delete()
     }
-    const finalMsg = await generateMsg(false)
-    const newMsg = await channelObj.send(finalMsg)
-    await collections.config.updateOne({}, { $set: { logiMessage: newMsg.id, channelId: channel.id } })
+    const [stockpileHeader, stockpileMsgs, targetMsg] = await generateMsg(false)
+    const newMsg = await channelObj.send(stockpileHeader)
+    const targetMsgID = await channelObj.send(targetMsg)
+    let stockpileMsgIDs: any = {}
+    for (let i = 0; i < stockpileMsgs.length; i++) {
+        stockpileMsgIDs.push(await channelObj.send(stockpileMsgs[i]))
+    }
+    await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id, stockpileMsgs: stockpileMsgIDs, targetMsg: targetMsgID, channelId: channel.id } })
 
 
     await interaction.reply({

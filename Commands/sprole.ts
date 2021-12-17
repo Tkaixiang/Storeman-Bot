@@ -1,6 +1,4 @@
 import { Client, CommandInteraction, GuildMember } from "discord.js";
-import generateStockpileMsg from "../Utils/generateStockpileMsg"
-import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import { getCollections } from '../mongoDB'
 import checkPermissions from "../Utils/checkPermissions";
 

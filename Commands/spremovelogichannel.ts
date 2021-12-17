@@ -10,7 +10,13 @@ const spremovelogichannel = async (interaction: CommandInteraction, client: Clie
     
     if ("channelId" in configDoc) {
         const channelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
-        const msg = await channelObj.messages.fetch(configDoc.logiMessage)
+        let msg = await channelObj.messages.fetch(configDoc.stockpileHeader)
+        if (msg) await msg.delete()
+        for (let i = 0; i < configDoc.stockpileMsgs.length; i++) {
+            msg = await channelObj.messages.fetch(configDoc.stockpileMsgs)
+            if (msg) await msg.delete()
+        }
+        msg = await channelObj.messages.fetch(configDoc.targetMsg)
         if (msg) await msg.delete()
 
         await interaction.reply({

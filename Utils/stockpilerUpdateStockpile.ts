@@ -30,8 +30,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             await collections.stockpiles.insertOne({ name: body.name, items: newItems, lastUpdated: new Date() })
         }
 
-        const newMsg = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, newMsg)
+        const [stockpileHeader, stockpileMsgs, targetMsg] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg])
        
         response.writeHead(200, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: true }))

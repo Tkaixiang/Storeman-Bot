@@ -35,8 +35,8 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
         await collections.targets.insertOne(updateObj)
     }
 
-    const newMsg = await generateStockpileMsg(true)
-    await updateStockpileMsg(client, newMsg)
+    const [stockpileHeader, stockpileMsgs, targetMsg] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg])
 
     await interaction.reply({
         content: "Item '" + item + "' has been added with a target of " + amount + " crates."

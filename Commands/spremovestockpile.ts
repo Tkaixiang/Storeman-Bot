@@ -18,8 +18,8 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
     }
     const collections = getCollections()
     if ((await collections.stockpiles.deleteOne({name: stockpile})).deletedCount > 0) {
-        const newMsg = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, newMsg)
+        const [stockpileHeader, stockpileMsgs, targetMsg] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg])
         
         await interaction.reply({
             content: "Successfully deleted the stockpile " + stockpile
