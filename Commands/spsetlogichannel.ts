@@ -35,7 +35,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     const [stockpileHeader, stockpileMsgs, targetMsg] = await generateMsg(false)
     const newMsg = await channelObj.send(stockpileHeader)
     const targetMsgID = await channelObj.send(targetMsg)
-    let stockpileMsgIDs: any = {}
+    let stockpileMsgIDs: any = []
     for (let i = 0; i < stockpileMsgs.length; i++) {
         stockpileMsgIDs.push(await channelObj.send(stockpileMsgs[i]))
     }
