@@ -7,7 +7,8 @@ const spremovelogichannel = async (interaction: CommandInteraction, client: Clie
     const configDoc = (await collections.config.findOne({}))!
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
-    
+
+    await interaction.reply({content: 'Working on it',  ephemeral: true});
     if ("channelId" in configDoc) {
         const channelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
         let msg = await channelObj.messages.fetch(configDoc.stockpileHeader)
@@ -21,15 +22,13 @@ const spremovelogichannel = async (interaction: CommandInteraction, client: Clie
 
         await collections.config.updateOne({}, {$unset: {channelId: 0, logiMessage: 0}})
         
-        await interaction.reply({
+        await interaction.editReply({
             content: "Logi channel was successfully deleted",
-            ephemeral: true
         });
     }
     else {
-        await interaction.reply({
-            content: "Logi channel was not set. Unable to remove.",
-            ephemeral: true
+        await interaction.editReply({
+            content: "Logi channel was not set. Unable to remove."
         });
     }
     

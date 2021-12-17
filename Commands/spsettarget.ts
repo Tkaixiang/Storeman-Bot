@@ -20,13 +20,15 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
         return false
     }
 
+    await interaction.reply('Working on it');
+
     const collections = getCollections()
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
 
     const cleanitem = item.replace(".", "_")
     if (!listWithCrates.includes(cleanitem)) {
         const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
-        await interaction.reply({
+        await interaction.editReply({
             content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?` 
         });
         return false
@@ -42,7 +44,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
-    await interaction.reply({
+    await interaction.editReply({
         content: "Item '" + item + "' has been added with a target of " + amount + " crates."
     });
 

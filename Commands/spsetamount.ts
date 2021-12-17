@@ -22,6 +22,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         return false
     }
 
+    await interaction.reply({content: 'Working on it'});
     const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName })
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
     const cleanitem = item.replace(".", "_")
@@ -34,7 +35,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         }
         else {
             const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
-            await interaction.reply({
+            await interaction.editReply({
                 content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`
             });
             return false
@@ -53,7 +54,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
-    await interaction.reply({
+    await interaction.editReply({
         content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`"
     });
 

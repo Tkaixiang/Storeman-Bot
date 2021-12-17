@@ -16,18 +16,20 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         });
         return false
     }
+
+    await interaction.reply('Working on it');
     const collections = getCollections()
     if ((await collections.stockpiles.deleteOne({name: stockpile.replace(".", "").replace("$", "")})).deletedCount > 0) {
         await collections.config.updateOne({}, {$pop: {stockpileMsgs: -1}})
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
         
-        await interaction.reply({
+        await interaction.editReply({
             content: "Successfully deleted the stockpile " + stockpile
         });
     }
     else {
-        await interaction.reply({
+        await interaction.editReply({
             content: stockpile + " stockpile does not exist."
         });
     }
