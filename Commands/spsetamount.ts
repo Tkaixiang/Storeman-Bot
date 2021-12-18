@@ -29,7 +29,8 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
         if (listWithCrates.includes(cleanitem)) {
-            stockpileExist.items[cleanitem] = amount
+            if (amount > 0) stockpileExist.items[cleanitem] = amount
+            else delete stockpileExist.items[cleanitem]
             mongoSanitize.sanitize(stockpileExist.items, {replaceWith: "_"})
             await collections.stockpiles.updateOne({ name: stockpileName.replace(".", "").replace("$", "") }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
         }
@@ -45,7 +46,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     else {
         // Stockpile doesn't exist
         let itemObject: any = {}
-        itemObject[cleanitem] = amount
+        if (amount > 0) itemObject[cleanitem] = amount
 
         mongoSanitize.sanitize(itemObject, {replaceWith: "_"})
         await collections.stockpiles.insertOne({ name: stockpileName.replace(".","").replace("$",""), items: itemObject, lastUpdated: new Date() })
