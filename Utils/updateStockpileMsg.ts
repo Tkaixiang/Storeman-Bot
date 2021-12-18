@@ -23,7 +23,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
             }
             else {
                 const newMsg = await channelObj.send(msg[1][i])
-                configObj.stockpileMsgs.push(newMsg)
+                configObj.stockpileMsgs.push(newMsg.id)
                 if (!newMsgsSent) newMsgsSent = true
             }
         }
