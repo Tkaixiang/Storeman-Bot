@@ -21,7 +21,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             stockpileMsgs.push("")
             stockpileMsgs[i] += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>)\n`
             for (const item in current.items) {
-                stockpileMsgs[i] += item + " - " + current.items[item] + "\n"
+                stockpileMsgs[i] += item.replace("_", ".") + " - " + current.items[item] + "\n"
 
                 if (item in totals) totals[item] += current.items[item]
                 else totals[item] = current.items[item]
