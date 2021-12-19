@@ -8,11 +8,13 @@ import mongoSanitize from "express-mongo-sanitize";
 
 const spsettarget = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
     let item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
-    const amount = interaction.options.getInteger("amount")
+    const minimum_amount = interaction.options.getInteger("minimum_amount")
+    let maximum_amount = interaction.options.getInteger("maximum_amount")
+    if (!maximum_amount) maximum_amount = 0
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     
-    if (!amount || !item) {
+    if (!minimum_amount || !item) {
         await interaction.reply({
             content: "Missing parameters",
             ephemeral: true
@@ -35,7 +37,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     let updateObj: any = {}
-    updateObj[cleanitem] = amount
+    updateObj[cleanitem] = {min: minimum_amount, max: maximum_amount}
     mongoSanitize.sanitize(updateObj, {replaceWith: "_"})
     if ((await collections.targets.updateOne({}, { $set: updateObj })).modifiedCount === 0) {
         await collections.targets.insertOne(updateObj)
@@ -45,7 +47,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     await interaction.editReply({
-        content: "Item '" + item + "' has been added with a target of " + amount + " crates."
+        content: `Item ${item} has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
     });
 
     return true;

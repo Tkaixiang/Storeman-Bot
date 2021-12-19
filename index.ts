@@ -20,6 +20,7 @@ import crypto from 'crypto'
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
+const currentVersion = 1
 
 declare global {
     var NodeCacheObj: NodeCache;
@@ -30,7 +31,7 @@ const firstTimeSetup = async (): Promise<void> => {
     const collections = getCollections()
     insertCommands()
     const password = crypto.randomBytes(64).toString('hex')
-    await collections.config.insertOne({ firstSetup: true, password: password })
+    await collections.config.insertOne({ version: currentVersion, password: password })
     console.info("First time setup completed.")
     console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
 }
@@ -79,7 +80,10 @@ const main = async (): Promise<void> => {
         if (process.env.NODE_ENV === "development") insertCommands()
         const configOptions = await collections.config.findOne({}, {})
         if (configOptions) {
-            if (!configOptions.firstSetup) firstTimeSetup()
+            if (configOptions.currentVersion) {
+                if (configOptions.currentVersion < currentVersion) firstTimeSetup()
+            }
+            else firstTimeSetup()
         }
         else firstTimeSetup()
 

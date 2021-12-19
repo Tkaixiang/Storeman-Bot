@@ -20,11 +20,14 @@ const commands = [
         .addSubcommand(subcommand =>
             subcommand
                 .setName("set")
-                .setDescription("Sets the target <amount> that an <item> should have in crates.")
+                .setDescription("Sets the target <minimum_amount> that an <item> should have in crates.")
                 .addStringOption((option) =>
                     option.setName("item").setDescription("The item name").setRequired(true)
                 ).addIntegerOption(option =>
-                    option.setName("amount").setDescription("The amount of that item").setRequired(true)
+                    option.setName("minimum_amount").setDescription("The minimum amount of that item").setRequired(true)
+                )
+                .addIntegerOption(option =>
+                    option.setName("maximum_amount").setDescription("The maximum amount of that item").setRequired(true)
                 )
         )
         .addSubcommand(subcommand =>
