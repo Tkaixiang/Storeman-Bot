@@ -80,8 +80,8 @@ const main = async (): Promise<void> => {
         if (process.env.NODE_ENV === "development") insertCommands()
         const configOptions = await collections.config.findOne({}, {})
         if (configOptions) {
-            if (configOptions.currentVersion) {
-                if (configOptions.currentVersion < currentVersion) firstTimeSetup()
+            if (configOptions.version) {
+                if (configOptions.version < currentVersion) firstTimeSetup()
             }
             else firstTimeSetup()
         }
