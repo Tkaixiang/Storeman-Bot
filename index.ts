@@ -32,7 +32,7 @@ const firstTimeSetup = async (): Promise<void> => {
     insertCommands()
     const password = crypto.randomBytes(32).toString('hex')
     await collections.config.insertOne({ version: currentVersion, password: password })
-    console.info("First time setup completed.")
+    console.info("First time setup/update completed.")
     console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
 }
 const main = async (): Promise<void> => {
