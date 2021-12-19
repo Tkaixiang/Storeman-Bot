@@ -225,7 +225,7 @@ const spitems = async (interaction: CommandInteraction): Promise<boolean> => {
 - Copper Alloy
 `
 
-    for (let i = msg.length; i > 0; i++) {
+    while (msg.length > 0) {
         if (msg.length > 2000) {
             const sliced = msg.slice(0, 2000)
             const lastEnd = sliced.lastIndexOf("\n")
