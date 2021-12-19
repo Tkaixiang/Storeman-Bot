@@ -237,10 +237,13 @@ const spitems = async (interaction: CommandInteraction): Promise<boolean> => {
             });
             msg = msg.slice(lastEnd, msg.length)
         }
-        else await interaction.followUp({
-            content: msg,
-            ephemeral: true
-        });
+        else {
+            await interaction.followUp({
+                content: msg,
+                ephemeral: true
+            });
+            msg = ""
+        } 
     }
 
     return true;
