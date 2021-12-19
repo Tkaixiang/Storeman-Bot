@@ -27,7 +27,7 @@ const commands = [
                     option.setName("minimum_amount").setDescription("The minimum amount of that item").setRequired(true)
                 )
                 .addIntegerOption(option =>
-                    option.setName("maximum_amount").setDescription("The maximum amount of that item").setRequired(true)
+                    option.setName("maximum_amount").setDescription("The maximum amount of that item").setRequired(false)
                 )
         )
         .addSubcommand(subcommand =>

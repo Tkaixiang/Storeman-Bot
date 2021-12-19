@@ -2,7 +2,10 @@ import { CommandInteraction } from "discord.js";
 
 const spitems = async (interaction: CommandInteraction): Promise<boolean> => {
     await interaction.reply({
-        content: `**__Items List__** 
+        content: "Working on it...",
+        ephemeral: true
+    });
+    let msg =  `**__Items List__** 
 **Add a "\`Crate\`" at the end to specify crated versions of the items**
 - Dusk ce.III
 - Booker Storm Rifle Model 838
@@ -220,9 +223,20 @@ const spitems = async (interaction: CommandInteraction): Promise<boolean> => {
 - Malone Ratcatcher Mk. 1
 - Copper
 - Copper Alloy
-        `,
-        ephemeral: true
-    });
+`
+
+    for (let i = msg.length; i > 0; i++) {
+        if (msg.length > 2000) {
+            const sliced = msg.slice(0, 2000)
+            const lastEnd = sliced.lastIndexOf("\n")
+            const finalMsg = sliced.slice(0, lastEnd)
+            await interaction.followUp({
+                content: finalMsg,
+                ephemeral: true
+            });
+            msg = msg.slice(lastEnd, msg.length)
+        }
+    }
 
     return true;
 }

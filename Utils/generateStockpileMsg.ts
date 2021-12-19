@@ -3,7 +3,7 @@ import { getCollections } from '../mongoDB';
 
 const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     const collections = getCollections()
-    let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n\n"
+    let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
     let stockpileMsgs = NodeCacheObj.get("stockpileHeader") as Array<string>
     let targetMsg = NodeCacheObj.get("targetMsg") as string
