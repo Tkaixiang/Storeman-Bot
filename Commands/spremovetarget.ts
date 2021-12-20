@@ -24,7 +24,7 @@ const spremovetarget = async (interaction: CommandInteraction, client: Client): 
     updateObj[item] = false
     mongoSanitize.sanitize(updateObj, {replaceWith: "_"})
     if ((await collections.targets.updateOne({}, { $unset: updateObj })).modifiedCount === 0) {
-        await interaction.reply({
+        await interaction.editReply({
             content: "Item '" + item + " was not found in the target list."
         });
     }
