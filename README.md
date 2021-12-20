@@ -16,13 +16,10 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 ## So, how does the process go like?
 1. Setup Storeman Bot by following [here]()
 2. Download the forked version of Stockpiler [here]() (I am currently still awaiting approval for the version to be merged into the main Stockpiler branch)
-3. Inside your Discord server, type `/spsetpassword <password>` to setup a new password for usage in the Stockpiler app
-4. Type `/splogichannel set <a_channel>` to set a channel as the `"logi-channel"` where Storeman Bot will send the scanned information
-    - Ensure that Storeman Bot has **permissions to send & edit messages** inside that channel
-5. Open up Stockpiler and _tick_ the **Send to Bot** option. Inputting the Bot Host & Bot Password. Press the right "`Save`" icon to save your settings.
+3. Open up Stockpiler and _tick_ the **Send to Bot** option. Inputting the Bot Host & Bot Password. Press the right "`Save`" icon to save your settings.
     - Note: as of writing, there might be a bug with `Learning Mode` inside Stockpiler, if it fails to scan, please _untick_ it as well.
-6. Scan any stockpile by hovering over it on the map and pressing `F3`. You should see a "`Sent to server successfully`" inside the console that is opened along with Stockpiler
-7. Check back to your set `logi-channel` to see the latest information!
+4. Scan any stockpile by hovering over it on the map and pressing `F3`. You should see a "`Sent to server successfully`" inside the console that is opened along with Stockpiler
+5. Check back to your set `logi-channel` to see the latest information!
 
 
 **Note:** Stockpiles should have **unique names** since Stockpiler is unable to differentiate stockpiles with the same names in different locations.
