@@ -230,7 +230,7 @@ const spitems = async (interaction: CommandInteraction): Promise<boolean> => {
             const sliced = msg.slice(0, 2000)
             const lastEnd = sliced.lastIndexOf("\n")
             const finalMsg = sliced.slice(0, lastEnd)
-            console.log(finalMsg.length)
+            
             await interaction.followUp({
                 content: finalMsg,
                 ephemeral: true

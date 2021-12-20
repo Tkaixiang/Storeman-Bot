@@ -35,6 +35,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             }
             mongoSanitize.sanitize(newItems, { replaceWith: '_' });
             await collections.stockpiles.insertOne({ name: body.name.replace(".", "").replace("$", ""), items: newItems, lastUpdated: new Date() })
+            await collections.config.updateOne({}, {$push: {orderSettings: body.name.replace(".", "").replace("$", "")}})
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)

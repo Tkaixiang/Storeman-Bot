@@ -15,6 +15,7 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 - \`/splogichannel remove <channel>\` Removes a logi channel in which stockpile information would always be displayed and updated on. 👨‍⚖️
 - \`/sprole add <perms> <role>\` Add a role which will be allowed to have <perms>. <perms> can be either "Admin" or "User". 👨‍⚖️
 - \`/sprole remove <role>\` Removes a role from whatever permissions they have. 👨‍⚖️
+- \`/spsetorder <stockpile> <order>\` Sets the <order> of a <stockpile> in the logi channel message.
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
 🙍‍♂️ - Commands that require at least \`User\` permissions

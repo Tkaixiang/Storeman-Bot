@@ -10,12 +10,26 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
 
     if (updateMsg || !stockpileMsgs || !targetMsg) {
         const targets = await collections.targets.findOne({})
-        const stockpiles = await collections.stockpiles.find({}).toArray()
-
+        const stockpilesList = await collections.stockpiles.find({}).toArray()
+        const configObj = (await collections.config.findOne({}))!
+        
+        let stockpiles: any = []
+        if ("orderSettings" in configObj) {
+            for (let i = 0; i < configObj.orderSettings.length; i++) {
+                for (let x = 0; x < stockpilesList.length; x++) {
+                    if (stockpilesList[x].name === configObj.orderSettings[i]) {
+                        stockpiles.push(stockpilesList[x])
+                        break
+                    }
+                }
+            }
+        }
+        else stockpiles = stockpilesList
+        
         stockpileMsgs = []
         const totals: any = {}
 
-      
+        
         for (let i = 0; i < stockpiles.length; i++) {
             const current = stockpiles[i]
             stockpileMsgs.push("")
@@ -31,10 +45,12 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         }
 
         targetMsg = "**__Targets__** \n\n"
+        if (targets) {
         for (const target in targets) {
             if (target !== "_id") {
                 targetMsg += `${target.replace("_", ".")} - ${target in totals? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max})\n`
             }
+        }
         }
         targetMsg += "\n"
 
