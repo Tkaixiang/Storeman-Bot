@@ -13,7 +13,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         const stockpilesList = await collections.stockpiles.find({}).toArray()
         const configObj = (await collections.config.findOne({}))!
         
-        let stockpiles: any = []
+        let stockpiles: Array<any> = []
         if ("orderSettings" in configObj) {
             for (let i = 0; i < configObj.orderSettings.length; i++) {
                 for (let x = 0; x < stockpilesList.length; x++) {

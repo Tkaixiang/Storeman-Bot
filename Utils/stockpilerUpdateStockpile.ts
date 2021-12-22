@@ -29,7 +29,6 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             await collections.stockpiles.updateOne({ name: body.name.replace(".", "").replace("$", "") }, { $set: { items: newStockpileItems, lastUpdated: new Date() } })
         }
         else {
-            console.log("new stockpile: " + body.name)
             let newItems: any = {}
             for (let i = 0; i < body.data.length; i++) {
                 newItems[body.data[i][0]] = parseInt(body.data[i][1])

@@ -1,5 +1,14 @@
 import { Client, TextChannel } from "discord.js"
 import { getCollections } from '../mongoDB';
+let queue: Array<any> = []
+
+const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
+    queue.push({client: client, msg: msg})
+
+    if (queue.length === 1) await updateStockpileMsg(queue[0].msg, queue[0].msg)
+
+    return true
+}
 
 const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
     const collections = getCollections()
@@ -22,6 +31,10 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 await msgObj.edit(msg[1][i])
             }
             else {
+                // The issue here is that when adding a new stockpile, a new msg has to be sent
+                // Unfortunately, it takes a long time to send that new msg, hence when 2 requests to add the same new stockpile happen
+                // The 1st request wouldn't have updated the database that a new msg has already been sent, leading to another new msg being sent
+                // and the 2nd request's configObj.stockpileMsgs overrides the 1st one
                 const newMsg = await channelObj.send(msg[1][i])
                 configObj.stockpileMsgs.push(newMsg.id)
                 if (!newMsgsSent) newMsgsSent = true
@@ -30,7 +43,12 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
         if (newMsgsSent) await collections.config.updateOne({}, { $set: { stockpileMsgs: configObj.stockpileMsgs } })
     }
 
+    queue.splice(0, 1)
+    if (queue.length > 0) {
+        updateStockpileMsg(queue[0].msg, queue[0].msg)
+    }
     return true
 }
 
-export default updateStockpileMsg
+export default updateStockpileMsgEntryPoint
+
