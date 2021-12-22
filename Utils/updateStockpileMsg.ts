@@ -7,8 +7,10 @@ const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<
 
     if (queue.length === 1) {
         updateStockpileMsg(queue[0].client, queue[0].msg)
-        queue.splice(0, 1)
-    } 
+    }
+    else {
+        console.log("Update event ahead queued, current length in queue: " + queue.length)
+    }
 
     return true
 }
