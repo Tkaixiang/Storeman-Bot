@@ -11,31 +11,32 @@ const spremovelogichannel = async (interaction: CommandInteraction, client: Clie
     await interaction.reply({ content: 'Working on it', ephemeral: true });
     if ("channelId" in configDoc) {
         const channelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
-        let msg = await channelObj.messages.fetch(configDoc.stockpileHeader)
         try {
+            const msg = await channelObj.messages.fetch(configDoc.stockpileHeader)
             await msg.delete()
         }
         catch (e) {
             console.log("Failed to delete stockpileHeader")
         }
-        msg = await channelObj.messages.fetch(configDoc.stockpileMsgsHeader)
         try {
+            const msg = await channelObj.messages.fetch(configDoc.stockpileMsgsHeader)
             await msg.delete()
         }
         catch (e) {
             console.log("Failed to delete stockpileHeader")
         }
         for (let i = 0; i < configDoc.stockpileMsgs.length; i++) {
-            msg = await channelObj.messages.fetch(configDoc.stockpileMsgs[i])
             try {
+                const msg = await channelObj.messages.fetch(configDoc.stockpileMsgs[i])
+
                 await msg.delete()
             }
             catch (e) {
                 console.log("Failed to delete msg")
             }
         }
-        msg = await channelObj.messages.fetch(configDoc.targetMsg)
         try {
+            const msg = await channelObj.messages.fetch(configDoc.targetMsg)
             await msg.delete()
         }
         catch (e) {
