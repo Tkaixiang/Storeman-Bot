@@ -50,6 +50,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
 
     queue.splice(0, 1)
     if (queue.length > 0) {
+        console.log("Finished 1, starting next in queue, remaining queue: " + queue.length)
         updateStockpileMsg(queue[0].client, queue[0].msg)
     }
     return true
