@@ -24,6 +24,14 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
         
+        const configObj = (await collections.config.findOne({}))!
+        if ("orderSettings" in configObj) {
+            const position = configObj.orderSettings.indexOf(stockpile)
+            if (position !== -1) {
+                configObj.orderSettings.splice(position, 1)
+                await collections.config.updateOne({}, {$set: {orderSettings: configObj.orderSettings}})
+            }
+        }       
         await interaction.editReply({
             content: "Successfully deleted the stockpile " + stockpile
         });

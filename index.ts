@@ -14,26 +14,31 @@ import spremovestockpile from './Commands/spremovestockpile'
 import sprole from './Commands/sprole'
 import stockpilerUpdateStockpile from './Utils/stockpilerUpdateStockpile'
 import spitems from './Commands/spitems'
+import spsetorder from './Commands/spsetorder'
 import http from 'http'
 import crypto from 'crypto'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 1
+const currentVersion = 2
 
 declare global {
     var NodeCacheObj: NodeCache;
 }
 
-const firstTimeSetup = async (): Promise<void> => {
+const firstTimeSetup = async (configOptions: any): Promise<void> => {
     // Run first-time setup
     const collections = getCollections()
     insertCommands()
+
+    if (!("password" in configOptions)) {
     const password = crypto.randomBytes(32).toString('hex')
-    await collections.config.insertOne({ version: currentVersion, password: password })
+console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
+await collections.config.insertOne({ version: currentVersion, password: password })
+    }
+    else await collections.config.insertOne({ version: currentVersion })
     console.info("First time setup/update completed.")
-    console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
 }
 const main = async (): Promise<void> => {
     // Create a new client instance 
@@ -81,11 +86,11 @@ const main = async (): Promise<void> => {
         const configOptions = await collections.config.findOne({}, {})
         if (configOptions) {
             if (configOptions.version) {
-                if (configOptions.version < currentVersion) firstTimeSetup()
+                if (configOptions.version < currentVersion) firstTimeSetup(configOptions)
             }
-            else firstTimeSetup()
+            else firstTimeSetup(configOptions)
         }
-        else firstTimeSetup()
+        else firstTimeSetup(configOptions)
 
 
         // This is called once client(the bot) is ready
@@ -117,6 +122,7 @@ const main = async (): Promise<void> => {
                 else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
             }
             else if (commandName === "spitems") await spitems(interaction)
+            else if (commandName === "spsetorder") await spsetorder(interaction, client)
         });
 
         // Connect by logging into Discord

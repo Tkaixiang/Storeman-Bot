@@ -50,6 +50,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
 
         mongoSanitize.sanitize(itemObject, {replaceWith: "_"})
         await collections.stockpiles.insertOne({ name: stockpileName.replace(".","").replace("$",""), items: itemObject, lastUpdated: new Date() })
+        await collections.config.updateOne({}, {$push: {orderSettings: stockpileName.replace(".", "").replace("$", "")}})
     }
 
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
