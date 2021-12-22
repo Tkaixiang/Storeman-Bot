@@ -11,6 +11,7 @@ const stockpilerUpdateStockpileEntryPoint = async (client: Client, body: any, re
     queue.push({ client: client, body: body, response: response })
 
     if (queue.length === 1) {
+        console.log("stockpileUpdateStockpile.ts: No queue ahead. Starting")
         stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
     }
     else {

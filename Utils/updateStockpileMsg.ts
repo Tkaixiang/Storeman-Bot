@@ -6,6 +6,8 @@ const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<
     queue.push({client: client, msg: msg})
 
     if (queue.length === 1) {
+        console.log("No queue ahead. Starting")
+
         updateStockpileMsg(queue[0].client, queue[0].msg)
     }
     else {
