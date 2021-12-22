@@ -12,18 +12,35 @@ const spremovelogichannel = async (interaction: CommandInteraction, client: Clie
     if ("channelId" in configDoc) {
         const channelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
         let msg = await channelObj.messages.fetch(configDoc.stockpileHeader)
-        if (msg) await msg.delete()
+        try {
+            await msg.delete()
+        }
+        catch (e) {
+            console.log("Failed to delete stockpileHeader")
+        }
         msg = await channelObj.messages.fetch(configDoc.stockpileMsgsHeader)
-        if (msg) await msg.delete()
-        else console.log("Failed to find stockpileHeader, skipping")
+        try {
+            await msg.delete()
+        }
+        catch (e) {
+            console.log("Failed to delete stockpileHeader")
+        }
         for (let i = 0; i < configDoc.stockpileMsgs.length; i++) {
             msg = await channelObj.messages.fetch(configDoc.stockpileMsgs[i])
-            if (msg) await msg.delete()
-            else console.log("Failed to find stockpileMsg")
+            try {
+                await msg.delete()
+            }
+            catch (e) {
+                console.log("Failed to delete msg")
+            }
         }
         msg = await channelObj.messages.fetch(configDoc.targetMsg)
-        if (msg) await msg.delete()
-        else console.log("Failed to find targetMsg")
+        try {
+            await msg.delete()
+        }
+        catch (e) {
+            console.log("Failed to delete targetMsg")
+        }
 
         await collections.config.updateOne({}, { $unset: { channelId: 0, stockpileHeader: 0, stockpileMsgs: 0, targetMsg: 0, stockpileMsgsHeader: 0 } })
 
