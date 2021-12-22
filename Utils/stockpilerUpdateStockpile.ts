@@ -5,6 +5,20 @@ import http from 'http'
 import generateStockpileMsg from "./generateStockpileMsg";
 import updateStockpileMsg from "./updateStockpileMsg";
 import mongoSanitize from 'express-mongo-sanitize';
+let queue: Array<any> = []
+
+const stockpilerUpdateStockpileEntryPoint = async (client: Client, body: any, response: http.ServerResponse) => {
+    queue.push({ client: client, body: body, response: response })
+
+    if (queue.length === 1) {
+        stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
+    }
+    else {
+        console.log("stockpileUpdateStockpile.ts: Update event queued, current length in queue: " + queue.length)
+    }
+
+    return true
+}
 
 const stockpilerUpdateStockpile = async (client: Client, body: any, response: http.ServerResponse) => {
     const collections = getCollections()
@@ -36,7 +50,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             }
             mongoSanitize.sanitize(newItems, { replaceWith: '_' });
             await collections.stockpiles.insertOne({ name: body.name.replace(".", "").replace("$", ""), items: newItems, lastUpdated: new Date() })
-            await collections.config.updateOne({}, {$push: {orderSettings: body.name.replace(".", "").replace("$", "")}})
+            await collections.config.updateOne({}, { $push: { orderSettings: body.name.replace(".", "").replace("$", "") } })
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
@@ -44,14 +58,21 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
 
         response.writeHead(200, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: true }))
-        return true
-
     }
     else {
         response.writeHead(403, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: false, error: "invalid-password" }))
-        return false
     }
+
+    queue.splice(0, 1)
+    if (queue.length > 0) {
+        console.log("stockpileUpdateStockpile.ts: Finished 1, starting next in queue, remaining queue: " + queue.length)
+        stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
+    }
+
+    return true
+
+
 }
 
-export default stockpilerUpdateStockpile
+export default stockpilerUpdateStockpileEntryPoint
