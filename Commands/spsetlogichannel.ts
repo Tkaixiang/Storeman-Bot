@@ -25,19 +25,29 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     if ("stockpileHeader" in configDoc) {
         // Delete previous message if it exists
         const newChannelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
-        const msg = await newChannelObj.messages.fetch(configDoc.stockpileHeader)
         try {
+            const msg = await newChannelObj.messages.fetch(configDoc.stockpileHeader)
             await msg.delete()
         }
         catch (e) {
             console.log("Failed to delete msg")
         }
         for (let i = 0; i < configDoc.stockpileMsgs.length; i++) {
-            const stockpileMsg = await newChannelObj.messages.fetch(configDoc.stockpileMsgs[i])
-            if (stockpileMsg) await stockpileMsg.delete()
+            try {
+                const stockpileMsg = await newChannelObj.messages.fetch(configDoc.stockpileMsgs[i])
+                if (stockpileMsg) await stockpileMsg.delete()
+            }
+            catch (e) {
+                console.log("Failed to delete msg")
+            }
         }
-        const targetMsgObj = await newChannelObj.messages.fetch(configDoc.targetMsg)
-        if (targetMsgObj) await targetMsgObj.delete()
+        try {
+            const targetMsgObj = await newChannelObj.messages.fetch(configDoc.targetMsg)
+            if (targetMsgObj) await targetMsgObj.delete()
+        }
+        catch (e) {
+            console.log("Failed to delete msg")
+        }
     }
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateMsg(false)
     const newMsg = await channelObj.send(stockpileHeader)
