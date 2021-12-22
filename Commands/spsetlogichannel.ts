@@ -26,7 +26,12 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
         // Delete previous message if it exists
         const newChannelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
         const msg = await newChannelObj.messages.fetch(configDoc.stockpileHeader)
-        if (msg) await msg.delete()
+        try {
+            await msg.delete()
+        }
+        catch (e) {
+            console.log("Failed to delete msg")
+        }
         for (let i = 0; i < configDoc.stockpileMsgs.length; i++) {
             const stockpileMsg = await newChannelObj.messages.fetch(configDoc.stockpileMsgs[i])
             if (stockpileMsg) await stockpileMsg.delete()
