@@ -5,7 +5,7 @@ let queue: Array<any> = []
 const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
     queue.push({client: client, msg: msg})
 
-    if (queue.length === 1) await updateStockpileMsg(queue[0].msg, queue[0].msg)
+    if (queue.length === 1) await updateStockpileMsg(queue[0].client, queue[0].msg)
 
     return true
 }
@@ -45,7 +45,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
 
     queue.splice(0, 1)
     if (queue.length > 0) {
-        updateStockpileMsg(queue[0].msg, queue[0].msg)
+        updateStockpileMsg(queue[0].client, queue[0].msg)
     }
     return true
 }
