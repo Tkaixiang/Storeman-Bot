@@ -33,7 +33,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             await collections.config.updateOne({}, { $push: { orderSettings: stockpileName.replace(/\./g, "").replace(/\$/g, "") } })
         }
 
-        await interaction.reply({ content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
+        await interaction.editReply({ content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
@@ -56,12 +56,12 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
-        await interaction.reply({
+        await interaction.editReply({
             content: `Item \`${item}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
         });
     }
     else if (command === "cancel") {
-        await interaction.reply({ content: "Command cancelled", components: [] })
+        await interaction.editReply({ content: "Command cancelled", components: [] })
     }
 }
 
