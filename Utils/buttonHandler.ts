@@ -8,9 +8,10 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
     const splitted = interaction.id.split("==")
     const command = splitted[0]
     const collections = getCollections()
+    console.log("command")
+    await interaction.reply({ content: "Working on it...", components: [] })
 
     if (command === "spsetamount") {
-        await interaction.reply({ content: "Working on it...", components: [] })
         const item = splitted[1]
         const amount = parseInt(splitted[2])
         const stockpileName = splitted[3]
@@ -40,7 +41,6 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
     }
     else if (command === "spsettarget") {
-        await interaction.reply({ content: "Working on it...", components: [] })
         let item = splitted[1]! // Tell typescript to shut up and it is non-null
         const minimum_amount = parseInt(splitted[2])
         let maximum_amount = parseInt(splitted[3])
