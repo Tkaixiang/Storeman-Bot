@@ -15,6 +15,7 @@ import sprole from './Commands/sprole'
 import stockpilerUpdateStockpile from './Utils/stockpilerUpdateStockpile'
 import spitems from './Commands/spitems'
 import spsetorder from './Commands/spsetorder'
+import buttonHandler from './Utils/buttonHandler'
 import http from 'http'
 import crypto from 'crypto'
 
@@ -52,7 +53,7 @@ const main = async (): Promise<void> => {
     for (let i = 0; i < itemList.length; i++) {
         listWithCrates.push(itemList[i] + " crate")
     }
-    
+
     NodeCacheObj.set("itemList", itemList)
     NodeCacheObj.set("listWithCrates", listWithCrates)
 
@@ -123,6 +124,9 @@ const main = async (): Promise<void> => {
             }
             else if (commandName === "spitems") await spitems(interaction)
             else if (commandName === "spsetorder") await spsetorder(interaction, client)
+            if (interaction.isButton()) {
+                buttonHandler(interaction)
+            }
         });
 
         // Connect by logging into Discord

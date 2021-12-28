@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, GuildMember } from "discord.js";
+import { Client, CommandInteraction, GuildMember, MessageActionRow, MessageButton } from "discord.js";
 import generateStockpileMsg from "./../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
@@ -22,7 +22,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         return false
     }
 
-    await interaction.reply({content: 'Working on it'});
+    await interaction.reply({ content: 'Working on it' });
     const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName })
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
     const cleanitem = item.replace(/\./g, "_").toLowerCase()
@@ -31,13 +31,27 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         if (listWithCrates.includes(cleanitem)) {
             if (amount > 0) stockpileExist.items[cleanitem] = amount
             else delete stockpileExist.items[cleanitem]
-            mongoSanitize.sanitize(stockpileExist.items, {replaceWith: "_"})
+            mongoSanitize.sanitize(stockpileExist.items, { replaceWith: "_" })
             await collections.stockpiles.updateOne({ name: stockpileName.replace(/\./g, "").replace(/\$/g, "") }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
         }
         else {
             const bestItem = findBestMatchItem(cleanitem).replace(/\_/g, ".")
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('spsetamount==' + bestItem + "==" + amount + "==" + stockpileName)
+                        .setLabel(bestItem)
+                        .setStyle('PRIMARY')
+                    ,
+                    new MessageButton()
+                        .setCustomId('spsetamount==' + bestItem + " Crate==" + amount + "==" + stockpileName)
+                        .setLabel(bestItem + " Crate")
+                        .setStyle('PRIMARY'),
+                );
+
             await interaction.editReply({
-                content: `Item \`'${item}'\` was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`
+                content: `Item \`'${item}'\` was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`,
+                components: [row]
             });
             return false
         }
@@ -45,16 +59,40 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     }
     else {
         // Stockpile doesn't exist
-        let itemObject: any = {}
-        if (amount > 0) itemObject[cleanitem] = amount
+        if (listWithCrates.includes(cleanitem)) {
+            let itemObject: any = {}
+            if (amount > 0) itemObject[cleanitem] = amount
 
-        mongoSanitize.sanitize(itemObject, {replaceWith: "_"})
-        await collections.stockpiles.insertOne({ name: stockpileName.replace(/\./g,"").replace(/\$/g,""), items: itemObject, lastUpdated: new Date() })
-        await collections.config.updateOne({}, {$push: {orderSettings: stockpileName.replace(/\./g, "").replace(/\$/g, "")}})
+            mongoSanitize.sanitize(itemObject, { replaceWith: "_" })
+            await collections.stockpiles.insertOne({ name: stockpileName.replace(/\./g, "").replace(/\$/g, ""), items: itemObject, lastUpdated: new Date() })
+            await collections.config.updateOne({}, { $push: { orderSettings: stockpileName.replace(/\./g, "").replace(/\$/g, "") } })
+        }
+        else {
+            const bestItem = findBestMatchItem(cleanitem).replace(/\_/g, ".")
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('spsetamount==' + bestItem + "==" + amount + "==" + stockpileName)
+                        .setLabel(bestItem)
+                        .setStyle('PRIMARY')
+                    ,
+                    new MessageButton()
+                        .setCustomId('spsetamount==' + bestItem + " Crate==" + amount + "==" + stockpileName)
+                        .setLabel(bestItem + " Crate")
+                        .setStyle('PRIMARY'),
+                );
+
+            await interaction.editReply({
+                content: `Item \`'${item}'\` was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`,
+                components: [row]
+            });
+            return false
+        }
+
     }
 
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+    await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     await interaction.editReply({
         content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`"
