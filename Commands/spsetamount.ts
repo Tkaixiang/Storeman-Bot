@@ -47,6 +47,10 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
                         .setCustomId('spsetamount==' + bestItem + " Crate==" + amount + "==" + stockpileName)
                         .setLabel(bestItem + " Crate")
                         .setStyle('PRIMARY'),
+                    new MessageButton()
+                        .setCustomId('cancel')
+                        .setLabel('Cancel')
+                        .setStyle('DANGER'),
                 );
 
             await interaction.editReply({
