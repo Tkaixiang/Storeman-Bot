@@ -126,6 +126,7 @@ const main = async (): Promise<void> => {
                 else if (commandName === "spsetorder") await spsetorder(interaction, client)
             }
             else if (interaction.isButton()) {
+                console.log("button!")
                 buttonHandler(interaction)
             }
         });
