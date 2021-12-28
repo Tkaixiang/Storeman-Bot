@@ -42,6 +42,10 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
                     .setCustomId('spsetamount==' + bestItem + " Crate==" + minimum_amount + "==" + maximum_amount)
                     .setLabel(bestItem + " Crate")
                     .setStyle('PRIMARY'),
+                    new MessageButton()
+                    .setCustomId('cancel')
+                    .setLabel('Cancel')
+                    .setStyle('DANGER'),
             );
 
 

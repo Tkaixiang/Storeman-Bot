@@ -61,8 +61,8 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             content: `Item \`${item}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
         });
     }
-    else if (command === "spremovetarget") {
-
+    else if (command === "cancel") {
+        await interaction.reply({ content: "Command cancelled", components: [] })
     }
 }
 
