@@ -254,7 +254,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             stockpileMsgs[i] += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>)\n`
             for (const item in current.items) {
 
-                stockpileMsgs[i] += "`" + lowerToOriginal[item].replace(/\_/g, ".") + "` - " + current.items[item] + "\n"
+                console.log(item)
+                stockpileMsgs[i] += "`" + lowerToOriginal[item] + "` - " + current.items[item] + "\n"
 
                 if (item in totals) totals[item] += current.items[item]
                 else totals[item] = current.items[item]
@@ -267,7 +268,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         if (targets) {
             for (const target in targets) {
                 if (target !== "_id") {
-                    targetMsg += `\`${lowerToOriginal[target].replace(/\_/g, ".")}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max})\n`
+                    targetMsg += `\`${lowerToOriginal[target]}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max})\n`
                 }
             }
         }
