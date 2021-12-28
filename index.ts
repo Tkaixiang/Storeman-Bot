@@ -50,9 +50,9 @@ const main = async (): Promise<void> => {
     }
     const listWithCrates = JSON.parse(JSON.stringify(itemList))
     for (let i = 0; i < itemList.length; i++) {
-        listWithCrates.push(itemList[i] + " Crate")
+        listWithCrates.push(itemList[i] + " crate")
     }
-
+    
     NodeCacheObj.set("itemList", itemList)
     NodeCacheObj.set("listWithCrates", listWithCrates)
 
