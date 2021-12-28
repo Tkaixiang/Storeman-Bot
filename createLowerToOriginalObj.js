@@ -3,6 +3,7 @@ let mappingDict = {}
 
 for (let i = 0; i < itemList.length; i++) {
     mappingDict[itemList[i].toLowerCase().replace(/\./g, "_")] = itemList[i]
+    mappingDict[itemList[i].toLowerCase().replace(/\./g, "_") + " crate"] = itemList[i] + " Crate"
  }
 
 console.log(mappingDict)
