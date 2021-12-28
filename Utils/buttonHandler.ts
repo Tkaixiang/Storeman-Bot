@@ -8,7 +8,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
     const splitted = interaction.id.split("==")
     const command = splitted[0]
     const collections = getCollections()
-    console.log("command")
+    console.log(command)
     await interaction.reply({ content: "Working on it...", components: [] })
 
     if (command === "spsetamount") {
