@@ -25,7 +25,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     await interaction.reply({content: 'Working on it'});
     const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName })
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
-    const cleanitem = item.replace(/\./g, "_")
+    const cleanitem = item.replace(/\./g, "_").toLowerCase()
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
         if (listWithCrates.includes(cleanitem)) {

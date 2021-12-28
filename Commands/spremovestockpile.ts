@@ -5,7 +5,7 @@ import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
 
 const spremovestockpile = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
-    const stockpile = interaction.options.getString("stockpile")! // Tell typescript to shut up and it is non-null
+    let stockpile = interaction.options.getString("stockpile")! // Tell typescript to shut up and it is non-null
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
 
@@ -19,7 +19,8 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
 
     await interaction.reply('Working on it');
     const collections = getCollections()
-    if ((await collections.stockpiles.deleteOne({ name: stockpile.replace(/\./g, "").replace(/\$/g, "") })).deletedCount > 0) {
+    const searchQuery = new RegExp(stockpile.replace(/\./g, "").replace(/\$/g, ""), "i")
+    if ((await collections.stockpiles.deleteOne({ name: searchQuery })).deletedCount > 0) {
         const configObj = (await collections.config.findOne({}))!
         if ("orderSettings" in configObj) {
             const position = configObj.orderSettings.indexOf(stockpile)
