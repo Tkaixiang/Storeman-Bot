@@ -62,7 +62,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         });
     }
     else if (command === "cancel") {
-        await interaction.reply({ content: "Command cancelled", components: [] })
+        await interaction.update({ content: "Command cancelled", components: [] })
     }
 }
 
