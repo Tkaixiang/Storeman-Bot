@@ -5,11 +5,11 @@ import generateStockpileMsg from "./generateStockpileMsg";
 import updateStockpileMsg from "./updateStockpileMsg";
 
 const buttonHandler = async (interaction: MessageComponentInteraction) => {
-    const splitted = interaction.id.split("==")
+    const splitted = interaction.customId.split("==")
     const command = splitted[0]
     const collections = getCollections()
     console.log(command)
-    await interaction.reply({ content: "Working on it...", components: [] })
+    await interaction.update({ content: "Working on it...", components: [] })
 
     if (command === "spsetamount") {
         const item = splitted[1]
@@ -34,7 +34,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             await collections.config.updateOne({}, { $push: { orderSettings: stockpileName.replace(/\./g, "").replace(/\$/g, "") } })
         }
 
-        await interaction.editReply({ content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
+        await interaction.update({ content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
@@ -57,7 +57,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
-        await interaction.editReply({
+        await interaction.update({
             content: `Item \`${item}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
         });
     }
