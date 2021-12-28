@@ -2,7 +2,7 @@ const itemList =  ['Dusk ce.III', 'Booker Storm Rifle Model 838', 'Aalto Storm R
 let mappingDict = {}
 
 for (let i = 0; i < itemList.length; i++) {
-    mappingDict[itemList[i].toLowerCase()] = itemList[i]
+    mappingDict[itemList[i].toLowerCase().replace(/\./g, "_")] = itemList[i]
  }
 
 console.log(mappingDict)
