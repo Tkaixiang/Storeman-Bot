@@ -27,7 +27,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     const collections = getCollections()
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
 
-    const cleanitem = item.replace(".", "_")
+    const cleanitem = item.replace(/\./g, "_")
     if (!listWithCrates.includes(cleanitem)) {
         const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
         await interaction.editReply({

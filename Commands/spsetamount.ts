@@ -25,17 +25,17 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     await interaction.reply({content: 'Working on it'});
     const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName })
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
-    const cleanitem = item.replace(".", "_")
+    const cleanitem = item.replace(/\./g, "_")
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
         if (listWithCrates.includes(cleanitem)) {
             if (amount > 0) stockpileExist.items[cleanitem] = amount
             else delete stockpileExist.items[cleanitem]
             mongoSanitize.sanitize(stockpileExist.items, {replaceWith: "_"})
-            await collections.stockpiles.updateOne({ name: stockpileName.replace(".", "").replace("$", "") }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
+            await collections.stockpiles.updateOne({ name: stockpileName.replace(/\./g, "").replace(/\$/g, "") }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
         }
         else {
-            const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
+            const bestItem = findBestMatchItem(cleanitem).replace(/\_/g, ".")
             await interaction.editReply({
                 content: `Item \`'${item}'\` was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`
             });
@@ -49,8 +49,8 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         if (amount > 0) itemObject[cleanitem] = amount
 
         mongoSanitize.sanitize(itemObject, {replaceWith: "_"})
-        await collections.stockpiles.insertOne({ name: stockpileName.replace(".","").replace("$",""), items: itemObject, lastUpdated: new Date() })
-        await collections.config.updateOne({}, {$push: {orderSettings: stockpileName.replace(".", "").replace("$", "")}})
+        await collections.stockpiles.insertOne({ name: stockpileName.replace(/\./g,"").replace(/\$/g,""), items: itemObject, lastUpdated: new Date() })
+        await collections.config.updateOne({}, {$push: {orderSettings: stockpileName.replace(/\./g, "").replace(/\$/g, "")}})
     }
 
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)

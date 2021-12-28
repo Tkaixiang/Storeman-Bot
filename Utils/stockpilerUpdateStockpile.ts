@@ -41,7 +41,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             mongoSanitize.sanitize(newStockpileItems, {
                 replaceWith: '_'
             });
-            await collections.stockpiles.updateOne({ name: body.name.replace(".", "").replace("$", "") }, { $set: { items: newStockpileItems, lastUpdated: new Date() } })
+            await collections.stockpiles.updateOne({ name: body.name.replace(/\./g, "").replace(/\$/g, "") }, { $set: { items: newStockpileItems, lastUpdated: new Date() } })
         }
         else {
             console.log('New stockpile: ' + body.name + ' added.')
@@ -50,8 +50,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                 newItems[body.data[i][0]] = parseInt(body.data[i][1])
             }
             mongoSanitize.sanitize(newItems, { replaceWith: '_' });
-            await collections.stockpiles.insertOne({ name: body.name.replace(".", "").replace("$", ""), items: newItems, lastUpdated: new Date() })
-            await collections.config.updateOne({}, { $push: { orderSettings: body.name.replace(".", "").replace("$", "") } })
+            await collections.stockpiles.insertOne({ name: body.name.replace(/\./g, "").replace(/\$/g, ""), items: newItems, lastUpdated: new Date() })
+            await collections.config.updateOne({}, { $push: { orderSettings: body.name.replace(/\./g, "").replace(/\$/g, "") } })
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)

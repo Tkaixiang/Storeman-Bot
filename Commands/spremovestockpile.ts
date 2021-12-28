@@ -19,7 +19,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
 
     await interaction.reply('Working on it');
     const collections = getCollections()
-    if ((await collections.stockpiles.deleteOne({ name: stockpile.replace(".", "").replace("$", "") })).deletedCount > 0) {
+    if ((await collections.stockpiles.deleteOne({ name: stockpile.replace(/\./g, "").replace(/\$/g, "") })).deletedCount > 0) {
         const configObj = (await collections.config.findOne({}))!
         if ("orderSettings" in configObj) {
             const position = configObj.orderSettings.indexOf(stockpile)
