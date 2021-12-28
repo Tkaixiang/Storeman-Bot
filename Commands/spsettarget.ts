@@ -31,7 +31,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     if (!listWithCrates.includes(cleanitem)) {
         const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
         await interaction.editReply({
-            content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?` 
+            content: `Item \`${item}\` was not found. Did you mean: \`${bestItem}\` or \`${bestItem + " Crate"}\` instead?` 
         });
         return false
     }
@@ -47,7 +47,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     await interaction.editReply({
-        content: `Item ${item} has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
+        content: `Item \`${item}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
     });
 
     return true;

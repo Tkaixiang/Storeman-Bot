@@ -25,7 +25,7 @@ const spremovetarget = async (interaction: CommandInteraction, client: Client): 
     mongoSanitize.sanitize(updateObj, {replaceWith: "_"})
     if ((await collections.targets.updateOne({}, { $unset: updateObj })).modifiedCount === 0) {
         await interaction.editReply({
-            content: "Item '" + item + " was not found in the target list."
+            content: "Item `" + item + "` was not found in the target list."
         });
     }
 
@@ -33,7 +33,7 @@ const spremovetarget = async (interaction: CommandInteraction, client: Client): 
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     
     await interaction.editReply({
-        content: "Item '" + item + "' has been removed from the target list."
+        content: "Item `" + item + "` has been removed from the target list."
     });
 
     return true;

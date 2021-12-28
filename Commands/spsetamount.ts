@@ -37,7 +37,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         else {
             const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
             await interaction.editReply({
-                content: `Item '${item}' was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`
+                content: `Item \`'${item}'\` was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`
             });
             return false
         }
