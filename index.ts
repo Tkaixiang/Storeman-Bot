@@ -101,30 +101,31 @@ const main = async (): Promise<void> => {
         })
 
         client.on('interactionCreate', async (interaction) => {
-            if (!interaction.isCommand()) return; // Checks whether the interaction is a command
+            if (interaction.isCommand()) {
 
-            const commandName = interaction.commandName;
+                const commandName = interaction.commandName;
 
-            if (commandName === 'sphelp') await sphelp(interaction)
-            else if (commandName === 'spsetamount') await spsetamount(interaction, client)
-            else if (commandName === 'spstatus') await spstatus(interaction)
-            else if (commandName === 'sptarget') {
-                if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction, client)
-                else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction, client)
+                if (commandName === 'sphelp') await sphelp(interaction)
+                else if (commandName === 'spsetamount') await spsetamount(interaction, client)
+                else if (commandName === 'spstatus') await spstatus(interaction)
+                else if (commandName === 'sptarget') {
+                    if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction, client)
+                }
+                else if (commandName === 'spsetpassword') await spsetpassword(interaction)
+                else if (commandName === 'splogichannel') {
+                    if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
+                }
+                else if (commandName === "spremovestockpile") await spremovestockpile(interaction, client)
+                else if (commandName === "sprole") {
+                    if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
+                    else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
+                }
+                else if (commandName === "spitems") await spitems(interaction)
+                else if (commandName === "spsetorder") await spsetorder(interaction, client)
             }
-            else if (commandName === 'spsetpassword') await spsetpassword(interaction)
-            else if (commandName === 'splogichannel') {
-                if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
-                else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
-            }
-            else if (commandName === "spremovestockpile") await spremovestockpile(interaction, client)
-            else if (commandName === "sprole") {
-                if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
-                else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
-            }
-            else if (commandName === "spitems") await spitems(interaction)
-            else if (commandName === "spsetorder") await spsetorder(interaction, client)
-            if (interaction.isButton()) {
+            else if (interaction.isButton()) {
                 buttonHandler(interaction)
             }
         });
