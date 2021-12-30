@@ -50,6 +50,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
 
 
         await interaction.editReply({
+            components: [row],
             content: `Item \`${item}\` was not found. Did you mean: \`${bestItem}\` or \`${bestItem + " Crate"}\` instead?`
         });
         return false
