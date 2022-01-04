@@ -30,7 +30,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             response.end(JSON.stringify({ success: false, error: "empty-stockpile-name" }))
             return false
         }
-
+        
         const stockpile = await collections.stockpiles.findOne({ name: body.name })
         if (stockpile) {
             const newStockpileItems: any = {}
@@ -47,7 +47,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             console.log('New stockpile: ' + body.name + ' added.')
             let newItems: any = {}
             for (let i = 0; i < body.data.length; i++) {
-                newItems[body.data[i][0].toLowerCase()] = parseInt(body.data[i][1])
+                const amount = parseInt(body.data[i][1])
+                if (amount !== 0) newItems[body.data[i][0].toLowerCase()] = parseInt(body.data[i][1])
             }
             mongoSanitize.sanitize(newItems, { replaceWith: '_' });
             await collections.stockpiles.insertOne({ name: body.name.replace(/\./g, "").replace(/\$/g, ""), items: newItems, lastUpdated: new Date() })

@@ -29,17 +29,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
                 await collections.config.updateOne({}, { $set: { orderSettings: configObj.orderSettings } })
             }
         }
-
-        const toDeleteID = configObj.stockpileMsgs[configObj.stockpileMsgs.length-1]
-        try {
-            const channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
-            const msgObj = await channelObj.messages.fetch(toDeleteID)
-            await msgObj.delete()
-        }
-        catch(e) {
-            console.log("Failed to delete last msg")
-        }
-        await collections.config.updateOne({}, { $pop: { stockpileMsgs: 1 } })
+        
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 

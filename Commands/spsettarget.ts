@@ -10,6 +10,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     let item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
     const minimum_amount = interaction.options.getInteger("minimum_amount")
     let maximum_amount = interaction.options.getInteger("maximum_amount")
+    let production_location = interaction.options.getInteger("production_location")!
     if (!maximum_amount) maximum_amount = 0
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
@@ -57,7 +58,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     let updateObj: any = {}
-    updateObj[cleanitem] = { min: minimum_amount, max: maximum_amount }
+    updateObj[cleanitem] = { min: minimum_amount, max: maximum_amount, prodLocation: production_location }
     mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
     if ((await collections.targets.updateOne({}, { $set: updateObj })).modifiedCount === 0) {
         await collections.targets.insertOne(updateObj)

@@ -466,24 +466,34 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
 
         for (let i = 0; i < stockpiles.length; i++) {
             const current = stockpiles[i]
-            stockpileMsgs.push("")
-            stockpileMsgs[i] += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>)\n`
+            let currentStockpileMsg = ""
+            currentStockpileMsg += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>)\n`
             for (const item in current.items) {
 
-                stockpileMsgs[i] += "`" + lowerToOriginal[item] + "` - " + current.items[item] + "\n"
+                currentStockpileMsg += "`" + lowerToOriginal[item] + "` - " + current.items[item] + "\n"
 
                 if (item in totals) totals[item] += current.items[item]
                 else totals[item] = current.items[item]
 
             }
-            stockpileMsgs[i] += "----------"
+            currentStockpileMsg += "----------"
+            while (currentStockpileMsg.length > 2000) {
+
+                const sliced = currentStockpileMsg.slice(0, 2000)
+                const lastEnd = sliced.lastIndexOf("\n")
+                const finalMsg = sliced.slice(0, lastEnd)
+
+                stockpileMsgs.push(finalMsg)
+                currentStockpileMsg = currentStockpileMsg.slice(lastEnd, currentStockpileMsg.length)
+            }
+            stockpileMsgs.push(currentStockpileMsg)
         }
 
         targetMsg = "**__Targets__** \n\n"
         if (targets) {
             for (const target in targets) {
                 if (target !== "_id") {
-                    targetMsg += `\`${lowerToOriginal[target]}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max})\n`
+                    targetMsg += `\`${lowerToOriginal[target]}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max}) ${"prodLocation" in targets[target] ? "[" + targets[target].prodLocation + "]" : ""}\n`
                 }
             }
         }

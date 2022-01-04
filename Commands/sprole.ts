@@ -11,7 +11,7 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     if (set) {
-        const perms = interaction.options.getString("perms")?.toLowerCase()
+        const perms = interaction.options.getString("perms")!
         if (!perms || !role) {
             await interaction.reply({
                 content: "Missing parameters",

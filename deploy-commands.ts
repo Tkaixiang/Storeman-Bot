@@ -28,6 +28,11 @@ const commands = [
                 )
                 .addIntegerOption(option =>
                     option.setName("maximum_amount").setDescription("The maximum amount of that item").setRequired(false)
+                ).addStringOption((option) =>
+                    option.setName("production_location").setDescription("The place to produce this item. Either 'MPF' or 'Factory'")
+                        .addChoice("MPF", "MPF")
+                        .addChoice("Factory", "Factory")
+                        .setRequired(true)
                 )
         )
         .addSubcommand(subcommand =>
@@ -41,7 +46,7 @@ const commands = [
     new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current stockpile and target information'),
     new SlashCommandBuilder().setName('spsetpassword').setDescription('Sets the password the Stockpiler app uses to update information to the database.')
         .addStringOption((option) => option.setName("password").setDescription("The new password").setRequired(true)),
-new SlashCommandBuilder().setName('spsetorder').setDescription('Sets the order of a <stockpile> to <order> number in the list')
+    new SlashCommandBuilder().setName('spsetorder').setDescription('Sets the order of a <stockpile> to <order> number in the list')
         .addStringOption((option) => option.setName("stockpile").setDescription("The name of the stockpile to set the order of").setRequired(true))
         .addIntegerOption((option) => option.setName("order").setDescription("The order number to set to (1-N), where N is the number of stockpiles in the list").setRequired(true)),
     new SlashCommandBuilder().setName('spremovestockpile').setDescription('Removes the stockpile specified by <name>')
@@ -65,7 +70,11 @@ new SlashCommandBuilder().setName('spsetorder').setDescription('Sets the order o
             subcommand
                 .setName("set")
                 .setDescription("Add <perms> to a specified <role>")
-                .addStringOption(option => option.setName("perms").setDescription("Can be either 'User' or 'Admin'.").setRequired(true))
+                .addStringOption(option => option.setName("perms").setDescription("Can be either 'User' or 'Admin'.")
+                    .setRequired(true)
+                    .addChoice("User", "user")
+                    .addChoice("Admin", "admin")
+                )
                 .addRoleOption(option => option.setName("role").setDescription("The role to operate on").setRequired(true))
         )
         .addSubcommand(subcommand =>
@@ -96,7 +105,7 @@ const insertCommands = async () => {
             Routes.applicationCommands(<string>process.env.clientId),
             { body: commands },
         ).then(() => console.log('Successfully registered application commands globally.'))
-        .catch(console.error);
+            .catch(console.error);
     }
 }
 

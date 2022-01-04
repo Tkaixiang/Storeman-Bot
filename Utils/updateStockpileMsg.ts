@@ -3,7 +3,7 @@ import { getCollections } from '../mongoDB';
 let queue: Array<any> = []
 
 const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
-    queue.push({client: client, msg: msg})
+    queue.push({ client: client, msg: msg })
 
     if (queue.length === 1) {
         console.log("No queue ahead. Starting")
@@ -21,7 +21,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
     const collections = getCollections()
 
     const configObj = (await collections.config.findOne({}))!
-    let newMsgsSent = false
+    let editedMsgs = false
 
     // update msg if logi channel is set
     if ("channelId" in configObj) {
@@ -44,10 +44,22 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 // and the 2nd request's configObj.stockpileMsgs overrides the 1st one
                 const newMsg = await channelObj.send(msg[1][i])
                 configObj.stockpileMsgs.push(newMsg.id)
-                if (!newMsgsSent) newMsgsSent = true
+                if (!editedMsgs) editedMsgs = true
             }
         }
-        if (newMsgsSent) await collections.config.updateOne({}, { $set: { stockpileMsgs: configObj.stockpileMsgs } })
+        const difference = configObj.stockpileMsgs.length - msg[1].length
+        for (let i = 0; i < difference; i++) {
+            if (!editedMsgs) editedMsgs = true
+            try {
+                msgObj = await channelObj.messages.fetch(configObj.stockpileMsgs[configObj.stockpileMsgs.length - 1 - i])
+                await msgObj.delete()
+            }
+            catch (e) {
+                console.log("Failed to delete last unused msg")
+            }
+
+        }
+        if (editedMsgs) await collections.config.updateOne({}, { $set: { stockpileMsgs: configObj.stockpileMsgs } })
     }
 
     queue.splice(0, 1)
