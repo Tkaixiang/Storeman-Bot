@@ -32,7 +32,7 @@ const commands = [
                     option.setName("production_location").setDescription("The place to produce this item. Either 'MPF' or 'Factory'")
                         .addChoice("MPF", "MPF")
                         .addChoice("Factory", "Factory")
-                        .setRequired(true)
+                        .setRequired(false)
                 )
         )
         .addSubcommand(subcommand =>

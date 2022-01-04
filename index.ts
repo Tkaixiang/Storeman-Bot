@@ -22,7 +22,7 @@ import crypto from 'crypto'
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 3
+const currentVersion = 4
 
 declare global {
     var NodeCacheObj: NodeCache;
