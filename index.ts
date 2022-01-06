@@ -19,7 +19,7 @@ import buttonHandler from './Utils/buttonHandler'
 import http from 'http'
 import crypto from 'crypto'
 
-require('dotenv').config()
+require('dotenv').config({ checkperiod: 0, useClones: false })
 const port = 8090
 const host = '0.0.0.0'
 const currentVersion = 4
