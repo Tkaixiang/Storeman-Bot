@@ -57,6 +57,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
             catch (e) {
                 console.log("Failed to delete last unused msg")
             }
+            configObj.stockpileMsgs.pop()
 
         }
         if (editedMsgs) await collections.config.updateOne({}, { $set: { stockpileMsgs: configObj.stockpileMsgs } })
