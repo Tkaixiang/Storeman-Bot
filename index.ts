@@ -38,7 +38,7 @@ const firstTimeSetup = async (configOptions: any): Promise<void> => {
 console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
 await collections.config.insertOne({ version: currentVersion, password: password })
     }
-    else await collections.config.insertOne({ version: currentVersion })
+    else await collections.config.updateOne({}, { $set: {version: currentVersion} })
     console.info("First time setup/update completed.")
 }
 const main = async (): Promise<void> => {
