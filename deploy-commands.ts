@@ -56,7 +56,7 @@ const commands = [
     new SlashCommandBuilder().setName('spsetorder').setDescription('Sets the order of a <stockpile> to <order> number in the list')
         .addStringOption((option) => option.setName("stockpile").setDescription("The name of the stockpile to set the order of").setRequired(true))
         .addIntegerOption((option) => option.setName("order").setDescription("The order number to set to (1-N), where N is the number of stockpiles in the list").setRequired(true)),
-    new SlashCommandBuilder().setName('spremovestockpile').setDescription('Removes the stockpile specified by <name>')
+    new SlashCommandBuilder().setName('spstockpile').setDescription('Removes the stockpile specified by <name>')
         .addSubcommand(subcommand =>
             subcommand
                 .setName("add")

@@ -24,7 +24,7 @@ import spsettimeleft from './Commands/spsettimeleft'
 require('dotenv').config({ checkperiod: 0, useClones: false })
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 4
+const currentVersion = 5
 
 declare global {
     var NodeCacheObj: NodeCache;
