@@ -11,6 +11,7 @@ import spsetlogichannel from './Commands/spsetlogichannel'
 import spremovelogichannel from './Commands/spremovelogichannel'
 import NodeCache from 'node-cache'
 import spremovestockpile from './Commands/spremovestockpile'
+import spaddstockpile from './Commands/spaddstockpile'
 import sprole from './Commands/sprole'
 import stockpilerUpdateStockpile from './Utils/stockpilerUpdateStockpile'
 import spitems from './Commands/spitems'
@@ -117,7 +118,10 @@ const main = async (): Promise<void> => {
                     if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
                     else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
                 }
-                else if (commandName === "spremovestockpile") await spremovestockpile(interaction, client)
+                else if (commandName === "spstockpile") {
+                    if (interaction.options.getSubcommand() === 'add') await spaddstockpile(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremovestockpile(interaction, client)
+                } 
                 else if (commandName === "sprole") {
                     if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
                     else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)

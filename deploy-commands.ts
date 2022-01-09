@@ -50,7 +50,18 @@ const commands = [
         .addStringOption((option) => option.setName("stockpile").setDescription("The name of the stockpile to set the order of").setRequired(true))
         .addIntegerOption((option) => option.setName("order").setDescription("The order number to set to (1-N), where N is the number of stockpiles in the list").setRequired(true)),
     new SlashCommandBuilder().setName('spremovestockpile').setDescription('Removes the stockpile specified by <name>')
-        .addStringOption((option) => option.setName("stockpile").setDescription("Stockpile name").setRequired(true)),
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("add")
+                .setDescription("Creates an EMPTY stockpile with name <stockpile>")
+                .addStringOption((option) => option.setName("stockpile").setDescription("Stockpile name").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("Deletes stockpile with the name <stockpile>")
+                .addStringOption((option) => option.setName("stockpile").setDescription("Stockpile name").setRequired(true))
+        ),
     new SlashCommandBuilder().setName('splogichannel')
         .setDescription('Logi channel settings to broadcast the stockpile status.')
         .addSubcommand(subcommand =>

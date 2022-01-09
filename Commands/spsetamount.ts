@@ -23,7 +23,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     await interaction.reply({ content: 'Working on it' });
-    const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName })
+    const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName.replace(/\./g, "").replace(/\$/g, "") })
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
     const cleanitem = item.replace(/\./g, "_").toLowerCase()
     if (stockpileExist) {
