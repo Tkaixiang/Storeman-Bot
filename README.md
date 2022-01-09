@@ -11,6 +11,7 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 - HTTP Server to **receive data** from the Stockpiler App and MongoDB to store it
 - **Targets** with **minimum** and **maximum** amounts (in crates) for the regiment to meet
 - Set a **logi-channel** for the latest targets and stockpile information which is automatically updated whenever a new scan from the Stockpiler app comes in
+- `/spsettimeleft` with interactive buttons for keeping track of whether a reserve stockpile needs refreshing.
 - **Roles** (Admin & User) to control the usage of commands between the QM-Team and normal users
 
 ## So, how does the process go like?
