@@ -38,8 +38,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 if (i < configObj.stockpileMsgs.length) {
                     try {
                         msgObj = await channelObj.messages.fetch(configObj.stockpileMsgs[i])
-
-                        if (msg[1][i].slice(msg[1][i].length - 3, 3) === "---") {
+                        if (msg[1][i].slice(msg[1][i].length - 3) === "---") {
                             const row = new MessageActionRow()
                                 .addComponents(
                                     new MessageButton()
@@ -63,7 +62,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                     // Unfortunately, it takes a long time to send that new msg, hence when 2 requests to add the same new stockpile happen
                     // The 1st request wouldn't have updated the database that a new msg has already been sent, leading to another new msg being sent
                     // and the 2nd request's configObj.stockpileMsgs overrides the 1st one
-                    if (msg[1][i].slice(msg[1][i].length - 3, 3) === "---") {
+                    if (msg[1][i].slice(msg[1][i].length - 3) === "---") {
                         const row = new MessageActionRow()
                             .addComponents(
                                 new MessageButton()

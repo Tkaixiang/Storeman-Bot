@@ -35,7 +35,7 @@ const firstTimeSetup = async (configOptions: any): Promise<void> => {
     const collections = getCollections()
     insertCommands()
 
-    if (!("password" in configOptions)) {
+    if (!configOptions || !("password" in configOptions)) {
     const password = crypto.randomBytes(32).toString('hex')
 console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
 await collections.config.insertOne({ version: currentVersion, password: password })

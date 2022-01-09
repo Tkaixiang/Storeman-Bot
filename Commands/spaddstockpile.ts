@@ -20,13 +20,14 @@ const spaddstockpile = async (interaction: CommandInteraction, client: Client): 
 
     await interaction.reply('Working on it');
     const collections = getCollections()
-    const stockpileExist = await collections.stockpiles.findOne({ name: stockpile.replace(/\./g, "").replace(/\$/g, "") })
+    const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
+    const stockpileExist = await collections.stockpiles.findOne({ name: cleanedName })
     if (stockpileExist) {
         await interaction.editReply({ content: "The stockpile with the name `" + stockpile + "` already exists." })
     }
     else {
         let insertObj: any = {
-            name: stockpile, items: {}, lastUpdated: new Date()
+            name: cleanedName, items: {}, lastUpdated: new Date()
         }
         mongoSanitize.sanitize(insertObj, { replaceWith: "_" })
         await collections.stockpiles.insertOne(insertObj)

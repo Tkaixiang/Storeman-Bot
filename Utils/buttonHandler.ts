@@ -12,6 +12,8 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
 
     if (command === "spsetamount") {
+        if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
+
         await interaction.update({ content: "Working on it...", components: [] })
         const item = splitted[1]
         const amount = parseInt(splitted[2])
@@ -42,21 +44,24 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
     }
     else if (command === "spsettimeleft") {
+        if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
+
         await interaction.update({ content: "Working on it...", components: [] })
         const stockpile = splitted[1]
 
-        const cleanName = stockpile.replace(/\./g, "_").toLowerCase()
+        const cleanName = stockpile.replace(/\./g, "_").replace(/\./g, "").replace(/\$/g, "")
 
         const stockpileExist = await collections.stockpiles.findOne({ name: cleanName })
         if (stockpileExist) {
-            await collections.stockpiles.updateOne({ name: cleanName }, { $set: { timeLeft: new Date() } })
-            await interaction.reply({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
+            const newTimeLeft = new Date((new Date()).getTime() + 60*60*1000*48)
+            await collections.stockpiles.updateOne({ name: cleanName }, { $set: { timeLeft: newTimeLeft } })
+            await interaction.followUp({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
 
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
             await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
         }
         else {
-            await interaction.reply({ content: "Error: Stockpile " + cleanName + " does not exist", ephemeral: true })
+            await interaction.followUp({ content: "Error: Stockpile " + cleanName + " does not exist", ephemeral: true })
         }
 
     }
