@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, GuildMember, TextChannel } from "discord.js";
+import { Client, CommandInteraction, GuildMember, MessageActionRow, MessageButton, TextChannel } from "discord.js";
 import { getCollections } from '../mongoDB';
 import checkPermissions from "../Utils/checkPermissions";
 import generateMsg from '../Utils/generateStockpileMsg'
@@ -56,14 +56,31 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
             console.log("Failed to delete msg")
         }
     }
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateMsg(false)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateMsg(false)
     const newMsg = await channelObj.send(stockpileHeader)
     const targetMsgID = await channelObj.send(targetMsg)
     const stockpileMsgsHeaderID = await channelObj.send(stockpileMsgsHeader)
     let stockpileMsgIDs: any = []
+    let stockpileIndex = 0
     for (let i = 0; i < stockpileMsgs.length; i++) {
-        const temp = await channelObj.send(stockpileMsgs[i])
-        stockpileMsgIDs.push(temp.id)
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setCustomId('spsettimeleft==' + stockpileNames[stockpileIndex])
+                    .setLabel("Refresh Timer")
+                    .setStyle('PRIMARY')
+            );
+        if (stockpileMsgs[i].slice(stockpileMsgs[i].length - 3) === "---") {
+            const temp = await channelObj.send({ content: stockpileMsgs[i], components: [row] })
+            stockpileMsgIDs.push(temp.id)
+            stockpileIndex += 1
+        }
+        else {
+            const temp = await channelObj.send(stockpileMsgs[i])
+            stockpileMsgIDs.push(temp.id)
+        }
+
+
     }
     await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id, stockpileMsgs: stockpileMsgIDs, targetMsg: targetMsgID.id, channelId: channel.id, stockpileMsgsHeader: stockpileMsgsHeaderID.id } })
 
