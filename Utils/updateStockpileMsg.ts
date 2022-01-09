@@ -34,8 +34,15 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
         await msgObj.edit(msg[3])
         for (let i = 0; i < msg[1].length; i++) {
             if (i < configObj.stockpileMsgs.length) {
+
+                try {
                 msgObj = await channelObj.messages.fetch(configObj.stockpileMsgs[i])
                 await msgObj.edit(msg[1][i])
+                }
+                catch (e) {
+                    console.log(e)
+                    console.log("Failed to edit msg, skipping...")
+                }
             }
             else {
                 // The issue here is that when adding a new stockpile, a new msg has to be sent
@@ -57,6 +64,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
             catch (e) {
                 console.log("Failed to delete last unused msg")
             }
+            configObj.stockpileMsgs.pop()
 
         }
         if (editedMsgs) await collections.config.updateOne({}, { $set: { stockpileMsgs: configObj.stockpileMsgs } })
