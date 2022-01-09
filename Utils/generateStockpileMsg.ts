@@ -441,6 +441,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
     let stockpileMsgs = NodeCacheObj.get("stockpileHeader") as Array<string>
     let targetMsg = NodeCacheObj.get("targetMsg") as string
+    let stockpileNames: String[] = []
 
     if (updateMsg || !stockpileMsgs || !targetMsg) {
         const targets = await collections.targets.findOne({})
@@ -467,7 +468,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         for (let i = 0; i < stockpiles.length; i++) {
             const current = stockpiles[i]
             let currentStockpileMsg = ""
-            currentStockpileMsg += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>)\n`
+            currentStockpileMsg += `**${current.name}** (as of <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>) ${"timeLeft" in current ? `[Time Left: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""}\n`
             for (const item in current.items) {
 
                 currentStockpileMsg += "`" + lowerToOriginal[item] + "` - " + current.items[item] + "\n"
@@ -487,6 +488,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                 currentStockpileMsg = currentStockpileMsg.slice(lastEnd, currentStockpileMsg.length)
             }
             stockpileMsgs.push(currentStockpileMsg)
+
+            stockpileNames.push(current.name)
         }
 
         targetMsg = "**__Targets__** \n\n"
@@ -503,7 +506,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         NodeCacheObj.set("targetMsg", targetMsg)
     }
 
-    return [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader]
+    return [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames]
 }
 
 

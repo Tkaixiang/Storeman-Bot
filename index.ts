@@ -19,6 +19,7 @@ import spsetorder from './Commands/spsetorder'
 import buttonHandler from './Utils/buttonHandler'
 import http from 'http'
 import crypto from 'crypto'
+import spsettimeleft from './Commands/spsettimeleft'
 
 require('dotenv').config({ checkperiod: 0, useClones: false })
 const port = 8090
@@ -128,6 +129,7 @@ const main = async (): Promise<void> => {
                 }
                 else if (commandName === "spitems") await spitems(interaction)
                 else if (commandName === "spsetorder") await spsetorder(interaction, client)
+                else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
             }
             else if (interaction.isButton()) {
                 buttonHandler(interaction)

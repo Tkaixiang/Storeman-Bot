@@ -1,6 +1,7 @@
-import { MessageComponentInteraction } from "discord.js";
+import { GuildMember, MessageComponentInteraction } from "discord.js";
 import mongoSanitize from "express-mongo-sanitize";
 import { getCollections } from "../mongoDB";
+import checkPermissions from "./checkPermissions";
 import generateStockpileMsg from "./generateStockpileMsg";
 import updateStockpileMsg from "./updateStockpileMsg";
 
@@ -8,9 +9,10 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
     const splitted = interaction.customId.split("==")
     const command = splitted[0]
     const collections = getCollections()
-    await interaction.update({ content: "Working on it...", components: [] })
+
 
     if (command === "spsetamount") {
+        await interaction.update({ content: "Working on it...", components: [] })
         const item = splitted[1]
         const amount = parseInt(splitted[2])
         const stockpileName = splitted[3]
@@ -35,11 +37,34 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
         await interaction.editReply({ content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
-        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
+        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+
+    }
+    else if (command === "spsettimeleft") {
+        await interaction.update({ content: "Working on it...", components: [] })
+        const stockpile = splitted[1]
+
+        const cleanName = stockpile.replace(/\./g, "_").toLowerCase()
+
+        const stockpileExist = await collections.stockpiles.findOne({ name: cleanName })
+        if (stockpileExist) {
+            await collections.stockpiles.updateOne({ name: cleanName }, { $set: { timeLeft: new Date() } })
+            await interaction.reply({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
+
+            const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
+            await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        }
+        else {
+            await interaction.reply({ content: "Error: Stockpile " + cleanName + " does not exist", ephemeral: true })
+        }
 
     }
     else if (command === "spsettarget") {
+        if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
+
+        await interaction.update({ content: "Working on it...", components: [] })
+
         let item = splitted[1]! // Tell typescript to shut up and it is non-null
         const minimum_amount = parseInt(splitted[2])
         let maximum_amount = parseInt(splitted[3])
@@ -53,13 +78,14 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             await collections.targets.insertOne(updateObj)
         }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
-        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
+        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
 
         await interaction.editReply({
             content: `Item \`${item}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
         });
     }
+
     else if (command === "cancel") {
         await interaction.editReply({ content: "Command cancelled", components: [] })
     }

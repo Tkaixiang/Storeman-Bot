@@ -17,7 +17,7 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 - \`/sprole add <perms> <role>\` Add a role which will be allowed to have <perms>. <perms> can be either "Admin" or "User". 👨‍⚖️
 - \`/sprole remove <role>\` Removes a role from whatever permissions they have. 👨‍⚖️
 - \`/spsetorder <stockpile> <order>\` Sets the <order> of a <stockpile> in the logi channel message.
-- \`/sp
+- \`/spsettimeleft <stockpile> <time>\` Sets the time left for a reserve <stockpile> before it expires. NOTE: <time> is a UNIX TIMESTAMP
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
 🙍‍♂️ - Commands that require at least \`User\` permissions

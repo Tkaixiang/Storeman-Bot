@@ -1,7 +1,7 @@
-import { GuildMember, CommandInteraction, Permissions } from "discord.js"
+import { GuildMember, CommandInteraction, Permissions, MessageComponentInteraction } from "discord.js"
 import { getCollections } from './../mongoDB'
 
-const checkPermissions = async (interaction: CommandInteraction, roleType: "admin" | "user", member: GuildMember) => {
+const checkPermissions = async (interaction: CommandInteraction | MessageComponentInteraction, roleType: "admin" | "user", member: GuildMember) => {
     const collections = getCollections()
     const permsInfo = (await collections.config.findOne({}, { projection: { admin: 1, user: 1 } }))!
     let permsLevel = 0

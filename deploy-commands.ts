@@ -15,6 +15,13 @@ const commands = [
         ).addStringOption(option =>
             option.setName("stockpile").setDescription("The name of the stockpile").setRequired(true))
     ,
+    new SlashCommandBuilder().setName('spsettimeleft')
+        .setDescription('Sets the time left for a reserve <stockpile> before it expires. NOTE: <time> is a UNIX TIMESTAMP')
+        .addStringOption((option) =>
+            option.setName("stockpile").setDescription("The stockpile name").setRequired(true)
+        ).addIntegerOption(option =>
+            option.setName("time").setDescription("The time till the reserve stockpile expires. A Unix Timestamp.").setRequired(true))
+    ,
     new SlashCommandBuilder().setName('sptarget')
         .setDescription('Command to edit the stockpile targets that the regiment (clan) should aim towards')
         .addSubcommand(subcommand =>
