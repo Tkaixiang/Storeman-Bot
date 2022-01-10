@@ -102,6 +102,22 @@ const commands = [
                 .addRoleOption(option => option.setName("role").setDescription("The role to operate on").setRequired(true))
 
         ),
+    new SlashCommandBuilder().setName('spnotif')
+        .setDescription('Role and permissions settings')
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("add")
+                .setDescription("Adds <role> to the stockpile expiry notification list")
+                .addRoleOption(option => option.setName("role").setDescription("The role to add").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("Remove the specified <role> from the stockpile expiry notification list")
+                .addRoleOption(option => option.setName("role").setDescription("The role to remove").setRequired(true))
+
+        ),
+
 ]
     .map(command => command.toJSON());
 

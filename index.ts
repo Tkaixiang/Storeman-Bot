@@ -12,6 +12,7 @@ import spremovelogichannel from './Commands/spremovelogichannel'
 import NodeCache from 'node-cache'
 import spremovestockpile from './Commands/spremovestockpile'
 import spaddstockpile from './Commands/spaddstockpile'
+import spnotif from './Commands/sptimeoutnotif'
 import sprole from './Commands/sprole'
 import stockpilerUpdateStockpile from './Utils/stockpilerUpdateStockpile'
 import spitems from './Commands/spitems'
@@ -24,7 +25,8 @@ import spsettimeleft from './Commands/spsettimeleft'
 require('dotenv').config({ checkperiod: 0, useClones: false })
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 5
+const currentVersion = 6
+const timerBP = [60*1, 60*10, 60*30, 60*60, 60*60*6, 60*60*12] // Timer breakpoints in seconds
 
 declare global {
     var NodeCacheObj: NodeCache;
@@ -63,6 +65,16 @@ const main = async (): Promise<void> => {
     if (await open()) {
         const collections = getCollections()
 
+        // Create list of timeLefts till the stockpile expires
+        const stockpiles = await collections.stockpiles.find({}).toArray()
+        let stockpileTime: any = {}
+        for (let i = 0; i < stockpiles.length; i++) {
+            if ("timeLeft" in stockpiles[i]) {
+                stockpileTime[stockpiles[i].name] = stockpiles[i].timeLeft     
+            }
+        }
+        NodeCacheObj.set("stockpileTimes", stockpileTime)
+        
         // Start HTTP server
         const server = http.createServer((request, response) => {
             if (request.method == 'POST') {
@@ -88,6 +100,12 @@ const main = async (): Promise<void> => {
         if (process.env.NODE_ENV === "development") insertCommands()
         const configOptions = await collections.config.findOne({}, {})
         if (configOptions) {
+
+            let notifRoles = []
+            if ("notifRoles" in conifgOptions) notifRoles = configOptions.notifRoles
+            NodeCacheObj.set("notifRoles", notifRoles)
+
+            
             if (configOptions.version) {
                 if (configOptions.version < currentVersion) firstTimeSetup(configOptions)
             }
@@ -126,6 +144,10 @@ const main = async (): Promise<void> => {
                 else if (commandName === "sprole") {
                     if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
                     else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
+                }
+                else if (commandName === "spnotif") {
+                    if (interaction.options.getSubcommand() === 'add') await spnotif(interaction, client, true)
+                    else if (interaction.options.getSubcommand() === 'remove') await spnotif(interaction, client, false)
                 }
                 else if (commandName === "spitems") await spitems(interaction)
                 else if (commandName === "spsetorder") await spsetorder(interaction, client)
