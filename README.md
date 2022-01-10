@@ -20,7 +20,9 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 
 ![](screenshots/1.png)
 
-## ![](screenshots/2.png)
+![](screenshots/2.png)
+
+![](screenshots/3.png)
 
 ## So, how does the process go like?
 
