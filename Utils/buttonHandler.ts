@@ -2,6 +2,7 @@ import { GuildMember, MessageComponentInteraction } from "discord.js";
 import mongoSanitize from "express-mongo-sanitize";
 import { getCollections } from "../mongoDB";
 import checkPermissions from "./checkPermissions";
+import checkTimeNotifs from "./checkTimeNotifs";
 import generateStockpileMsg from "./generateStockpileMsg";
 import updateStockpileMsg from "./updateStockpileMsg";
 
@@ -59,6 +60,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
             await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+            checkTimeNotifs(interaction.client, true)
         }
         else {
             await interaction.followUp({ content: "Error: Stockpile " + cleanName + " does not exist", ephemeral: true })

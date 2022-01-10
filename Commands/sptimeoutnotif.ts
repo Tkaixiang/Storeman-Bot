@@ -2,6 +2,7 @@ import { Client, CommandInteraction, GuildMember } from "discord.js";
 import { getCollections } from '../mongoDB'
 import checkPermissions from "../Utils/checkPermissions";
 import mongoSanitize from "express-mongo-sanitize";
+import checkTimeNotifs from "../Utils/checkTimeNotifs";
 
 const permsList = ["user", "admin"]
 
@@ -33,6 +34,7 @@ const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, s
         notifRoles.push(role.id)
         await collections.config.updateOne({}, {$push: {notifRoles: role.id}})
         await interaction.editReply({content: "Successfully added " + role.name + " to the stockpile expiry notification list",})
+        checkTimeNotifs(client, true)
     }
     else {
         let deleted = false

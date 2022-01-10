@@ -4,6 +4,7 @@ import generateStockpileMsg from "../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
 import mongoSanitize from "express-mongo-sanitize";
+import checkTimeNotifs from "../Utils/checkTimeNotifs";
 
 const spsettimeleft = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
     let stockpile = interaction.options.getString("stockpile")! // Tell typescript to shut up and it is non-null
@@ -47,6 +48,7 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        checkTimeNotifs(client, true)
     }
     else await interaction.editReply({ content: "Error, the stockpile `" + stockpile + "` does not exist." })
 
