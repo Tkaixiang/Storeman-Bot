@@ -90,7 +90,7 @@ const main = async (): Promise<void> => {
         }
         NodeCacheObj.set("stockpileTimes", stockpileTime)
 
-        setInterval(checkTimeNotifs, 1000 * 5, client)
+        setInterval(checkTimeNotifs, 1000 * 60, client)
 
         // Start HTTP server
         const server = http.createServer((request, response) => {
