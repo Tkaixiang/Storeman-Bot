@@ -18,6 +18,8 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 - \`/sprole remove <role>\` Removes a role from whatever permissions they have. 👨‍⚖️
 - \`/spsetorder <stockpile> <order>\` Sets the <order> of a <stockpile> in the logi channel message.
 - \`/spsettimeleft <stockpile> <time>\` Sets the time left for a reserve <stockpile> before it expires. NOTE: <time> is a UNIX TIMESTAMP
+- \`/spnotif add <role>\` Adds a <role> to the notification stockpile expiry warning mention list.
+- \`/spnotif remove <role>\` Removes a <role> to the notification stockpile expiry warning mention list.
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
 🙍‍♂️ - Commands that require at least \`User\` permissions
