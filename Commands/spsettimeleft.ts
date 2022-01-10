@@ -31,9 +31,20 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
         await collections.stockpiles.updateOne({ name: cleanName }, { $set: updateObj })
         await interaction.editReply({ content: `Updated the stockpile timer successfully. It is set to expire in: <t:${Math.floor(updateObj.timeLeft.getTime() / 1000)}:R>` })
 
-        const stockpileTimes: any = NodeCacheObj.get("stockpileTime")
-        stockpileTimes[cleanName] = updateObj.timeLeft
-        
+        const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+        const timerBP: any = NodeCacheObj.get("timerBP")
+        let timeNotificationLeft = 0
+        for (let x = 0; x < timerBP.length; x++) {
+            const timeLeftProperty: any = updateObj.timeLeft
+            const currentDate: any = new Date()
+            if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
+                timeNotificationLeft = x
+                break
+            }
+        }
+        if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
+        stockpileTimes[cleanName] = { timeLeft: updateObj.timeLeft, timeNotificationLeft: timeNotificationLeft }
+
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
     }
