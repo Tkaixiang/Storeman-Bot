@@ -102,7 +102,7 @@ const main = async (): Promise<void> => {
         if (configOptions) {
 
             let notifRoles = []
-            if ("notifRoles" in conifgOptions) notifRoles = configOptions.notifRoles
+            if ("notifRoles" in configOptions) notifRoles = configOptions.notifRoles
             NodeCacheObj.set("notifRoles", notifRoles)
 
             
