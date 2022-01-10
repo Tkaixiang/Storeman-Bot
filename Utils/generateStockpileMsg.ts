@@ -496,7 +496,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         if (targets) {
             for (const target in targets) {
                 if (target !== "_id") {
-                    targetMsg += `\`${lowerToOriginal[target]}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max}) ${"prodLocation" in targets[target] ? "[" + targets[target].prodLocation + "]" : ""}\n`
+                    targetMsg += `\`${lowerToOriginal[target]}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
                 }
             }
         }
