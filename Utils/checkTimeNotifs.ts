@@ -30,7 +30,7 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
     if (edited) {
         const configObj = (await collections.config.findOne({}))!
         if ("channelId" in configObj) {
-            if ("notifRoles" in configObj) {
+            if ("notifRoles" in configObj && warningMsg.length > 104) {
                 warningMsg += "\n"
                 for (let i = 0; i < configObj.notifRoles.length; i++) {
                     warningMsg += roleMention(configObj.notifRoles[i])
