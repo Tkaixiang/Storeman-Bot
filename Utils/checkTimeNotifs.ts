@@ -22,6 +22,9 @@ const checkTimeNotifs = async (client: Client) => {
                 warningMsg += `- \`${stockpileName}\` expires in <t:${Math.floor(timeLeftProperty.getTime() / 1000)}:R>\n`
                 stockpileTimes[stockpileName].timeNotificationLeft = newIndex // Set the stockpile to the next lowest boundry
             }
+            if (((timeLeftProperty - currentDate) / 1000) > timerBP[timerBP.length-1]) {
+                edited = true
+            }
         }
     }
 
