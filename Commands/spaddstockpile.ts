@@ -29,7 +29,7 @@ const spaddstockpile = async (interaction: CommandInteraction, client: Client): 
         let insertObj: any = {
             name: cleanedName, items: {}, lastUpdated: new Date()
         }
-        const configObj = await collections.config.findOne({})
+        const configObj = (await collections.config.findOne({}))!
         if ("orderSettings" in configObj) {
             await collections.config.updateOne({}, {$push: {orderSettings: cleanedName}})            
         }
