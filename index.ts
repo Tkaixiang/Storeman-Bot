@@ -176,7 +176,7 @@ const main = async (): Promise<void> => {
         });
 
         // Connect by logging into Discord
-        client.login(process.env.token)
+        client.login(process.env.STOCKPILER_TOKEN)
     }
     else {
         console.error("Failed to connect to MongoDB. Exiting now")
