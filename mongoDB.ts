@@ -9,7 +9,14 @@ let collections: collectionList;
 
 
 const open = async (): Promise<boolean> => {
-    const status = await MongoClient.connect("mongodb://localhost:27017", {
+    let uri = "mongodb://localhost:27017"
+    if (process.env.MONGODB_URI) {
+        uri = process.env.MONGODB_URI
+    }
+
+    console.info("Connecting to MongoDB at " + uri)
+
+    const status = await MongoClient.connect(uri, {
     }).then(async (client) => {
         const db = client.db('stockpiler')
         collections = {

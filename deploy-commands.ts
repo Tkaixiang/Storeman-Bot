@@ -121,7 +121,7 @@ const commands = [
 ]
     .map(command => command.toJSON());
 
-const rest = new REST({ version: '9' }).setToken(<string>process.env.token);
+const rest = new REST({ version: '9' }).setToken(<string>process.env.STOCKPILER_TOKEN);
 
 
 const insertCommands = async () => {
@@ -129,14 +129,14 @@ const insertCommands = async () => {
     // ClientId is the bot "Copy ID"
     // GuildId is the server "Copy ID"
     if (process.env.NODE_ENV === "development") {
-        await rest.put(Routes.applicationGuildCommands(<string>process.env.clientId, <string>process.env.guildId), { body: commands })
+        await rest.put(Routes.applicationGuildCommands(<string>process.env.STOCKPILER_CLIENT_ID, <string>process.env.STOCKPILER_GUILD_ID), { body: commands })
             .then(() => console.log('Successfully registered application commands to guild.'))
             .catch(console.error);
     }
     // Global commands for deployment (Global commands take at least 1 hour to update after each change)
     else {
         await rest.put(
-            Routes.applicationCommands(<string>process.env.clientId),
+            Routes.applicationCommands(<string>process.env.STOCKPILER_CLIENT_ID),
             { body: commands },
         ).then(() => console.log('Successfully registered application commands globally.'))
             .catch(console.error);

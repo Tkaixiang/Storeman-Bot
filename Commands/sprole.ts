@@ -30,7 +30,7 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
        
         let updateObj: any = {}
         updateObj[perms] = role.id
-         mongoSanitize.sanitize(updateObj)
+        mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
         await collections.config.updateOne({}, {$push: updateObj})
         await interaction.reply({content: "Successfully added " + role.name + " to " + "'" + perms +"' perms.", ephemeral: true})
 
@@ -41,7 +41,7 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
         if ("admin" in configObj) {
             for (let i = 0; i < configObj.admin.length; i++) {
                 if (configObj.admin[i] === role.id) {
-                    mongoSanitize.sanitize(configObj)
+                    mongoSanitize.sanitize(configObj, { replaceWith: "_" })
                     configObj.admin.slice(i, 1)
                     await collections.config.updateOne({}, {$set: {admin: configObj.admin}})
                     removed = true
@@ -52,7 +52,7 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
         if ("user" in configObj && !removed) {
             for (let i = 0; i < configObj.user.length; i++) {
                 if (configObj.user[i] === role.id) {
-                    mongoSanitize.sanitize(configObj)
+                    mongoSanitize.sanitize(configObj, { replaceWith: "_" })
                     configObj.user.slice(i, 1)
                     await collections.config.updateOne({}, {$set: {user: configObj.user}})
                     removed = true

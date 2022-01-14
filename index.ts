@@ -21,6 +21,7 @@ import buttonHandler from './Utils/buttonHandler'
 import checkTimeNotifs from './Utils/checkTimeNotifs'
 import http from 'http'
 import crypto from 'crypto'
+import argon2 from 'argon2';
 import spsettimeleft from './Commands/spsettimeleft'
 
 require('dotenv').config()
@@ -42,7 +43,7 @@ const firstTimeSetup = async (configOptions: any): Promise<void> => {
     if (!configOptions || !("password" in configOptions)) {
         const password = crypto.randomBytes(32).toString('hex')
         console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
-        await collections.config.insertOne({ version: currentVersion, password: password })
+        await collections.config.insertOne({ version: currentVersion, password: await argon2.hash(password) })
     }
     else await collections.config.updateOne({}, { $set: { version: currentVersion } })
     console.info("First time setup/update completed.")
@@ -176,7 +177,7 @@ const main = async (): Promise<void> => {
         });
 
         // Connect by logging into Discord
-        client.login(process.env.token)
+        client.login(process.env.STOCKPILER_TOKEN)
     }
     else {
         console.error("Failed to connect to MongoDB. Exiting now")
