@@ -58,6 +58,9 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             await collections.stockpiles.updateOne({ name: cleanName }, { $set: { timeLeft: newTimeLeft } })
             await interaction.followUp({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
 
+            const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+            const timerBP: any = NodeCacheObj.get("timerBP")
+            stockpileTimes[cleanName] = {timeLeft: newTimeLeft, timeNotificationLeft: timerBP.length - 1}
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
             await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
             checkTimeNotifs(interaction.client, true)

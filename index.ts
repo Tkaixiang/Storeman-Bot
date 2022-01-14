@@ -75,7 +75,7 @@ const main = async (): Promise<void> => {
         let stockpileTime: any = {}
         for (let i = 0; i < stockpiles.length; i++) {
             if ("timeLeft" in stockpiles[i]) {
-                let timeNotificationLeft = 0
+                let timeNotificationLeft = timerBP.length - 1
                 for (let x = 0; x < timerBP.length; x++) {
                     const timeLeftProperty: any = stockpiles[i].timeLeft
                     const currentDate: any = new Date()
