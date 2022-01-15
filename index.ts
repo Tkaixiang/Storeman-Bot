@@ -24,8 +24,9 @@ import crypto from 'crypto'
 import argon2 from 'argon2';
 import spsettimeleft from './Commands/spsettimeleft';
 import fs from 'fs';
+import neatCsv from 'neat-csv';
 
-require('dotenv').config()
+
 const port = 8090
 const host = '0.0.0.0'
 const currentVersion = 7
@@ -51,16 +52,18 @@ const firstTimeSetup = async (configOptions: any): Promise<void> => {
 }
 
 const main = async (): Promise<void> => {
+    const dotenv = await import('dotenv')
+    dotenv.config()
+
     // Create a new client instance 
     const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
     global.NodeCacheObj = new NodeCache({ checkperiod: 0, useClones: false });
-    const neatCsv = (await import('neat-csv')).default;
     const csvData = await neatCsv(fs.createReadStream("ItemNumbering.csv"))
     let itemList: String[] = []
     let listWithCrates: String[] = []
     let lowerToOriginal: any = {}
     let itemListCategoryMapping: any = {}
-    for (let i = 0; i < csvData.length; i++ ) {
+    for (let i = 0; i < csvData.length; i++) {
         const loweredName = csvData[i].Name.slice().replace(/\./g, "_").toLowerCase()
         itemList.push(loweredName)
         listWithCrates.push(loweredName + " crate")

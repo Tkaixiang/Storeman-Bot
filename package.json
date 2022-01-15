@@ -11,6 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/Tkaixiang/stockpiler-discord-bot.git"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "bugs": {
