@@ -23,7 +23,6 @@ import http from 'http'
 import crypto from 'crypto'
 import argon2 from 'argon2';
 import spsettimeleft from './Commands/spsettimeleft';
-import neatCsv from 'neat-csv';
 import fs from 'fs';
 
 require('dotenv').config()
@@ -55,6 +54,7 @@ const main = async (): Promise<void> => {
     // Create a new client instance 
     const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
     global.NodeCacheObj = new NodeCache({ checkperiod: 0, useClones: false });
+    const neatCsv = (await import('neat-csv')).default;
     const csvData = await neatCsv(fs.createReadStream("ItemNumbering.csv"))
     let itemList: String[] = []
     let listWithCrates: String[] = []
