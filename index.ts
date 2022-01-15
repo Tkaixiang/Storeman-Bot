@@ -24,9 +24,9 @@ import crypto from 'crypto'
 import argon2 from 'argon2';
 import spsettimeleft from './Commands/spsettimeleft';
 import fs from 'fs';
-import neatCsv from 'neat-csv';
+import csv from 'csv-parser';
 
-
+require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
 const currentVersion = 7
@@ -52,13 +52,25 @@ const firstTimeSetup = async (configOptions: any): Promise<void> => {
 }
 
 const main = async (): Promise<void> => {
-    const dotenv = await import('dotenv')
-    dotenv.config()
+    
 
     // Create a new client instance 
     const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
     global.NodeCacheObj = new NodeCache({ checkperiod: 0, useClones: false });
-    const csvData = await neatCsv(fs.createReadStream("ItemNumbering.csv"))
+    const csvData: Array<any> = await new Promise(function(resolve,reject){
+        let fetchData: any = [];
+        fs.createReadStream('ItemNumbering.csv')
+            .pipe(csv())
+            .on('data', (row) => {
+               fetchData.push(row)
+            })
+            .on('end', () => {
+                console.log('CSV file successfully processed');
+                console.log(fetchData);
+                resolve(fetchData);
+            })
+            .on('error', reject); 
+    })
     let itemList: String[] = []
     let listWithCrates: String[] = []
     let lowerToOriginal: any = {}
@@ -75,6 +87,7 @@ const main = async (): Promise<void> => {
     NodeCacheObj.set("listWithCrates", listWithCrates)
     NodeCacheObj.set("lowerToOriginal", lowerToOriginal)
     NodeCacheObj.set("itemListCategoryMapping", itemListCategoryMapping)
+   
 
     NodeCacheObj.set("timerBP", timerBP)
 

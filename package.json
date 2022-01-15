@@ -11,7 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/Tkaixiang/stockpiler-discord-bot.git"
   },
-  "type": "module",
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -22,12 +21,12 @@
     "@discordjs/builders": "^0.8.2",
     "@discordjs/rest": "^0.1.0-canary.0",
     "argon2": "^0.28.3",
+    "csv-parser": "^3.0.0",
     "discord-api-types": "^0.24.0",
     "discord.js": "^13.3.1",
     "dotenv": "^10.0.0",
     "express-mongo-sanitize": "^2.1.0",
     "mongodb": "^4.2.1",
-    "neat-csv": "^7.0.0",
     "node-cache": "^5.1.2",
     "string-similarity": "^4.0.4"
   },
