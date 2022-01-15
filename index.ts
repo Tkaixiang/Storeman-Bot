@@ -81,6 +81,7 @@ const main = async (): Promise<void> => {
         lowerToOriginal[loweredName] = csvData[i].Name
         itemListCategoryMapping[loweredName] = csvData[i].StockpileCategory
     }
+    console.log(lowerToOriginal)
 
     NodeCacheObj.set("itemList", itemList)
     NodeCacheObj.set("listWithCrates", listWithCrates)
