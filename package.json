@@ -26,6 +26,7 @@
     "dotenv": "^10.0.0",
     "express-mongo-sanitize": "^2.1.0",
     "mongodb": "^4.2.1",
+    "neat-csv": "^7.0.0",
     "node-cache": "^5.1.2",
     "string-similarity": "^4.0.4"
   },
