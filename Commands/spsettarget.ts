@@ -40,7 +40,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
                     .setStyle('PRIMARY')
                 ,
                 new MessageButton()
-                    .setCustomId('spsetamount==' + bestItem + " Crate==" + minimum_amount + "==" + maximum_amount)
+                    .setCustomId('spsettarget==' + bestItem + " Crate==" + minimum_amount + "==" + maximum_amount)
                     .setLabel(bestItem + " Crate")
                     .setStyle('PRIMARY'),
                     new MessageButton()
