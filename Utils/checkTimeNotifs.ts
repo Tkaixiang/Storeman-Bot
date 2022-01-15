@@ -14,6 +14,7 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
     for (const stockpileName in stockpileTimes) {
         const timeLeftProperty: any = stockpileTimes[stockpileName].timeLeft
         const currentDate: any = new Date()
+        
         if (stockpileTimes[stockpileName].timeNotificationLeft >= 0) {
             const currentTimeDiff = (timeLeftProperty - currentDate) / 1000
             if (currentTimeDiff <= timerBP[stockpileTimes[stockpileName].timeNotificationLeft]) {
