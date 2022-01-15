@@ -73,9 +73,21 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
 
         targetMsg = "**__Targets__** \n\n"
         if (targets) {
+            let sortedTargets: any = {}
             for (const target in targets) {
                 if (target !== "_id") {
-                    targetMsg += `\`${lowerToOriginal[target]}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
+                    const currentCat = itemListCategoryMapping[target]
+                    const currentMsg = `\`${lowerToOriginal[target]}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
+                
+                    if (currentCat in sortedTargets) sortedTargets[currentCat].push(currentMsg)
+                    else sortedTargets[currentCat] = [currentMsg]
+                    }
+            }
+
+            for (const category in sortedTargets) {
+                targetMsg += "__" + category + "__\n"
+                for (let i = 0; i < sortedTargets[category].length; i++) {
+                    targetMsg += sortedTargets[category][i]
                 }
             }
         }
