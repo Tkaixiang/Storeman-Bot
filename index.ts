@@ -80,8 +80,16 @@ const main = async (): Promise<void> => {
         listWithCrates.push(loweredName + " crate")
         lowerToOriginal[loweredName] = csvData[i].Name
         lowerToOriginal[loweredName + " crate"] = csvData[i].Name + " crate"
-        itemListCategoryMapping[loweredName] = csvData[i].StockpileCategory
-        itemListCategoryMapping[loweredName + " crate"] = csvData[i].StockpileCategory
+
+        if (csvData[i].StockpileCategory === "Vehicle") {
+            itemListCategoryMapping[loweredName] = csvData[i].StockpileCategory
+            itemListCategoryMapping[loweredName + " crate"] = csvData[i].StockpileCategory + " Crate"
+        }
+        else {
+            itemListCategoryMapping[loweredName] = csvData[i].StockpileCategory
+            itemListCategoryMapping[loweredName + " crate"] = csvData[i].StockpileCategory
+        }
+     
     }
 
 
