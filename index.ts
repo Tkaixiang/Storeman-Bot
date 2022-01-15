@@ -81,6 +81,7 @@ const main = async (): Promise<void> => {
         lowerToOriginal[loweredName] = csvData[i].Name
         lowerToOriginal[loweredName + " crate"] = csvData[i].Name + " crate"
         itemListCategoryMapping[loweredName] = csvData[i].StockpileCategory
+        itemListCategoryMapping[loweredName + " crate"] = csvData[i].StockpileCategory
     }
 
 
