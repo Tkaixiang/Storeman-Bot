@@ -44,7 +44,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                 const currentCat = itemListCategoryMapping[item]
                 const currentMsg = "`" + lowerToOriginal[item] + "` - " + current.items[item] + "\n"
                 if (currentCat in sortedItems) sortedItems[currentCat].push(currentMsg)
-                else sortedItems = [currentMsg]
+                else sortedItems[currentCat] = [currentMsg]
 
                 if (item in totals) totals[item] += current.items[item]
                 else totals[item] = current.items[item]
