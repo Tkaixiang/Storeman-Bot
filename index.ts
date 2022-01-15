@@ -66,7 +66,6 @@ const main = async (): Promise<void> => {
             })
             .on('end', () => {
                 console.log('CSV file successfully processed');
-                console.log(fetchData);
                 resolve(fetchData);
             })
             .on('error', reject); 
