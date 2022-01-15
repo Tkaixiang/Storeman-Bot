@@ -3,8 +3,8 @@
 FROM node:lts-alpine
 RUN apk add --no-cache g++ make python3
 
-RUN ln -s /run/secrets/dotenv .env
 WORKDIR /app
+RUN ln -s /run/secrets/dotenv .env
 
 COPY . .
 RUN npm install --production
