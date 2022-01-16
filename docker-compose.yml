@@ -3,6 +3,8 @@ version: '3.8'
 services:
   bot:
     image: ghcr.io/tkaixiang/storeman-bot:latest
+    depends_on: 
+      - mongo
     environment:
       MONGODB_URI: mongodb://mongo:27017/
     ports: 

@@ -2,7 +2,7 @@ name: Docker
 
 on:
   push:
-    branches: [ main ]
+    branches: [ '*' ]
     tags: [ 'v*' ]
   pull_request:
     branches: [ main ]
@@ -47,14 +47,15 @@ jobs:
             type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
             type=ref,event=branch
             type=ref,event=tag
-            type=ref,event=pr
 
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v2 
         with:
           context: .
-          platforms: linux/amd64,linux/arm64,linux/arm
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64,linux/arm
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
