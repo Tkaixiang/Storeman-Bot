@@ -20,8 +20,6 @@ FROM base AS app
 
 COPY --from=npm /app/node_modules ./node_modules
 COPY . .
-
-RUN ln -s /run/secrets/dotenv .env
 RUN npx tsc
 
 EXPOSE 8090

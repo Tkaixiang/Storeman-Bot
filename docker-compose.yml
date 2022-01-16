@@ -10,7 +10,8 @@ services:
     ports: 
       - "8090:8090"
     secrets:
-      - dotenv
+      - source: dotenv
+        target: /app/.env
 
   mongo:
     image: mongo:latest
