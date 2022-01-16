@@ -2,13 +2,13 @@
 
 FROM node:lts-alpine AS base
 
+WORKDIR /app
+ENV NODE_ENV=production
+
 RUN npm install -g npm@latest
 
 
 FROM base AS npm
-
-WORKDIR /app
-ENV NODE_ENV=production
 
 RUN apk add --no-cache g++ make python3
 
@@ -17,9 +17,6 @@ RUN npm ci
 
 
 FROM base AS app
-
-WORKDIR /app
-ENV NODE_ENV=production
 
 COPY --from=npm /app/node_modules ./node_modules
 COPY . .
