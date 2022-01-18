@@ -37,7 +37,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         for (let i = 0; i < stockpiles.length; i++) {
             const current = stockpiles[i]
             let currentStockpileMsg = ""
-            currentStockpileMsg += `**${current.name}** (last scan <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""}\n`
+            currentStockpileMsg += `**${"prettyName" in configObj && current.name in configObj.prettyName ? configObj.prettyName[current.name] : current.name}** (last scan <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""}\n`
             let sortedItems: any = {}
             for (const item in current.items) {
 

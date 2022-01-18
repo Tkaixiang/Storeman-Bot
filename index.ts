@@ -25,11 +25,13 @@ import argon2 from 'argon2';
 import spsettimeleft from './Commands/spsettimeleft';
 import fs from 'fs';
 import csv from 'csv-parser';
+import spaddprettyname from './Commands/spaddprettyname'
+import spremoveprettyname from './Commands/spremoveprettyname'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 7
+const currentVersion = 8
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
 declare global {
@@ -200,6 +202,10 @@ const main = async (): Promise<void> => {
                 else if (commandName === "spnotif") {
                     if (interaction.options.getSubcommand() === 'add') await spnotif(interaction, client, true)
                     else if (interaction.options.getSubcommand() === 'remove') await spnotif(interaction, client, false)
+                }
+                else if (commandName === "spprettyname") {
+                    if (interaction.options.getSubcommand() === 'add') await spaddprettyname(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremoveprettyname(interaction, client)
                 }
                 else if (commandName === "spitems") await spitems(interaction)
                 else if (commandName === "spsetorder") await spsetorder(interaction, client)

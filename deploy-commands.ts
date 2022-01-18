@@ -117,6 +117,22 @@ const commands = [
                 .addRoleOption(option => option.setName("role").setDescription("The role to remove").setRequired(true))
 
         ),
+    new SlashCommandBuilder().setName('spprettyname')
+        .setDescription('Role and permissions settings')
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("add")
+                .setDescription("Adds a <pretty_name> to the <stockpile>. Pretty names are alternative names")
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to add a pretty name to").setRequired(true))
+                .addStringOption(option => option.setName("pretty_name").setDescription("The pretty name to add").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("Removes a pretty name from the <stockpile>. Pretty names are alternative names")
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a pretty name from").setRequired(true))
+
+        ),
 
 ]
     .map(command => command.toJSON());
