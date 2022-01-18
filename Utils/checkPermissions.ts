@@ -22,7 +22,7 @@ const checkPermissions = async (interaction: CommandInteraction | MessageCompone
     if (roleType === "admin") {
         if (permsLevel === 2) return true
         else {
-            interaction.followUp({ content: "Insufficient perms, you need at least '" + roleType + "'👨‍⚖️  to use this command", ephemeral: true })
+            interaction.reply({ content: "Insufficient perms, you need at least '" + roleType + "'👨‍⚖️  to use this command", ephemeral: true })
             return false
         }
 
@@ -30,7 +30,7 @@ const checkPermissions = async (interaction: CommandInteraction | MessageCompone
     else {
         if (permsLevel >= 1) return true
         else {
-            interaction.followUp({ content: "Insufficient perms, you need at least '" + roleType + "'🙍‍♂️ to use this command", ephemeral: true })
+            interaction.reply({ content: "Insufficient perms, you need at least '" + roleType + "'🙍‍♂️ to use this command", ephemeral: true })
             return false
         }
 
