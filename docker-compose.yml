@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  bot:
+    image: ghcr.io/tkaixiang/storeman-bot:latest
+    depends_on: 
+      - mongo
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/
+    ports: 
+      - "8090:8090"
+    secrets:
+      - source: dotenv
+        target: /app/.env
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
+
+secrets:
+  dotenv: 
+    file: ./.env

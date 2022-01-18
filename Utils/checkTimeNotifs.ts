@@ -2,6 +2,22 @@ import { Client, TextChannel } from "discord.js"
 import { getCollections } from "../mongoDB"
 const {  roleMention } = require('@discordjs/builders');
 
+let queue: Array<any> = []
+
+const checkTimeNotifsQueue = async (client: Client, forceEdit: boolean=false): Promise<Boolean> => {
+    queue.push({ client: client, forceEdit: forceEdit})
+
+    if (queue.length === 1) {
+        console.log("No queue ahead. Starting")
+
+        checkTimeNotifs(queue[0].client, queue[0].forceEdit)
+    }
+    else {
+        console.log("Update event ahead queued, current length in queue: " + queue.length)
+    }
+
+    return true
+}
 const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
     console.log("Checking time now")
     let edited = false
@@ -55,7 +71,12 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
 
         }
     }
+    queue.splice(0, 1)
+        if (queue.length > 0) {
+            console.log("Finished 1, starting next in queue, remaining queue: " + queue.length)
+            checkTimeNotifs(queue[0].client, queue[0].forceEdit)
+        }
 
 }
 
-export default checkTimeNotifs
+export default checkTimeNotifsQueue
