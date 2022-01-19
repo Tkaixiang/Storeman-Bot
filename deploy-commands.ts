@@ -144,7 +144,7 @@ const insertCommands = async () => {
     // Guild based commands for development
     // ClientId is the bot "Copy ID"
     // GuildId is the server "Copy ID"
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.STOCKPILER_GUILD_ID && process.env.STOCKPILER_GUILD_ID !== "") {
         await rest.put(Routes.applicationGuildCommands(<string>process.env.STOCKPILER_CLIENT_ID, <string>process.env.STOCKPILER_GUILD_ID), { body: commands })
             .then(() => console.log('Successfully registered application commands to guild.'))
             .catch(console.error);
