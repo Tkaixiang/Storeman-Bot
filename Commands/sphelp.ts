@@ -20,6 +20,9 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 - \`/spsettimeleft <stockpile> <time>\` Sets the time left for a reserve <stockpile> before it expires. NOTE: <time> is a UNIX TIMESTAMP
 - \`/spnotif add <role>\` Adds a <role> to the notification stockpile expiry warning mention list.
 - \`/spnotif remove <role>\` Removes a <role> to the notification stockpile expiry warning mention list.
+- \`/spprettyname add <stockpile> <pretty_name>\` Adds a <pretty_name> to the <stockpile>. Pretty names are alternative names used to display the stockpile name instead of the original name.
+- \`/spprettyname remove <stockpile>\` Removes a pretty name from the <stockpile>. Pretty names are alternative names used to display the stockpile name instead of the original name.
+
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
 🙍‍♂️ - Commands that require at least \`User\` permissions
