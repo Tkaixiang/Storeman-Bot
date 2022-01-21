@@ -2,7 +2,11 @@ import { CommandInteraction } from "discord.js";
 
 const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
     await interaction.reply({
-        content: `**__Foxhole Stockpiler Discord Bot Version 0.1__** 
+        content: "Working on it...",
+        ephemeral: true
+    });
+
+    let msg = `**__Foxhole Stockpiler Discord Bot Version 0.1__** 
 **Commands:**
 - \`/sphelp\` Displays this message.
 - \`/spstatus\` Displays the current stockpile status. 🙍‍♂️
@@ -28,9 +32,28 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 🙍‍♂️ - Commands that require at least \`User\` permissions
 
 Currently in alpha testing, contact Tkai#8276 for help.
-        `,
-        ephemeral: true
-    });
+        `
+
+    while (msg.length > 0) {
+        if (msg.length > 2000) {
+            const sliced = msg.slice(0, 2000)
+            const lastEnd = sliced.lastIndexOf("\n")
+            const finalMsg = sliced.slice(0, lastEnd)
+
+            await interaction.followUp({
+                content: finalMsg,
+                ephemeral: true
+            });
+            msg = msg.slice(lastEnd, msg.length)
+        }
+        else {
+            await interaction.followUp({
+                content: msg,
+                ephemeral: true
+            });
+            msg = ""
+        }
+    }
 
     return true;
 }
