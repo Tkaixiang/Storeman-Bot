@@ -79,7 +79,11 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                     const currentCat = itemListCategoryMapping[target]
                     let icon = "❌"
                     if (totals[target] >= targets[target].min) icon = "✅"
-                    else if (totals[target] / targets[target].min >= 0.5) icon = "⚠️"
+                    else {
+                        const percentage = totals[target] / targets[target].min
+                        if (percentage >= 0.75) icon = "⚠️"
+                        else if (percentage >= 0.5) icon = "🟠"
+                    }
 
                     const currentMsg = `${target in totals ? totals[target] : "0"}/${targets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
 
