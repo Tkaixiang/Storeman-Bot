@@ -42,7 +42,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             for (const item in current.items) {
 
                 const currentCat = itemListCategoryMapping[item]
-                const currentMsg = "`" + lowerToOriginal[item] + "` - " + current.items[item] + "\n"
+                const currentMsg = current.items[item] + " - `" + lowerToOriginal[item] + "`" + "\n"
                 if (currentCat in sortedItems) sortedItems[currentCat].push(currentMsg)
                 else sortedItems[currentCat] = [currentMsg]
 
@@ -77,7 +77,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             for (const target in targets) {
                 if (target !== "_id") {
                     const currentCat = itemListCategoryMapping[target]
-                    const currentMsg = `\`${lowerToOriginal[target]}\` - ${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} (Max: ${targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
+                    const currentMsg = `${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} - \`${lowerToOriginal[target]}\` (Max: ${targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
                 
                     if (currentCat in sortedTargets) sortedTargets[currentCat].push(currentMsg)
                     else sortedTargets[currentCat] = [currentMsg]
