@@ -11,7 +11,9 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
 
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(false)
     if (filter) {
-        if (filter === "targets") interaction.editReply(targetMsg)
+        if (filter === "targets") {
+            await interaction.editReply(targetMsg)
+        } 
     }
     else {
         if (stockpile) {
