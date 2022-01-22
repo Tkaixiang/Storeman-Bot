@@ -50,7 +50,12 @@ const commands = [
                     option.setName("item").setDescription("The item name").setRequired(true)
                 )
         ),
-    new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current stockpile and target information'),
+    new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current stockpile and target information')
+        .addStringOption(
+            (option) => option.setName("filter").setDescription("View a filtered version of spstatus such as view only targets, or important items only").addChoices([["Targets", "targets"]]).setRequired(false)
+        )
+        .addStringOption((option) => option.setName("stockpile").setDescription("View items in a <stockpile> only").setRequired(false))
+    ,
     new SlashCommandBuilder().setName('spsetpassword').setDescription('Sets the password the Stockpiler app uses to update information to the database.')
         .addStringOption((option) => option.setName("password").setDescription("The new password").setRequired(true)),
     new SlashCommandBuilder().setName('spsetorder').setDescription('Sets the order of a <stockpile> to <order> number in the list')
