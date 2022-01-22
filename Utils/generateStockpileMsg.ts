@@ -77,11 +77,15 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             for (const target in targets) {
                 if (target !== "_id") {
                     const currentCat = itemListCategoryMapping[target]
-                    const currentMsg = `${target in totals ? totals[target] : "0"}/${targets[target].min} ${totals[target] >= targets[target].min ? "✅" : "❌"} - \`${lowerToOriginal[target]}\` (Max: ${targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
-                
+                    let icon = "❌"
+                    if (totals[target] >= targets[target].min) icon = "✅"
+                    else if (totals[target] / targets[target].min >= 0.5) icon = "⚠️"
+
+                    const currentMsg = `${target in totals ? totals[target] : "0"}/${targets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
+
                     if (currentCat in sortedTargets) sortedTargets[currentCat].push(currentMsg)
                     else sortedTargets[currentCat] = [currentMsg]
-                    }
+                }
             }
 
             for (const category in sortedTargets) {
