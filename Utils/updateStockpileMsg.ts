@@ -1,5 +1,6 @@
 import { Client, MessageActionRow, MessageButton, TextChannel } from "discord.js"
 import { getCollections } from '../mongoDB';
+import checkTimeNotifsQueue from "./checkTimeNotifs";
 let queue: Array<any> = []
 
 const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<string>, string, string], stockpileNames: String[]): Promise<Boolean> => {
@@ -109,6 +110,8 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 }
                 const newTargetMsgObj = await channelObj.send(msg[2])
                 updateObj.targetMsg = newTargetMsgObj.id
+
+                checkTimeNotifsQueue(client, true)
             }
             else {
                 msgObj = await channelObj.messages.fetch(configObj.targetMsg)
