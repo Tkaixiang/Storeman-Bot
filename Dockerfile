@@ -24,4 +24,4 @@ RUN npx tsc
 RUN npm install pm2@latest -g
 
 EXPOSE 8090
-CMD ["pm2", "start", "index.js"]
+CMD ["pm2-runtime", "index.js"]
