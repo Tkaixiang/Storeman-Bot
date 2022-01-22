@@ -35,6 +35,8 @@ const spaddprettyname = async (interaction: CommandInteraction, client: Client):
             prettyNameObj[cleanedName] = cleanedPrettyName
             await collections.config.updateOne({}, { $set: { prettyName: prettyNameObj } })
         }
+        const prettyName: any = NodeCacheObj.get("prettyName")
+        prettyName[cleanedName] = cleanedPrettyName
         await interaction.editReply({ content: "Added the pretty name `" + prettyName + "` to stockpile `" + stockpile + "` successfully." })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)

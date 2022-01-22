@@ -20,21 +20,20 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     else {
         if (stockpile) {
             const collections = getCollections()
-            const configObj = (await collections.config.findOne({}))!
 
             stockpile = stockpile.replace(/\./g, "").replace(/\$/g, "")
 
             const stockpiles = await collections.stockpiles.find({}).toArray()
             const itemListCategoryMapping: any = NodeCacheObj.get("itemListCategoryMapping")
             const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
+            const prettyName: any = NodeCacheObj.get("prettyName")
 
             for (let i = 0; i < stockpiles.length; i++) {
                 const current = stockpiles[i]
-                const currentName = "prettyName" in configObj && current.name in configObj.prettyName ? configObj.prettyName[current.name] : current.name
 
-                if (currentName === stockpile) {
+                if (current.name === stockpile) {
                     let currentStockpileMsg = ""
-                    currentStockpileMsg += `**${currentName}** (last scan <t:${Math.floor(current.lastUpdated.getTime() / 1000)}>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""}\n`
+                    currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""} ${current.name in prettyName ? "[a.k.a" + current.name + "]" : ""}\n`
                     let sortedItems: any = {}
                     for (const item in current.items) {
 

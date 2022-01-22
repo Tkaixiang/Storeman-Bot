@@ -26,6 +26,8 @@ const spremoveprettyname = async (interaction: CommandInteraction, client: Clien
         const configObj = (await collections.config.findOne({}))!
         delete configObj.prettyName[cleanedName] 
         await collections.config.updateOne({}, { $set: { prettyName: configObj.prettyName } })
+        const prettyName: any = NodeCacheObj.get("prettyName")
+        delete prettyName[cleanedName]
         await interaction.editReply({ content: "Removed the pretty name from `" + stockpile + "` successfully." })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)

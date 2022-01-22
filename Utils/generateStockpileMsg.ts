@@ -5,6 +5,7 @@ import { getCollections } from '../mongoDB';
 const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     const collections = getCollections()
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
+    const prettyName: any = NodeCacheObj.get("prettyName")
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
     let stockpileMsgs = NodeCacheObj.get("stockpileHeader") as Array<string>
@@ -37,7 +38,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         for (let i = 0; i < stockpiles.length; i++) {
             const current = stockpiles[i]
             let currentStockpileMsg = ""
-            currentStockpileMsg += `**${"prettyName" in configObj && current.name in configObj.prettyName ? configObj.prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""}\n`
+            currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""} ${current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
             let sortedItems: any = {}
             for (const item in current.items) {
 

@@ -76,6 +76,7 @@ const main = async (): Promise<void> => {
     let listWithCrates: String[] = []
     let lowerToOriginal: any = {}
     let itemListCategoryMapping: any = {}
+    
     for (let i = 0; i < csvData.length; i++) {
         const loweredName = csvData[i].Name.slice().replace(/\./g, "_").toLowerCase()
         itemList.push(loweredName)
@@ -158,14 +159,20 @@ const main = async (): Promise<void> => {
             let notifRoles = []
             if ("notifRoles" in configOptions) notifRoles = configOptions.notifRoles
             NodeCacheObj.set("notifRoles", notifRoles)
+            let prettyName: any = {}
+            if ("prettyName" in configOptions)  prettyName = configOptions.prettyName
+            NodeCacheObj.set("prettyName", prettyName)
 
 
             if (configOptions.version) {
                 if (configOptions.version < currentVersion) firstTimeSetup(configOptions)
             }
             else firstTimeSetup(configOptions)
+
         }
         else firstTimeSetup(configOptions)
+
+       
 
 
         // This is called once client(the bot) is ready

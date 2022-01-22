@@ -1,6 +1,6 @@
 import { Client, TextChannel } from "discord.js"
 import { getCollections } from "../mongoDB"
-const {  roleMention } = require('@discordjs/builders');
+import { roleMention } from '@discordjs/builders';
 
 let queue: Array<any> = []
 
@@ -23,6 +23,7 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
     let edited = false
     const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
     const timerBP = <Number[]>NodeCacheObj.get("timerBP")
+    const prettyName: any = NodeCacheObj.get("prettyName")
     const collections = getCollections()
     let warningMsg = `**Stockpile Expiry Warning**\nThe following stockpiles are about to expire, please kindly refresh them.\n\n`
 
@@ -38,7 +39,7 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
                 // Detected a stockpile that has past the allocated boundary expiry time
                 let newIndex = stockpileTimes[stockpileName].timeNotificationLeft - 1
                 edited = true
-                warningMsg += `- \`${stockpileName}\` expires in <t:${Math.floor(timeLeftProperty.getTime() / 1000)}:R>\n`
+                warningMsg += `- \`${stockpileName in prettyName ? prettyName[stockpileName] : stockpileName}\` expires in <t:${Math.floor(timeLeftProperty.getTime() / 1000)}:R> ${stockpileName in prettyName ? "[a.k.a " + prettyName[stockpileName] + "]" : ""}\n`
                 stockpileTimes[stockpileName].timeNotificationLeft = newIndex // Set the stockpile to the next lowest boundry
             }
         }
