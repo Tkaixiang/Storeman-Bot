@@ -58,7 +58,6 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     }
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateMsg(false)
     const newMsg = await channelObj.send(stockpileHeader)
-    const targetMsgID = await channelObj.send(targetMsg)
     const stockpileMsgsHeaderID = await channelObj.send(stockpileMsgsHeader)
     let stockpileMsgIDs: any = []
     let stockpileIndex = 0
@@ -82,6 +81,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
 
 
     }
+    const targetMsgID = await channelObj.send(targetMsg)
     await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id, stockpileMsgs: stockpileMsgIDs, targetMsg: targetMsgID.id, channelId: channel.id, stockpileMsgsHeader: stockpileMsgsHeaderID.id } })
 
 

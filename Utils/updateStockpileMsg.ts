@@ -23,6 +23,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
 
         const configObj = (await collections.config.findOne({}))!
         let editedMsgs = false
+        let newMsgsSent = false
         let stockpileIndex = 0
 
         // update msg if logi channel is set
@@ -30,8 +31,6 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
             const channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
             let msgObj = await channelObj.messages.fetch(configObj.stockpileHeader)
             await msgObj.edit(msg[0])
-            msgObj = await channelObj.messages.fetch(configObj.targetMsg)
-            await msgObj.edit(msg[2])
             msgObj = await channelObj.messages.fetch(configObj.stockpileMsgsHeader)
             await msgObj.edit(msg[3])
             for (let i = 0; i < msg[1].length; i++) {
@@ -80,6 +79,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                         configObj.stockpileMsgs.push(newMsg.id)
                         if (!editedMsgs) editedMsgs = true
                     }
+                    newMsgsSent = true
 
                 }
             }
@@ -96,7 +96,29 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 configObj.stockpileMsgs.pop()
 
             }
-            if (editedMsgs) await collections.config.updateOne({}, { $set: { stockpileMsgs: configObj.stockpileMsgs } })
+
+            let updateObj: any = {}
+            // Send the target msg last
+            if (newMsgsSent) {
+                msgObj = await channelObj.messages.fetch(configObj.targetMsg)
+                try {
+                    await msgObj.delete()
+                }
+                catch (e) {
+                    console.log("Failed to delete target msg, ignoring")
+                }
+                const newTargetMsgObj = await channelObj.send(msg[2])
+                updateObj.targetMsg = newTargetMsgObj.id
+            }
+            else {
+                msgObj = await channelObj.messages.fetch(configObj.targetMsg)
+                await msgObj.edit(msg[2])
+            }
+
+            if (editedMsgs) {
+                updateObj.stockpileMsgs = configObj.stockpileMsgs
+                await collections.config.updateOne({}, { $set: updateObj })
+            } 
         }
 
         queue.splice(0, 1)
