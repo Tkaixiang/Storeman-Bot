@@ -21,6 +21,7 @@ FROM base AS app
 COPY --from=npm /app/node_modules ./node_modules
 COPY . .
 RUN npx tsc
+RUN npm install pm2@latest -g
 
 EXPOSE 8090
-CMD ["node", "index.js"]
+CMD ["pm2", "start", "index.js"]
