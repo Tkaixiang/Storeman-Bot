@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   bot:
+    build: .
     image: ghcr.io/tkaixiang/storeman-bot:latest
     depends_on: 
       - mongo
