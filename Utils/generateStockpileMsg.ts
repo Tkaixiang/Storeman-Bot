@@ -8,11 +8,11 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     const prettyName: any = NodeCacheObj.get("prettyName")
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
-    let stockpileMsgs = NodeCacheObj.get("stockpileHeader") as Array<string>
-    let targetMsg = NodeCacheObj.get("targetMsg") as string
+    let stockpileMsgs = NodeCacheObj.get("stockpileMsgs") as Array<string>
+    let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
     let stockpileNames: String[] = []
 
-    if (updateMsg || !stockpileMsgs || !targetMsg) {
+    if (updateMsg || !stockpileMsgs || !targetMsgs) {
         const targets = await collections.targets.findOne({})
         const stockpilesList = await collections.stockpiles.find({}).toArray()
         const configObj = (await collections.config.findOne({}))!
@@ -72,7 +72,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             stockpileNames.push(current.name)
         }
 
-        targetMsg = "**__Targets__** \n\n"
+        targetMsgs = []
+        let targetMsg = "**__Targets__** \n\n"
         if (targets) {
             let sortedTargets: any = {}
             for (const target in targets) {
@@ -99,14 +100,25 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                     targetMsg += sortedTargets[category][i]
                 }
             }
+
+            while (targetMsg.length > 2000) {
+
+                const sliced = targetMsg.slice(0, 2000)
+                const lastEnd = sliced.lastIndexOf("\n")
+                const finalMsg = sliced.slice(0, lastEnd)
+
+                targetMsgs.push(finalMsg)
+                targetMsg = targetMsg.slice(lastEnd, targetMsg.length)
+            }
+            targetMsgs.push(targetMsg)
         }
         targetMsg += "\n"
 
         NodeCacheObj.set("stockpileMsgs", stockpileMsgs)
-        NodeCacheObj.set("targetMsg", targetMsg)
+        NodeCacheObj.set("targetMsgs", targetMsgs)
     }
 
-    return [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames]
+    return [stockpileHeader, stockpileMsgs, targetMsgs, stockpileMsgsHeader, stockpileNames]
 }
 
 

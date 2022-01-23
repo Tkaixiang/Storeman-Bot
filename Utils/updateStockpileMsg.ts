@@ -99,29 +99,75 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
             }
 
             let updateObj: any = {}
+
             // Send the target msg last
             if (newMsgsSent) {
-                msgObj = await channelObj.messages.fetch(configObj.targetMsg)
-                try {
-                    await msgObj.delete()
+                let targetMsgIDs = []
+                for (let i = 0; i < configObj.targetMsg.length; i++) {
+                    try {
+                        const targetMsg = await channelObj.messages.fetch(configObj.targetMsg[i])
+                        await targetMsg.delete()
+                    }
+                    catch (e) {
+                        console.log("Failed to delete a targetMsg")
+                    }
                 }
-                catch (e) {
-                    console.log("Failed to delete target msg, ignoring")
+                for (let i = 0; i < msg[2].length; i++) {
+                    try {
+                        const targetMsg = await channelObj.send(msg[2][i])
+                        targetMsgIDs.push(targetMsg.id)
+                    }
+                    catch (e) {
+                        console.log("Failed to send a targetMsg")
+                    }
                 }
-                const newTargetMsgObj = await channelObj.send(msg[2])
-                updateObj.targetMsg = newTargetMsgObj.id
+                updateObj.targetMsg = targetMsgIDs
 
                 checkTimeNotifsQueue(client, true)
             }
             else {
-                msgObj = await channelObj.messages.fetch(configObj.targetMsg)
-                await msgObj.edit(msg[2])
+                for (let i = 0; i < msg[2].length; i++) {
+                    if (i < configObj.targetMsg.length) {
+                        try {
+                            msgObj = await channelObj.messages.fetch(configObj.targetMsg[i])
+                            await msgObj.edit(msg[2][i])
+
+                        }
+                        catch (e) {
+                            console.log(e)
+                            console.log("Failed to edit msg, skipping...")
+                        }
+                    }
+                    else {
+                        const newMsg = await channelObj.send(msg[2][i])
+                        configObj.targetMsg.push(newMsg.id)
+                        if (!editedMsgs) editedMsgs = true
+                    }
+                }
+
+                const difference2 = configObj.targetMsg.length - msg[2].length
+                for (let i = 0; i < difference2; i++) {
+                    if (!editedMsgs) editedMsgs = true
+                    try {
+                        msgObj = await channelObj.messages.fetch(configObj.targetMsg[configObj.targetMsg.length - 1 - i])
+                        await msgObj.delete()
+                    }
+                    catch (e) {
+                        console.log("Failed to delete last unused target msg")
+                    }
+                    configObj.targetMsg.pop()
+    
+                }
+    
+                if (editedMsgs) {
+                    updateObj.stockpileMsgs = configObj.stockpileMsgs
+                    await collections.config.updateOne({}, { $set: updateObj })
+                }
+
+                updateObj.targetMsg = configObj.targetMsg
             }
 
-            if (editedMsgs) {
-                updateObj.stockpileMsgs = configObj.stockpileMsgs
-                await collections.config.updateOne({}, { $set: updateObj })
-            } 
+           
         }
 
         queue.splice(0, 1)
