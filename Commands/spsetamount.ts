@@ -104,7 +104,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
 
     await interaction.editReply({
-        content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`"
+        content: "Item `" + lowerToOriginal[item] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`"
     });
 
     return true;

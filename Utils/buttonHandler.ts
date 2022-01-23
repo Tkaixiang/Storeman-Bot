@@ -14,6 +14,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
     if (command === "spsetamount") {
         if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
+        const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
 
         await interaction.update({ content: "Working on it...", components: [] })
         const item = splitted[1]
@@ -38,7 +39,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             await collections.config.updateOne({}, { $push: { orderSettings: stockpileName.replace(/\./g, "").replace(/\$/g, "") } })
         }
 
-        await interaction.followUp({ content: "Item `" + item + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
+        await interaction.followUp({ content: "Item `" + lowerToOriginal[item] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
@@ -72,7 +73,8 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
     }
     else if (command === "spsettarget") {
         if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
-
+        const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
+        
         await interaction.update({ content: "Working on it...", components: [] })
 
         let item = splitted[1]! // Tell typescript to shut up and it is non-null
@@ -92,7 +94,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
 
         await interaction.followUp({
-            content: `Item \`${item}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
+            content: `Item \`${lowerToOriginal[item]}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
         });
     }
 
