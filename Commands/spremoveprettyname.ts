@@ -17,7 +17,7 @@ const spremoveprettyname = async (interaction: CommandInteraction, client: Clien
         return false
     }
 
-    await interaction.reply('Working on it');
+    await interaction.reply({content: 'Working on it', ephemeral: true});
     const collections = getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const stockpileExist = await collections.stockpiles.findOne({ name: cleanedName })

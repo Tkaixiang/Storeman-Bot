@@ -24,7 +24,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
         return false
     }
 
-    await interaction.reply('Working on it');
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
 
     const collections = getCollections()
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>

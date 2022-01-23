@@ -10,19 +10,18 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
     const collections = getCollections()
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
+    await interaction.reply({content: 'Working on it', ephemeral: true});
     if (set) {
         const perms = interaction.options.getString("perms")!
         if (!perms || !role) {
-            await interaction.reply({
-                content: "Missing parameters",
-                ephemeral: true
+            await interaction.editReply({
+                content: "Missing parameters"
             });
             return false
         }
         if (!permsList.includes(perms)) {
-            await interaction.reply({
-                content: "Invalid permissions. Please use either 'admin' or 'user' (case-insensitive).",
-                ephemeral: true
+            await interaction.editReply({
+                content: "Invalid permissions. Please use either 'admin' or 'user' (case-insensitive)."
             });
             return false
         }
@@ -32,7 +31,7 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
         updateObj[perms] = role.id
         mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
         await collections.config.updateOne({}, {$push: updateObj})
-        await interaction.reply({content: "Successfully added " + role.name + " to " + "'" + perms +"' perms.", ephemeral: true})
+        await interaction.editReply({content: "Successfully added " + role.name + " to " + "'" + perms +"' perms."})
 
     }
     else {
@@ -60,8 +59,8 @@ const sprole = async (interaction: CommandInteraction, client: Client, set: bool
                 } 
             }
         }
-        if (removed) await interaction.reply({content: "Successfully removed '" + role.name + "' removed any permissions."})
-        else await interaction.reply({content: "'" + role.name + "' does not have any permissions in Stockpiler Bot."})
+        if (removed) await interaction.editReply({content: "Successfully removed '" + role.name + "' removed any permissions."})
+        else await interaction.editReply({content: "'" + role.name + "' does not have any permissions in Stockpiler Bot."})
     }
 
     return true;

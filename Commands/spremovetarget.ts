@@ -20,7 +20,7 @@ const spremovetarget = async (interaction: CommandInteraction, client: Client): 
 
     
 
-    await interaction.reply('Working on it');
+    await interaction.reply({content: 'Working on it', ephemeral: true});
     const collections = getCollections()
     const cleanItem = item = item.toLowerCase()
     let updateObj: any = {}

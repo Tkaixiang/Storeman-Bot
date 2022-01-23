@@ -16,7 +16,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
         return false
     }
 
-    await interaction.reply('Working on it');
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
 
     const collections = getCollections()
     const channelObj = client.channels.cache.get(channel.id) as TextChannel

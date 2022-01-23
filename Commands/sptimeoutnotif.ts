@@ -14,7 +14,7 @@ const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, s
         return false
     }
 
-    await interaction.reply({ content: "Working on it..." })
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
 
     const configObj = (await collections.config.findOne({}))!
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false

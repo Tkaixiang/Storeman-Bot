@@ -20,7 +20,7 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
         return false
     }
 
-    await interaction.reply('Working on it');
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = getCollections()
     const cleanName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const stockpileExist = await collections.stockpiles.findOne({ name: cleanName })

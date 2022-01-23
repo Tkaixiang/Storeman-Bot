@@ -17,7 +17,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         return false
     }
 
-    await interaction.reply('Working on it');
+    await interaction.reply({content: 'Working on it', ephemeral: true});
     const collections = getCollections()
     const searchQuery = new RegExp(stockpile.replace(/\./g, "").replace(/\$/g, ""), "i")
     if ((await collections.stockpiles.deleteOne({ name: searchQuery })).deletedCount > 0) {

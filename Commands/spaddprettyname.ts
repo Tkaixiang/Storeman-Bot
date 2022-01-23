@@ -18,7 +18,7 @@ const spaddprettyname = async (interaction: CommandInteraction, client: Client):
         return false
     }
 
-    await interaction.reply('Working on it');
+    await interaction.reply({content: 'Working on it', ephemeral: true});
     const collections = getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const cleanedPrettyName = prettyName.replace(/\./g, "").replace(/\$/g, "")
