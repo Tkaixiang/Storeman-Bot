@@ -83,7 +83,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                     if (totals[target] >= targets[target].min) icon = "✅"
                     else {
                         const percentage = totals[target] / targets[target].min
-                        if (percentage >= 0.75) icon = "⚠️"
+                        if (percentage >= 0.75) icon = "🟡"
                         else if (percentage >= 0.5) icon = "🟠"
                     }
 
