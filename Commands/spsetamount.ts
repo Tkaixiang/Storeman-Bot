@@ -9,6 +9,7 @@ import mongoSanitize from "express-mongo-sanitize";
 const spsetamount = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
     let item = <string>interaction.options.getString("item") // Tell typescript to shut up cause it's gonna return a string and not null
     const amount = interaction.options.getInteger("amount")
+    const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const stockpileName = interaction.options.getString("stockpile")
     const collections = getCollections()
 
@@ -40,12 +41,12 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
                 .addComponents(
                     new MessageButton()
                         .setCustomId('spsetamount==' + bestItem + "==" + amount + "==" + stockpileName)
-                        .setLabel(bestItem)
+                        .setLabel(lowerToOriginal[bestItem])
                         .setStyle('PRIMARY')
                     ,
                     new MessageButton()
                         .setCustomId('spsetamount==' + bestItem + " Crate==" + amount + "==" + stockpileName)
-                        .setLabel(bestItem + " Crate")
+                        .setLabel(lowerToOriginal[bestItem] + " Crate")
                         .setStyle('PRIMARY'),
                     new MessageButton()
                         .setCustomId('cancel')
@@ -54,7 +55,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
                 );
 
             await interaction.editReply({
-                content: `Item \`'${item}'\` was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`,
+                content: `Item \`'${item}'\` was not found. Did you mean: '${lowerToOriginal[bestItem]}' or '${lowerToOriginal[bestItem] + " Crate"}' instead?`,
                 components: [row]
             });
             return false
@@ -77,12 +78,12 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
                 .addComponents(
                     new MessageButton()
                         .setCustomId('spsetamount==' + bestItem + "==" + amount + "==" + stockpileName)
-                        .setLabel(bestItem)
+                        .setLabel(lowerToOriginal[bestItem])
                         .setStyle('PRIMARY')
                     ,
                     new MessageButton()
                         .setCustomId('spsetamount==' + bestItem + " Crate==" + amount + "==" + stockpileName)
-                        .setLabel(bestItem + " Crate")
+                        .setLabel(lowerToOriginal[bestItem] + " Crate")
                         .setStyle('PRIMARY'),
                     new MessageButton()
                         .setCustomId('cancel')
@@ -91,7 +92,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
                 );
 
             await interaction.editReply({
-                content: `Item \`'${item}'\` was not found. Did you mean: '${bestItem}' or '${bestItem + " Crate"}' instead?`,
+                content: `Item \`'${item}'\` was not found. Did you mean: '${lowerToOriginal[bestItem]}' or '${lowerToOriginal[bestItem] + " Crate"}' instead?`,
                 components: [row]
             });
             return false

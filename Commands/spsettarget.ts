@@ -10,6 +10,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     let item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
     const minimum_amount = interaction.options.getInteger("minimum_amount")
     let maximum_amount = interaction.options.getInteger("maximum_amount")
+    const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     let production_location = interaction.options.getInteger("production_location")!
     if (!maximum_amount) maximum_amount = 0
 
@@ -36,12 +37,12 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
             .addComponents(
                 new MessageButton()
                     .setCustomId('spsettarget==' + bestItem + "==" + minimum_amount + "==" + maximum_amount)
-                    .setLabel(bestItem)
+                    .setLabel(lowerToOriginal[bestItem])
                     .setStyle('PRIMARY')
                 ,
                 new MessageButton()
                     .setCustomId('spsettarget==' + bestItem + " Crate==" + minimum_amount + "==" + maximum_amount)
-                    .setLabel(bestItem + " Crate")
+                    .setLabel(lowerToOriginal[bestItem] + " Crate")
                     .setStyle('PRIMARY'),
                     new MessageButton()
                     .setCustomId('cancel')
@@ -52,7 +53,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
 
         await interaction.editReply({
             components: [row],
-            content: `Item \`${item}\` was not found. Did you mean: \`${bestItem}\` or \`${bestItem + " Crate"}\` instead?`
+            content: `Item \`${item}\` was not found. Did you mean: \`${lowerToOriginal[bestItem]}\` or \`${lowerToOriginal[bestItem] + " Crate"}\` instead?`
         });
         return false
     }
