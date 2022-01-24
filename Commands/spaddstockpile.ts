@@ -37,8 +37,8 @@ const spaddstockpile = async (interaction: CommandInteraction, client: Client): 
         await collections.stockpiles.insertOne(insertObj)
         await interaction.editReply({ content: "Added the stockpile `" + stockpile + "` successfully." })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 
 

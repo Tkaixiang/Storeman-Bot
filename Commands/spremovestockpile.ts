@@ -35,8 +35,8 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
             await collections.config.updateOne({}, { $set: { prettyName: prettyName[stockpile] } })
         }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         const stockpileTime: any = NodeCacheObj.get("stockpileTimes")
         delete stockpileTime[stockpile]

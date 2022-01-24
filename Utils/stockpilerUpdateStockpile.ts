@@ -55,8 +55,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             await collections.config.updateOne({}, { $push: { orderSettings: body.name.replace(/\./g, "").replace(/\$/g, "") } })
         }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         response.writeHead(200, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: true }))

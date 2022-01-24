@@ -11,7 +11,7 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(false)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(false)
     if (filter) {
         if (filter === "targets") {
             await interaction.editReply(targetMsg)
@@ -66,10 +66,13 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
         }
         else {
             await interaction.editReply(stockpileHeader);
-            await interaction.followUp(targetMsg)
             await interaction.followUp(stockpileMsgsHeader)
             for (let i = 0; i < stockpileMsgs.length; i++) {
-                await interaction.followUp(stockpileMsgs[i]);
+                if (typeof stockpileMsgs[i] !== "string") await interaction.followUp(stockpileMsgs[i][0]);
+                else await interaction.followUp(stockpileMsgs[i]);
+            }
+            for (let i = 0; i < targetMsg.length; i++) {
+                await interaction.followUp(targetMsg[i]);
             }
         }
 

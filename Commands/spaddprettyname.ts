@@ -39,8 +39,8 @@ const spaddprettyname = async (interaction: CommandInteraction, client: Client):
         prettyName[cleanedName] = cleanedPrettyName
         await interaction.editReply({ content: "Added the pretty name `" + cleanedPrettyName + "` to stockpile `" + stockpile + "` successfully." })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 
 

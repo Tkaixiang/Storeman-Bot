@@ -30,8 +30,8 @@ const spremoveprettyname = async (interaction: CommandInteraction, client: Clien
         delete prettyName[cleanedName]
         await interaction.editReply({ content: "Removed the pretty name from `" + stockpile + "` successfully." })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 
 

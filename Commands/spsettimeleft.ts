@@ -46,8 +46,8 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
         }
         stockpileTimes[cleanName] = { timeLeft: updateObj.timeLeft, timeNotificationLeft: timeNotificationLeft }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
-        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
         checkTimeNotifs(client, true)
     }
     else await interaction.editReply({ content: "Error, the stockpile `" + stockpile + "` does not exist." })

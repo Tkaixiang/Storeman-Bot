@@ -1,3 +1,4 @@
+import { MessageActionRow, MessageButton } from 'discord.js';
 import { getCollections } from '../mongoDB';
 
 
@@ -8,9 +9,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     const prettyName: any = NodeCacheObj.get("prettyName")
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
-    let stockpileMsgs = NodeCacheObj.get("stockpileMsgs") as Array<string>
+    let stockpileMsgs = NodeCacheObj.get("stockpileMsgs") as Array<string | any[]>
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
-    let stockpileNames: String[] = []
 
     if (updateMsg || !stockpileMsgs || !targetMsgs) {
         const targets = await collections.targets.findOne({})
@@ -67,9 +67,16 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                 stockpileMsgs.push(finalMsg)
                 currentStockpileMsg = currentStockpileMsg.slice(lastEnd, currentStockpileMsg.length)
             }
-            stockpileMsgs.push(currentStockpileMsg)
-
-            stockpileNames.push(current.name)
+            const row = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setCustomId('spsettimeleft==' + current.name)
+                    .setLabel("Refresh Timer")
+                    .setStyle('PRIMARY')
+            );
+            const copyOfCurrentMsg = currentStockpileMsg.slice()
+            const finalStockpileMsg = [copyOfCurrentMsg, row]
+            stockpileMsgs.push(finalStockpileMsg)
         }
 
         targetMsgs = []
@@ -118,7 +125,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         NodeCacheObj.set("targetMsgs", targetMsgs)
     }
 
-    return [stockpileHeader, stockpileMsgs, targetMsgs, stockpileMsgsHeader, stockpileNames]
+    return [stockpileHeader, stockpileMsgs, targetMsgs, stockpileMsgsHeader]
 }
 
 
