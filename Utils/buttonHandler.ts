@@ -75,13 +75,23 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
         const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
 
+        await interaction.update({ content: "Working on it...", components: [] })
 
+        let item = splitted[1]! // Tell typescript to shut up and it is non-null
+        const minimum_amount = parseInt(splitted[2])
+        let maximum_amount = parseInt(splitted[3])
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
-        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+        const cleanitem = item.replace(/\./g, "_").toLowerCase()
+
+        let updateObj: any = {}
+        updateObj[cleanitem] = { min: minimum_amount, max: maximum_amount }
+        mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
+        if ((await collections.targets.updateOne({}, { $set: updateObj })).modifiedCount === 0) {
+            await collections.targets.insertOne(updateObj)
+        }
 
         await interaction.followUp({
-            content: `Successfully deleted all stockpiles and their associated information`
+            content: `Item \`${lowerToOriginal[item]}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
         });
     }
     else if (command === "sppurgestockpile") {

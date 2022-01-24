@@ -85,10 +85,11 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 }
             }
             const difference = configObj.stockpileMsgs.length - msg[1].length
+            console.log(difference)
             for (let i = 0; i < difference; i++) {
                 if (!editedMsgs) editedMsgs = true
                 try {
-                    msgObj = await channelObj.messages.fetch(configObj.stockpileMsgs[configObj.stockpileMsgs.length - 1 - i])
+                    msgObj = await channelObj.messages.fetch(configObj.stockpileMsgs[configObj.stockpileMsgs.length - 1])
                     await msgObj.delete()
                 }
                 catch (e) {
@@ -105,10 +106,14 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 let targetMsgIDs = []
                 for (let i = 0; i < configObj.targetMsg.length; i++) {
                     try {
+                        console.log('hi')
+                        console.log(configObj.targetMsg[i])
                         const targetMsg = await channelObj.messages.fetch(configObj.targetMsg[i])
+                        console.log(targetMsg)
                         await targetMsg.delete()
                     }
                     catch (e) {
+                        console.log(e)
                         console.log("Failed to delete a targetMsg")
                     }
                 }
@@ -149,7 +154,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 for (let i = 0; i < difference2; i++) {
                     if (!editedMsgs) editedMsgs = true
                     try {
-                        msgObj = await channelObj.messages.fetch(configObj.targetMsg[configObj.targetMsg.length - 1 - i])
+                        msgObj = await channelObj.messages.fetch(configObj.targetMsg[configObj.targetMsg.length - 1])
                         await msgObj.delete()
                     }
                     catch (e) {
@@ -158,13 +163,12 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                     configObj.targetMsg.pop()
     
                 }
-    
-                if (editedMsgs) {
-                    updateObj.stockpileMsgs = configObj.stockpileMsgs
-                    await collections.config.updateOne({}, { $set: updateObj })
-                }
-
                 updateObj.targetMsg = configObj.targetMsg
+            }
+
+            if (editedMsgs) {
+                updateObj.stockpileMsgs = configObj.stockpileMsgs
+                await collections.config.updateOne({}, { $set: updateObj })
             }
 
            
