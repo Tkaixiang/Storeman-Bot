@@ -12,6 +12,10 @@ const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<
         updateStockpileMsg(queue[0].client, queue[0].msg, queue[0].stockpileNames)
     }
     else {
+        if (queue.length > 2) {
+            console.log("Queue length exceeded allowed quantity, skipping middle ones")
+            queue.splice(1, queue.length-1)
+        }
         console.log("Update event ahead queued, current length in queue: " + queue.length)
     }
 
@@ -85,7 +89,6 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 }
             }
             const difference = configObj.stockpileMsgs.length - msg[1].length
-            console.log(difference)
             for (let i = 0; i < difference; i++) {
                 if (!editedMsgs) editedMsgs = true
                 try {
