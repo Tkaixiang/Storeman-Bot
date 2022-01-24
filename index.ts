@@ -27,11 +27,12 @@ import fs from 'fs';
 import csv from 'csv-parser';
 import spaddprettyname from './Commands/spaddprettyname'
 import spremoveprettyname from './Commands/spremoveprettyname'
+import sppurgestockpile from './Commands/sppurgestockpile'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 10
+const currentVersion = 11
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
 declare global {
@@ -201,6 +202,7 @@ const main = async (): Promise<void> => {
                 else if (commandName === "spstockpile") {
                     if (interaction.options.getSubcommand() === 'add') await spaddstockpile(interaction, client)
                     else if (interaction.options.getSubcommand() === 'remove') await spremovestockpile(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'purge') await sppurgestockpile(interaction, client)
                 }
                 else if (commandName === "sprole") {
                     if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)

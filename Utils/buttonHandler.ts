@@ -55,13 +55,13 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
         const stockpileExist = await collections.stockpiles.findOne({ name: cleanName })
         if (stockpileExist) {
-            const newTimeLeft = new Date((new Date()).getTime() + 60*60*1000*48)
+            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 48)
             await collections.stockpiles.updateOne({ name: cleanName }, { $set: { timeLeft: newTimeLeft } })
             await interaction.followUp({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
 
             const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
             const timerBP: any = NodeCacheObj.get("timerBP")
-            stockpileTimes[cleanName] = {timeLeft: newTimeLeft, timeNotificationLeft: timerBP.length - 1}
+            stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timerBP.length - 1 }
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
             await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
             checkTimeNotifs(interaction.client, true)
@@ -74,27 +74,30 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
     else if (command === "spsettarget") {
         if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
         const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
-        
-        await interaction.update({ content: "Working on it...", components: [] })
 
-        let item = splitted[1]! // Tell typescript to shut up and it is non-null
-        const minimum_amount = parseInt(splitted[2])
-        let maximum_amount = parseInt(splitted[3])
 
-        const cleanitem = item.replace(/\./g, "_").toLowerCase()
-
-        let updateObj: any = {}
-        updateObj[cleanitem] = { min: minimum_amount, max: maximum_amount }
-        mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
-        if ((await collections.targets.updateOne({}, { $set: updateObj })).modifiedCount === 0) {
-            await collections.targets.insertOne(updateObj)
-        }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
 
         await interaction.followUp({
-            content: `Item \`${lowerToOriginal[item]}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
+            content: `Successfully deleted all stockpiles and their associated information`
+        });
+    }
+    else if (command === "sppurgestockpile") {
+        if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
+
+        await interaction.update({ content: "Working on it...", components: [] })
+        await collections.stockpiles.deleteMany({})
+        await collections.config.updateOne({}, { $unset: { orderSettings: 1, prettyName: 1 } })
+        NodeCacheObj.set("prettyName", {})
+
+
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
+        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
+
+        await interaction.followUp({
+            content: `All stockpiles have been purged`
         });
     }
 

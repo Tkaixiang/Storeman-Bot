@@ -15,6 +15,7 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 - \`/sptarget remove <item>\` Removes a target item off the stockpile. 👨‍⚖️
 - \`/spstockpile add <stockpile>\` Adds an EMPTY stockpile with the name <stockpile>
 - \`/spstockpile remove <stockpile>\` Removes the <stockpile> from the stockpile status and listings. 👨‍⚖️
+- \`/spstockpile purge\` Purges all stockpiles and their related information such as pretty names and order settings. 👨‍⚖️
 - \`/spsetpassword <password>\` Sets the password used to update information to the HTTP endpoint from the Stockpiler app. 👨‍⚖️
 - \`/splogichannel set <channel>\` Sets a logi channel in which stockpile information would always be displayed and updated on. 👨‍⚖️
 - \`/splogichannel remove\` Removes a logi channel in which stockpile information would always be displayed and updated on. 👨‍⚖️

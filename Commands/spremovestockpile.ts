@@ -17,7 +17,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         return false
     }
 
-    await interaction.reply({content: 'Working on it', ephemeral: true});
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = getCollections()
     const searchQuery = new RegExp(stockpile.replace(/\./g, "").replace(/\$/g, ""), "i")
     if ((await collections.stockpiles.deleteOne({ name: searchQuery })).deletedCount > 0) {
@@ -29,13 +29,18 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
                 await collections.config.updateOne({}, { $set: { orderSettings: configObj.orderSettings } })
             }
         }
-        
+        if ("prettyName" in configObj) {
+            const prettyName: any = NodeCacheObj.get("prettyName")
+            delete prettyName[stockpile]
+            await collections.config.updateOne({}, { $set: { prettyName: prettyName[stockpile] } })
+        }
+
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader], stockpileNames)
 
         const stockpileTime: any = NodeCacheObj.get("stockpileTimes")
         delete stockpileTime[stockpile]
-        
+
         await interaction.editReply({
             content: "Successfully deleted the stockpile " + stockpile
         });
