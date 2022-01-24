@@ -73,6 +73,10 @@ const commands = [
                 .setName("remove")
                 .setDescription("Deletes stockpile with the name <stockpile>")
                 .addStringOption((option) => option.setName("stockpile").setDescription("Stockpile name").setRequired(true))
+        ).addSubcommand(subcommand =>
+            subcommand
+                .setName("purge")
+                .setDescription("Deletes all stockpiles and all their information. This is a destructive and irresvesible action")
         ),
     new SlashCommandBuilder().setName('splogichannel')
         .setDescription('Logi channel settings to broadcast the stockpile status.')
