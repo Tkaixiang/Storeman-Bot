@@ -24,7 +24,7 @@
     "csv-parser": "^3.0.0",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
-    "dotenv": "^10.0.0",
+    "dotenv": "^14.3.2",
     "express-mongo-sanitize": "^2.2.0",
     "mongodb": "^4.2.1",
     "node-cache": "^5.1.2",
