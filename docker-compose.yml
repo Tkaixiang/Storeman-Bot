@@ -4,6 +4,7 @@ services:
   bot:
     build: .
     image: ghcr.io/tkaixiang/storeman-bot:latest
+    restart: unless-stopped:5
     depends_on: 
       - mongo
     environment:
