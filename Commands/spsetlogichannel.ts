@@ -49,7 +49,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
             }
         }
         try {
-            for (let i = 0; i < configObj.targetMsg.length; i++) {
+            for (let i = 0; i < configDoc.targetMsg.length; i++) {
             const targetMsgObj = await newChannelObj.messages.fetch(configDoc.targetMsg[i])
             if (targetMsgObj) await targetMsgObj.delete()
             }
