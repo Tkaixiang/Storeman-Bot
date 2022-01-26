@@ -30,6 +30,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         }
         else stockpiles = stockpilesList
 
+        console.log(stockpiles)
+
         stockpileMsgs = []
         const totals: any = {}
         const itemListCategoryMapping: any = NodeCacheObj.get("itemListCategoryMapping")
