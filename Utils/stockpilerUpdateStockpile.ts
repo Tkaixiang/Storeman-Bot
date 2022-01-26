@@ -35,6 +35,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
         }
         
         const stockpile = await collections.stockpiles.findOne({ name: body.name })
+        const currentDate = new Date()
+            
         if (stockpile) {
             const newStockpileItems: any = {}
             for (let i = 0; i < body.data.length; i++) {
@@ -44,7 +46,6 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             mongoSanitize.sanitize(newStockpileItems, {
                 replaceWith: '_'
             });
-            const currentDate = new Date()
             console.log(eventName + "Stockpile " + body.name + " updated via Stockpiler at " + currentDate.toUTCString())
             await collections.stockpiles.updateOne({ name: body.name.replace(/\./g, "").replace(/\$/g, "") }, { $set: { items: newStockpileItems, lastUpdated: new Date() } })
         }
