@@ -4,21 +4,22 @@ import checkTimeNotifsQueue from "./checkTimeNotifs";
 let queue: Array<any> = []
 let editedMsgs = false
 let newMsgsSent = false
+const eventName = "[Update Logi Channel]: "
 
 const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
     queue.push({ client: client, msg: msg })
 
     if (queue.length === 1) {
-        console.log("No queue ahead. Starting")
+        console.log(eventName + "No queue ahead. Starting")
 
         updateStockpileMsg(queue[0].client, queue[0].msg)
     }
     else {
         if (queue.length > 2) {
-            console.log("Queue length exceeded allowed quantity, skipping middle ones")
+            console.log(eventName + "Queue length exceeded allowed quantity, skipping middle ones")
             queue.splice(1, queue.length - 1)
         }
-        console.log("Update event ahead queued, current length in queue: " + queue.length)
+        console.log(eventName + "Update event ahead queued, current length in queue: " + queue.length)
     }
 
     return true
@@ -32,7 +33,7 @@ const editStockpileMsg = async (currentMsg: string | [string, MessageActionRow],
     }
     catch (e) {
         console.log(e)
-        console.log("Failed to edit msg, skipping...")
+        console.log(eventName + "Failed to edit a stockpile msg, it might no longer exist. Skipping...")
     }
 
     return true
@@ -48,7 +49,6 @@ const newStockpileMsg = async (currentMsg: string | [string, MessageActionRow], 
         let newMsg: any;
         if (typeof currentMsg !== "string") newMsg = await channelObj.send({ content: currentMsg[0], components: [currentMsg[1]] })
         else newMsg = await channelObj.send(currentMsg)
-
         configObj.stockpileMsgs.push(newMsg.id)
         if (!editedMsgs) editedMsgs = true
         newMsgsSent = true
@@ -56,7 +56,7 @@ const newStockpileMsg = async (currentMsg: string | [string, MessageActionRow], 
     }
     catch (e) {
         console.log(e)
-        console.log("Failed to send msg, skipping...")
+        console.log(eventName + "Failed to send a stockpile msg, skipping...")
     }
     return true
 }
@@ -67,7 +67,7 @@ const editTargetMsg = async (currentMsg: string, msgObj: Message) => {
     }
     catch (e) {
         console.log(e)
-        console.log("Failed to edit msg, skipping...")
+        console.log(eventName + "Failed to edit a target msg, it might no longer exist. Skipping...")
     }
 }
 
@@ -84,7 +84,7 @@ const deleteTargetMsg = async (channelObj: TextChannel, currentMsgID: string) =>
     }
     catch (e) {
         console.log(e)
-        console.log("Failed to delete a targetMsg")
+        console.log(eventName + "Failed to delete a targetMsg")
     }
 }
 
@@ -103,6 +103,22 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
             await msgObj.edit(msg[0])
             msgObj = await channelObj.messages.fetch(configObj.stockpileMsgsHeader)
             await msgObj.edit(msg[3])
+
+            // Check if all the stockpile msgs still exist
+            for (let i = 0; i < configObj.stockpileMsgs.length; i++) {
+                try {
+                    await channelObj.messages.fetch(configObj.stockpileMsgs[i])
+                }
+                catch (e) {
+                    if (e.code === 10008) {
+                        configObj.stockpileMsgs.splice(i, 1)
+                        i -= 1
+                        console.log(eventName + "A stockpile msg no longer exists, deleting")
+                        editedMsgs = true
+                    }
+                }
+            }
+
             let updateStockpileFuncArray = []
             for (let i = 0; i < msg[1].length; i++) {
                 if (i < configObj.stockpileMsgs.length) {
@@ -123,10 +139,26 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                     await msgObj.delete()
                 }
                 catch (e) {
-                    console.log("Failed to delete last unused msg")
+                    console.log(eventName + "Failed to delete an unused stockpile msg")
                 }
                 configObj.stockpileMsgs.pop()
 
+            }
+
+            
+            // Check if all the target msgs still exist
+            for (let i = 0; i < configObj.targetMsg.length; i++) {
+                try {
+                    await channelObj.messages.fetch(configObj.targetMsg[i])
+                }
+                catch (e) {
+                    if (e.code === 10008) {
+                        configObj.targetMsg.splice(i, 1)
+                        i -= 1
+                        console.log(eventName + "A target msg no longer exists, deleting")
+                        editedMsgs = true
+                    }
+                }
             }
 
             let updateObj: any = {}
@@ -145,7 +177,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                         targetMsgIDs.push(targetMsg.id)
                     }
                     catch (e) {
-                        console.log("Failed to send a targetMsg")
+                        console.log(eventName + "Failed to send a new targetMsg")
                     }
                 }
                 updateObj.targetMsg = targetMsgIDs
@@ -173,7 +205,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                         await msgObj.delete()
                     }
                     catch (e) {
-                        console.log("Failed to delete last unused target msg")
+                        console.log(evenName + "Failed to delete last unused target msg. It might no longer exist")
                     }
                     configObj.targetMsg.pop()
 
@@ -191,7 +223,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
 
         queue.splice(0, 1)
         if (queue.length > 0) {
-            console.log("Finished 1, starting next in queue, remaining queue: " + queue.length)
+            console.log(eventName + "Finished 1 logi channel update, starting next in queue, remaining queue: " + queue.length)
             updateStockpileMsg(queue[0].client, queue[0].msg)
         }
         editedMsgs = false
@@ -200,10 +232,10 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
     }
     catch (e) {
         console.log(e)
-        console.log("An error occurred updating msgs, skipping this for now...")
+        console.log(eventName + "An error occurred updating msgs, skipping this update event for now...")
         queue.splice(0, 1)
         if (queue.length > 0) {
-            console.log("Finished 1, starting next in queue, remaining queue: " + queue.length)
+            console.log(eventName + "Finished 1 logi channel update event, starting next in queue, remaining in queue: " + queue.length)
             updateStockpileMsg(queue[0].client, queue[0].msg)
         }
         editedMsgs = false
