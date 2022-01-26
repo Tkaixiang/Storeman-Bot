@@ -99,8 +99,9 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
         // update msg if logi channel is set
         if ("channelId" in configObj) {
             const channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
+            let msgObj: Message;
             try {
-                let msgObj = await channelObj.messages.fetch(configObj.stockpileHeader)
+                msgObj = await channelObj.messages.fetch(configObj.stockpileHeader)
                 await msgObj.edit(msg[0])
             }
             catch (e: any) {
