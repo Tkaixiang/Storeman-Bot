@@ -49,28 +49,24 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
             }
         }
         try {
-            const targetMsgObj = await newChannelObj.messages.fetch(configDoc.targetMsg)
+            for (let i = 0; i < configObj.targetMsg.length; i++) {
+            const targetMsgObj = await newChannelObj.messages.fetch(configDoc.targetMsg[i])
             if (targetMsgObj) await targetMsgObj.delete()
+            }
         }
         catch (e) {
             console.log("Failed to delete msg")
         }
     }
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, stockpileNames] = await generateMsg(false)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateMsg(false)
     const newMsg = await channelObj.send(stockpileHeader)
     const stockpileMsgsHeaderID = await channelObj.send(stockpileMsgsHeader)
     let stockpileMsgIDs: any = []
     let stockpileIndex = 0
     for (let i = 0; i < stockpileMsgs.length; i++) {
-        const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                    .setCustomId('spsettimeleft==' + stockpileNames[stockpileIndex])
-                    .setLabel("Refresh Timer")
-                    .setStyle('PRIMARY')
-            );
-        if (stockpileMsgs[i].slice(stockpileMsgs[i].length - 3) === "---") {
-            const temp = await channelObj.send({ content: stockpileMsgs[i], components: [row] })
+        
+        if (typeof stockpileMsgs[i] !== "string") {
+            const temp = await channelObj.send({ content: stockpileMsgs[i][0], components: [stockpileMsgs[i][1]] })
             stockpileMsgIDs.push(temp.id)
             stockpileIndex += 1
         }
