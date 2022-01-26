@@ -158,6 +158,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                         i -= 1
                         console.log(eventName + "A target msg no longer exists, deleting")
                         editedMsgs = true
+                        newMsgsSent = true
                     }
                 }
             }
