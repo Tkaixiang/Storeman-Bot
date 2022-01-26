@@ -1,25 +1,25 @@
 import { Client, TextChannel } from "discord.js"
 import { getCollections } from "../mongoDB"
 import { roleMention } from '@discordjs/builders';
-
+const eventName = "[Stockpile Expiry Checker]: "
 let queue: Array<any> = []
 
 const checkTimeNotifsQueue = async (client: Client, forceEdit: boolean=false): Promise<Boolean> => {
     queue.push({ client: client, forceEdit: forceEdit})
 
     if (queue.length === 1) {
-        console.log("No queue ahead. Starting")
+        console.log(eventName + "No time check event queue ahead. Starting")
 
         checkTimeNotifs(queue[0].client, queue[0].forceEdit)
     }
     else {
-        console.log("Update event ahead queued, current length in queue: " + queue.length)
+        console.log(eventName + "Update event ahead queued, current length in queue: " + queue.length)
     }
 
     return true
 }
 const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
-    console.log("Checking time now")
+    console.log(eventName + "Checking time now")
     let edited = false
     const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
     const timerBP = <Number[]>NodeCacheObj.get("timerBP")
@@ -35,7 +35,7 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
         if (stockpileTimes[stockpileName].timeNotificationLeft >= 0) {
             const currentTimeDiff = (timeLeftProperty - currentDate) / 1000
             if (currentTimeDiff <= timerBP[stockpileTimes[stockpileName].timeNotificationLeft]) {
-                console.log("Stockpile warning triggered")
+                console.log(eventName + "A stockpile has passed a set time left and is about to expire. Sending out warning.")
                 // Detected a stockpile that has past the allocated boundary expiry time
                 let newIndex = stockpileTimes[stockpileName].timeNotificationLeft - 1
                 edited = true
@@ -68,13 +68,13 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean=false) => {
             }
             const MsgID = await channelObj.send(warningMsg)
             await collections.config.updateOne({}, { $set: { warningMsgId: MsgID.id } })
-            console.log("Sent out warning msg")
+            console.log(eventName + "Sent out warning msg (Note: This does not constitute a stockpile is about to expire)")
 
         }
     }
     queue.splice(0, 1)
         if (queue.length > 0) {
-            console.log("Finished 1, starting next in queue, remaining queue: " + queue.length)
+            console.log(eventName + "Finished 1, starting next in queue, remaining queue: " + queue.length)
             checkTimeNotifs(queue[0].client, queue[0].forceEdit)
         }
 
