@@ -99,10 +99,28 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
         // update msg if logi channel is set
         if ("channelId" in configObj) {
             const channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
-            let msgObj = await channelObj.messages.fetch(configObj.stockpileHeader)
-            await msgObj.edit(msg[0])
-            msgObj = await channelObj.messages.fetch(configObj.stockpileMsgsHeader)
-            await msgObj.edit(msg[3])
+            try {
+                let msgObj = await channelObj.messages.fetch(configObj.stockpileHeader)
+                await msgObj.edit(msg[0])
+            }
+            catch (e: any) {
+                if (e.code === 10008) {
+                    console.log(eventName + "Overall bot report header msg not found, sending a new one")
+                    const newMsg = await channelObj.send(msg[0])
+                    await collections.config.updateOne({}, {$set: {stockpileHeader: newMsg.id}})
+                }
+            }
+            try {
+                msgObj = await channelObj.messages.fetch(configObj.stockpileMsgsHeader)
+                await msgObj.edit(msg[3])
+            }       
+            catch (e: any) {
+                if (e.code === 10008) {
+                    console.log(eventName + "Stockpile msgs header msg not found, sending a new one")
+                    const newMsg = await channelObj.send(msg[3])
+                    await collections.config.updateOne({}, {$set: {stockpileMsgsHeader: newMsg.id}})
+                }
+            }
 
             // Check if all the stockpile msgs still exist
             for (let i = 0; i < configObj.stockpileMsgs.length; i++) {
