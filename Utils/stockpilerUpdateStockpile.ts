@@ -6,6 +6,7 @@ import generateStockpileMsg from "./generateStockpileMsg";
 import updateStockpileMsg from "./updateStockpileMsg";
 import mongoSanitize from 'express-mongo-sanitize';
 let queue: Array<any> = []
+const eventName = "[Stockpiler Update Event]: "
 
 const stockpilerUpdateStockpileEntryPoint = async (client: Client, body: any, response: http.ServerResponse) => {
     queue.push({ client: client, body: body, response: response })
