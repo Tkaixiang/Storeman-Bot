@@ -152,6 +152,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                     await channelObj.messages.fetch(configObj.targetMsg[i])
                 }
                 catch (e: any) {
+                    console.log(e)
                     if (e.code === 10008) {
                         configObj.targetMsg.splice(i, 1)
                         i -= 1
