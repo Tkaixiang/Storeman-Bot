@@ -40,6 +40,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             let currentStockpileMsg = ""
             currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""} ${current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
             let sortedItems: any = {}
+            console.log(Object.keys(current))
             for (const item in current.items) {
 
                 const currentCat = itemListCategoryMapping[item]
