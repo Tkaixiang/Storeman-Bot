@@ -109,7 +109,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 try {
                     await channelObj.messages.fetch(configObj.stockpileMsgs[i])
                 }
-                catch (e) {
+                catch (e: any) {
                     if (e.code === 10008) {
                         configObj.stockpileMsgs.splice(i, 1)
                         i -= 1
@@ -151,7 +151,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 try {
                     await channelObj.messages.fetch(configObj.targetMsg[i])
                 }
-                catch (e) {
+                catch (e: any) {
                     if (e.code === 10008) {
                         configObj.targetMsg.splice(i, 1)
                         i -= 1
@@ -205,7 +205,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                         await msgObj.delete()
                     }
                     catch (e) {
-                        console.log(evenName + "Failed to delete last unused target msg. It might no longer exist")
+                        console.log(eventName + "Failed to delete last unused target msg. It might no longer exist")
                     }
                     configObj.targetMsg.pop()
 
