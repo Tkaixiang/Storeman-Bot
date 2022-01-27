@@ -42,7 +42,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             const current = stockpiles[i]
             let currentStockpileMsg = ""
             currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""} ${current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
-            if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\``
+            if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\`\n\n`
             
             let sortedItems: any = {}
             
