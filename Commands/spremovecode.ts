@@ -43,4 +43,4 @@ const spremovecode = async (interaction: CommandInteraction, client: Client): Pr
     return true;
 }
 
-export default spremoveprettyname
+export default spremovecode
