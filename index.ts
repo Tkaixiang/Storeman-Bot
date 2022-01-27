@@ -34,7 +34,7 @@ import spremovecode from './Commands/spremovecode'
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 11
+const currentVersion = 12
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
 declare global {
