@@ -47,4 +47,4 @@ const spaddcode = async (interaction: CommandInteraction, client: Client): Promi
     return true;
 }
 
-export default spaddprettyname
+export default spaddcode
