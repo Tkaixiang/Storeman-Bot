@@ -33,7 +33,7 @@ const spaddcode = async (interaction: CommandInteraction, client: Client): Promi
         else {
             const codeObj: any = {}
             codeObj[cleanedName] = cleanedCode
-            await collections.config.updateOne({}, { $set: { code: cleanedCode } })
+            await collections.config.updateOne({}, { $set: { code: codeObj } })
         }
         await interaction.editReply({ content: "Added the code `" + cleanedCode + "` to stockpile `" + cleanedName + "` successfully." })
 
