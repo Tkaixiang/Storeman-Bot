@@ -33,21 +33,21 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             console.log(eventName + "Empty stockpile name received, exiting")
         }
         else {
-const stockpile = await collections.stockpiles.findOne({ name: body.name })
-        const currentDate = new Date()
+            const stockpile = await collections.stockpiles.findOne({ name: body.name })
+            const currentDate = new Date()
             
-        if (stockpile) {
-            const newStockpileItems: any = {}
-            for (let i = 0; i < body.data.length; i++) {
-                const amount = parseInt(body.data[i][1])
-                if (amount !== 0) newStockpileItems[body.data[i][0].toLowerCase()] = parseInt(body.data[i][1])
+            if (stockpile) {
+                const newStockpileItems: any = {}
+                for (let i = 0; i < body.data.length; i++) {
+                    const amount = parseInt(body.data[i][1])
+                    if (amount !== 0) newStockpileItems[body.data[i][0].toLowerCase()] = parseInt(body.data[i][1])
+                }
+                mongoSanitize.sanitize(newStockpileItems, {
+                    replaceWith: '_'
+                });
+                console.log(eventName + "Stockpile " + body.name + " updated via Stockpiler at " + currentDate.toUTCString())
+                await collections.stockpiles.updateOne({ name: body.name.replace(/\./g, "").replace(/\$/g, "") }, { $set: { items: newStockpileItems, lastUpdated: new Date() } })
             }
-            mongoSanitize.sanitize(newStockpileItems, {
-                replaceWith: '_'
-            });
-            console.log(eventName + "Stockpile " + body.name + " updated via Stockpiler at " + currentDate.toUTCString())
-            await collections.stockpiles.updateOne({ name: body.name.replace(/\./g, "").replace(/\$/g, "") }, { $set: { items: newStockpileItems, lastUpdated: new Date() } })
-        }
         else {
             console.log(eventName + 'New stockpile: ' + body.name + ' added.')
             let newItems: any = {}
@@ -66,13 +66,14 @@ const stockpile = await collections.stockpiles.findOne({ name: body.name })
 
         response.writeHead(200, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: true }))
+        }
     }
     else {
         console.log(eventName + "Invalid password received")
         response.writeHead(403, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: false, error: "invalid-password" }))
     }
-        }
+   
         
         
 
