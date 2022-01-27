@@ -31,10 +31,9 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             response.writeHead(403, { 'Content-Type': 'application/json' })
             response.end(JSON.stringify({ success: false, error: "empty-stockpile-name" }))
             console.log(eventName + "Empty stockpile name received, exiting")
-            return false
         }
-        
-        const stockpile = await collections.stockpiles.findOne({ name: body.name })
+        else {
+const stockpile = await collections.stockpiles.findOne({ name: body.name })
         const currentDate = new Date()
             
         if (stockpile) {
@@ -73,6 +72,9 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
         response.writeHead(403, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: false, error: "invalid-password" }))
     }
+        }
+        
+        
 
     queue.splice(0, 1)
     if (queue.length > 0) {

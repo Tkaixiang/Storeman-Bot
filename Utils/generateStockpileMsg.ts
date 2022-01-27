@@ -11,7 +11,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
     let stockpileMsgs = NodeCacheObj.get("stockpileMsgs") as Array<string | any[]>
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
-
+    let code: any = {}
+    
     if (updateMsg || !stockpileMsgs || !targetMsgs) {
         const targets = await collections.targets.findOne({})
         const stockpilesList = await collections.stockpiles.find({}).toArray()
@@ -30,6 +31,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         }
         else stockpiles = stockpilesList
 
+        if ("code" in configObj) code = configObj.code
+        
         stockpileMsgs = []
         const totals: any = {}
         const itemListCategoryMapping: any = NodeCacheObj.get("itemListCategoryMapping")
@@ -39,6 +42,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             const current = stockpiles[i]
             let currentStockpileMsg = ""
             currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""} ${current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
+            if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\``
+            
             let sortedItems: any = {}
             
             for (const item in current.items) {
