@@ -6,7 +6,7 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
         ephemeral: true
     });
 
-    let msg = `**__Foxhole Stockpiler Discord Bot Version 0.2 22/01/2022__** 
+    let msg = `**__Foxhole Stockpiler Discord Bot Version 0.3 28/01/2022__** 
 **Commands:**
 - \`/sphelp\` Displays this message.
 - \`/spstatus <filter❓> <stockpile❓>\` Displays the current stockpile status. <filter> can be "Targets" to display only targets. Specify a <stockpile> to show only details for that stockpile 🙍‍♂️
@@ -27,7 +27,8 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 - \`/spnotif remove <role>\` Removes a <role> to the notification stockpile expiry warning mention list. 👨‍⚖️
 - \`/spprettyname add <stockpile> <pretty_name>\` Adds a <pretty_name> to the <stockpile>. Pretty names are alternative names used to display the stockpile name instead of the original name. 👨‍⚖️
 - \`/spprettyname remove <stockpile>\` Removes a pretty name from the <stockpile>. Pretty names are alternative names used to display the stockpile name instead of the original name. 👨‍⚖️
-
+- \`/spcode add <stockpile> <code>\` Adds a stockpile <code> to the <stockpile> specified. 👨‍⚖️
+- \`/spcode remove <stockpile>\` Removes the specified stockpile code from the <stockpile>. 👨‍⚖️
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
 🙍‍♂️ - Commands that require at least \`User\` permissions

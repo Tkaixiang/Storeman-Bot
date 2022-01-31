@@ -11,7 +11,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     const minimum_amount = interaction.options.getInteger("minimum_amount")
     let maximum_amount = interaction.options.getInteger("maximum_amount")
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
-    let production_location = interaction.options.getInteger("production_location")!
+    let production_location = interaction.options.getString("production_location")!
     if (!maximum_amount) maximum_amount = 0
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false

@@ -28,11 +28,13 @@ import csv from 'csv-parser';
 import spaddprettyname from './Commands/spaddprettyname'
 import spremoveprettyname from './Commands/spremoveprettyname'
 import sppurgestockpile from './Commands/sppurgestockpile'
+import spaddcode from './Commands/spaddcode'
+import spremovecode from './Commands/spremovecode'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 11
+const currentVersion = 12
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
 declare global {
@@ -215,6 +217,10 @@ const main = async (): Promise<void> => {
                 else if (commandName === "spprettyname") {
                     if (interaction.options.getSubcommand() === 'add') await spaddprettyname(interaction, client)
                     else if (interaction.options.getSubcommand() === 'remove') await spremoveprettyname(interaction, client)
+                }
+                else if (commandName === "spcode") {
+                    if (interaction.options.getSubcommand() === 'add') await spaddcode(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremovecode(interaction, client)
                 }
                 else if (commandName === "spitems") await spitems(interaction)
                 else if (commandName === "spsetorder") await spsetorder(interaction, client)
