@@ -23,13 +23,14 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
     await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = getCollections()
     const cleanName = stockpile.replace(/\./g, "").replace(/\$/g, "")
-    const stockpileExist = await collections.stockpiles.findOne({ name: cleanName })
+    const searchQuery = new RegExp(cleanName, "i")
+    const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
     if (stockpileExist) {
         let updateObj: any = {
             timeLeft: new Date(timeLeft * 1000)
         }
         mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
-        await collections.stockpiles.updateOne({ name: cleanName }, { $set: updateObj })
+        await collections.stockpiles.updateOne({ name: searchQuery }, { $set: updateObj })
         await interaction.editReply({ content: `Updated the stockpile timer successfully. It is set to expire in: <t:${Math.floor(updateObj.timeLeft.getTime() / 1000)}:R>` })
 
         const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
@@ -40,11 +41,11 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
             const currentDate: any = new Date()
             if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
                 timeNotificationLeft = x
-                
+
                 break
             }
         }
-        stockpileTimes[cleanName] = { timeLeft: updateObj.timeLeft, timeNotificationLeft: timeNotificationLeft }
+        stockpileTimes[stockpileExist.name] = { timeLeft: updateObj.timeLeft, timeNotificationLeft: timeNotificationLeft }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])

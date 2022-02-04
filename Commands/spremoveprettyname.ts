@@ -20,15 +20,16 @@ const spremoveprettyname = async (interaction: CommandInteraction, client: Clien
     await interaction.reply({content: 'Working on it', ephemeral: true});
     const collections = getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
-    const stockpileExist = await collections.stockpiles.findOne({ name: cleanedName })
+    const searchQuery = new RegExp(cleanedName, "i")
+    const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
     if (!stockpileExist) await interaction.editReply({ content: "The stockpile with the name `" + stockpile + "` does not exist." })
     else {
         const configObj = (await collections.config.findOne({}))!
         if ('prettyName' in configObj) {
-            delete configObj.prettyName[cleanedName] 
+            delete configObj.prettyName[stockpileExist.name] 
             await collections.config.updateOne({}, { $set: { prettyName: configObj.prettyName } })
             const prettyName: any = NodeCacheObj.get("prettyName")
-            delete prettyName[cleanedName]
+            delete prettyName[stockpileExist.name]
             await interaction.editReply({ content: "Removed the pretty name from `" + stockpile + "` successfully." })
 
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)

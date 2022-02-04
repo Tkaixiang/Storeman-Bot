@@ -6,7 +6,7 @@ import updateStockpileMsg from "../Utils/updateStockpileMsg";
 
 
 const spsetorder = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
-    const stockpile = interaction.options.getString("stockpile")! // Tell typescript to shut up and it is non-null
+    let stockpile = interaction.options.getString("stockpile")! // Tell typescript to shut up and it is non-null
     let order = interaction.options.getInteger("order")!
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     
@@ -19,6 +19,7 @@ const spsetorder = async (interaction: CommandInteraction, client: Client): Prom
     }
 
     await interaction.reply({content: "Working on it", ephemeral: true})
+    stockpile = stockpile.toLowerCase()
 
     const collections = getCollections()
     const configObj = (await collections.config.findOne({}))!
@@ -39,7 +40,13 @@ const spsetorder = async (interaction: CommandInteraction, client: Client): Prom
             content: "Error, your position order is more than the number of stockpiles. You can select a position from 1 to " + orderSettings.length.toString() 
         })
     }
-    const position = orderSettings.indexOf(stockpile)
+    let position = -1
+    for (let i = 0; i < orderSettings.length; i++) {
+        if (orderSettings[i].toLowerCase() === stockpile) {
+            position = i
+            break
+        }
+    }
     if (position === -1) {
         await interaction.editReply({
             content: "The stockpile '" + stockpile + "' was not found."

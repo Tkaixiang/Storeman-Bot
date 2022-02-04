@@ -21,8 +21,10 @@ const spaddcode = async (interaction: CommandInteraction, client: Client): Promi
     await interaction.reply({content: 'Working on it', ephemeral: true});
     const collections = getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
+    const searchQuery = new RegExp(cleanedName, "i")
+   
     const cleanedCode = code.replace(/\./g, "").replace(/\$/g, "")
-    const stockpileExist = await collections.stockpiles.findOne({ name: cleanedName })
+    const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
     if (!stockpileExist) await interaction.editReply({ content: "The stockpile with the name `" + stockpile + "` does not exist." })
     else {
         const configObj = (await collections.config.findOne({}))!
