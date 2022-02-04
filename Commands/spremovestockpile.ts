@@ -19,19 +19,32 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = getCollections()
-    const searchQuery = new RegExp(stockpile.replace(/\./g, "").replace(/\$/g, ""), "i")
+    const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "").toLowerCase()
+    const searchQuery = new RegExp(cleanedName, "i")
     if ((await collections.stockpiles.deleteOne({ name: searchQuery })).deletedCount > 0) {
         const configObj = (await collections.config.findOne({}))!
         if ("orderSettings" in configObj) {
-            const position = configObj.orderSettings.indexOf(stockpile)
+            let position = -1
+            for (let i = 0; i < configObj.orderSettings.length; i++) {
+                if (stockpile.toLowerCase() === cleanedName) {
+                    position = i
+                    break
+                }
+            }
             if (position !== -1) {
                 configObj.orderSettings.splice(position, 1)
                 await collections.config.updateOne({}, { $set: { orderSettings: configObj.orderSettings } })
             }
         }
         if ("prettyName" in configObj) {
+           
             const prettyName: any = NodeCacheObj.get("prettyName")
-            delete prettyName[stockpile]
+            for (const name in prettyName) {
+                if (name.toLowerCase() === cleanedName) {
+                    delete prettyName[name]
+                    break
+                }
+            }
             await collections.config.updateOne({}, { $set: { prettyName: prettyName } })
         }
 

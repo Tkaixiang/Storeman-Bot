@@ -24,7 +24,8 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
-    const stockpileExist = await collections.stockpiles.findOne({ name: stockpileName.replace(/\./g, "").replace(/\$/g, "") })
+    const searchQuery = new RegExp(stockpileName.replace(/\./g, "").replace(/\$/g, ""), "i")
+    const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
     const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
     const cleanitem = item.replace(/\./g, "_").toLowerCase()
     if (stockpileExist) {
@@ -33,7 +34,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
             if (amount > 0) stockpileExist.items[cleanitem] = amount
             else delete stockpileExist.items[cleanitem]
             mongoSanitize.sanitize(stockpileExist.items, { replaceWith: "_" })
-            await collections.stockpiles.updateOne({ name: stockpileName.replace(/\./g, "").replace(/\$/g, "") }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
+            await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
         }
         else {
             const bestItem = findBestMatchItem(cleanitem).replace(/\_/g, ".")

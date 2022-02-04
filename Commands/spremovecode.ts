@@ -17,22 +17,23 @@ const spremovecode = async (interaction: CommandInteraction, client: Client): Pr
         return false
     }
 
-    await interaction.reply({content: 'Working on it', ephemeral: true});
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = getCollections()
-    const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
-    const stockpileExist = await collections.stockpiles.findOne({ name: cleanedName })
+    const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "").toLowerCase()
+    const searchQuery = new RegExp(cleanedName, "i")
+    const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
     if (!stockpileExist) await interaction.editReply({ content: "The stockpile with the name `" + stockpile + "` does not exist." })
     else {
         const configObj = (await collections.config.findOne({}))!
         if ("code" in configObj) {
-            delete configObj.code[cleanedName] 
+            delete configObj.code[stockpileExist.name]
             await collections.config.updateOne({}, { $set: { code: configObj.code } })
             await interaction.editReply({ content: "Removed the pretty name from `" + stockpile + "` successfully." })
         }
         else {
             await interaction.editReply("Error: No stockpile codes  exist")
         }
-        
+
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
