@@ -27,7 +27,7 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 ## So, how does the process go like?
 
 1. Setup Storeman Bot by following [here](https://github.com/Tkaixiang/Storeman-Bot/wiki/Setting-up-Storeman-Bot)
-2. Download the forked version of Stockpiler [here](https://github.com/Tkaixiang/Stockpiler/releases/tag/v1.01b-Edited) (I am currently still awaiting approval for the version to be merged into the main Stockpiler branch)
+2. Download Stockpiler [here](https://github.com/tehruttiger/Stockpiler/releases/tag/v1.1.1b) 
 3. Open up Stockpiler and _tick_ the **Send to Bot** option. Inputting the Bot Host & Bot Password. Press the right "`Save`" icon to save your settings.
    - Note: as of writing, there might be a bug with `Learning Mode` inside Stockpiler, if it fails to scan, please _untick_ it as well.
 4. Scan any stockpile by hovering over it on the map and pressing `F3`. You should see a "`Sent to server successfully`" inside the console that is opened along with Stockpiler
