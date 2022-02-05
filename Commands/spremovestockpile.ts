@@ -37,7 +37,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
             }
         }
         if ("prettyName" in configObj) {
-           
+
             const prettyName: any = NodeCacheObj.get("prettyName")
             for (const name in prettyName) {
                 if (name.toLowerCase() === cleanedName) {
@@ -46,6 +46,15 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
                 }
             }
             await collections.config.updateOne({}, { $set: { prettyName: prettyName } })
+        }
+        if ("code" in configObj) {
+            for (const name in configObj.code) {
+                if (name.toLowerCase() === cleanedName) {
+                    delete configObj.code[name]
+                    break
+                }
+            }
+            await collections.config.updateOne({}, { $set: { code: configObj.code } })
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)

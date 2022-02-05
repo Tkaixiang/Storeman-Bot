@@ -99,8 +99,9 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
         await interaction.update({ content: "Working on it...", components: [] })
         await collections.stockpiles.deleteMany({})
-        await collections.config.updateOne({}, { $unset: { orderSettings: 1, prettyName: 1 } })
+        await collections.config.updateOne({}, { $unset: { orderSettings: 1, prettyName: 1, code: 1 } })
         NodeCacheObj.set("prettyName", {})
+        NodeCacheObj.set("stockpileTimes", {})
 
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
