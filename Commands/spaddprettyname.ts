@@ -28,17 +28,17 @@ const spaddprettyname = async (interaction: CommandInteraction, client: Client):
     else {
         const configObj = (await collections.config.findOne({}))!
         if ("prettyName" in configObj) {
-            configObj.prettyName[cleanedName] = cleanedPrettyName
+            configObj.prettyName[stockpileExist.name] = cleanedPrettyName
             await collections.config.updateOne({}, { $set: { prettyName: configObj.prettyName } })
         }
         else {
             const prettyNameObj: any = {}
-            prettyNameObj[cleanedName] = cleanedPrettyName
+            prettyNameObj[stockpileExist.name] = cleanedPrettyName
             await collections.config.updateOne({}, { $set: { prettyName: prettyNameObj } })
         }
         const prettyName: any = NodeCacheObj.get("prettyName")
-        prettyName[cleanedName] = cleanedPrettyName
-        await interaction.editReply({ content: "Added the pretty name `" + cleanedPrettyName + "` to stockpile `" + stockpile + "` successfully." })
+        prettyName[stockpileExist.name] = cleanedPrettyName
+        await interaction.editReply({ content: "Added the pretty name `" + cleanedPrettyName + "` to stockpile `" + stockpileExist.name + "` successfully." })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])

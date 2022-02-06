@@ -30,11 +30,14 @@ import spremoveprettyname from './Commands/spremoveprettyname'
 import sppurgestockpile from './Commands/sppurgestockpile'
 import spaddcode from './Commands/spaddcode'
 import spremovecode from './Commands/spremovecode'
+import spaddloc from './Commands/spaddloc'
+import spremoveloc from './Commands/spremoveloc'
+import splistloc from './Commands/splistloc'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 12
+const currentVersion = 13
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
 declare global {
@@ -70,7 +73,7 @@ const main = async (): Promise<void> => {
                fetchData.push(row)
             })
             .on('end', () => {
-                console.log('CSV file successfully processed');
+                console.log('Item List CSV file successfully processed');
                 resolve(fetchData);
             })
             .on('error', reject); 
@@ -98,11 +101,30 @@ const main = async (): Promise<void> => {
      
     }
 
+    const LocationCSV: Array<any> = await new Promise(function(resolve,reject){
+        let fetchData: any = [];
+        fs.createReadStream('Locs.csv')
+            .pipe(csv())
+            .on('data', (row) => {
+               fetchData.push(row)
+            })
+            .on('end', () => {
+                console.log('Location CSV file successfully processed');
+                resolve(fetchData);
+            })
+            .on('error', reject); 
+    })
+    let locationMappings: any = {}
+    for (let i = 0; i < LocationCSV.length; i++) {
+        locationMappings[LocationCSV[i].Code.toLowerCase()] = LocationCSV[i].Translation
+    }
+
 
     NodeCacheObj.set("itemList", itemList)
     NodeCacheObj.set("listWithCrates", listWithCrates)
     NodeCacheObj.set("lowerToOriginal", lowerToOriginal)
     NodeCacheObj.set("itemListCategoryMapping", itemListCategoryMapping)
+    NodeCacheObj.set("locationMappings", locationMappings)
    
 
     NodeCacheObj.set("timerBP", timerBP)
@@ -221,6 +243,11 @@ const main = async (): Promise<void> => {
                 else if (commandName === "spcode") {
                     if (interaction.options.getSubcommand() === 'add') await spaddcode(interaction, client)
                     else if (interaction.options.getSubcommand() === 'remove') await spremovecode(interaction, client)
+                }
+                else if (commandName === "sploc") {
+                    if (interaction.options.getSubcommand() === 'add') await spaddloc(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremoveloc(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'list') await splistloc(interaction)
                 }
                 else if (commandName === "spitems") await spitems(interaction)
                 else if (commandName === "spsetorder") await spsetorder(interaction, client)

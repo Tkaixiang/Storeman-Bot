@@ -8,10 +8,13 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const prettyName: any = NodeCacheObj.get("prettyName")
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"
+    let locationMappings: any = NodeCacheObj.get("locationMappings")
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
     let stockpileMsgs = NodeCacheObj.get("stockpileMsgs") as Array<string | any[]>
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
     let code: any = {}
+    let stockpileLocations: any = {}
+    
     
     if (updateMsg || !stockpileMsgs || !targetMsgs) {
         const targets = await collections.targets.findOne({})
@@ -32,6 +35,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
         else stockpiles = stockpilesList
 
         if ("code" in configObj) code = configObj.code
+        if ("stockpileLocations" in configObj) stockpileLocations = configObj.stockpileLocations
         
         stockpileMsgs = []
         const totals: any = {}
@@ -42,7 +46,8 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             const current = stockpiles[i]
             let currentStockpileMsg = ""
             currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""} ${current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
-            if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\`\n\n`
+            if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\`\n`
+            if (current.name in stockpileLocations) currentStockpileMsg += `**Location:** \`${locationMappings[stockpileLocations[current.name]]}\`\n\n`
             
             let sortedItems: any = {}
             

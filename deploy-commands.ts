@@ -155,8 +155,29 @@ const commands = [
             subcommand
                 .setName("remove")
                 .setDescription("Removes a code from the <stockpile>")
-                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a pretty name from").setRequired(true))
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a code from").setRequired(true))
 
+        ),
+        new SlashCommandBuilder().setName('sploc')
+        .setDescription('Set/remove stockpile locations or location list')
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("add")
+                .setDescription("Adds a <location> to a <stockpile>")
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to add a location to").setRequired(true))
+                .addStringOption(option => option.setName("location").setDescription("The location to set to").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("Removes a location from the <stockpile>")
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a location from").setRequired(true))
+
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("list")
+                .setDescription("List all the locations and their location codes")
         ),
 
 ]
