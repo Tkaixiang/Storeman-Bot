@@ -142,7 +142,7 @@ const commands = [
                 .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a pretty name from").setRequired(true))
 
         ),
-      new SlashCommandBuilder().setName('spcode')
+    new SlashCommandBuilder().setName('spcode')
         .setDescription('Set/remove stockpile codes')
         .addSubcommand(subcommand =>
             subcommand
@@ -158,7 +158,7 @@ const commands = [
                 .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a code from").setRequired(true))
 
         ),
-        new SlashCommandBuilder().setName('sploc')
+    new SlashCommandBuilder().setName('sploc')
         .setDescription('Set/remove stockpile locations or location list')
         .addSubcommand(subcommand =>
             subcommand
@@ -179,6 +179,12 @@ const commands = [
                 .setName("list")
                 .setDescription("List all the locations and their location codes")
         ),
+    new SlashCommandBuilder().setName('spfind')
+        .setDescription('Finds the <item> specified in the stockpiles')
+        .addStringOption((option) =>
+            option.setName("item").setDescription("The item name").setRequired(true)
+        )
+    ,
 
 ]
     .map(command => command.toJSON());

@@ -27,10 +27,10 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
     const collections = getCollections()
-    const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
+    const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>
 
-    const cleanitem = item.replace(/\./g, "_").toLowerCase()
-    if (!listWithCrates.includes(cleanitem)) {
+    const cleanitem = item.replace(/\$/g, "").replace(/\./g, "").toLowerCase()
+    if (!itemListBoth.includes(cleanitem)) {
         const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
 
         const row = new MessageActionRow()

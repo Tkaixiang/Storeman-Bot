@@ -33,11 +33,12 @@ import spremovecode from './Commands/spremovecode'
 import spaddloc from './Commands/spaddloc'
 import spremoveloc from './Commands/spremoveloc'
 import splistloc from './Commands/splistloc'
+import spfind from './Commands/spfind'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 13
+const currentVersion = 15
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
 declare global {
@@ -80,6 +81,7 @@ const main = async (): Promise<void> => {
     })
     let itemList: String[] = []
     let listWithCrates: String[] = []
+    let itemListBoth: String[] = []
     let lowerToOriginal: any = {}
     let itemListCategoryMapping: any = {}
     
@@ -87,6 +89,8 @@ const main = async (): Promise<void> => {
         const loweredName = csvData[i].Name.slice().replace(/\./g, "_").toLowerCase()
         itemList.push(loweredName)
         listWithCrates.push(loweredName + " crate")
+        itemListBoth.push(loweredName)
+        itemListBoth.push(loweredName + " crate")
         lowerToOriginal[loweredName] = csvData[i].Name
         lowerToOriginal[loweredName + " crate"] = csvData[i].Name + " crate"
 
@@ -121,6 +125,7 @@ const main = async (): Promise<void> => {
 
 
     NodeCacheObj.set("itemList", itemList)
+    NodeCacheObj.set("itemListBoth", itemListBoth)
     NodeCacheObj.set("listWithCrates", listWithCrates)
     NodeCacheObj.set("lowerToOriginal", lowerToOriginal)
     NodeCacheObj.set("itemListCategoryMapping", itemListCategoryMapping)
@@ -252,6 +257,7 @@ const main = async (): Promise<void> => {
                 else if (commandName === "spitems") await spitems(interaction)
                 else if (commandName === "spsetorder") await spsetorder(interaction, client)
                 else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
+                else if (commandName === "spfind") await spfind(interaction)
             }
             else if (interaction.isButton()) {
                 buttonHandler(interaction)
