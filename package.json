@@ -34,6 +34,6 @@
   "devDependencies": {
     "@types/string-similarity": "^4.0.0",
     "nodemon": "^2.0.15",
-    "ts-node": "^10.4.0"
+    "ts-node": "^10.5.0"
   }
 }
