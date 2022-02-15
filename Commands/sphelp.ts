@@ -6,11 +6,12 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
         ephemeral: true
     });
 
-    let msg = `**__Foxhole Stockpiler Discord Bot Version 0.3 28/01/2022__** 
+    let msg = `**__Foxhole Storeman Discord Bot Version 0.5 06/02/2022__** 
 **Commands:**
 - \`/sphelp\` Displays this message.
 - \`/spstatus <filter❓> <stockpile❓>\` Displays the current stockpile status. <filter> can be "Targets" to display only targets. Specify a <stockpile> to show only details for that stockpile 🙍‍♂️
 - \`/spsetamount <item> <amount> <stockpile>\` Sets the \`<amount>\` that an \`<item>\` has in **__crates__** inside the \`<stockpile>\`. (E.g \`/spsetamount set Basic Materials Crate 100\`) 🙍‍♂️
+- \`/spfind <item>\` Searches through all the stockpiles for the <item> specified and returns which stockpile has the item. 🙍‍♂️
 - \`/sptarget set <item> <minimum_amount> <maximum_amount❓> <production_location❓>\` Sets the target \`<minimum_amount>\` that an \`<item>\` should have in **__crates__**. (E.g \`/sptarget set Basic Materials Crate 100\`) 👨‍⚖️
 - \`/sptarget remove <item>\` Removes a target item off the stockpile. 👨‍⚖️
 - \`/spstockpile add <stockpile>\` Adds an EMPTY stockpile with the name <stockpile>
@@ -29,6 +30,10 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 - \`/spprettyname remove <stockpile>\` Removes a pretty name from the <stockpile>. Pretty names are alternative names used to display the stockpile name instead of the original name. 👨‍⚖️
 - \`/spcode add <stockpile> <code>\` Adds a stockpile <code> to the <stockpile> specified. 👨‍⚖️
 - \`/spcode remove <stockpile>\` Removes the specified stockpile code from the <stockpile>. 👨‍⚖️
+- \`/sploc add <stockpile> <location>\` Adds a stockpile <location> to the <stockpile> specified. 👨‍⚖️
+- \`/sploc remove <stockpile>\` Removes the specified stockpile location from the <stockpile>. 👨‍⚖️
+- \`/sploc list\` Lists all the possible location codes with their respective full location translations. 👨‍⚖️
+
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
 🙍‍♂️ - Commands that require at least \`User\` permissions

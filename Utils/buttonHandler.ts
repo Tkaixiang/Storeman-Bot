@@ -94,13 +94,94 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             content: `Item \`${lowerToOriginal[cleanitem]}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
         });
     }
+    else if (command === "spfind") {
+        if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
+
+        await interaction.update({ content: "Working on it...", components: [] })
+
+        let item = splitted[1]! // Tell typescript to shut up and it is non-null
+        const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>
+        const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
+        const locationMappings: any = NodeCacheObj.get("locationMappings")
+        const collections = getCollections()
+    
+        const cleanitem = item.replace(/\$/g, "").replace(/\./g, "").toLowerCase()
+
+        let msg = "Stockpiles in which `" + lowerToOriginal[cleanitem] + "` was found in: \n\n"
+
+        const stockpiles = await collections.stockpiles.find({}).toArray()
+        const configObj = (await collections.config.findOne({}))!
+        let stockpileLocations: any = {}
+
+        if ("stockpileLocations" in configObj) stockpileLocations = configObj.stockpileLocations
+
+        for (let i = 0; i < stockpiles.length; i++) {
+            const current = stockpiles[i]
+            if (cleanitem in current.items) {
+                msg += `**__${current.name}__**${current.name in stockpileLocations ? " (Location: " + locationMappings[stockpileLocations[current.name]] + ")" : ""}:\n`
+                msg += current[cleanitem] + " - " + lowerToOriginal[cleanitem] + "\n"
+
+                if (cleanitem.indexOf("crate") !== -1) {
+                    // Since the item the user is searching for is a crated item, search for its non crated version as well 
+                    const nonCratedItem = cleanitem.replace(" crate", "")
+                    if (nonCratedItem in current.items) msg += current.items[nonCratedItem] + " - `" + lowerToOriginal[nonCratedItem] + "`\n"
+                }
+                else {
+                    // Since the item the user is searching for is a non-crated item, search for its crated version as well
+                    const cratedItem = cleanitem + " crate"
+                    if (cratedItem in current.items) msg += current.items[cratedItem] + " - `" + lowerToOriginal[cratedItem] + "`\n"
+                }
+            }
+            else {
+                // Item is not inside, try finding the crated/non-crated version of that item
+                if (cleanitem.indexOf("crate") !== -1) {
+                    // Since the item the user is searching for is a crated item, search for its non crated version as well 
+                    const nonCratedItem = cleanitem.replace(" crate", "")
+                    if (nonCratedItem in current.items) {
+                        msg += `**__${current.name}__**${current.name in stockpileLocations ? " (Location: " + locationMappings[stockpileLocations[current.name]] + ")" : ""}:\n`
+                        msg += current.items[nonCratedItem] + " - `" + lowerToOriginal[nonCratedItem] + "`\n"
+                    }
+                }
+                else {
+                    // Since the item the user is searching for is a non-crated item, search for its crated version as well
+                    const cratedItem = cleanitem + " crate"
+                    if (cratedItem in current.items) {
+                        msg += `**__${current.name}__**${current.name in stockpileLocations ? " (Location: " + locationMappings[stockpileLocations[current.name]] + ")" : ""}:\n`
+                        msg += current.items[cratedItem] + " - `" + lowerToOriginal[cratedItem] + "`\n"
+                    }
+                }
+            }
+        }
+
+        while (msg.length > 0) {
+            if (msg.length > 2000) {
+                const sliced = msg.slice(0, 2000)
+                const lastEnd = sliced.lastIndexOf("\n")
+                const finalMsg = sliced.slice(0, lastEnd)
+
+                await interaction.followUp({
+                    content: finalMsg,
+                    ephemeral: true
+                });
+                msg = msg.slice(lastEnd, msg.length)
+            }
+            else {
+                await interaction.followUp({
+                    content: msg,
+                    ephemeral: true
+                });
+                msg = ""
+            }
+        }
+    }
     else if (command === "sppurgestockpile") {
         if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
 
         await interaction.update({ content: "Working on it...", components: [] })
         await collections.stockpiles.deleteMany({})
-        await collections.config.updateOne({}, { $unset: { orderSettings: 1, prettyName: 1 } })
+        await collections.config.updateOne({}, { $unset: { orderSettings: 1, prettyName: 1, code: 1 } })
         NodeCacheObj.set("prettyName", {})
+        NodeCacheObj.set("stockpileTimes", {})
 
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)

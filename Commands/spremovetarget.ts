@@ -22,7 +22,7 @@ const spremovetarget = async (interaction: CommandInteraction, client: Client): 
 
     await interaction.reply({content: 'Working on it', ephemeral: true});
     const collections = getCollections()
-    const cleanItem = item = item.toLowerCase()
+    const cleanItem = item.replace(/\$/g, "").replace(/\./g, "").toLowerCase()
     let updateObj: any = {}
     updateObj[cleanItem] = false
     mongoSanitize.sanitize(updateObj, {replaceWith: "_"})

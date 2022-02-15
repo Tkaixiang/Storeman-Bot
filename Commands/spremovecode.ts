@@ -28,10 +28,10 @@ const spremovecode = async (interaction: CommandInteraction, client: Client): Pr
         if ("code" in configObj) {
             delete configObj.code[stockpileExist.name]
             await collections.config.updateOne({}, { $set: { code: configObj.code } })
-            await interaction.editReply({ content: "Removed the pretty name from `" + stockpile + "` successfully." })
+            await interaction.editReply({ content: "Removed the code from `" + stockpileExist.name + "` successfully." })
         }
         else {
-            await interaction.editReply("Error: No stockpile codes  exist")
+            await interaction.editReply("Error: No stockpile codes exist")
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)

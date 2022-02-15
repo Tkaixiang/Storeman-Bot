@@ -26,11 +26,11 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     await interaction.reply({ content: 'Working on it', ephemeral: true });
     const searchQuery = new RegExp(stockpileName.replace(/\./g, "").replace(/\$/g, ""), "i")
     const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
-    const listWithCrates = NodeCacheObj.get("listWithCrates") as Array<string>
-    const cleanitem = item.replace(/\./g, "_").toLowerCase()
+    const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>
+    const cleanitem = item.replace(/\./g, "_").replace(/\$/g, "").toLowerCase()
     if (stockpileExist) {
         // Stockpile exists, but item doesn't
-        if (listWithCrates.includes(cleanitem)) {
+        if (itemListBoth.includes(cleanitem)) {
             if (amount > 0) stockpileExist.items[cleanitem] = amount
             else delete stockpileExist.items[cleanitem]
             mongoSanitize.sanitize(stockpileExist.items, { replaceWith: "_" })
@@ -65,7 +65,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     }
     else {
         // Stockpile doesn't exist
-        if (listWithCrates.includes(cleanitem)) {
+        if (itemListBoth.includes(cleanitem)) {
             let itemObject: any = {}
             if (amount > 0) itemObject[cleanitem] = amount
 
