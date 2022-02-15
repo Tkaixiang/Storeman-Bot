@@ -6,7 +6,7 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
         ephemeral: true
     });
 
-    let msg = `**__Foxhole Storeman Discord Bot Version 0.5 06/02/2022__** 
+    let msg = `**__Foxhole Storeman Discord Bot Version 0.5 07/02/2022__** 
 **Commands:**
 - \`/sphelp\` Displays this message.
 - \`/spstatus <filter❓> <stockpile❓>\` Displays the current stockpile status. <filter> can be "Targets" to display only targets. Specify a <stockpile> to show only details for that stockpile 🙍‍♂️
