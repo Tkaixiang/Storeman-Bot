@@ -2,7 +2,7 @@
 
 FROM node:lts-alpine AS base
 
-WORKDIR /app
+WORKDIR /app/
 ENV NODE_ENV=production
 
 RUN npm install -g npm@latest
