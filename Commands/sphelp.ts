@@ -127,7 +127,7 @@ Currently in alpha testing, contact Tkai#8276 for help.
 
     for (let i = 0; i < commandList.length-1; i++) {
         if (commandList[i].name !== "\u200b") {
-            commandList.splice(i+1, 0, {name: "\u200b", value: "\u200b"})
+            commandList.splice(i+1, 0, {name: "\u200b", value: ""})
         }
     }
 
@@ -136,7 +136,7 @@ Currently in alpha testing, contact Tkai#8276 for help.
         if (commandList.length > 25) {
             if (helpEmbed.fields.length === 0){
                 helpEmbed.fields = commandList.splice(0, 25)
-                await interaction.editReply({content: "", embeds: [helpEmbed]})
+                await interaction.editReply({content: "Help Message", embeds: [helpEmbed]})
             }
             else {
                 embedList.push({
@@ -147,7 +147,7 @@ Currently in alpha testing, contact Tkai#8276 for help.
         else {
             if (helpEmbed.fields.length === 0){
                 helpEmbed.fields = commandList.splice(0, commandList.length)
-                await interaction.editReply({content: "", embeds: [helpEmbed]})
+                await interaction.editReply({content: "Help Message", embeds: [helpEmbed]})
             }
             else {
                 embedList.push({
