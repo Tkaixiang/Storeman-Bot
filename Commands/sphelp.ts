@@ -125,6 +125,12 @@ Currently in alpha testing, contact Tkai#8276 for help.
 
     ]
 
+    for (let i = 0; i < commandList.length-1; i++) {
+        if (commandList[i].name !== "\u200b") {
+            commandList.splice(i+1, 0, {name: "", value: "\u200b"})
+        }
+    }
+
 
     while (commandList.length > 0) {
         if (commandList.length > 25) {
