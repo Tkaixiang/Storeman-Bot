@@ -160,7 +160,8 @@ Currently in alpha testing, contact Tkai#8276 for help.
     // Send calculated list of embeds
     for (let i = 0; i < embedList.length; i++) {
         await interaction.followUp({
-            embeds: [embedList[i]]
+            embeds: [embedList[i]],
+            ephemeral: true
         })
     }
 
