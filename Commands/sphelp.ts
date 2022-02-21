@@ -19,7 +19,7 @@ Currently in alpha testing, contact Tkai#8276 for help.
         fields: [],
     }
 
-    let embedList = [helpEmbed]
+    let embedList = []
 
     const commandList = [
         {
@@ -130,7 +130,7 @@ Currently in alpha testing, contact Tkai#8276 for help.
         if (commandList.length > 25) {
             if (helpEmbed.fields.length === 0){
                 helpEmbed.fields = commandList.splice(0, 25)
-                await interaction.editReply({embeds: [helpEmbed]})
+                await interaction.editReply({content: "", embeds: [helpEmbed]})
             }
             else {
                 embedList.push({
@@ -141,7 +141,7 @@ Currently in alpha testing, contact Tkai#8276 for help.
         else {
             if (helpEmbed.fields.length === 0){
                 helpEmbed.fields = commandList.splice(0, commandList.length)
-                await interaction.editReply({embeds: [helpEmbed]})
+                await interaction.editReply({content: "", embeds: [helpEmbed]})
             }
             else {
                 embedList.push({
