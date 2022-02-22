@@ -52,11 +52,13 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         const stockpile = splitted[1]
 
         const cleanName = stockpile.replace(/\./g, "_").replace(/\./g, "").replace(/\$/g, "")
+        const searchQuery = new RegExp(cleanName, "i")
 
-        const stockpileExist = await collections.stockpiles.findOne({ name: cleanName })
+        const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
         if (stockpileExist) {
             const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 48)
-            await collections.stockpiles.updateOne({ name: cleanName }, { $set: { timeLeft: newTimeLeft } })
+            await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { timeLeft: newTimeLeft }})
+            await collections.stockpiles.updateOne({ name: searchQuery }, { $unset: { upperBound: 1 } })
             await interaction.followUp({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
 
             const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
@@ -100,7 +102,6 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         await interaction.update({ content: "Working on it...", components: [] })
 
         let item = splitted[1]! // Tell typescript to shut up and it is non-null
-        const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>
         const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
         const locationMappings: any = NodeCacheObj.get("locationMappings")
         const collections = getCollections()
@@ -119,7 +120,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             const current = stockpiles[i]
             if (cleanitem in current.items) {
                 msg += `**__${current.name}__**${current.name in stockpileLocations ? " (Location: " + locationMappings[stockpileLocations[current.name]] + ")" : ""}:\n`
-                msg += current[cleanitem] + " - " + lowerToOriginal[cleanitem] + "\n"
+                msg += current.items[cleanitem] + " - " + lowerToOriginal[cleanitem] + "\n"
 
                 if (cleanitem.indexOf("crate") !== -1) {
                     // Since the item the user is searching for is a crated item, search for its non crated version as well 

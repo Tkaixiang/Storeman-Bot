@@ -31,6 +31,7 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
         }
         mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
         await collections.stockpiles.updateOne({ name: searchQuery }, { $set: updateObj })
+        await collections.stockpiles.updateOne({ name: searchQuery }, { $unset: {upperBound: 1} })
         await interaction.editReply({ content: `Updated the stockpile timer successfully. It is set to expire in: <t:${Math.floor(updateObj.timeLeft.getTime() / 1000)}:R>` })
 
         const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")

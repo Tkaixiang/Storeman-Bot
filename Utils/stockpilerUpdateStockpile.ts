@@ -35,7 +35,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
         else {
             const stockpile = await collections.stockpiles.findOne({ name: body.name })
             const currentDate = new Date()
-            
+            const cleanName = body.name.replace(/\./g, "").replace(/\$/g, "")
+
             if (stockpile) {
                 const newStockpileItems: any = {}
                 for (let i = 0; i < body.data.length; i++) {
@@ -45,27 +46,82 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                 mongoSanitize.sanitize(newStockpileItems, {
                     replaceWith: '_'
                 });
-                console.log(eventName + "Stockpile " + body.name + " updated via Stockpiler at " + currentDate.toUTCString())
-                await collections.stockpiles.updateOne({ name: body.name.replace(/\./g, "").replace(/\$/g, "") }, { $set: { items: newStockpileItems, lastUpdated: new Date() } })
-            }
-        else {
-            console.log(eventName + 'New stockpile: ' + body.name + ' added.')
-            let newItems: any = {}
-            for (let i = 0; i < body.data.length; i++) {
-                const amount = parseInt(body.data[i][1])
-                if (amount !== 0) newItems[body.data[i][0].toLowerCase()] = parseInt(body.data[i][1])
-            }
-            mongoSanitize.sanitize(newItems, { replaceWith: '_' });
-            await collections.stockpiles.insertOne({ name: body.name.replace(/\./g, "").replace(/\$/g, ""), items: newItems, lastUpdated: new Date() })
-            await collections.config.updateOne({}, { $push: { orderSettings: body.name.replace(/\./g, "").replace(/\$/g, "") } })
-            console.log(eventName + "Stockpile " + body.name + " updated via Stockpiler at " + currentDate.toUTCString())
-        }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+                if (JSON.stringify(newStockpileItems) !== JSON.stringify(stockpile.items)) {
+                    // There was a change in the stockpile items. Hence that means the stockpile timer was refreshed sometime inbetween the last scan and the current scan
+                    console.log(eventName + "There was a change in the stockpile items. Updating possible expiry range.")
 
-        response.writeHead(200, { 'Content-Type': 'application/json' })
-        response.end(JSON.stringify({ success: true }))
+                    // Check if  higher expiry bound exists, if not, try to insert one
+                    if ("upperBound" in stockpile) {
+                        // If it comes to here, no one has pressed the "Refresh Timer" button between the last scan and the current scan
+                        // This is cause the "Refresh Timer" button removes the "upperBound" indicator as it is an absolute timing and we should ignore any upper bounds and stuff
+                        // Hence, the "lastUpdated" (the last scan timing) in this case is the absolute lower bound and there is no other time left between the lower bound and the current bound
+
+                        const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+                        const timerBP: any = NodeCacheObj.get("timerBP")
+                        let newTimeLeft = new Date(stockpile.lastUpdated.getTime() + 60 * 60 * 1000 * 48)
+                        let timeNotificationLeft = 4
+                        for (let x = 0; x < timerBP.length; x++) {
+                            const timeLeftProperty: any = newTimeLeft
+                            const currentDate: any = new Date()
+                            if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
+                                timeNotificationLeft = x
+                                break
+                            }
+                        }
+                        stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timeNotificationLeft }
+                        await collections.stockpiles.updateOne({ name: cleanName }, { $set: { items: newStockpileItems, lastUpdated: currentDate, timeLeft: newTimeLeft, upperBound: new Date((new Date()).getTime() + 60 * 60 * 1000 * 48) } })
+                        console.log(eventName + "upperBound exists. Modifying stockpiler timer based on last scan timing")
+                    }
+                    else {
+                        let newTimeLeft: any;
+                        const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+                        const timerBP: any = NodeCacheObj.get("timerBP")
+
+
+                        if ("timeLeft" in stockpile) newTimeLeft = stockpile.timeLeft
+                        else newTimeLeft = new Date(stockpile.lastUpdated.getTime() + 60 * 60 * 1000 * 48)
+
+                        let timeNotificationLeft = 4
+                        for (let x = 0; x < timerBP.length; x++) {
+                            const timeLeftProperty: any = newTimeLeft
+                            const currentDate: any = new Date()
+                            if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
+                                timeNotificationLeft = x
+                                break
+                            }
+                        }
+                        stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timeNotificationLeft }
+
+                        await collections.stockpiles.updateOne({ name: cleanName }, { $set: { items: newStockpileItems, lastUpdated: currentDate, timeLeft: newTimeLeft, upperBound: new Date((new Date()).getTime() + 60 * 60 * 1000 * 48) } })
+                        console.log(eventName + "upperBound does not exist. Modifying stockpiler timer based on last updated timing or last scan timing")
+                    }
+                }
+                else {
+                    // No change, just update the scan time and all
+                    await collections.stockpiles.updateOne({ name: cleanName }, { $set: { items: newStockpileItems, lastUpdated: currentDate } })
+                }
+                console.log(eventName + "Stockpile " + cleanName + " updated via Stockpiler at " + currentDate.toUTCString())
+
+            }
+            else {
+                console.log(eventName + 'New stockpile: ' + cleanName + ' added.')
+                let newItems: any = {}
+                for (let i = 0; i < body.data.length; i++) {
+                    const amount = parseInt(body.data[i][1])
+                    if (amount !== 0) newItems[body.data[i][0].toLowerCase()] = parseInt(body.data[i][1])
+                }
+                mongoSanitize.sanitize(newItems, { replaceWith: '_' });
+                await collections.stockpiles.insertOne({ name: cleanName, items: newItems, lastUpdated: currentDate })
+                await collections.config.updateOne({}, { $push: { orderSettings: cleanName } })
+                console.log(eventName + "Stockpile " + cleanName + " updated via Stockpiler at " + currentDate.toUTCString())
+            }
+
+            const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+            await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+
+            response.writeHead(200, { 'Content-Type': 'application/json' })
+            response.end(JSON.stringify({ success: true }))
         }
     }
     else {
@@ -73,9 +129,9 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
         response.writeHead(403, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: false, error: "invalid-password" }))
     }
-   
-        
-        
+
+
+
 
     queue.splice(0, 1)
     if (queue.length > 0) {

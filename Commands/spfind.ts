@@ -32,14 +32,16 @@ const spfind = async (interaction: CommandInteraction): Promise<boolean> => {
             const current = stockpiles[i]
             if (cleanitem in current.items) {
                 msg += `**__${current.name}__**${current.name in stockpileLocations ? " (Location: " + locationMappings[stockpileLocations[current.name]] + ")" : ""}:\n`
-                msg += current[cleanitem] + " - " + lowerToOriginal[cleanitem] + "\n"
+                msg += current.items[cleanitem] + " - " + lowerToOriginal[cleanitem] + "\n"
 
                 if (cleanitem.indexOf("crate") !== -1) {
                     // Since the item the user is searching for is a crated item, search for its non crated version as well 
+
                     const nonCratedItem = cleanitem.replace(" crate", "")
                     if (nonCratedItem in current.items) msg += current.items[nonCratedItem] + " - `" + lowerToOriginal[nonCratedItem] + "`\n"
                 }
                 else {
+                   
                     // Since the item the user is searching for is a non-crated item, search for its crated version as well
                     const cratedItem = cleanitem + " crate"
                     if (cratedItem in current.items) msg += current.items[cratedItem] + " - `" + lowerToOriginal[cratedItem] + "`\n"
