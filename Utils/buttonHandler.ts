@@ -106,7 +106,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         const locationMappings: any = NodeCacheObj.get("locationMappings")
         const collections = getCollections()
     
-        const cleanitem = item.replace(/\$/g, "").replace(/\./g, "").toLowerCase()
+        const cleanitem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
 
         let msg = "Stockpiles in which `" + lowerToOriginal[cleanitem] + "` was found in: \n\n"
 
