@@ -29,10 +29,9 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     const collections = getCollections()
     const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>
 
-    const cleanitem = item.replace(/\$/g, "").replace(/\./g, "").toLowerCase()
+    const cleanitem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
     if (!itemListBoth.includes(cleanitem)) {
-        const bestItem = findBestMatchItem(cleanitem).replace("_", ".")
-
+        const bestItem = findBestMatchItem(cleanitem)
         const row = new MessageActionRow()
             .addComponents(
                 new MessageButton()

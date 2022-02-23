@@ -17,7 +17,7 @@ const spfind = async (interaction: CommandInteraction): Promise<boolean> => {
     const locationMappings: any = NodeCacheObj.get("locationMappings")
     const collections = getCollections()
 
-    const cleanitem = item.replace(/\$/g, "").replace(/\./g, "").toLowerCase()
+    const cleanitem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
 
     if (itemListBoth.includes(cleanitem)) {
         let msg = "Stockpiles in which `" + lowerToOriginal[cleanitem] + "` was found in: \n\n"
@@ -90,7 +90,7 @@ const spfind = async (interaction: CommandInteraction): Promise<boolean> => {
         }
     }
     else {
-        const bestItem = findBestMatchItem(cleanitem).replace(/\_/g, ".")
+        const bestItem = findBestMatchItem(cleanitem)
         const row = new MessageActionRow()
             .addComponents(
                 new MessageButton()

@@ -37,7 +37,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
             await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { items: stockpileExist.items, lastUpdated: new Date() } })
         }
         else {
-            const bestItem = findBestMatchItem(cleanitem).replace(/\_/g, ".")
+            const bestItem = findBestMatchItem(cleanitem)
             const row = new MessageActionRow()
                 .addComponents(
                     new MessageButton()
