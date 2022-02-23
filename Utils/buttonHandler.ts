@@ -39,7 +39,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             await collections.config.updateOne({}, { $push: { orderSettings: stockpileName.replace(/\./g, "").replace(/\$/g, "") } })
         }
 
-        await interaction.followUp({ content: "Item `" + lowerToOriginal[item] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
+        await interaction.followUp({ content: "Item `" + lowerToOriginal[cleanitem] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
