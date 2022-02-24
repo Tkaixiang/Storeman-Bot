@@ -2,7 +2,7 @@ import { GuildMember, CommandInteraction, Permissions, MessageComponentInteracti
 import { getCollections } from './../mongoDB'
 
 const checkPermissions = async (interaction: CommandInteraction | MessageComponentInteraction, roleType: "admin" | "user", member: GuildMember) => {
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const permsInfo = (await collections.config.findOne({}, { projection: { admin: 1, user: 1 } }))!
     let permsLevel = 0
 
@@ -35,8 +35,6 @@ const checkPermissions = async (interaction: CommandInteraction | MessageCompone
         }
 
     }
-
-    return false
 }
 
 export default checkPermissions

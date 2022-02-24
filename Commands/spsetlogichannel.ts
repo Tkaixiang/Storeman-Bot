@@ -18,7 +18,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const channelObj = client.channels.cache.get(channel.id) as TextChannel
 
     const configDoc = (await collections.config.findOne({}))!

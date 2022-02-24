@@ -19,7 +19,7 @@ const spaddprettyname = async (interaction: CommandInteraction, client: Client):
     }
 
     await interaction.reply({content: 'Working on it', ephemeral: true});
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const searchQuery = new RegExp(cleanedName, "i")
     const cleanedPrettyName = prettyName.replace(/\./g, "").replace(/\$/g, "")
@@ -40,7 +40,7 @@ const spaddprettyname = async (interaction: CommandInteraction, client: Client):
         prettyName[stockpileExist.name] = cleanedPrettyName
         await interaction.editReply({ content: "Added the pretty name `" + cleanedPrettyName + "` to stockpile `" + stockpileExist.name + "` successfully." })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 

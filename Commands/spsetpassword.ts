@@ -16,7 +16,7 @@ const spsetpassword = async (interaction: CommandInteraction): Promise<boolean> 
         return false
     }
 
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     collections.config.updateOne({}, { $set: { password: await argon2.hash(password) } })
 
     await interaction.reply({

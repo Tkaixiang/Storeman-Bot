@@ -21,7 +21,7 @@ const spremovetarget = async (interaction: CommandInteraction, client: Client): 
     
 
     await interaction.reply({content: 'Working on it', ephemeral: true});
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanItem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
     let updateObj: any = {}
     updateObj[cleanItem] = false
@@ -32,7 +32,7 @@ const spremovetarget = async (interaction: CommandInteraction, client: Client): 
         });
     }
 
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     
     await interaction.editReply({

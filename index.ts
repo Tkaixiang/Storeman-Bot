@@ -1,6 +1,6 @@
 import { Client, Intents } from 'discord.js'
 import { insertCommands } from './deploy-commands'
-import { open, getCollections } from './mongoDB'
+import { open, getCollections, getMongoClientObj } from './mongoDB'
 import sphelp from './Commands/sphelp'
 import spsetamount from './Commands/spsetamount'
 import spstatus from './Commands/spstatus'
@@ -34,6 +34,7 @@ import spaddloc from './Commands/spaddloc'
 import spremoveloc from './Commands/spremoveloc'
 import splistloc from './Commands/splistloc'
 import spfind from './Commands/spfind'
+import { Db } from 'mongodb'
 
 require('dotenv').config()
 const port = 8090
@@ -61,30 +62,30 @@ const firstTimeSetup = async (configOptions: any): Promise<void> => {
 }
 
 const main = async (): Promise<void> => {
-    
+
 
     // Create a new client instance 
     const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
     global.NodeCacheObj = new NodeCache({ checkperiod: 0, useClones: false });
-    const csvData: Array<any> = await new Promise(function(resolve,reject){
+    const csvData: Array<any> = await new Promise(function (resolve, reject) {
         let fetchData: any = [];
         fs.createReadStream('ItemNumbering.csv')
             .pipe(csv())
             .on('data', (row) => {
-               fetchData.push(row)
+                fetchData.push(row)
             })
             .on('end', () => {
                 console.log('Item List CSV file successfully processed');
                 resolve(fetchData);
             })
-            .on('error', reject); 
+            .on('error', reject);
     })
     let itemList: String[] = []
     let listWithCrates: String[] = []
     let itemListBoth: String[] = []
     let lowerToOriginal: any = {}
     let itemListCategoryMapping: any = {}
-    
+
     for (let i = 0; i < csvData.length; i++) {
         const loweredName = csvData[i].Name.slice().replace(/\./g, "_").toLowerCase()
         itemList.push(loweredName)
@@ -102,21 +103,21 @@ const main = async (): Promise<void> => {
             itemListCategoryMapping[loweredName] = csvData[i].StockpileCategory
             itemListCategoryMapping[loweredName + " crate"] = csvData[i].StockpileCategory
         }
-     
+
     }
 
-    const LocationCSV: Array<any> = await new Promise(function(resolve,reject){
+    const LocationCSV: Array<any> = await new Promise(function (resolve, reject) {
         let fetchData: any = [];
         fs.createReadStream('Locs.csv')
             .pipe(csv())
             .on('data', (row) => {
-               fetchData.push(row)
+                fetchData.push(row)
             })
             .on('end', () => {
                 console.log('Location CSV file successfully processed');
                 resolve(fetchData);
             })
-            .on('error', reject); 
+            .on('error', reject);
     })
     let locationMappings: any = {}
     for (let i = 0; i < LocationCSV.length; i++) {
@@ -130,33 +131,12 @@ const main = async (): Promise<void> => {
     NodeCacheObj.set("lowerToOriginal", lowerToOriginal)
     NodeCacheObj.set("itemListCategoryMapping", itemListCategoryMapping)
     NodeCacheObj.set("locationMappings", locationMappings)
-   
+
 
     NodeCacheObj.set("timerBP", timerBP)
 
     // Connect to mongoDB
     if (await open()) {
-        const collections = getCollections()
-
-        // Create list of timeLefts till the stockpile expires
-        const stockpiles = await collections.stockpiles.find({}).toArray()
-        let stockpileTime: any = {}
-        for (let i = 0; i < stockpiles.length; i++) {
-            if ("timeLeft" in stockpiles[i]) {
-                let timeNotificationLeft = timerBP.length - 1
-                for (let x = 0; x < timerBP.length; x++) {
-                    const timeLeftProperty: any = stockpiles[i].timeLeft
-                    const currentDate: any = new Date()
-                    if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
-                        timeNotificationLeft = x
-                        break
-                    }
-                }
-                if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
-                stockpileTime[stockpiles[i].name] = { timeLeft: stockpiles[i].timeLeft, timeNotificationLeft: timeNotificationLeft }
-            }
-        }
-        NodeCacheObj.set("stockpileTimes", stockpileTime)
 
         setInterval(checkTimeNotifs, 1000 * 60, client)
 
@@ -182,27 +162,107 @@ const main = async (): Promise<void> => {
         server.listen(port, host)
         console.log(`HTTP server now listening at http://${host}:${port}`)
 
-        if (process.env.NODE_ENV === "development") insertCommands()
-        const configOptions = await collections.config.findOne({}, {})
-        if (configOptions) {
 
-            let notifRoles = []
-            if ("notifRoles" in configOptions) notifRoles = configOptions.notifRoles
-            NodeCacheObj.set("notifRoles", notifRoles)
-            let prettyName: any = {}
-            if ("prettyName" in configOptions)  prettyName = configOptions.prettyName
-            NodeCacheObj.set("prettyName", prettyName)
+        if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+            const collections = getCollections("global-settings")
+            const configObj = await collections.config.findOne()
+            if (configObj) {
+                if (configObj.version < currentVersion) {
+                    // Update all the commands since the version has changed
+                    for (let i = 0; i < configObj.serverIDList.length; i++) {
+                        insertCommands(configObj.serverIDList[i])
+                    }
+                }
+            }
+            else {
+                await collections.config.insertOne({ version: currentVersion, serverIDList: [] })
+            }
+
+            client.on('guildCreate', async (guild) => {
+                // The bot has joined a new server
+                console.log("Bot has joined a new server named: " + guild.name)
+                const collections = getCollections(guild.id)
+                const password = crypto.randomBytes(32).toString('hex')
+                await collections.config.insertOne({ password: await argon2.hash(password) })
+
+                // Insert commands into that guild
+                insertCommands(guild.id)
+
+                // Add the server record into the global settings list
+                const globalCollection = getCollections("global-settings")
+                await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
+            })
+
+            client.on('guildDelete', async (guild) => {
+                console.log("Bot has been kicked (or deleted) from the server named : " + guild.name)
+                const mongoClient = getMongoClientObj()
+                const db = mongoClient.db('stockpiler-' + guild.id)
+                await db.dropDatabase()
+
+                const configObj = await collections.config.findOne({})
+                let found = false
+                for (let i = 0; i < configObj.serverIDList.length; i++) {
+                    if (configObj.serverIDList[i] === guild.id) {
+                        found = true
+                        configObj.serverIDList.splice(i, 1)
+                        break
+                    }
+                }
+                if (found) await collections.config.updateOne({}, { $set: { serverIDList: configObj.serverIDList } })
+                console.log("Deleted the database and config records of the guild successfully")
+            })
+
+            // Custom notifRoles handler
+            // Custom prettyName handler
+            // Custom stockpileTimes handler
+        }
+        else {
+            // Create list of timeLefts till the stockpile expires
+            const collections = getCollections()
+
+            const stockpiles = await collections.stockpiles.find({}).toArray()
+            let stockpileTime: any = {}
+            for (let i = 0; i < stockpiles.length; i++) {
+                if ("timeLeft" in stockpiles[i]) {
+                    let timeNotificationLeft = timerBP.length - 1
+                    for (let x = 0; x < timerBP.length; x++) {
+                        const timeLeftProperty: any = stockpiles[i].timeLeft
+                        const currentDate: any = new Date()
+                        if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
+                            timeNotificationLeft = x
+                            break
+                        }
+                    }
+                    if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
+                    stockpileTime[stockpiles[i].name] = { timeLeft: stockpiles[i].timeLeft, timeNotificationLeft: timeNotificationLeft }
+                }
+            }
+            NodeCacheObj.set("stockpileTimes", stockpileTime)
+
+            // Check whether to insert commands and do first-time setup
+            if (process.env.NODE_ENV === "development") insertCommands()
+            const configOptions = await collections.config.findOne({}, {})
+            if (configOptions) {
+
+                let notifRoles = []
+                if ("notifRoles" in configOptions) notifRoles = configOptions.notifRoles
+                NodeCacheObj.set("notifRoles", notifRoles)
+                let prettyName: any = {}
+                if ("prettyName" in configOptions) prettyName = configOptions.prettyName
+                NodeCacheObj.set("prettyName", prettyName)
 
 
-            if (configOptions.version) {
-                if (configOptions.version < currentVersion) firstTimeSetup(configOptions)
+                if (configOptions.version) {
+                    if (configOptions.version < currentVersion) firstTimeSetup(configOptions)
+                }
+                else firstTimeSetup(configOptions)
+
             }
             else firstTimeSetup(configOptions)
-
         }
-        else firstTimeSetup(configOptions)
 
-       
+
+
 
 
         // This is called once client(the bot) is ready
@@ -210,6 +270,8 @@ const main = async (): Promise<void> => {
             console.log("Stockpiler Discord Bot is ready!")
             client.user?.setActivity("/sphelp")
         })
+
+
 
         client.on('interactionCreate', async (interaction) => {
             if (interaction.isCommand()) {

@@ -19,7 +19,7 @@ const spaddstockpile = async (interaction: CommandInteraction, client: Client): 
     }
 
     await interaction.reply({content: 'Working on it', ephemeral: true});
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const stockpileExist = await collections.stockpiles.findOne({ name: cleanedName })
     if (stockpileExist) {
@@ -37,7 +37,7 @@ const spaddstockpile = async (interaction: CommandInteraction, client: Client): 
         await collections.stockpiles.insertOne(insertObj)
         await interaction.editReply({ content: "Added the stockpile `" + stockpile + "` successfully." })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 

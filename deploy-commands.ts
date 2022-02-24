@@ -192,23 +192,32 @@ const commands = [
 const rest = new REST({ version: '9' }).setToken(<string>process.env.STOCKPILER_TOKEN);
 
 
-const insertCommands = async () => {
-    // Guild based commands for development
-    // ClientId is the bot "Copy ID"
-    // GuildId is the server "Copy ID"
-    if (process.env.STOCKPILER_GUILD_ID && process.env.STOCKPILER_GUILD_ID !== "") {
-        await rest.put(Routes.applicationGuildCommands(<string>process.env.STOCKPILER_CLIENT_ID, <string>process.env.STOCKPILER_GUILD_ID), { body: commands })
-            .then(() => console.log('Successfully registered application commands to guild.'))
-            .catch(console.error);
+const insertCommands = async (guild_id?: string) => {
+
+    if (guild_id) {
+        await rest.put(Routes.applicationGuildCommands(<string>process.env.STOCKPILER_CLIENT_ID, <string>guild_id), { body: commands })
+        .then(() => console.log('Successfully registered application commands to guild with ID: ' + guild_id))
+        .catch(console.error);
     }
-    // Global commands for deployment (Global commands take at least 1 hour to update after each change)
     else {
-        await rest.put(
-            Routes.applicationCommands(<string>process.env.STOCKPILER_CLIENT_ID),
-            { body: commands },
-        ).then(() => console.log('Successfully registered application commands globally.'))
-            .catch(console.error);
+        // Guild based commands for development
+        // ClientId is the bot "Copy ID"
+        // GuildId is the server "Copy ID"
+        if (process.env.STOCKPILER_GUILD_ID && process.env.STOCKPILER_GUILD_ID !== "") {
+            await rest.put(Routes.applicationGuildCommands(<string>process.env.STOCKPILER_CLIENT_ID, <string>process.env.STOCKPILER_GUILD_ID), { body: commands })
+                .then(() => console.log('Successfully registered application commands to guild.'))
+                .catch(console.error);
+        }
+        // Global commands for deployment (Global commands take at least 1 hour to update after each change)
+        else {
+            await rest.put(
+                Routes.applicationCommands(<string>process.env.STOCKPILER_CLIENT_ID),
+                { body: commands },
+            ).then(() => console.log('Successfully registered application commands globally.'))
+                .catch(console.error);
+        }
     }
+
 }
 
 export { insertCommands }

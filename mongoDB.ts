@@ -5,7 +5,7 @@ interface collectionList {
     targets: Collection,
     config: Collection
 }
-let collections: collectionList;
+let mongoClientObj: any;
 
 
 const open = async (): Promise<boolean> => {
@@ -18,12 +18,7 @@ const open = async (): Promise<boolean> => {
 
     const status = await MongoClient.connect(uri, {
     }).then(async (client) => {
-        const db = client.db('stockpiler')
-        collections = {
-            stockpiles: db.collection('stockpiles'),
-            targets: db.collection('targets'),
-            config: db.collection('config')
-        }
+        mongoClientObj = client
 
         console.info("MongoDB connected successfully!")
         return true
@@ -39,9 +34,31 @@ const getDB = () => {
     return db
 }
 
-const getCollections = () => {
-    return collections
+const getMongoClientObj = (): MongoClient => {
+    return mongoClientObj
+}
+
+const getCollections = (serverID?: any) => {
+    if (process.env.STOCKPILER_MULTI_SERVER && process.env.STOCKPILER_MULTI_SERVER === "true") {
+        const db = mongoClientObj.db('stockpiler-' + serverID)
+        const collections = {
+            stockpiles: db.collection('stockpiles'),
+            targets: db.collection('targets'),
+            config: db.collection('config')
+        }
+        return collections
+    }
+    else {
+        const db = mongoClientObj.db('stockpiler')
+        const collections = {
+            stockpiles: db.collection('stockpiles'),
+            targets: db.collection('targets'),
+            config: db.collection('config')
+        }
+        return collections
+    } 
+
 }
 
 
-export { open, getDB, getCollections }
+export { open, getDB, getCollections, getMongoClientObj }

@@ -21,7 +21,7 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
     }
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const searchQuery = new RegExp(cleanName, "i")
     const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
@@ -48,7 +48,7 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
         }
         stockpileTimes[stockpileExist.name] = { timeLeft: updateObj.timeLeft, timeNotificationLeft: timeNotificationLeft }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
         checkTimeNotifs(client, true)
     }

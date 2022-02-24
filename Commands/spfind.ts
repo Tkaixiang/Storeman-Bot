@@ -15,7 +15,7 @@ const spfind = async (interaction: CommandInteraction): Promise<boolean> => {
     const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const locationMappings: any = NodeCacheObj.get("locationMappings")
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
     const cleanitem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
 

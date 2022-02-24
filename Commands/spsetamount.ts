@@ -11,7 +11,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
     const amount = interaction.options.getInteger("amount")
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const stockpileName = interaction.options.getString("stockpile")
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
@@ -101,7 +101,7 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
 
     }
 
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
     await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     await interaction.editReply({

@@ -9,7 +9,7 @@ import updateStockpileMsg from "./updateStockpileMsg";
 const buttonHandler = async (interaction: MessageComponentInteraction) => {
     const splitted = interaction.customId.split("==")
     const command = splitted[0]
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
 
     if (command === "spsetamount") {
@@ -41,7 +41,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
         await interaction.followUp({ content: "Item `" + lowerToOriginal[cleanitem] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     }
@@ -64,7 +64,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
             const timerBP: any = NodeCacheObj.get("timerBP")
             stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timerBP.length - 1 }
-            const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+            const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
             await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
             checkTimeNotifs(interaction.client, true)
         }
@@ -104,7 +104,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         let item = splitted[1]! // Tell typescript to shut up and it is non-null
         const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
         const locationMappings: any = NodeCacheObj.get("locationMappings")
-        const collections = getCollections()
+        const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     
         const cleanitem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
 
@@ -185,7 +185,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         NodeCacheObj.set("stockpileTimes", {})
 
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
         await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         await interaction.followUp({

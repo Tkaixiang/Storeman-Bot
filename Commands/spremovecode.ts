@@ -18,7 +18,7 @@ const spremovecode = async (interaction: CommandInteraction, client: Client): Pr
     }
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "").toLowerCase()
     const searchQuery = new RegExp(cleanedName, "i")
     const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
@@ -34,7 +34,7 @@ const spremovecode = async (interaction: CommandInteraction, client: Client): Pr
             await interaction.editReply("Error: No stockpile codes exist")
         }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)true)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 

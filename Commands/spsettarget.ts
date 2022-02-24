@@ -26,7 +26,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>
 
     const cleanitem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
@@ -64,7 +64,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
         await collections.targets.insertOne(updateObj)
     }
 
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
     await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     await interaction.editReply({

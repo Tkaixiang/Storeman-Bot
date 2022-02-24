@@ -19,7 +19,7 @@ const spaddloc = async (interaction: CommandInteraction, client: Client): Promis
     }
 
     await interaction.reply({content: 'Working on it', ephemeral: true});
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const locationMappings: any = NodeCacheObj.get("locationMappings")
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const searchQuery = new RegExp(cleanedName, "i")
@@ -45,7 +45,7 @@ const spaddloc = async (interaction: CommandInteraction, client: Client): Promis
         }
         await interaction.editReply({ content: "Added the code `" + locationMappings[cleanedLocation] + "` to stockpile `" + stockpileExist.name + "` successfully." })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 

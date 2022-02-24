@@ -1,10 +1,10 @@
-import { MessageActionRow, MessageButton } from 'discord.js';
+import { CommandInteraction, MessageActionRow, MessageButton, MessageComponentInteraction } from 'discord.js';
 import { getCollections } from '../mongoDB';
 
 
 
-const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
-    const collections = getCollections()
+const generateMsg = async (updateMsg: boolean, interaction: CommandInteraction | MessageComponentInteraction): Promise<Array<any>> => {
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const prettyName: any = NodeCacheObj.get("prettyName")
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"
@@ -14,9 +14,9 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
     let code: any = {}
     let stockpileLocations: any = {}
-    
-    
-    if (updateMsg || !stockpileMsgs || !targetMsgs) {
+
+
+    if (process.env.STOCKPILER_MULTI_SERVER === "true" || updateMsg || !stockpileMsgs || !targetMsgs) {
         const targets = await collections.targets.findOne({})
         const stockpilesList = await collections.stockpiles.find({}).toArray()
         const configObj = (await collections.config.findOne({}))!
@@ -36,7 +36,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
 
         if ("code" in configObj) code = configObj.code
         if ("stockpileLocations" in configObj) stockpileLocations = configObj.stockpileLocations
-        
+
         stockpileMsgs = []
         const totals: any = {}
         const itemListCategoryMapping: any = NodeCacheObj.get("itemListCategoryMapping")
@@ -48,9 +48,9 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
             currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: ${"upperBound" in current ? `Sometime between: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R> and <t:${Math.floor(current.upperBound.getTime() / 1000)}:R>]` : `<t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]`}` : ""} ${current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
             if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\`\n`
             if (current.name in stockpileLocations) currentStockpileMsg += `**Location:** \`${locationMappings[stockpileLocations[current.name]]}\`\n\n`
-            
+
             let sortedItems: any = {}
-            
+
             for (const item in current.items) {
 
                 const currentCat = itemListCategoryMapping[item]
@@ -79,12 +79,12 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                 currentStockpileMsg = currentStockpileMsg.slice(lastEnd, currentStockpileMsg.length)
             }
             const row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                    .setCustomId('spsettimeleft==' + current.name)
-                    .setLabel("Refresh Timer")
-                    .setStyle('PRIMARY')
-            );
+                .addComponents(
+                    new MessageButton()
+                        .setCustomId('spsettimeleft==' + current.name)
+                        .setLabel("Refresh Timer")
+                        .setStyle('PRIMARY')
+                );
             const copyOfCurrentMsg = currentStockpileMsg.slice()
             const finalStockpileMsg = [copyOfCurrentMsg, row]
             stockpileMsgs.push(finalStockpileMsg)
@@ -105,7 +105,7 @@ const generateMsg = async (updateMsg: boolean): Promise<Array<any>> => {
                         else if (percentage >= 0.5) icon = "🟠"
                     }
 
-                    const currentMsg = `${target in totals ? totals[target] : "0"}/${targets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${targets[target].max === 0 ? "∞": targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
+                    const currentMsg = `${target in totals ? totals[target] : "0"}/${targets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${targets[target].max === 0 ? "∞" : targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
 
                     if (currentCat in sortedTargets) sortedTargets[currentCat].push(currentMsg)
                     else sortedTargets[currentCat] = [currentMsg]

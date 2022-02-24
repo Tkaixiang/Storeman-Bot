@@ -21,7 +21,7 @@ const spsetorder = async (interaction: CommandInteraction, client: Client): Prom
     await interaction.reply({content: "Working on it", ephemeral: true})
     stockpile = stockpile.toLowerCase()
 
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const configObj = (await collections.config.findOne({}))!
     let orderSettings: any = []    
     if ("orderSettings" in configObj) {
@@ -59,7 +59,7 @@ const spsetorder = async (interaction: CommandInteraction, client: Client): Prom
     orderSettings.splice(order, 0, temp)
 
     await collections.config.updateOne({}, {$set: {orderSettings: orderSettings}})
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
         
     await interaction.editReply({

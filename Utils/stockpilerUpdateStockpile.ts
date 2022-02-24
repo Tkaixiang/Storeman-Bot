@@ -23,7 +23,7 @@ const stockpilerUpdateStockpileEntryPoint = async (client: Client, body: any, re
 }
 
 const stockpilerUpdateStockpile = async (client: Client, body: any, response: http.ServerResponse) => {
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const password = (await collections.config.findOne({}, { projection: { password: 1 } }))!
     if (await argon2.verify(password.password, body.password)) {
         console.log(eventName + "Password Verified, starting update request")
@@ -117,7 +117,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                 console.log(eventName + "Stockpile " + cleanName + " updated via Stockpiler at " + currentDate.toUTCString())
             }
 
-            const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+            const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
             await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
             response.writeHead(200, { 'Content-Type': 'application/json' })

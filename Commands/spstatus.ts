@@ -11,7 +11,7 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(false)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(false, interaction)
     if (filter) {
         if (filter === "targets") {
             await interaction.editReply(targetMsg)
@@ -19,7 +19,7 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     }
     else {
         if (stockpile) {
-            const collections = getCollections()
+            const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
             stockpile = stockpile.replace(/\./g, "").replace(/\$/g, "")
 

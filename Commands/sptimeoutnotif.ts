@@ -5,7 +5,7 @@ import checkTimeNotifs from "../Utils/checkTimeNotifs";
 
 const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, set: boolean): Promise<boolean> => {
     const role = interaction.options.getRole("role")! // Tell typescript to shut up cause it's gonna return a string and not null
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     if (!role) {
         await interaction.reply({
             content: "Missing parameters",

@@ -18,7 +18,7 @@ const spremoveloc = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "").toLowerCase()
     const searchQuery = new RegExp(cleanedName, "i")
     const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
@@ -34,7 +34,7 @@ const spremoveloc = async (interaction: CommandInteraction, client: Client): Pro
             await interaction.editReply("Error: No location information exists")
         }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
         await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 

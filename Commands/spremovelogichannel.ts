@@ -3,7 +3,7 @@ import { getCollections } from '../mongoDB';
 import checkPermissions from "../Utils/checkPermissions";
 
 const spremovelogichannel = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
-    const collections = getCollections()
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const configDoc = (await collections.config.findOne({}))!
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
