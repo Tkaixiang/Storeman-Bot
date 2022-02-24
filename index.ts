@@ -34,7 +34,6 @@ import spaddloc from './Commands/spaddloc'
 import spremoveloc from './Commands/spremoveloc'
 import splistloc from './Commands/splistloc'
 import spfind from './Commands/spfind'
-import { Db } from 'mongodb'
 
 require('dotenv').config()
 const port = 8090
