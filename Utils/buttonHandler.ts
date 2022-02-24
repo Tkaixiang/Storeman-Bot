@@ -42,7 +42,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         await interaction.followUp({ content: "Item `" + lowerToOriginal[cleanitem] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(interaction.client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     }
     else if (command === "spsettimeleft") {
@@ -65,7 +65,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             const timerBP: any = NodeCacheObj.get("timerBP")
             stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timerBP.length - 1 }
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-            await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+            await updateStockpileMsg(interaction.client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
             checkTimeNotifs(interaction.client, true)
         }
         else {
@@ -186,7 +186,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
 
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(interaction.client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(interaction.client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         await interaction.followUp({
             content: `All stockpiles have been purged`

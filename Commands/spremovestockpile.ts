@@ -58,7 +58,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         const stockpileTime: any = NodeCacheObj.get("stockpileTimes")
         delete stockpileTime[stockpile]

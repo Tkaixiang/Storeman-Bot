@@ -65,7 +65,7 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     }
 
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-    await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+    await updateStockpileMsg(client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     await interaction.editReply({
         content: `Item \`${lowerToOriginal[cleanitem]}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`

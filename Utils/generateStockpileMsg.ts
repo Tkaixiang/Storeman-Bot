@@ -3,8 +3,9 @@ import { getCollections } from '../mongoDB';
 
 
 
-const generateMsg = async (updateMsg: boolean, interaction: CommandInteraction | MessageComponentInteraction): Promise<Array<any>> => {
-    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
+const generateMsg = async (updateMsg: boolean, interaction: CommandInteraction | MessageComponentInteraction | string): Promise<Array<any>> => {
+    const guildID = typeof interaction === "string" ? interaction : interaction.guildId
+    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const prettyName: any = NodeCacheObj.get("prettyName")
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"

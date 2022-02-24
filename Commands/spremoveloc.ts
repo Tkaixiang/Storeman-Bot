@@ -35,7 +35,7 @@ const spremoveloc = async (interaction: CommandInteraction, client: Client): Pro
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 
 

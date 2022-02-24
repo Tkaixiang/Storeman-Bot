@@ -214,6 +214,7 @@ const main = async (): Promise<void> => {
             // Custom notifRoles handler
             // Custom prettyName handler
             // Custom stockpileTimes handler
+            // Custom Stockpiler update stockpile handler
         }
         else {
             // Create list of timeLefts till the stockpile expires

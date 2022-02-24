@@ -46,7 +46,7 @@ const spaddloc = async (interaction: CommandInteraction, client: Client): Promis
         await interaction.editReply({ content: "Added the code `" + locationMappings[cleanedLocation] + "` to stockpile `" + stockpileExist.name + "` successfully." })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 
 

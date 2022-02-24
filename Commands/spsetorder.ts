@@ -60,7 +60,7 @@ const spsetorder = async (interaction: CommandInteraction, client: Client): Prom
 
     await collections.config.updateOne({}, {$set: {orderSettings: orderSettings}})
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(client, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
         
     await interaction.editReply({
         content: "Order of '" + stockpile + "' stockpile changed to number " + (order+1).toString(),

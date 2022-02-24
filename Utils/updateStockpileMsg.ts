@@ -1,4 +1,4 @@
-import { Client, Message, MessageActionRow, MessageButton, TextChannel } from "discord.js"
+import { Client, CommandInteraction, Message, MessageActionRow, MessageComponentInteraction, TextChannel } from "discord.js"
 import { getCollections } from '../mongoDB';
 import checkTimeNotifsQueue from "./checkTimeNotifs";
 let queue: Array<any> = []
@@ -6,13 +6,13 @@ let editedMsgs = false
 let newMsgsSent = false
 const eventName = "[Update Logi Channel]: "
 
-const updateStockpileMsgEntryPoint = async (client: Client, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
-    queue.push({ client: client, msg: msg })
+const updateStockpileMsgEntryPoint = async (client: Client, interaction: CommandInteraction | MessageComponentInteraction | string, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
+    queue.push({ client: client, interaction: interaction, msg: msg })
 
     if (queue.length === 1) {
         console.log(eventName + "No queue ahead. Starting")
 
-        updateStockpileMsg(queue[0].client, queue[0].msg)
+        updateStockpileMsg(queue[0].client, queue[0].interaction, queue[0].msg)
     }
     else {
         if (queue.length > 2) {
@@ -90,9 +90,10 @@ const deleteTargetMsg = async (channelObj: TextChannel, currentMsgID: string) =>
 
 
 
-const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
+const updateStockpileMsg = async (client: Client, interaction: CommandInteraction| MessageComponentInteraction | string, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
     try {
-        const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
+        const guildID = typeof interaction === "string" ? interaction : interaction.guildId
+        const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
 
         const configObj = (await collections.config.findOne({}))!
 
@@ -108,18 +109,18 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
                 if (e.code === 10008) {
                     console.log(eventName + "Overall bot report header msg not found, sending a new one")
                     const newMsg = await channelObj.send(msg[0])
-                    await collections.config.updateOne({}, {$set: {stockpileHeader: newMsg.id}})
+                    await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id } })
                 }
             }
             try {
                 msgObj = await channelObj.messages.fetch(configObj.stockpileMsgsHeader)
                 await msgObj.edit(msg[3])
-            }       
+            }
             catch (e: any) {
                 if (e.code === 10008) {
                     console.log(eventName + "Stockpile msgs header msg not found, sending a new one")
                     const newMsg = await channelObj.send(msg[3])
-                    await collections.config.updateOne({}, {$set: {stockpileMsgsHeader: newMsg.id}})
+                    await collections.config.updateOne({}, { $set: { stockpileMsgsHeader: newMsg.id } })
                 }
             }
 
@@ -164,7 +165,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
 
             }
 
-            
+
             // Check if all the target msgs still exist
             for (let i = 0; i < configObj.targetMsg.length; i++) {
                 try {
@@ -187,7 +188,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
             // Send the target msg last
             if (newMsgsSent) {
                 let targetMsgIDs = []
-                let targetMsgFuncArray = [] 
+                let targetMsgFuncArray = []
                 for (let i = 0; i < configObj.targetMsg.length; i++) {
                     targetMsgFuncArray.push(deleteTargetMsg(channelObj, configObj.targetMsg[i]))
                 }
@@ -245,7 +246,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
         queue.splice(0, 1)
         if (queue.length > 0) {
             console.log(eventName + "Finished 1 logi channel update, starting next in queue, remaining queue: " + queue.length)
-            updateStockpileMsg(queue[0].client, queue[0].msg)
+            updateStockpileMsg(queue[0].client, queue[0].interaction, queue[0].msg)
         }
         editedMsgs = false
         newMsgsSent = false
@@ -257,7 +258,7 @@ const updateStockpileMsg = async (client: Client, msg: [string, Array<string>, s
         queue.splice(0, 1)
         if (queue.length > 0) {
             console.log(eventName + "Finished 1 logi channel update event, starting next in queue, remaining in queue: " + queue.length)
-            updateStockpileMsg(queue[0].client, queue[0].msg)
+            updateStockpileMsg(queue[0].client,queue[0].interaction, queue[0].msg)
         }
         editedMsgs = false
         newMsgsSent = false
