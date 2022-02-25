@@ -58,7 +58,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
             console.log("Failed to delete msg")
         }
     }
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateMsg(false, interaction)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateMsg(false, interaction.guildId)
     const newMsg = await channelObj.send(stockpileHeader)
     const stockpileMsgsHeaderID = await channelObj.send(stockpileMsgsHeader)
     let stockpileMsgIDs: any = []

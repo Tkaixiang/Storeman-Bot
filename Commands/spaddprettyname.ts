@@ -37,11 +37,12 @@ const spaddprettyname = async (interaction: CommandInteraction, client: Client):
             await collections.config.updateOne({}, { $set: { prettyName: prettyNameObj } })
         }
         const prettyName: any = NodeCacheObj.get("prettyName")
-        prettyName[stockpileExist.name] = cleanedPrettyName
+        if (process.env.STOCKPILER_MULTI_SERVER === "true") prettyName[interaction.guildId!][stockpileExist.name] = cleanedPrettyName
+        else prettyName[stockpileExist.name] = cleanedPrettyName
         await interaction.editReply({ content: "Added the pretty name `" + cleanedPrettyName + "` to stockpile `" + stockpileExist.name + "` successfully." })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
+        await updateStockpileMsg(client,interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 
 

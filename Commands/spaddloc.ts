@@ -18,12 +18,12 @@ const spaddloc = async (interaction: CommandInteraction, client: Client): Promis
         return false
     }
 
-    await interaction.reply({content: 'Working on it', ephemeral: true});
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const locationMappings: any = NodeCacheObj.get("locationMappings")
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const searchQuery = new RegExp(cleanedName, "i")
-   
+
     const cleanedLocation = location.replace(/\./g, "").replace(/\$/g, "").toLowerCase()
     if (!(cleanedLocation in locationMappings)) {
         await interaction.editReply({ content: "The location with the code `" + cleanedLocation + "` does not exist." })
@@ -45,8 +45,8 @@ const spaddloc = async (interaction: CommandInteraction, client: Client): Promis
         }
         await interaction.editReply({ content: "Added the code `" + locationMappings[cleanedLocation] + "` to stockpile `" + stockpileExist.name + "` successfully." })
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
+        await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
     }
 
 

@@ -36,9 +36,14 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
                 await collections.config.updateOne({}, { $set: { orderSettings: configObj.orderSettings } })
             }
         }
+
         if ("prettyName" in configObj) {
 
-            const prettyName: any = NodeCacheObj.get("prettyName")
+            const prettyNameObj: any = NodeCacheObj.get("prettyName")
+            let prettyName: any;
+            if (process.env.STOCKPILER_MULTI_SERVER === "true") prettyName = prettyNameObj[interaction.guildId!]
+            else prettyName = prettyNameObj
+
             for (const name in prettyName) {
                 if (name.toLowerCase() === cleanedName) {
                     delete prettyName[name]
@@ -57,8 +62,8 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
             await collections.config.updateOne({}, { $set: { code: configObj.code } })
         }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-        await updateStockpileMsg(client,interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
+        await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         const stockpileTime: any = NodeCacheObj.get("stockpileTimes")
         delete stockpileTime[stockpile]

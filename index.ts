@@ -163,6 +163,8 @@ const main = async (): Promise<void> => {
 
 
         if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+            console.log("Storeman bot is running in multi-server mode.")
+
             const collections = getCollections("global-settings")
             const configObj = await collections.config.findOne()
             if (configObj) {
@@ -172,6 +174,40 @@ const main = async (): Promise<void> => {
                         insertCommands(configObj.serverIDList[i])
                     }
                 }
+
+                let notifRoles: any = {}
+                let prettyName: any = {}
+                let stockpileTime: any = {}
+                for (let i = 0; i < configObj.serverIDList.length; i++) {
+                    // Create custom notifRoles and prettyNames cache object
+                    const serverCollections = getCollections(configObj.serverIDList)
+                    if ("notifRoles" in serverCollections.config) notifRoles[configObj.serverIDList] = serverCollections.config.notifRoles
+                    else notifRoles[configObj.serverIDList] = []
+                    if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList] = serverCollections.config.prettyName
+                    else prettyName[configObj.serverIDList] = {}
+
+                
+                    const stockpiles = await serverCollections.stockpiles.find({}).toArray()
+                    for (let i = 0; i < stockpiles.length; i++) {
+                        if ("timeLeft" in stockpiles[i]) {
+                            let timeNotificationLeft = timerBP.length - 1
+                            for (let x = 0; x < timerBP.length; x++) {
+                                const timeLeftProperty: any = stockpiles[i].timeLeft
+                                const currentDate: any = new Date()
+                                if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
+                                    timeNotificationLeft = x
+                                    break
+                                }
+                            }
+                            if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
+                            stockpileTime[configObj.serverIDList][stockpiles[i].name] = { timeLeft: stockpiles[i].timeLeft, timeNotificationLeft: timeNotificationLeft }
+                        }
+                    }
+                }
+
+                NodeCacheObj.set("notifRoles", notifRoles)
+                NodeCacheObj.set("prettyName", prettyName)
+                NodeCacheObj.set("stockpileTimes", stockpileTime)
             }
             else {
                 await collections.config.insertOne({ version: currentVersion, serverIDList: [] })
@@ -211,10 +247,7 @@ const main = async (): Promise<void> => {
                 console.log("Deleted the database and config records of the guild successfully")
             })
 
-            // Custom notifRoles handler
             // Custom prettyName handler
-            // Custom stockpileTimes handler
-            // Custom Stockpiler update stockpile handler
         }
         else {
             // Create list of timeLefts till the stockpile expires
@@ -267,7 +300,7 @@ const main = async (): Promise<void> => {
 
         // This is called once client(the bot) is ready
         client.once('ready', () => {
-            console.log("Stockpiler Discord Bot is ready!")
+            console.log("Storeman Bot is ready!")
             client.user?.setActivity("/sphelp")
         })
 

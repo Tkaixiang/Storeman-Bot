@@ -17,7 +17,7 @@ const spremoveprettyname = async (interaction: CommandInteraction, client: Clien
         return false
     }
 
-    await interaction.reply({content: 'Working on it', ephemeral: true});
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const searchQuery = new RegExp(cleanedName, "i")
@@ -26,15 +26,17 @@ const spremoveprettyname = async (interaction: CommandInteraction, client: Clien
     else {
         const configObj = (await collections.config.findOne({}))!
         if ('prettyName' in configObj) {
-            delete configObj.prettyName[stockpileExist.name] 
+            delete configObj.prettyName[stockpileExist.name]
             await collections.config.updateOne({}, { $set: { prettyName: configObj.prettyName } })
             const prettyName: any = NodeCacheObj.get("prettyName")
-            delete prettyName[stockpileExist.name]
+            if (process.env.STOCKPILER_MULTI_SERVER === "true") delete prettyName[interaction.guildId!][stockpileExist.name]
+            else delete prettyName[stockpileExist.name]
+
             await interaction.editReply({ content: "Removed the pretty name from `" + stockpileExist.name + "` successfully." })
 
-            const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction)
-            await updateStockpileMsg(client, interaction, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
-    
+            const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
+            await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+
         }
         else {
             await interaction.editReply("Error: there are no pretty names")

@@ -11,7 +11,7 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(false, interaction)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(false, interaction.guildId)
     if (filter) {
         if (filter === "targets") {
             await interaction.editReply(targetMsg)
@@ -26,7 +26,10 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
             const stockpiles = await collections.stockpiles.find({}).toArray()
             const itemListCategoryMapping: any = NodeCacheObj.get("itemListCategoryMapping")
             const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
-            const prettyName: any = NodeCacheObj.get("prettyName")
+            const prettyNameObj: any = NodeCacheObj.get("prettyName")
+            let prettyName: any;
+            if (process.env.STOCKPILER_MULTI_SERVER === "true") prettyName = prettyNameObj[interaction.guildId!]
+            else prettyName = prettyNameObj
 
             for (let i = 0; i < stockpiles.length; i++) {
                 const current = stockpiles[i]

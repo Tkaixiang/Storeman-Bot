@@ -28,7 +28,10 @@ const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, s
             }
         }
         const notifRoles: any = NodeCacheObj.get("notifRoles")
-        notifRoles.push(role.id)
+
+        if (process.env.STOCKPILER_MULTI_SERVER === "true") notifRoles[interaction.guildId!].push(role.id)
+        else notifRoles.push(role.id)
+
         await collections.config.updateOne({}, { $push: { notifRoles: role.id } })
         await interaction.editReply({ content: "Successfully added " + role.name + " to the stockpile expiry notification list", })
         checkTimeNotifs(client, true)
@@ -41,7 +44,12 @@ const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, s
                     configObj.notifRoles.splice(i, 1)
                     await collections.config.updateOne({}, { $set: { notifRoles: configObj.notifRoles } })
 
-                    NodeCacheObj.set("notifRoles", configObj.notifRoles)
+                    if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+                        const notifRoles: any = NodeCacheObj.get("notifRoles")
+                        notifRoles[interaction.guildId!] = configObj.notifRoles
+                    }
+                    else NodeCacheObj.set("notifRoles", configObj.notifRoles)
+
                     deleted = true
                     break
                 }

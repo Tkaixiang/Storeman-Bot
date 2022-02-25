@@ -1,13 +1,15 @@
-import { CommandInteraction, MessageActionRow, MessageButton, MessageComponentInteraction } from 'discord.js';
+import { MessageActionRow, MessageButton } from 'discord.js';
 import { getCollections } from '../mongoDB';
 
 
 
-const generateMsg = async (updateMsg: boolean, interaction: CommandInteraction | MessageComponentInteraction | string): Promise<Array<any>> => {
-    const guildID = typeof interaction === "string" ? interaction : interaction.guildId
+const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<Array<any>> => {
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
-    const prettyName: any = NodeCacheObj.get("prettyName")
+    const prettyNameObj: any = NodeCacheObj.get("prettyName")
+    let prettyName: any;
+    if (process.env.STOCKPILER_MULTI_SERVER === "true") prettyName = prettyNameObj[guildID!]
+    else prettyName = prettyNameObj
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"
     let locationMappings: any = NodeCacheObj.get("locationMappings")
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
