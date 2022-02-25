@@ -12,7 +12,7 @@ FROM base AS npm
 
 RUN apk add --no-cache g++ make python3
 
-COPY ["package.json", "package-lock.json", "."]
+COPY ["package.json", "package-lock.json", "./"]
 RUN npm ci
 
 
