@@ -81,11 +81,11 @@ const guildCreateEventHandler = async (guild: Guild) => {
         const globalCollection = getCollections("global-settings")
         await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
 
-        const stockpileTime: any = NodeCacheObj.get("stockpileTime")
+        const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
         const notifRoles: any = NodeCacheObj.get("notifRoles")
         const prettyName: any = NodeCacheObj.get("prettyName")
 
-        stockpileTime[guild.id] = {}
+        stockpileTimes[guild.id] = {}
         notifRoles[guild.id] = []
         prettyName[guild.id] = {}
     }
