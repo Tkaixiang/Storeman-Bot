@@ -79,17 +79,17 @@ const guildCreateEventHandler = async (guild: Guild) => {
     await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
 }
 
-const guildDeleteEventHandler = async (guild: Guild) => {
-    console.log("Bot has been kicked (or deleted) from the server named : " + guild.name)
+const guildDeleteEventHandler = async (guildID: string) => {
+    console.log("Bot has been kicked (or deleted) from the server with ID:" + guildID)
     const mongoClient = getMongoClientObj()
-    const db = mongoClient.db('stockpiler-' + guild.id)
+    const db = mongoClient.db('stockpiler-' + guildID)
     await db.dropDatabase()
 
     const collections = getCollections("global-settings")
     const configObj = await collections.config.findOne({})
     let found = false
     for (let i = 0; i < configObj.serverIDList.length; i++) {
-        if (configObj.serverIDList[i] === guild.id) {
+        if (configObj.serverIDList[i] === guildID) {
             found = true
             configObj.serverIDList.splice(i, 1)
             break
@@ -129,7 +129,7 @@ const createCacheStartup = async (client: Client) => {
                 const currentID = configObj.serverIDList[i]
                 if (listOfGuildIDs.indexOf(currentID) === -1) {
                     // guildID from our database no longer exists in discord API, execute destroyFunction
-                    guildDeleteEventHandler(listOfGuildObjs[i])
+                    guildDeleteEventHandler(currentID)
                 }
             }
 
@@ -184,7 +184,7 @@ const createCacheStartup = async (client: Client) => {
 
         client.on('guildCreate', (guild) => { guildCreateEventHandler(guild) })
 
-        client.on('guildDelete', async (guild) => { guildDeleteEventHandler(guild) })
+        client.on('guildDelete', async (guild) => { guildDeleteEventHandler(guild.id) })
     }
     else {
         // Create list of timeLefts till the stockpile expires
