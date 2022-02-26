@@ -66,7 +66,7 @@ const updateFirstTimeSetup = async (newInstance: boolean): Promise<void> => {
 
 const guildCreateEventHandler = async (guild: Guild) => {
     // The bot has joined a new server
-    console.log("Bot has joined a new server named: " + guild.name)
+    console.log("Bot has joined a new server named: " + guild.name + " with ID: " + guild.id)
     const collections = getCollections(guild.id)
     const password = crypto.randomBytes(32).toString('hex')
     await collections.config.insertOne({ password: await argon2.hash(password) })
@@ -166,7 +166,12 @@ const createCacheStartup = async (client: Client) => {
                             }
                         }
                         if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
-                        stockpileTime[configObj.serverIDList][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
+                        if (configObj.serverIDList in stockpileTime) stockpileTime[configObj.serverIDList][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
+                        else {
+                            let updateObj: any = {}
+                            updateObj[stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
+                            stockpileTime[configObj.serverIDList] = updateObj
+                        }
                     }
                 }
             }
