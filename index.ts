@@ -219,7 +219,7 @@ const main = async (): Promise<void> => {
             if (configObj) {
                 // Check if the guildID list has changed since the bot was down
                 for (let i = 0; i < listOfGuildObjs.length; i++) {
-                    const currentID = listOfGuildObjs[i].id
+                    const currentID = listOfGuildIDs
                     if (configObj.serverIDList.indexOf(currentID) === -1) {
                         // guildID from discord API not found inside our storage, execute createFunction
                         guildCreateEventHandler(listOfGuildObjs[i])
