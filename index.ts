@@ -1,4 +1,4 @@
-import { Client, Intents } from 'discord.js'
+import { Client, Guild, Intents } from 'discord.js'
 import { insertCommands } from './deploy-commands'
 import { open, getCollections, getMongoClientObj } from './mongoDB'
 import sphelp from './Commands/sphelp'
@@ -46,18 +46,57 @@ declare global {
 }
 
 
-const firstTimeSetup = async (configOptions: any): Promise<void> => {
+const updateFirstTimeSetup = async (newInstance: boolean): Promise<void> => {
     // Run first-time setup
     const collections = getCollections()
     insertCommands()
 
-    if (!configOptions || !("password" in configOptions)) {
+    if (newInstance) {
         const password = crypto.randomBytes(32).toString('hex')
         console.info("Generated a random password since none was previously set: " + password + ". You can change this using /spsetpassword via the bot")
         await collections.config.insertOne({ version: currentVersion, password: await argon2.hash(password) })
+        console.log("Completed first-time setup")
     }
-    else await collections.config.updateOne({}, { $set: { version: currentVersion } })
-    console.info("First time setup/update completed.")
+    else {
+        await collections.config.updateOne({}, { $set: { version: currentVersion } })
+        console.info("Completed Storeman Bot update")
+    } 
+   
+}
+
+const guildCreateEventHandler = async (guild: Guild) => {
+    // The bot has joined a new server
+    console.log("Bot has joined a new server named: " + guild.name)
+    const collections = getCollections(guild.id)
+    const password = crypto.randomBytes(32).toString('hex')
+    await collections.config.insertOne({ password: await argon2.hash(password) })
+
+    // Insert commands into that guild
+    insertCommands(guild.id)
+
+    // Add the server record into the global settings list
+    const globalCollection = getCollections("global-settings")
+    await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
+}
+
+const guildDeleteEventHandler = async (guild: Guild) => {
+    console.log("Bot has been kicked (or deleted) from the server named : " + guild.name)
+    const mongoClient = getMongoClientObj()
+    const db = mongoClient.db('stockpiler-' + guild.id)
+    await db.dropDatabase()
+
+    const collections = getCollections("global-settings")
+    const configObj = await collections.config.findOne({})
+    let found = false
+    for (let i = 0; i < configObj.serverIDList.length; i++) {
+        if (configObj.serverIDList[i] === guild.id) {
+            found = true
+            configObj.serverIDList.splice(i, 1)
+            break
+        }
+    }
+    if (found) await collections.config.updateOne({}, { $set: { serverIDList: configObj.serverIDList } })
+    console.log("Deleted the database and config records of the guild successfully")
 }
 
 const main = async (): Promise<void> => {
@@ -167,11 +206,38 @@ const main = async (): Promise<void> => {
 
             const collections = getCollections("global-settings")
             const configObj = await collections.config.findOne()
+
+            // Obtain list of guild IDs from Discord API to check if it matches with the one stored in the DB
+            const guildObjs = client.guilds.cache.toJSON()
+            let listOfGuildObjs: Guild[] = []
+            let listOfGuildIDs: string[] = []
+            for (let i = 0; i < guildObjs.length; i++) {
+                listOfGuildObjs.push(guildObjs[i])
+                listOfGuildIDs.push(guildObjs[i].id)
+            }
+
             if (configObj) {
+                // Check if the guildID list has changed since the bot was down
+                for (let i = 0; i < listOfGuildObjs.length; i++) {
+                    const currentID = listOfGuildObjs[i].id
+                    if (configObj.serverIDList.indexOf(currentID) === -1) {
+                        // guildID from discord API not found inside our storage, execute createFunction
+                        guildCreateEventHandler(listOfGuildObjs[i])
+                    }
+                }
+                for (let i = 0; i < configObj.serverIDList.length; i++) {
+                    const currentID = configObj.serverIDList
+                    if (listOfGuildIDs.indexOf(currentID) === -1) {
+                        // guildID from our database no longer exists in discord API, execute destroyFunction
+                        guildDeleteEventHandler(listOfGuildObjs[i])
+                    }
+                }
+
                 if (configObj.version < currentVersion) {
                     // Update all the commands since the version has changed
                     for (let i = 0; i < configObj.serverIDList.length; i++) {
                         insertCommands(configObj.serverIDList[i])
+                        await collections.config.updateOne({}, { version: currentVersion })
                     }
                 }
 
@@ -186,7 +252,7 @@ const main = async (): Promise<void> => {
                     if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList[i]] = serverCollections.config.prettyName
                     else prettyName[configObj.serverIDList[i]] = {}
 
-                
+
                     const stockpiles = await serverCollections.stockpiles.find({}).toArray()
                     for (let y = 0; y < stockpiles.length; y++) {
                         if ("timeLeft" in stockpiles[y]) {
@@ -210,44 +276,15 @@ const main = async (): Promise<void> => {
                 NodeCacheObj.set("stockpileTimes", stockpileTime)
             }
             else {
-                await collections.config.insertOne({ version: currentVersion, serverIDList: [] })
+                for (let i = 0; i < listOfGuildObjs.length; i++) {
+                    guildCreateEventHandler(listOfGuildObjs[i])
+                }
+                await collections.config.insertOne({ version: currentVersion, serverIDList: listOfGuildIDs })
             }
 
-            client.on('guildCreate', async (guild) => {
-                // The bot has joined a new server
-                console.log("Bot has joined a new server named: " + guild.name)
-                const collections = getCollections(guild.id)
-                const password = crypto.randomBytes(32).toString('hex')
-                await collections.config.insertOne({ password: await argon2.hash(password) })
+            client.on('guildCreate', (guild) => { guildCreateEventHandler(guild) })
 
-                // Insert commands into that guild
-                insertCommands(guild.id)
-
-                // Add the server record into the global settings list
-                const globalCollection = getCollections("global-settings")
-                await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
-            })
-
-            client.on('guildDelete', async (guild) => {
-                console.log("Bot has been kicked (or deleted) from the server named : " + guild.name)
-                const mongoClient = getMongoClientObj()
-                const db = mongoClient.db('stockpiler-' + guild.id)
-                await db.dropDatabase()
-
-                const configObj = await collections.config.findOne({})
-                let found = false
-                for (let i = 0; i < configObj.serverIDList.length; i++) {
-                    if (configObj.serverIDList[i] === guild.id) {
-                        found = true
-                        configObj.serverIDList.splice(i, 1)
-                        break
-                    }
-                }
-                if (found) await collections.config.updateOne({}, { $set: { serverIDList: configObj.serverIDList } })
-                console.log("Deleted the database and config records of the guild successfully")
-            })
-
-            // Custom prettyName handler
+            client.on('guildDelete', async (guild) => { guildDeleteEventHandler(guild) })
         }
         else {
             // Create list of timeLefts till the stockpile expires
@@ -286,12 +323,12 @@ const main = async (): Promise<void> => {
 
 
                 if (configOptions.version) {
-                    if (configOptions.version < currentVersion) firstTimeSetup(configOptions)
+                    if (configOptions.version < currentVersion) updateFirstTimeSetup(false)
                 }
-                else firstTimeSetup(configOptions)
+                else updateFirstTimeSetup(true)
 
             }
-            else firstTimeSetup(configOptions)
+            else updateFirstTimeSetup(true)
         }
 
 

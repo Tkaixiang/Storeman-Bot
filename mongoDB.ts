@@ -1,10 +1,5 @@
-import { Db, MongoClient, Collection, WithId } from 'mongodb'
+import { Db, MongoClient} from 'mongodb'
 let db: Db
-interface collectionList {
-    stockpiles: Collection,
-    targets: Collection,
-    config: Collection
-}
 let mongoClientObj: any;
 
 
