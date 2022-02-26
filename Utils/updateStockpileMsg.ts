@@ -203,7 +203,7 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
                 }
                 updateObj.targetMsg = targetMsgIDs
 
-                checkTimeNotifsQueue(client, true)
+                checkTimeNotifsQueue(client, true, false, guildID!)
             }
             else {
                 let targetMsgFuncArray = []
