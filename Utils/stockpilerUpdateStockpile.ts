@@ -57,7 +57,11 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                         // This is cause the "Refresh Timer" button removes the "upperBound" indicator as it is an absolute timing and we should ignore any upper bounds and stuff
                         // Hence, the "lastUpdated" (the last scan timing) in this case is the absolute lower bound and there is no other time left between the lower bound and the current bound
 
-                        const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+                        const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
+                        let stockpileTimes: any;
+                        if (process.env.STOCKPILER_MULTI_SERVER === "true") stockpileTimes = stockpileTimesObj[body.guildID]
+                        else stockpileTimes = stockpileTimesObj
+
                         const timerBP: any = NodeCacheObj.get("timerBP")
                         let newTimeLeft = new Date(stockpile.lastUpdated.getTime() + 60 * 60 * 1000 * 48)
                         let timeNotificationLeft = 4
@@ -75,7 +79,10 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                     }
                     else {
                         let newTimeLeft: any;
-                        const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+                        const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
+                        let stockpileTimes: any;
+                        if (process.env.STOCKPILER_MULTI_SERVER === "true") stockpileTimes = stockpileTimesObj[body.guildID]
+                        else stockpileTimes = stockpileTimesObj
                         const timerBP: any = NodeCacheObj.get("timerBP")
 
 

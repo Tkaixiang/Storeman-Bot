@@ -80,6 +80,14 @@ const guildCreateEventHandler = async (guild: Guild) => {
         // Add the server record into the global settings list
         const globalCollection = getCollections("global-settings")
         await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
+
+        const stockpileTime: any = NodeCacheObj.get("stockpileTime")
+        const notifRoles: any = NodeCacheObj.get("notifRoles")
+        const prettyName: any = NodeCacheObj.get("prettyName")
+
+        stockpileTime[guild.id] = {}
+        notifRoles[guild.id] = []
+        prettyName[guild.id] = {}
     }
 }
 
@@ -100,6 +108,14 @@ const guildDeleteEventHandler = async (guildID: string) => {
         }
     }
     if (found) await collections.config.updateOne({}, { $set: { serverIDList: configObj.serverIDList } })
+
+    const stockpileTime: any = NodeCacheObj.get("stockpileTime")
+    const notifRoles: any = NodeCacheObj.get("notifRoles")
+    const prettyName: any = NodeCacheObj.get("prettyName")
+    delete stockpileTime[guildID]
+    delete notifRoles[guildID]
+    delete prettyName[guildID]
+
     console.log("Deleted the database and config records of the guild successfully")
 }
 
@@ -158,6 +174,7 @@ const createCacheStartup = async (client: Client) => {
 
 
                 const stockpiles = await serverCollections.stockpiles.find({}).toArray()
+                stockpileTime[configObj.serverIDList[i]] = {}
                 for (let y = 0; y < stockpiles.length; y++) {
                     if ("timeLeft" in stockpiles[y]) {
                         let timeNotificationLeft = timerBP.length - 1
@@ -170,12 +187,7 @@ const createCacheStartup = async (client: Client) => {
                             }
                         }
                         if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
-                        if (configObj.serverIDList in stockpileTime) stockpileTime[configObj.serverIDList][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
-                        else {
-                            let updateObj: any = {}
-                            updateObj[stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
-                            stockpileTime[configObj.serverIDList] = updateObj
-                        }
+                        stockpileTime[configObj.serverIDList[i]][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }  
                     }
                 }
             }

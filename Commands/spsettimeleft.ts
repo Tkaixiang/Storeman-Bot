@@ -34,7 +34,10 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
         await collections.stockpiles.updateOne({ name: searchQuery }, { $unset: {upperBound: 1} })
         await interaction.editReply({ content: `Updated the stockpile timer successfully. It is set to expire in: <t:${Math.floor(updateObj.timeLeft.getTime() / 1000)}:R>` })
 
-        const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+        const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
+            let stockpileTimes: any;
+            if (process.env.STOCKPILER_MULTI_SERVER === "true") stockpileTimes = stockpileTimesObj[interaction.guildId!]
+            else stockpileTimes = stockpileTimesObj
         const timerBP: any = NodeCacheObj.get("timerBP")
         let timeNotificationLeft = 4
         for (let x = 0; x < timerBP.length; x++) {

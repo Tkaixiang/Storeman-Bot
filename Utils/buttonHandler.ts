@@ -61,7 +61,11 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             await collections.stockpiles.updateOne({ name: searchQuery }, { $unset: { upperBound: 1 } })
             await interaction.followUp({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
 
-            const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+            const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
+            let stockpileTimes: any;
+            if (process.env.STOCKPILER_MULTI_SERVER === "true") stockpileTimes = stockpileTimesObj[interaction.guildId!]
+            else stockpileTimes = stockpileTimesObj
+
             const timerBP: any = NodeCacheObj.get("timerBP")
             stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timerBP.length - 1 }
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
