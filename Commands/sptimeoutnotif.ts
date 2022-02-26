@@ -34,7 +34,7 @@ const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, s
 
         await collections.config.updateOne({}, { $push: { notifRoles: role.id } })
         await interaction.editReply({ content: "Successfully added " + role.name + " to the stockpile expiry notification list", })
-        checkTimeNotifs(client, true)
+        checkTimeNotifs(client, true, false, interaction.guildId!)
     }
     else {
         let deleted = false

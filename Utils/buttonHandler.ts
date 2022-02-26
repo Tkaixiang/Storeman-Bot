@@ -66,7 +66,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timerBP.length - 1 }
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
             await updateStockpileMsg(interaction.client,interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
-            checkTimeNotifs(interaction.client, true)
+            checkTimeNotifs(interaction.client, true, false, interaction.guildId!)
         }
         else {
             await interaction.followUp({ content: "Error: Stockpile " + cleanName + " does not exist", ephemeral: true })

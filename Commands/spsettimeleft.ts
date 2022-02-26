@@ -50,7 +50,7 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
         await updateStockpileMsg(interaction.client,interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
-        checkTimeNotifs(client, true)
+        checkTimeNotifs(client, true, false, interaction.guildId!)
     }
     else await interaction.editReply({ content: "Error, the stockpile `" + stockpile + "` does not exist." })
 

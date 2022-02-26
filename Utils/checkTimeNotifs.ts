@@ -4,7 +4,7 @@ import { roleMention } from '@discordjs/builders';
 const eventName = "[Stockpile Expiry Checker]: "
 let queue: Array<any> = []
 
-const checkTimeNotifsQueue = async (client: Client, forceEdit: boolean = false, regularUpdate: boolean = true, guildID: string = "PLACEHOLDER"): Promise<Boolean> => {
+const checkTimeNotifsQueue = async (client: Client, forceEdit: boolean = false, regularUpdate: boolean = false, guildID: string = "PLACEHOLDER"): Promise<Boolean> => {
     queue.push({ client: client, forceEdit: forceEdit, regularUpdate: regularUpdate, guildID: guildID })
 
     if (queue.length === 1) {
@@ -18,7 +18,7 @@ const checkTimeNotifsQueue = async (client: Client, forceEdit: boolean = false, 
 
     return true
 }
-const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regularUpdate: boolean = true, guildID: string = "PLACEHOLDER") => {
+const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regularUpdate: boolean = false, guildID: string = "PLACEHOLDER") => {
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
         if (regularUpdate) {
             const globalCollections = getCollections("global-settings")
@@ -90,11 +90,7 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regul
                 }
 
             }
-            queue.splice(0, 1)
-            if (queue.length > 0) {
-                console.log(eventName + "Finished 1, starting next in queue, remaining queue: " + queue.length)
-                checkTimeNotifs(queue[0].client, queue[0].forceEdit, queue[0].regularUpdate, queue[0].guildID)
-            }
+
         }
         else {
             console.log(eventName + "Checking time now for the guild with ID: " + guildID)
@@ -218,11 +214,11 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regul
 
             }
         }
-        queue.splice(0, 1)
-        if (queue.length > 0) {
-            console.log(eventName + "Finished 1, starting next in queue, remaining queue: " + queue.length)
-            checkTimeNotifs(queue[0].client, queue[0].forceEdit, queue[0].regularUpdate, queue[0].guildID)
-        }
+    }
+    queue.splice(0, 1)
+    if (queue.length > 0) {
+        console.log(eventName + "Finished 1, starting next in queue, remaining queue: " + queue.length)
+        checkTimeNotifs(queue[0].client, queue[0].forceEdit, queue[0].regularUpdate, queue[0].guildID)
     }
 
 
