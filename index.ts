@@ -226,7 +226,7 @@ const main = async (): Promise<void> => {
                     }
                 }
                 for (let i = 0; i < configObj.serverIDList.length; i++) {
-                    const currentID = configObj.serverIDList
+                    const currentID = configObj.serverIDList[i]
                     if (listOfGuildIDs.indexOf(currentID) === -1) {
                         // guildID from our database no longer exists in discord API, execute destroyFunction
                         guildDeleteEventHandler(listOfGuildObjs[i])
