@@ -181,18 +181,18 @@ const main = async (): Promise<void> => {
                 for (let i = 0; i < configObj.serverIDList.length; i++) {
                     // Create custom notifRoles and prettyNames cache object
                     const serverCollections = getCollections(configObj.serverIDList)
-                    if ("notifRoles" in serverCollections.config) notifRoles[configObj.serverIDList] = serverCollections.config.notifRoles
+                    if ("notifRoles" in serverCollections.config) notifRoles[configObj.serverIDList[i]] = serverCollections.config.notifRoles
                     else notifRoles[configObj.serverIDList] = []
-                    if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList] = serverCollections.config.prettyName
+                    if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList[i]] = serverCollections.config.prettyName
                     else prettyName[configObj.serverIDList] = {}
 
                 
                     const stockpiles = await serverCollections.stockpiles.find({}).toArray()
-                    for (let i = 0; i < stockpiles.length; i++) {
-                        if ("timeLeft" in stockpiles[i]) {
+                    for (let y = 0; y < stockpiles.length; y++) {
+                        if ("timeLeft" in stockpiles[y]) {
                             let timeNotificationLeft = timerBP.length - 1
                             for (let x = 0; x < timerBP.length; x++) {
-                                const timeLeftProperty: any = stockpiles[i].timeLeft
+                                const timeLeftProperty: any = stockpiles[y].timeLeft
                                 const currentDate: any = new Date()
                                 if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
                                     timeNotificationLeft = x
@@ -200,7 +200,7 @@ const main = async (): Promise<void> => {
                                 }
                             }
                             if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
-                            stockpileTime[configObj.serverIDList][stockpiles[i].name] = { timeLeft: stockpiles[i].timeLeft, timeNotificationLeft: timeNotificationLeft }
+                            stockpileTime[configObj.serverIDList][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
                         }
                     }
                 }
