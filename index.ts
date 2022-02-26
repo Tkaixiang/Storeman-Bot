@@ -150,7 +150,7 @@ const createCacheStartup = async (client: Client) => {
             let stockpileTime: any = {}
             for (let i = 0; i < configObj.serverIDList.length; i++) {
                 // Create custom notifRoles and prettyNames cache object
-                const serverCollections = getCollections(configObj.serverIDList)
+                const serverCollections = getCollections(configObj.serverIDList[i])
                 if ("notifRoles" in serverCollections.config) notifRoles[configObj.serverIDList[i]] = serverCollections.config.notifRoles
                 else notifRoles[configObj.serverIDList[i]] = []
                 if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList[i]] = serverCollections.config.prettyName
