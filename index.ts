@@ -209,6 +209,7 @@ const main = async (): Promise<void> => {
 
             // Obtain list of guild IDs from Discord API to check if it matches with the one stored in the DB
             const guildObjs = client.guilds.cache.toJSON()
+            console.log(guildObjs)
             let listOfGuildObjs: Guild[] = []
             let listOfGuildIDs: string[] = []
             for (let i = 0; i < guildObjs.length; i++) {
