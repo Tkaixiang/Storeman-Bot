@@ -60,23 +60,27 @@ const updateFirstTimeSetup = async (newInstance: boolean): Promise<void> => {
     else {
         await collections.config.updateOne({}, { $set: { version: currentVersion } })
         console.info("Completed Storeman Bot update")
-    } 
-   
+    }
+
 }
 
 const guildCreateEventHandler = async (guild: Guild) => {
-    // The bot has joined a new server
-    console.log("Bot has joined a new server named: " + guild.name + " with ID: " + guild.id)
+
     const collections = getCollections(guild.id)
-    const password = crypto.randomBytes(32).toString('hex')
-    await collections.config.insertOne({ password: await argon2.hash(password) })
+    const configObj = await collections.config.findOne({})
+    if (!configObj) {
+        // The bot has joined a new server 
+        console.log("Bot has joined a new server named: " + guild.name + " with ID: " + guild.id)
+        const password = crypto.randomBytes(32).toString('hex')
+        await collections.config.insertOne({ password: await argon2.hash(password) })
 
-    // Insert commands into that guild
-    insertCommands(guild.id)
+        // Insert commands into that guild
+        insertCommands(guild.id)
 
-    // Add the server record into the global settings list
-    const globalCollection = getCollections("global-settings")
-    await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
+        // Add the server record into the global settings list
+        const globalCollection = getCollections("global-settings")
+        await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
+    }
 }
 
 const guildDeleteEventHandler = async (guildID: string) => {
