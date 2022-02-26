@@ -99,6 +99,139 @@ const guildDeleteEventHandler = async (guild: Guild) => {
     console.log("Deleted the database and config records of the guild successfully")
 }
 
+const createCacheStartup = async (client: Client) => {
+    if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+        console.log("Storeman bot is running in multi-server mode.")
+
+        const collections = getCollections("global-settings")
+        const configObj = await collections.config.findOne()
+
+        // Obtain list of guild IDs from Discord API to check if it matches with the one stored in the DB
+        const guildObjs = client.guilds.cache.toJSON()
+
+        let listOfGuildObjs: Guild[] = []
+        let listOfGuildIDs: string[] = []
+        for (let i = 0; i < guildObjs.length; i++) {
+            listOfGuildObjs.push(guildObjs[i])
+            listOfGuildIDs.push(guildObjs[i].id)
+        }
+
+        if (configObj) {
+            // Check if the guildID list has changed since the bot was down
+            for (let i = 0; i < listOfGuildObjs.length; i++) {
+                const currentID = listOfGuildIDs
+                if (configObj.serverIDList.indexOf(currentID) === -1) {
+                    // guildID from discord API not found inside our storage, execute createFunction
+                    guildCreateEventHandler(listOfGuildObjs[i])
+                }
+            }
+            for (let i = 0; i < configObj.serverIDList.length; i++) {
+                const currentID = configObj.serverIDList[i]
+                if (listOfGuildIDs.indexOf(currentID) === -1) {
+                    // guildID from our database no longer exists in discord API, execute destroyFunction
+                    guildDeleteEventHandler(listOfGuildObjs[i])
+                }
+            }
+
+            if (configObj.version < currentVersion) {
+                // Update all the commands since the version has changed
+                for (let i = 0; i < configObj.serverIDList.length; i++) {
+                    insertCommands(configObj.serverIDList[i])
+                    await collections.config.updateOne({}, { version: currentVersion })
+                }
+            }
+
+            let notifRoles: any = {}
+            let prettyName: any = {}
+            let stockpileTime: any = {}
+            for (let i = 0; i < configObj.serverIDList.length; i++) {
+                // Create custom notifRoles and prettyNames cache object
+                const serverCollections = getCollections(configObj.serverIDList)
+                if ("notifRoles" in serverCollections.config) notifRoles[configObj.serverIDList[i]] = serverCollections.config.notifRoles
+                else notifRoles[configObj.serverIDList[i]] = []
+                if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList[i]] = serverCollections.config.prettyName
+                else prettyName[configObj.serverIDList[i]] = {}
+
+
+                const stockpiles = await serverCollections.stockpiles.find({}).toArray()
+                for (let y = 0; y < stockpiles.length; y++) {
+                    if ("timeLeft" in stockpiles[y]) {
+                        let timeNotificationLeft = timerBP.length - 1
+                        for (let x = 0; x < timerBP.length; x++) {
+                            const timeLeftProperty: any = stockpiles[y].timeLeft
+                            const currentDate: any = new Date()
+                            if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
+                                timeNotificationLeft = x
+                                break
+                            }
+                        }
+                        if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
+                        stockpileTime[configObj.serverIDList][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
+                    }
+                }
+            }
+
+            NodeCacheObj.set("notifRoles", notifRoles)
+            NodeCacheObj.set("prettyName", prettyName)
+            NodeCacheObj.set("stockpileTimes", stockpileTime)
+        }
+        else {
+            for (let i = 0; i < listOfGuildObjs.length; i++) {
+                guildCreateEventHandler(listOfGuildObjs[i])
+            }
+            await collections.config.insertOne({ version: currentVersion, serverIDList: listOfGuildIDs })
+        }
+
+        client.on('guildCreate', (guild) => { guildCreateEventHandler(guild) })
+
+        client.on('guildDelete', async (guild) => { guildDeleteEventHandler(guild) })
+    }
+    else {
+        // Create list of timeLefts till the stockpile expires
+        const collections = getCollections()
+
+        const stockpiles = await collections.stockpiles.find({}).toArray()
+        let stockpileTime: any = {}
+        for (let i = 0; i < stockpiles.length; i++) {
+            if ("timeLeft" in stockpiles[i]) {
+                let timeNotificationLeft = timerBP.length - 1
+                for (let x = 0; x < timerBP.length; x++) {
+                    const timeLeftProperty: any = stockpiles[i].timeLeft
+                    const currentDate: any = new Date()
+                    if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
+                        timeNotificationLeft = x
+                        break
+                    }
+                }
+                if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
+                stockpileTime[stockpiles[i].name] = { timeLeft: stockpiles[i].timeLeft, timeNotificationLeft: timeNotificationLeft }
+            }
+        }
+        NodeCacheObj.set("stockpileTimes", stockpileTime)
+
+        // Check whether to insert commands and do first-time setup
+        if (process.env.NODE_ENV === "development") insertCommands()
+        const configOptions = await collections.config.findOne({}, {})
+        if (configOptions) {
+
+            let notifRoles = []
+            if ("notifRoles" in configOptions) notifRoles = configOptions.notifRoles
+            NodeCacheObj.set("notifRoles", notifRoles)
+            let prettyName: any = {}
+            if ("prettyName" in configOptions) prettyName = configOptions.prettyName
+            NodeCacheObj.set("prettyName", prettyName)
+
+
+            if (configOptions.version) {
+                if (configOptions.version < currentVersion) updateFirstTimeSetup(false)
+            }
+            else updateFirstTimeSetup(true)
+
+        }
+        else updateFirstTimeSetup(true)
+    }
+}
+
 const main = async (): Promise<void> => {
 
 
@@ -200,144 +333,9 @@ const main = async (): Promise<void> => {
         server.listen(port, host)
         console.log(`HTTP server now listening at http://${host}:${port}`)
 
-
-        if (process.env.STOCKPILER_MULTI_SERVER === "true") {
-            console.log("Storeman bot is running in multi-server mode.")
-
-            const collections = getCollections("global-settings")
-            const configObj = await collections.config.findOne()
-
-            // Obtain list of guild IDs from Discord API to check if it matches with the one stored in the DB
-            const guildObjs = client.guilds.cache.toJSON()
-            console.log(guildObjs)
-            let listOfGuildObjs: Guild[] = []
-            let listOfGuildIDs: string[] = []
-            for (let i = 0; i < guildObjs.length; i++) {
-                listOfGuildObjs.push(guildObjs[i])
-                listOfGuildIDs.push(guildObjs[i].id)
-            }
-
-            if (configObj) {
-                // Check if the guildID list has changed since the bot was down
-                for (let i = 0; i < listOfGuildObjs.length; i++) {
-                    const currentID = listOfGuildIDs
-                    if (configObj.serverIDList.indexOf(currentID) === -1) {
-                        // guildID from discord API not found inside our storage, execute createFunction
-                        guildCreateEventHandler(listOfGuildObjs[i])
-                    }
-                }
-                for (let i = 0; i < configObj.serverIDList.length; i++) {
-                    const currentID = configObj.serverIDList[i]
-                    if (listOfGuildIDs.indexOf(currentID) === -1) {
-                        // guildID from our database no longer exists in discord API, execute destroyFunction
-                        guildDeleteEventHandler(listOfGuildObjs[i])
-                    }
-                }
-
-                if (configObj.version < currentVersion) {
-                    // Update all the commands since the version has changed
-                    for (let i = 0; i < configObj.serverIDList.length; i++) {
-                        insertCommands(configObj.serverIDList[i])
-                        await collections.config.updateOne({}, { version: currentVersion })
-                    }
-                }
-
-                let notifRoles: any = {}
-                let prettyName: any = {}
-                let stockpileTime: any = {}
-                for (let i = 0; i < configObj.serverIDList.length; i++) {
-                    // Create custom notifRoles and prettyNames cache object
-                    const serverCollections = getCollections(configObj.serverIDList)
-                    if ("notifRoles" in serverCollections.config) notifRoles[configObj.serverIDList[i]] = serverCollections.config.notifRoles
-                    else notifRoles[configObj.serverIDList[i]] = []
-                    if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList[i]] = serverCollections.config.prettyName
-                    else prettyName[configObj.serverIDList[i]] = {}
-
-
-                    const stockpiles = await serverCollections.stockpiles.find({}).toArray()
-                    for (let y = 0; y < stockpiles.length; y++) {
-                        if ("timeLeft" in stockpiles[y]) {
-                            let timeNotificationLeft = timerBP.length - 1
-                            for (let x = 0; x < timerBP.length; x++) {
-                                const timeLeftProperty: any = stockpiles[y].timeLeft
-                                const currentDate: any = new Date()
-                                if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
-                                    timeNotificationLeft = x
-                                    break
-                                }
-                            }
-                            if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
-                            stockpileTime[configObj.serverIDList][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
-                        }
-                    }
-                }
-
-                NodeCacheObj.set("notifRoles", notifRoles)
-                NodeCacheObj.set("prettyName", prettyName)
-                NodeCacheObj.set("stockpileTimes", stockpileTime)
-            }
-            else {
-                for (let i = 0; i < listOfGuildObjs.length; i++) {
-                    guildCreateEventHandler(listOfGuildObjs[i])
-                }
-                await collections.config.insertOne({ version: currentVersion, serverIDList: listOfGuildIDs })
-            }
-
-            client.on('guildCreate', (guild) => { guildCreateEventHandler(guild) })
-
-            client.on('guildDelete', async (guild) => { guildDeleteEventHandler(guild) })
-        }
-        else {
-            // Create list of timeLefts till the stockpile expires
-            const collections = getCollections()
-
-            const stockpiles = await collections.stockpiles.find({}).toArray()
-            let stockpileTime: any = {}
-            for (let i = 0; i < stockpiles.length; i++) {
-                if ("timeLeft" in stockpiles[i]) {
-                    let timeNotificationLeft = timerBP.length - 1
-                    for (let x = 0; x < timerBP.length; x++) {
-                        const timeLeftProperty: any = stockpiles[i].timeLeft
-                        const currentDate: any = new Date()
-                        if (((timeLeftProperty - currentDate) / 1000) <= timerBP[x]) {
-                            timeNotificationLeft = x
-                            break
-                        }
-                    }
-                    if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
-                    stockpileTime[stockpiles[i].name] = { timeLeft: stockpiles[i].timeLeft, timeNotificationLeft: timeNotificationLeft }
-                }
-            }
-            NodeCacheObj.set("stockpileTimes", stockpileTime)
-
-            // Check whether to insert commands and do first-time setup
-            if (process.env.NODE_ENV === "development") insertCommands()
-            const configOptions = await collections.config.findOne({}, {})
-            if (configOptions) {
-
-                let notifRoles = []
-                if ("notifRoles" in configOptions) notifRoles = configOptions.notifRoles
-                NodeCacheObj.set("notifRoles", notifRoles)
-                let prettyName: any = {}
-                if ("prettyName" in configOptions) prettyName = configOptions.prettyName
-                NodeCacheObj.set("prettyName", prettyName)
-
-
-                if (configOptions.version) {
-                    if (configOptions.version < currentVersion) updateFirstTimeSetup(false)
-                }
-                else updateFirstTimeSetup(true)
-
-            }
-            else updateFirstTimeSetup(true)
-        }
-
-
-
-
-
         // This is called once client(the bot) is ready
-        client.once('ready', () => {
+        client.once('ready', async () => {
+            await createCacheStartup(client)
             console.log("Storeman Bot is ready!")
             client.user?.setActivity("/sphelp")
         })
