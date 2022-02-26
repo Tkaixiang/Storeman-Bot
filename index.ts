@@ -182,9 +182,9 @@ const main = async (): Promise<void> => {
                     // Create custom notifRoles and prettyNames cache object
                     const serverCollections = getCollections(configObj.serverIDList)
                     if ("notifRoles" in serverCollections.config) notifRoles[configObj.serverIDList[i]] = serverCollections.config.notifRoles
-                    else notifRoles[configObj.serverIDList] = []
+                    else notifRoles[configObj.serverIDList[i]] = []
                     if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList[i]] = serverCollections.config.prettyName
-                    else prettyName[configObj.serverIDList] = {}
+                    else prettyName[configObj.serverIDList[i]] = {}
 
                 
                     const stockpiles = await serverCollections.stockpiles.find({}).toArray()
