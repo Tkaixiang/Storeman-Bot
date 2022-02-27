@@ -35,7 +35,11 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 2. Set a **password** for your bot using `/spsetpassword <password>` and a **logi-channel** using `/splogichannel set <channel>` (run these commands inside your Discord server)
 3. Download a forked version of Stockpiler from [here]()
 4. Extract the files to any folder and run `Stockpiler.exe`
-5. A menu should appear. Head over to the `Settings` tab and fill in: `Bot Host` (Enter `X`), `Bot Password` (The password you set above) and `GuildID` before _ticking_ the `Send to Bot` option. (Press the right "`Save`" icon to save your settings)
+5. A menu should appear. Head over to the `Settings` tab, tick the `Send To Bot` option and fill in:
+    - `Bot Host` (Enter `X`)
+    - `Bot Password` (The password you set above)
+    - `GuildID` 
+    - (Press the right "`Save`" icon to save your settings)
     - **Note:** You can find your `GuildID` (your server's ID) by running `/sphelp` inside your server. Your `GuildID` will appear at the top of the help message.
 6. Scan any stockpile by hovering over it on the map and pressing `F3`. You should see a "`Sent to server successfully`"
     - Your `logi-channel` will update automatically with the latest information!
@@ -55,3 +59,4 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
    No. It supports both Colonials and Warden items, though I am on Colonials and only tested it there.
 3. Do I need my own server to host this bot?
    You have a choice! As of 26/2/2022, Storeman Bot can run in either multi-server mode or single server mode. What that means is that you can either use the [Public Storeman Bot](https://discord.com/oauth2/authorize?client_id=946968895170969620&permissions=2147617792&scope=bot%20applications.commands) or host your own by following the instructions above!
+4. Will other clans/opposite faction be able to see my stockpiles!? No. (**Disclaimer:** Just like in any public Discord bot, I will be able to see the data you save into the Public Storeman Bot. However, I keep it securely in my own server and do not ever touch it or use it to my advantage 😄)
