@@ -10,11 +10,12 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 
 ## Features
 
-- HTTP Server to **receive data** from the Stockpiler App and MongoDB to store it
-- **Targets** with **minimum** and **maximum** amounts (in crates) for the regiment to meet
-- Set a **logi-channel** for the latest targets and stockpile information which is automatically updated whenever a new scan from the Stockpiler app comes in
-- Keep track of when reserve stockpiles expire, with a configurable list of roles being reminded when a reserve stockpile is about to expire
-- **Roles** (Admin & User) to control the usage of commands between the QM-Team and normal users
+- HTTP Server to **receive data** from the Stockpiler App and MongoDB to store it 🖥
+- **Targets** with **minimum** and **maximum** amounts (in crates) for the regiment to meet 🎯
+- Set a **logi-channel** for the latest targets and stockpile information which is automatically updated whenever a new scan from the Stockpiler app comes in 🚚
+- Keep track of **when reserve stockpiles expire** (`/spsettimeleft`, `/spnotif`), with a configurable list of roles being reminded when a reserve stockpile is about to expire ⌚
+- **Locate an item** in your stockpiles using `/spfind <item>` 🔎
+- **Roles** (Admin & User) to control the usage of commands between the QM-Team and normal users 👨‍⚖️
 
 ### Screenshots
 
