@@ -1,4 +1,5 @@
 # Storeman Bot - The Foxhole Stockpile Discord Companion Bot
+### [Discord Invite Link](https://discord.com/oauth2/authorize?client_id=946968895170969620&permissions=2147617792&scope=bot%20applications.commands)
 
 ## What is this?
 
@@ -25,22 +26,32 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 
 ![](screenshots/3.png)
 
-## So, how does the process go like?
-
-1. Setup Storeman Bot by following [here](https://github.com/Tkaixiang/Storeman-Bot/wiki/Setting-up-Storeman-Bot)
-2. Download Stockpiler [here](https://github.com/tehruttiger/Stockpiler/releases/tag/v1.1.1b) 
-3. Open up Stockpiler and _tick_ the **Send to Bot** option. Inputting the Bot Host & Bot Password. Press the right "`Save`" icon to save your settings.
-   - Note: as of writing, there might be a bug with `Learning Mode` inside Stockpiler, if it fails to scan, please _untick_ it as well.
-4. Scan any stockpile by hovering over it on the map and pressing `F3`. You should see a "`Sent to server successfully`" inside the console that is opened along with Stockpiler
-5. Check back to your set `logi-channel` to see the latest information!
+## Usage Instructions
 
 **Note:** Stockpiles should have **!unique names!** since Stockpiler is unable to differentiate stockpiles with the same names in different locations.
 
-## FAQ
+### Public Storeman Bot
+1. Invite Storeman Bot to your server using the link **[here](https://discord.com/oauth2/authorize?client_id=946968895170969620&permissions=2147617792&scope=bot%20applications.commands)**
+2. Set a **password** for your bot using `/spsetpassword <password>` and a **logi-channel** using `/splogichannel set <channel>` (run these commands inside your Discord server)
+3. Download a forked version of Stockpiler from [here]()
+4. Extract the files to any folder and run `Stockpiler.exe`
+5. A menu should appear. Head over to the `Settings` tab and fill in: `Bot Host` (Enter `X`), `Bot Password` (The password you set above) and `GuildID` before _ticking_ the `Send to Bot` option. (Press the right "`Save`" icon to save your settings)
+    - **Note:** You can find your `GuildID` (your server's ID) by running `/sphelp` inside your server. Your `GuildID` will appear at the top of the help message.
+6. Scan any stockpile by hovering over it on the map and pressing `F3`. You should see a "`Sent to server successfully`"
+    - Your `logi-channel` will update automatically with the latest information!
+
+### I want to run Storeman Bot for my own server!
+1. Setup Storeman Bot by following [here](https://github.com/Tkaixiang/Storeman-Bot/wiki/Setting-up-Storeman-Bot)
+2. Download Stockpiler [here](https://github.com/tehruttiger/Stockpiler/releases/tag/v1.1.1b) 
+3. Open up Stockpiler by running `Stockpiler.exe` and head over to the `Settings` tab. _Tick_ the **Send to Bot** option. Input the Bot Host & Bot Password (ignore GuildID). Press the right "`Save`" icon to save your settings.
+4. 
+
+
+## FAQ ❓
 
 1. Why is X broken :c?
    The bot is still in heavy development. Please contact `Tkai#8276` on Discord for any help if it breaks.
 2. Is this an X faction specific thing?
    No. It supports both Colonials and Warden items, though I am on Colonials and only tested it there.
-3. Why do I need to use my own server to host this bot?
-   It is to prevent any intel leaks of stockpile statues to others. I do not believe regiments will trust a central public server to store all their stockpile information, hence each regiment has to host their own.
+3. Do I need my own server to host this bot?
+   You have a choice! As of 26/2/2022, Storeman Bot can run in either multi-server mode or single server mode. What that means is that you can either use the [Public Storeman Bot](https://discord.com/oauth2/authorize?client_id=946968895170969620&permissions=2147617792&scope=bot%20applications.commands) or host your own by following the instructions above!
