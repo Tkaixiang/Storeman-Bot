@@ -33,7 +33,7 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 ### Public Storeman Bot
 1. Invite Storeman Bot to your server using the link **[here](https://discord.com/oauth2/authorize?client_id=946968895170969620&permissions=2147617792&scope=bot%20applications.commands)**
 2. Set a **password** for your bot using `/spsetpassword <password>` and a **logi-channel** using `/splogichannel set <channel>` (run these commands inside your Discord server)
-3. Download a forked version of Stockpiler from [here]()
+3. Download a forked version of Stockpiler from [here](https://github.com/Tkaixiang/Stockpiler/releases/tag/v1.1.1-edited)
 4. Extract the files to any folder and run `Stockpiler.exe`
 5. A menu should appear. Head over to the `Settings` tab, tick the `Send To Bot` option and fill in:
     - `Bot Host` (Enter `X`)
