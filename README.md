@@ -36,7 +36,7 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 3. Download a forked version of Stockpiler from [here](https://github.com/Tkaixiang/Stockpiler/releases/tag/v1.1.1-edited)
 4. Extract the files to any folder and run `Stockpiler.exe`
 5. A menu should appear. Head over to the `Settings` tab, tick the `Send To Bot` option and fill in:
-    - `Bot Host` (Enter `X`)
+    - `Bot Host` (Enter `http://storeman-bot.tk:8090`)
     - `Bot Password` (The password you set above)
     - `GuildID` 
     - (Press the right "`Save`" icon to save your settings)
