@@ -44,8 +44,8 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 1. Setup Storeman Bot by following [here](https://github.com/Tkaixiang/Storeman-Bot/wiki/Setting-up-Storeman-Bot)
 2. Download Stockpiler [here](https://github.com/tehruttiger/Stockpiler/releases/tag/v1.1.1b) 
 3. Open up Stockpiler by running `Stockpiler.exe` and head over to the `Settings` tab. _Tick_ the **Send to Bot** option. Input the Bot Host & Bot Password (ignore GuildID). Press the right "`Save`" icon to save your settings.
-4. 
-
+4. Scan any stockpile by hovering over it on the map and pressing `F3`. You should see a "`Sent to server successfully`"
+    - Your `logi-channel` will update automatically with the latest information!
 
 ## FAQ ❓
 
