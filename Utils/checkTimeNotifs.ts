@@ -3,17 +3,34 @@ import { getCollections } from "../mongoDB"
 import { roleMention } from '@discordjs/builders';
 const eventName = "[Stockpile Expiry Checker]: "
 let queue: Array<any> = []
+let multiServerQueue: any = {}
 
 const checkTimeNotifsQueue = async (client: Client, forceEdit: boolean = false, regularUpdate: boolean = false, guildID: string = "PLACEHOLDER"): Promise<Boolean> => {
-    queue.push({ client: client, forceEdit: forceEdit, regularUpdate: regularUpdate, guildID: guildID })
+    if (process.env.STOCKPILER_MULTI_SERVER === "true" && !regularUpdate) {
+        multiServerQueue[guildID].push({ client: client, forceEdit: forceEdit, regularUpdate: regularUpdate, guildID: guildID })
 
-    if (queue.length === 1) {
-        console.log(eventName + "No time check event queue ahead. Starting")
+        if (!(guildID in multiServerQueue)) multiServerQueue[guildID] = []
 
-        checkTimeNotifs(queue[0].client, queue[0].forceEdit, queue[0].regularUpdate, queue[0].guildID)
+        if (multiServerQueue[guildID].length === 1) {
+            console.log(eventName + "No time check event queue ahead. Starting")
+
+            checkTimeNotifs(multiServerQueue[guildID][0].client, multiServerQueue[guildID][0].forceEdit, multiServerQueue[guildID][0].regularUpdate, multiServerQueue[guildID][0].guildID)
+        }
+        else {
+            console.log(eventName + "Update event ahead queued, current length in queue: " + queue.length)
+        }
     }
     else {
-        console.log(eventName + "Update event ahead queued, current length in queue: " + queue.length)
+        queue.push({ client: client, forceEdit: forceEdit, regularUpdate: regularUpdate, guildID: guildID })
+
+        if (queue.length === 1) {
+            console.log(eventName + "No time check event queue ahead. Starting")
+
+            checkTimeNotifs(queue[0].client, queue[0].forceEdit, queue[0].regularUpdate, queue[0].guildID)
+        }
+        else {
+            console.log(eventName + "Update event ahead queued, current length in queue: " + queue.length)
+        }
     }
 
     return true
@@ -215,11 +232,21 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regul
             }
         }
     }
-    queue.splice(0, 1)
-    if (queue.length > 0) {
-        console.log(eventName + "Finished 1, starting next in queue, remaining queue: " + queue.length)
-        checkTimeNotifs(queue[0].client, queue[0].forceEdit, queue[0].regularUpdate, queue[0].guildID)
+    if (process.env.STOCKPILER_MULTI_SERVER === "true" && !regularUpdate) {
+        multiServerQueue[guildID].splice(0, 1)
+        if (multiServerQueue[guildID].length > 0) {
+            console.log(eventName + "Finished 1, starting next in queue, remaining queue: " + multiServerQueue[guildID].length)
+            checkTimeNotifs(multiServerQueue[guildID][0].client, multiServerQueue[guildID][0].forceEdit, multiServerQueue[guildID][0].regularUpdate, multiServerQueue[guildID][0].guildID)
+        }
     }
+    else {
+        queue.splice(0, 1)
+        if (queue.length > 0) {
+            console.log(eventName + "Finished 1, starting next in queue, remaining queue: " + queue.length)
+            checkTimeNotifs(queue[0].client, queue[0].forceEdit, queue[0].regularUpdate, queue[0].guildID)
+        }
+    }
+
 
 
 }

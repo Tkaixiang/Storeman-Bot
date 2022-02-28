@@ -6,18 +6,40 @@ import generateStockpileMsg from "./generateStockpileMsg";
 import updateStockpileMsg from "./updateStockpileMsg";
 import mongoSanitize from 'express-mongo-sanitize';
 let queue: Array<any> = []
+let multiServerQueue: any = {}
 const eventName = "[Stockpiler Update Event]: "
 
 const stockpilerUpdateStockpileEntryPoint = async (client: Client, body: any, response: http.ServerResponse) => {
-    queue.push({ client: client, body: body, response: response })
+    if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+        if (!body.guildID) {
+            response.writeHead(404, { 'Content-Type': 'application/json' })
+            response.end(JSON.stringify({ success: false, error: "empty-guild-id" }))
+            return false
+        }
+        if (!(body.guildID in multiServerQueue)) multiServerQueue[body.guildID] = []
 
-    if (queue.length === 1) {
-        console.log(eventName + "No queue ahead. Starting")
-        stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
+        multiServerQueue[body.guildID].push({ client: client, body: body, response: response })
+
+        if (multiServerQueue[body.guildID].length === 1) {
+            console.log(eventName + "No queue ahead. Starting")
+            stockpilerUpdateStockpile(multiServerQueue[body.guildID][0].client, multiServerQueue[body.guildID][0].body, multiServerQueue[body.guildID][0].response)
+        }
+        else {
+            console.log(eventName + "Update event queued, current length in queue: " + multiServerQueue[body.guildID].length)
+        }
     }
     else {
-        console.log(eventName + "Update event queued, current length in queue: " + queue.length)
+        queue.push({ client: client, body: body, response: response })
+
+        if (queue.length === 1) {
+            console.log(eventName + "No queue ahead. Starting")
+            stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
+        }
+        else {
+            console.log(eventName + "Update event queued, current length in queue: " + queue.length)
+        }
     }
+
 
     return true
 }
@@ -144,13 +166,19 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
         response.end(JSON.stringify({ success: false, error: "invalid-password" }))
     }
 
-
-
-
-    queue.splice(0, 1)
-    if (queue.length > 0) {
-        console.log(eventName + "Finished 1 update event, starting next update in queue, remaining queue: " + queue.length)
-        stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
+    if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+        multiServerQueue[body.guildID].splice(0, 1)
+        if (queue.length > 0) {
+            console.log(eventName + "Finished 1 update event for GuildID: " + body.guildID + ". starting next update in queue, remaining queue: " + multiServerQueue[body.guildID].length)
+            stockpilerUpdateStockpile(multiServerQueue[body.guildID][0].client, multiServerQueue[body.guildID][0].body, multiServerQueue[body.guildID][0].response)
+        }
+    }
+    else {
+        queue.splice(0, 1)
+        if (queue.length > 0) {
+            console.log(eventName + "Finished 1 update event, starting next update in queue, remaining queue: " + queue.length)
+            stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
+        }
     }
 
     return true

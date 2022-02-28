@@ -2,24 +2,45 @@ import { Client, Message, MessageActionRow, TextChannel } from "discord.js"
 import { getCollections } from '../mongoDB';
 import checkTimeNotifsQueue from "./checkTimeNotifs";
 let queue: Array<any> = []
+let multiServerQueue: any = {}
 let editedMsgs = false
 let newMsgsSent = false
 const eventName = "[Update Logi Channel]: "
 
 const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
-    queue.push({ client: client, guildID: guildID, msg: msg })
+    if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+        multiServerQueue[guildID!].push({ client: client, guildID: guildID, msg: msg })
 
-    if (queue.length === 1) {
-        console.log(eventName + "No queue ahead. Starting")
+        if (!(guildID! in multiServerQueue)) multiServerQueue[guildID!] = []
 
-        updateStockpileMsg(queue[0].client, queue[0].guildID, queue[0].msg)
+        if (multiServerQueue[guildID!].length === 1) {
+            console.log(eventName + "No queue ahead. Starting")
+
+            updateStockpileMsg(multiServerQueue[guildID!][0].client, multiServerQueue[guildID!][0].guildID, multiServerQueue[guildID!][0].msg)
+        }
+        else {
+            if (multiServerQueue[guildID!].length > 2) {
+                console.log(eventName + "Queue length exceeded allowed quantity, skipping middle ones")
+                multiServerQueue[guildID!].splice(1, multiServerQueue[guildID!].length - 1)
+            }
+            console.log(eventName + "Update event ahead queued, current length in queue: " + multiServerQueue[guildID!].length)
+        }
     }
     else {
-        if (queue.length > 2) {
-            console.log(eventName + "Queue length exceeded allowed quantity, skipping middle ones")
-            queue.splice(1, queue.length - 1)
+        queue.push({ client: client, guildID: guildID, msg: msg })
+
+        if (queue.length === 1) {
+            console.log(eventName + "No queue ahead. Starting")
+
+            updateStockpileMsg(queue[0].client, queue[0].guildID, queue[0].msg)
         }
-        console.log(eventName + "Update event ahead queued, current length in queue: " + queue.length)
+        else {
+            if (queue.length > 2) {
+                console.log(eventName + "Queue length exceeded allowed quantity, skipping middle ones")
+                queue.splice(1, queue.length - 1)
+            }
+            console.log(eventName + "Update event ahead queued, current length in queue: " + queue.length)
+        }
     }
 
     return true
@@ -242,27 +263,29 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
 
         }
 
+    }
+    catch (e) {
+        console.log(e)
+        console.log(eventName + "An error occurred updating msgs, skipping this update event for now...")
+        return false
+    }
+    if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+        multiServerQueue[guildID!].splice(0, 1)
+        if (multiServerQueue[guildID!].length > 0) {
+            console.log(eventName + "Finished 1 logi channel update, starting next in queue, remaining queue: " + multiServerQueue[guildID!].length)
+            updateStockpileMsg(multiServerQueue[guildID!][0].client, multiServerQueue[guildID!][0].guildID, multiServerQueue[guildID!][0].msg)
+        }
+    }
+    else {
         queue.splice(0, 1)
         if (queue.length > 0) {
             console.log(eventName + "Finished 1 logi channel update, starting next in queue, remaining queue: " + queue.length)
             updateStockpileMsg(queue[0].client, queue[0].guildID, queue[0].msg)
         }
-        editedMsgs = false
-        newMsgsSent = false
-        return true
     }
-    catch (e) {
-        console.log(e)
-        console.log(eventName + "An error occurred updating msgs, skipping this update event for now...")
-        queue.splice(0, 1)
-        if (queue.length > 0) {
-            console.log(eventName + "Finished 1 logi channel update event, starting next in queue, remaining in queue: " + queue.length)
-            updateStockpileMsg(queue[0].client, queue[0].guildID, queue[0].msg)
-        }
-        editedMsgs = false
-        newMsgsSent = false
-        return false
-    }
+    editedMsgs = false
+    newMsgsSent = false
+    return true
 }
 
 export default updateStockpileMsgEntryPoint
