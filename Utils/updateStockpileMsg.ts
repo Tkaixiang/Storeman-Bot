@@ -9,9 +9,11 @@ const eventName = "[Update Logi Channel]: "
 
 const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
-        multiServerQueue[guildID!].push({ client: client, guildID: guildID, msg: msg })
+     
 
         if (!(guildID! in multiServerQueue)) multiServerQueue[guildID!] = []
+
+        multiServerQueue[guildID!].push({ client: client, guildID: guildID, msg: msg })
 
         if (multiServerQueue[guildID!].length === 1) {
             console.log(eventName + "No queue ahead. Starting")

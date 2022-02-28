@@ -7,9 +7,10 @@ let multiServerQueue: any = {}
 
 const checkTimeNotifsQueue = async (client: Client, forceEdit: boolean = false, regularUpdate: boolean = false, guildID: string = "PLACEHOLDER"): Promise<Boolean> => {
     if (process.env.STOCKPILER_MULTI_SERVER === "true" && !regularUpdate) {
-        multiServerQueue[guildID].push({ client: client, forceEdit: forceEdit, regularUpdate: regularUpdate, guildID: guildID })
-
+    
         if (!(guildID in multiServerQueue)) multiServerQueue[guildID] = []
+
+        multiServerQueue[guildID].push({ client: client, forceEdit: forceEdit, regularUpdate: regularUpdate, guildID: guildID })
 
         if (multiServerQueue[guildID].length === 1) {
             console.log(eventName + "No time check event queue ahead. Starting")
