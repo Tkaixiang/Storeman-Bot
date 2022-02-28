@@ -8,7 +8,8 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 
     const helpEmbed: {fields: Array<any>, [key: string]: any} = {
         title: "Storeman Bot Command Help", description: `
-Version 0.5.1 21/2/2022
+Version 0.5.2 28/2/2022
+Your GuildID is: \`${interaction.guildId}\`
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
 🙍‍♂️ - Commands that require at least \`User\` permissions
