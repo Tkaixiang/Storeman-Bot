@@ -7,7 +7,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const prettyNameObj: any = NodeCacheObj.get("prettyName")
-    let prettyName: any;
+    let prettyName: any = {}
     if (process.env.STOCKPILER_MULTI_SERVER === "true") prettyName = prettyNameObj[guildID!]
     else prettyName = prettyNameObj
     let stockpileHeader = "**__Stockpiler Discord Bot Report__** \n_All quantities in **crates**_"
@@ -48,7 +48,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
         for (let i = 0; i < stockpiles.length; i++) {
             const current = stockpiles[i]
             let currentStockpileMsg = ""
-            currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: ${"upperBound" in current ? `Sometime between: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R> and <t:${Math.floor(current.upperBound.getTime() / 1000)}:R>]` : `<t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]`}` : ""} ${current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
+            currentStockpileMsg += `**${prettyName && current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: ${"upperBound" in current ? `Sometime between: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R> and <t:${Math.floor(current.upperBound.getTime() / 1000)}:R>]` : `<t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]`}` : ""} ${prettyName &&current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
             if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\`\n`
             if (current.name in stockpileLocations) currentStockpileMsg += `**Location:** \`${locationMappings[stockpileLocations[current.name]]}\`\n\n`
 
