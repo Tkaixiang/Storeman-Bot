@@ -158,7 +158,7 @@ const createCacheStartup = async (client: Client) => {
                 // Update all the commands since the version has changed
                 for (let i = 0; i < configObj.serverIDList.length; i++) {
                     insertCommands(configObj.serverIDList[i])
-                    await collections.config.updateOne({}, { version: currentVersion })
+                    await collections.config.updateOne({}, {$set: { version: currentVersion} })
                 }
             }
 
