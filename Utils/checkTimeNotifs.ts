@@ -40,8 +40,12 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regul
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
         if (regularUpdate) {
             const globalCollections = getCollections("global-settings")
+            const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
             const globalConfigObj = await globalCollections.config.findOne({})
             for (let i = 0; i < globalConfigObj.serverIDList.length; i++) {
+                // skip this server if it has disabled time-check notifications
+                if (disableTimeNotif[globalConfigObj.serverIDList[i]]) continue
+
                 console.log(eventName + "Checking time now for the guild with ID: " + globalConfigObj.serverIDList[i])
                 let edited = false
                 const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
@@ -152,7 +156,6 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regul
                     }
                     try {
                         const channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
-
                         if ("warningMsgId" in configObj) {
                             try {
                                 const stockpileMsg = await channelObj.messages.fetch(configObj.warningMsgId)
@@ -179,6 +182,9 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regul
 
     }
     else {
+        const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+        if (disableTimeNotif) return false
+        
         console.log(eventName + "Checking time now")
         let edited = false
         const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
@@ -216,19 +222,23 @@ const checkTimeNotifs = async (client: Client, forceEdit: boolean = false, regul
 
                 }
                 const channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
-                if ("warningMsgId" in configObj) {
-                    try {
-                        const stockpileMsg = await channelObj.messages.fetch(configObj.warningMsgId)
-                        if (stockpileMsg) await stockpileMsg.delete()
+                if (channelObj) {
+                    if ("warningMsgId" in configObj) {
+                        try {
+                            const stockpileMsg = await channelObj.messages.fetch(configObj.warningMsgId)
+                            if (stockpileMsg) await stockpileMsg.delete()
+                        }
+                        catch (e) {
+                            console.log(e)
+                            console.log("Failed to delete warning msg")
+                        }
                     }
-                    catch (e) {
-                        console.log(e)
-                        console.log("Failed to delete warning msg")
-                    }
+                    const MsgID = await channelObj.send(warningMsg)
+                    await collections.config.updateOne({}, { $set: { warningMsgId: MsgID.id } })
+                    console.log(eventName + "Sent out warning msg (Note: This does not constitute a stockpile is about to expire)")
                 }
-                const MsgID = await channelObj.send(warningMsg)
-                await collections.config.updateOne({}, { $set: { warningMsgId: MsgID.id } })
-                console.log(eventName + "Sent out warning msg (Note: This does not constitute a stockpile is about to expire)")
+                else console.log(eventName + "Failed to send out warning msg")
+                
 
             }
         }

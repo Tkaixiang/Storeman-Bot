@@ -21,7 +21,16 @@ const spsettimeleft = async (interaction: CommandInteraction, client: Client): P
     }
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
+
+    const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+    const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[interaction.guildId!] : disableTimeNotif
+    if (timeCheckDisabled) {
+        await interaction.editReply({ content: "Error: The time-checking feature of Storeman Bot is disabled for this server. Please use `/spdisabletime` to enable it." })
+        return false
+    }
+
     const cleanName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const searchQuery = new RegExp(cleanName, "i")
     const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })

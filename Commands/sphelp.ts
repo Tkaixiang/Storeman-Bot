@@ -8,7 +8,7 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 
     const helpEmbed: {fields: Array<any>, [key: string]: any} = {
         title: "Storeman Bot Command Help", description: `
-Version 0.5.2 28/2/2022
+Version 0.5.3 29/3/2022
 Your GuildID is: \`${interaction.guildId}\`
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
@@ -122,6 +122,10 @@ Currently in alpha testing, contact Tkai#8276 for help.
         {
             name: "/sploc list  👨‍⚖️",
             value: "Lists all the possible location codes with their respective full location translations."
+        },
+        {
+            name: "/spdisabletime <disabled> 👨‍⚖️",
+            value: "Whether or not to disable the time-checking feature of Storeman Bot"
         },
 
     ]

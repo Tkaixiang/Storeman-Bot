@@ -16,6 +16,13 @@ const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, s
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
+    const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+    const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[interaction.guildId!] : disableTimeNotif
+    if (timeCheckDisabled) {
+        await interaction.editReply({ content: "Error: The time-checking feature of Storeman Bot is disabled for this server. Please use `/spdisabletime` to enable it." })
+        return false
+    }
+
     const configObj = (await collections.config.findOne({}))!
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     if (set) {

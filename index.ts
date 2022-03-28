@@ -34,11 +34,12 @@ import spaddloc from './Commands/spaddloc'
 import spremoveloc from './Commands/spremoveloc'
 import splistloc from './Commands/splistloc'
 import spfind from './Commands/spfind'
+import spdisabletime from './Commands/spdisabletime'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 15
+const currentVersion = 16
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
 declare global {
@@ -164,6 +165,7 @@ const createCacheStartup = async (client: Client) => {
             let notifRoles: any = {}
             let prettyName: any = {}
             let stockpileTime: any = {}
+            let disableTimeNotif: any = {}
             for (let i = 0; i < configObj.serverIDList.length; i++) {
                 // Create custom notifRoles and prettyNames cache object
                 const serverCollections = getCollections(configObj.serverIDList[i])
@@ -171,6 +173,10 @@ const createCacheStartup = async (client: Client) => {
                 else notifRoles[configObj.serverIDList[i]] = []
                 if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList[i]] = serverCollections.config.prettyName
                 else prettyName[configObj.serverIDList[i]] = {}
+
+                // Create the disable time cache object
+                if ("disableTimeNotif" in serverCollections.config) disableTimeNotif[configObj.serverIDList[i]] = serverCollections.config.disableTimeNotif
+                else disableTimeNotif[configObj.serverIDList[i]] = false
 
 
                 const stockpiles = await serverCollections.stockpiles.find({}).toArray()
@@ -195,6 +201,7 @@ const createCacheStartup = async (client: Client) => {
             NodeCacheObj.set("notifRoles", notifRoles)
             NodeCacheObj.set("prettyName", prettyName)
             NodeCacheObj.set("stockpileTimes", stockpileTime)
+            NodeCacheObj.set("disableTimeNotif", disableTimeNotif)
         }
         else {
             for (let i = 0; i < listOfGuildObjs.length; i++) {
@@ -239,8 +246,11 @@ const createCacheStartup = async (client: Client) => {
             if ("notifRoles" in configOptions) notifRoles = configOptions.notifRoles
             NodeCacheObj.set("notifRoles", notifRoles)
             let prettyName: any = {}
+            let disableTimeNotif: any = false
             if ("prettyName" in configOptions) prettyName = configOptions.prettyName
             NodeCacheObj.set("prettyName", prettyName)
+            if ("disableTimeNotif" in configOptions) disableTimeNotif = configOptions.disableTimeNotif
+            NodeCacheObj.set("disableTimeNotif", disableTimeNotif)
 
 
             if (configOptions.version) {
@@ -410,6 +420,7 @@ const main = async (): Promise<void> => {
                 else if (commandName === "spsetorder") await spsetorder(interaction, client)
                 else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
                 else if (commandName === "spfind") await spfind(interaction)
+                else if (commandName === "spdisabletime") await spdisabletime(interaction, client)
             }
             else if (interaction.isButton()) {
                 buttonHandler(interaction)

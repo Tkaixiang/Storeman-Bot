@@ -5,6 +5,9 @@ import { getCollections } from '../mongoDB';
 
 const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<Array<any>> => {
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
+    const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+    const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[guildID!] : disableTimeNotif
+
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const prettyNameObj: any = NodeCacheObj.get("prettyName")
     let prettyName: any = {}
@@ -48,7 +51,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
         for (let i = 0; i < stockpiles.length; i++) {
             const current = stockpiles[i]
             let currentStockpileMsg = ""
-            currentStockpileMsg += `**${prettyName && current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: ${"upperBound" in current ? `Sometime between: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R> and <t:${Math.floor(current.upperBound.getTime() / 1000)}:R>]` : `<t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]`}` : ""} ${prettyName &&current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
+            currentStockpileMsg += `**${prettyName && current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current && !timeCheckDisabled ? `[Expiry: ${"upperBound" in current ? `Sometime between: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R> and <t:${Math.floor(current.upperBound.getTime() / 1000)}:R>]` : `<t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]`}` : ""} ${prettyName && current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
             if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\`\n`
             if (current.name in stockpileLocations) currentStockpileMsg += `**Location:** \`${locationMappings[stockpileLocations[current.name]]}\`\n\n`
 
@@ -81,16 +84,22 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                 stockpileMsgs.push(finalMsg)
                 currentStockpileMsg = currentStockpileMsg.slice(lastEnd, currentStockpileMsg.length)
             }
-            const row = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setCustomId('spsettimeleft==' + current.name)
-                        .setLabel("Refresh Timer")
-                        .setStyle('PRIMARY')
-                );
-            const copyOfCurrentMsg = currentStockpileMsg.slice()
-            const finalStockpileMsg = [copyOfCurrentMsg, row]
-            stockpileMsgs.push(finalStockpileMsg)
+            if (timeCheckDisabled) {
+                stockpileMsgs.push(currentStockpileMsg)
+            }
+            else {
+                const row = new MessageActionRow()
+                    .addComponents(
+                        new MessageButton()
+                            .setCustomId('spsettimeleft==' + current.name)
+                            .setLabel("Refresh Timer")
+                            .setStyle('PRIMARY')
+                    );
+                const copyOfCurrentMsg = currentStockpileMsg.slice()
+                const finalStockpileMsg = [copyOfCurrentMsg, row]
+                stockpileMsgs.push(finalStockpileMsg)
+            }
+
         }
 
         targetMsgs = []

@@ -49,6 +49,14 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
         await interaction.update({ content: "Working on it...", components: [] })
+        
+        const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+        const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[interaction.guildId!] : disableTimeNotif
+        if (timeCheckDisabled) {
+            await interaction.followUp({ content: "Error: The time-checking feature of Storeman Bot is disabled for this server. Please use `/spdisabletime` to enable it.", ephemeral: true  })
+            return false
+        }
+
         const stockpile = splitted[1]
 
         const cleanName = stockpile.replace(/\./g, "_").replace(/\./g, "").replace(/\$/g, "")

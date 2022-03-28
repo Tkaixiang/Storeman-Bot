@@ -185,7 +185,12 @@ const commands = [
             option.setName("item").setDescription("The item name").setRequired(true)
         )
     ,
-
+    new SlashCommandBuilder().setName('spdisabletime')
+    .setDescription('Disables the time-check feature on Storeman Bot')
+    .addBooleanOption((option) =>
+            option.setName("disable").setDescription("True to disable time-check and false to enable time-check").setRequired(true)
+        )
+,
 ]
     .map(command => command.toJSON());
 
