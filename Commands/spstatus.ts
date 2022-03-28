@@ -59,23 +59,23 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
                         const lastEnd = sliced.lastIndexOf("\n")
                         const finalMsg = sliced.slice(0, lastEnd)
 
-                        await interaction.followUp(finalMsg)
+                        await interaction.followUp({content: finalMsg, ephemeral: true})
                         currentStockpileMsg = currentStockpileMsg.slice(lastEnd, currentStockpileMsg.length)
                     }
-                    await interaction.followUp(currentStockpileMsg)
+                    await interaction.followUp({content: currentStockpileMsg, ephemeral: true})
                     break
                 }
             }
         }
         else {
             await interaction.editReply(stockpileHeader);
-            await interaction.followUp(stockpileMsgsHeader)
+            await interaction.followUp({content: stockpileMsgsHeader, ephemeral: true})
             for (let i = 0; i < stockpileMsgs.length; i++) {
-                if (typeof stockpileMsgs[i] !== "string") await interaction.followUp(stockpileMsgs[i][0]);
-                else await interaction.followUp(stockpileMsgs[i]);
+                if (typeof stockpileMsgs[i] !== "string") await interaction.followUp({content: stockpileMsgs[i][0], ephemeral: true});
+                else await interaction.followUp({content: stockpileMsgs[i], ephemeral: true});
             }
             for (let i = 0; i < targetMsg.length; i++) {
-                await interaction.followUp(targetMsg[i]);
+                await interaction.followUp({content: targetMsg[i], ephemeral: true});
             }
         }
 
