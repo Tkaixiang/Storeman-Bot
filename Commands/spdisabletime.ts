@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, GuildMember } from "discord.js";
+import { Client, CommandInteraction, GuildMember, TextChannel } from "discord.js";
 import { getCollections } from './../mongoDB';
 import checkPermissions from "../Utils/checkPermissions";
 import generateStockpileMsg from "../Utils/generateStockpileMsg";
@@ -24,6 +24,21 @@ const spdisabletime = async (interaction: CommandInteraction, client: Client): P
     const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
     if (process.env.STOCKPILER_MULTI_SERVER === "true") disableTimeNotif[interaction.guildId!] = disable
     else NodeCacheObj.set("disableTimeNotif", disable)
+
+    if (disable) {
+        const configObj = (await collections.config.findOne({}))!
+        if ("channelId" in configObj && "warningMsgId" in configObj) {
+            try {
+                const channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
+                const stockpileMsg = await channelObj.messages.fetch(configObj.warningMsgId)
+                if (stockpileMsg) await stockpileMsg.delete()
+            }
+            catch (e) {
+                console.log(e)
+                console.log("Failed to delete warning msg")
+            }
+        }
+    }
 
     await interaction.reply({
         content: `Successfully ${disable ? "disabled" : "enabled"} the time-checking feature of Storeman Bot`,

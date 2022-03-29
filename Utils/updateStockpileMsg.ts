@@ -226,7 +226,10 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
                 }
                 updateObj.targetMsg = targetMsgIDs
 
-                checkTimeNotifsQueue(client, true, false, guildID!)
+                const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+                const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[guildID!] : disableTimeNotif
+            
+                if (!timeCheckDisabled) checkTimeNotifsQueue(client, true, false, guildID!)
             }
             else {
                 let targetMsgFuncArray = []
