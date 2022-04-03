@@ -374,8 +374,9 @@ const main = async (): Promise<void> => {
 
 
         client.on('interactionCreate', async (interaction) => {
-            if (interaction.isCommand()) {
-                try {
+            try {
+                if (interaction.isCommand()) {
+
                     const commandName = interaction.commandName;
 
                     if (commandName === 'sphelp') await sphelp(interaction)
@@ -421,15 +422,25 @@ const main = async (): Promise<void> => {
                     else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
                     else if (commandName === "spfind") await spfind(interaction)
                     else if (commandName === "spdisabletime") await spdisabletime(interaction, client)
+
+
                 }
-                catch (e) {
+                else if (interaction.isButton()) {
+                    buttonHandler(interaction)
+                }
+            }
+            catch (e) {
+                if (interaction.isCommand()) {
                     console.log("[!!!]: An error has occured in the command " + interaction.commandName + ". Please kindly report this to the developer on Discord (Tkai#8276)")
-                    interaction.followUp({content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send this to the developer on Discord at Tkai#8276. \n\n Error Log: \n\n" + JSON.stringify(e)})
+                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send this to the developer on Discord at Tkai#8276. \n\n Error Log: \n\n" + JSON.stringify(e) })
+                }
+                else if (interaction.isButton()) {
+                    console.log("[!!!]: An error has occured in a button action. Please kindly report this to the developer on Discord (Tkai#8276)")
+                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot button action. Please kindly send this to the developer on Discord at Tkai#8276. \n\n Error Log: \n\n" + JSON.stringify(e) })
+            
                 }
             }
-            else if (interaction.isButton()) {
-                buttonHandler(interaction)
-            }
+
         });
 
         // Connect by logging into Discord
