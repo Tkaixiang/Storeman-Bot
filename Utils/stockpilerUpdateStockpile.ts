@@ -61,9 +61,10 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             console.log(eventName + "Empty stockpile name received, exiting")
         }
         else {
-            const stockpile = await collections.stockpiles.findOne({ name: body.name })
-            const currentDate = new Date()
             const cleanName = body.name.replace(/\./g, "").replace(/\$/g, "")
+            const stockpile = await collections.stockpiles.findOne({ name: cleanName })
+            const currentDate = new Date()
+            
 
             if (stockpile) {
                 const newStockpileItems: any = {}

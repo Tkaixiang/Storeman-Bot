@@ -1,4 +1,4 @@
-import { Client, Guild, Intents } from 'discord.js'
+import { Client, CommandInteraction, Guild, Intents } from 'discord.js'
 import { insertCommands } from './deploy-commands'
 import { open, getCollections, getMongoClientObj } from './mongoDB'
 import sphelp from './Commands/sphelp'
@@ -158,7 +158,7 @@ const createCacheStartup = async (client: Client) => {
                 // Update all the commands since the version has changed
                 for (let i = 0; i < configObj.serverIDList.length; i++) {
                     insertCommands(configObj.serverIDList[i])
-                    await collections.config.updateOne({}, {$set: { version: currentVersion} })
+                    await collections.config.updateOne({}, { $set: { version: currentVersion } })
                 }
             }
 
@@ -193,7 +193,7 @@ const createCacheStartup = async (client: Client) => {
                             }
                         }
                         if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
-                        stockpileTime[configObj.serverIDList[i]][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }  
+                        stockpileTime[configObj.serverIDList[i]][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
                     }
                 }
             }
@@ -375,52 +375,57 @@ const main = async (): Promise<void> => {
 
         client.on('interactionCreate', async (interaction) => {
             if (interaction.isCommand()) {
+                try {
+                    const commandName = interaction.commandName;
 
-                const commandName = interaction.commandName;
-
-                if (commandName === 'sphelp') await sphelp(interaction)
-                else if (commandName === 'spsetamount') await spsetamount(interaction, client)
-                else if (commandName === 'spstatus') await spstatus(interaction)
-                else if (commandName === 'sptarget') {
-                    if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction, client)
+                    if (commandName === 'sphelp') await sphelp(interaction)
+                    else if (commandName === 'spsetamount') await spsetamount(interaction, client)
+                    else if (commandName === 'spstatus') await spstatus(interaction)
+                    else if (commandName === 'sptarget') {
+                        if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction, client)
+                        else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction, client)
+                    }
+                    else if (commandName === 'spsetpassword') await spsetpassword(interaction)
+                    else if (commandName === 'splogichannel') {
+                        if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
+                        else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
+                    }
+                    else if (commandName === "spstockpile") {
+                        if (interaction.options.getSubcommand() === 'add') await spaddstockpile(interaction, client)
+                        else if (interaction.options.getSubcommand() === 'remove') await spremovestockpile(interaction, client)
+                        else if (interaction.options.getSubcommand() === 'purge') await sppurgestockpile(interaction, client)
+                    }
+                    else if (commandName === "sprole") {
+                        if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
+                        else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
+                    }
+                    else if (commandName === "spnotif") {
+                        if (interaction.options.getSubcommand() === 'add') await spnotif(interaction, client, true)
+                        else if (interaction.options.getSubcommand() === 'remove') await spnotif(interaction, client, false)
+                    }
+                    else if (commandName === "spprettyname") {
+                        if (interaction.options.getSubcommand() === 'add') await spaddprettyname(interaction, client)
+                        else if (interaction.options.getSubcommand() === 'remove') await spremoveprettyname(interaction, client)
+                    }
+                    else if (commandName === "spcode") {
+                        if (interaction.options.getSubcommand() === 'add') await spaddcode(interaction, client)
+                        else if (interaction.options.getSubcommand() === 'remove') await spremovecode(interaction, client)
+                    }
+                    else if (commandName === "sploc") {
+                        if (interaction.options.getSubcommand() === 'add') await spaddloc(interaction, client)
+                        else if (interaction.options.getSubcommand() === 'remove') await spremoveloc(interaction, client)
+                        else if (interaction.options.getSubcommand() === 'list') await splistloc(interaction)
+                    }
+                    else if (commandName === "spitems") await spitems(interaction)
+                    else if (commandName === "spsetorder") await spsetorder(interaction, client)
+                    else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
+                    else if (commandName === "spfind") await spfind(interaction)
+                    else if (commandName === "spdisabletime") await spdisabletime(interaction, client)
                 }
-                else if (commandName === 'spsetpassword') await spsetpassword(interaction)
-                else if (commandName === 'splogichannel') {
-                    if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
+                catch (e) {
+                    console.log("[!!!]: An error has occured in the command " + interaction.commandName + ". Please kindly report this to the developer on Discord (Tkai#8276)")
+                    interaction.followUp({content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send this to the developer on Discord at Tkai#8276. \n\n Error Log: \n\n" + JSON.stringify(e)})
                 }
-                else if (commandName === "spstockpile") {
-                    if (interaction.options.getSubcommand() === 'add') await spaddstockpile(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremovestockpile(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'purge') await sppurgestockpile(interaction, client)
-                }
-                else if (commandName === "sprole") {
-                    if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
-                    else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
-                }
-                else if (commandName === "spnotif") {
-                    if (interaction.options.getSubcommand() === 'add') await spnotif(interaction, client, true)
-                    else if (interaction.options.getSubcommand() === 'remove') await spnotif(interaction, client, false)
-                }
-                else if (commandName === "spprettyname") {
-                    if (interaction.options.getSubcommand() === 'add') await spaddprettyname(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremoveprettyname(interaction, client)
-                }
-                else if (commandName === "spcode") {
-                    if (interaction.options.getSubcommand() === 'add') await spaddcode(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremovecode(interaction, client)
-                }
-                else if (commandName === "sploc") {
-                    if (interaction.options.getSubcommand() === 'add') await spaddloc(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremoveloc(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'list') await splistloc(interaction)
-                }
-                else if (commandName === "spitems") await spitems(interaction)
-                else if (commandName === "spsetorder") await spsetorder(interaction, client)
-                else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
-                else if (commandName === "spfind") await spfind(interaction)
-                else if (commandName === "spdisabletime") await spdisabletime(interaction, client)
             }
             else if (interaction.isButton()) {
                 buttonHandler(interaction)

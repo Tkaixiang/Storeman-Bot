@@ -62,6 +62,16 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
             await collections.config.updateOne({}, { $set: { code: configObj.code } })
         }
 
+        if ("stockpileLocations" in configObj) {
+            for (const name in configObj.stockpileLocations) {
+                if (name.toLowerCase() === cleanedName) {
+                    delete configObj.stockpileLocations[name]
+                    break
+                }
+            }
+            await collections.config.updateOne({}, { $set: { stockpileLocations: configObj.stockpileLocations } })
+        }
+
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
         await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
