@@ -430,15 +430,54 @@ const main = async (): Promise<void> => {
                 }
             }
             catch (e) {
-                if (interaction.isCommand()) {
-                    console.log("[!!!]: An error has occured in the command " + interaction.commandName + ". Please kindly report this to the developer on Discord (Tkai#8276)")
-                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send this to the developer on Discord at Tkai#8276. \n\n Error Log: \n\n" + JSON.stringify(e) })
+                if (interaction.isCommand() || interaction.isButton()) {
+                    let errorDump = JSON.stringify(e)
+                    if (interaction.isCommand()) {
+                        console.log("[!!!]: An error has occured in the command " + interaction.commandName + ". Please kindly report this to the developer on Discord (Tkai#8276)")
+                        interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send the logs below this message to the developer on Discord at Tkai#8276" })
+                        while (errorDump.length > 0) {
+                            if (errorDump.length > 2000) {
+                                const sliced = errorDump.slice(0, 2000)
+                                const lastEnd = sliced.lastIndexOf("\n")
+                                const finalMsg = sliced.slice(0, lastEnd)
+
+                                await interaction.followUp({
+                                    content: finalMsg
+                                });
+                                errorDump = errorDump.slice(lastEnd, errorDump.length)
+                            }
+                            else {
+                                await interaction.followUp({
+                                    content: errorDump
+                                });
+                                errorDump = ""
+                            }
+                        }
+                    }
+                    else if (interaction.isButton()) {
+                        console.log("[!!!]: An error has occured in a button action. Please kindly report this to the developer on Discord (Tkai#8276)")
+                        interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot button action. Please kindly send logs below this message to the developer on Discord at Tkai#8276." })
+                    }
+                    while (errorDump.length > 0) {
+                        if (errorDump.length > 2000) {
+                            const sliced = errorDump.slice(0, 2000)
+                            const lastEnd = sliced.lastIndexOf("\n")
+                            const finalMsg = sliced.slice(0, lastEnd)
+
+                            await interaction.followUp({
+                                content: finalMsg
+                            });
+                            errorDump = errorDump.slice(lastEnd, errorDump.length)
+                        }
+                        else {
+                            await interaction.followUp({
+                                content: errorDump
+                            });
+                            errorDump = ""
+                        }
+                    }
                 }
-                else if (interaction.isButton()) {
-                    console.log("[!!!]: An error has occured in a button action. Please kindly report this to the developer on Discord (Tkai#8276)")
-                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot button action. Please kindly send this to the developer on Discord at Tkai#8276. \n\n Error Log: \n\n" + JSON.stringify(e) })
-            
-                }
+
             }
 
         });
