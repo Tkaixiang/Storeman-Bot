@@ -20,7 +20,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
     let code: any = {}
     let stockpileLocations: any = {}
-
+ 
 
     if (process.env.STOCKPILER_MULTI_SERVER === "true" || updateMsg || !stockpileMsgs || !targetMsgs) {
         const targets = await collections.targets.findOne({})
