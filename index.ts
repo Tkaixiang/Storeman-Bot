@@ -83,12 +83,14 @@ const guildCreateEventHandler = async (guild: Guild) => {
         await globalCollection.config.updateOne({}, { $push: { serverIDList: guild.id } })
 
         const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+        const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
         const notifRoles: any = NodeCacheObj.get("notifRoles")
         const prettyName: any = NodeCacheObj.get("prettyName")
 
         stockpileTimes[guild.id] = {}
         notifRoles[guild.id] = []
         prettyName[guild.id] = {}
+        disableTimeNotif[guild.id] = false
     }
 }
 
@@ -108,16 +110,23 @@ const guildDeleteEventHandler = async (guildID: string) => {
             break
         }
     }
-    if (found) await collections.config.updateOne({}, { $set: { serverIDList: configObj.serverIDList } })
+    if (found) {
+        await collections.config.updateOne({}, { $set: { serverIDList: configObj.serverIDList } })
+        const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+        const notifRoles: any = NodeCacheObj.get("notifRoles")
+        const prettyName: any = NodeCacheObj.get("prettyName")
+        const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+        delete stockpileTimes[guildID]
+        delete notifRoles[guildID]
+        delete prettyName[guildID]
+        delete disableTimeNotif[guildID]
+        console.log("Deleted the database and config records of the guild successfully")
+    } 
+    else console.log("Delete request received but no such guildID exists in Storeman Bot records.")
 
-    const stockpileTime: any = NodeCacheObj.get("stockpileTime")
-    const notifRoles: any = NodeCacheObj.get("notifRoles")
-    const prettyName: any = NodeCacheObj.get("prettyName")
-    delete stockpileTime[guildID]
-    delete notifRoles[guildID]
-    delete prettyName[guildID]
 
-    console.log("Deleted the database and config records of the guild successfully")
+
+    
 }
 
 const createCacheStartup = async (client: Client) => {
@@ -164,7 +173,7 @@ const createCacheStartup = async (client: Client) => {
 
             let notifRoles: any = {}
             let prettyName: any = {}
-            let stockpileTime: any = {}
+            let stockpileTimes: any = {}
             let disableTimeNotif: any = {}
             for (let i = 0; i < configObj.serverIDList.length; i++) {
                 // Create custom notifRoles and prettyNames cache object
@@ -180,7 +189,7 @@ const createCacheStartup = async (client: Client) => {
 
 
                 const stockpiles = await serverCollections.stockpiles.find({}).toArray()
-                stockpileTime[configObj.serverIDList[i]] = {}
+                stockpileTimes[configObj.serverIDList[i]] = {}
                 for (let y = 0; y < stockpiles.length; y++) {
                     if ("timeLeft" in stockpiles[y]) {
                         let timeNotificationLeft = timerBP.length - 1
@@ -193,14 +202,14 @@ const createCacheStartup = async (client: Client) => {
                             }
                         }
                         if (timeNotificationLeft >= 1) timeNotificationLeft -= 1
-                        stockpileTime[configObj.serverIDList[i]][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
+                        stockpileTimes[configObj.serverIDList[i]][stockpiles[y].name] = { timeLeft: stockpiles[y].timeLeft, timeNotificationLeft: timeNotificationLeft }
                     }
                 }
             }
 
             NodeCacheObj.set("notifRoles", notifRoles)
             NodeCacheObj.set("prettyName", prettyName)
-            NodeCacheObj.set("stockpileTimes", stockpileTime)
+            NodeCacheObj.set("stockpileTimes", stockpileTimes)
             NodeCacheObj.set("disableTimeNotif", disableTimeNotif)
         }
         else {
@@ -212,7 +221,7 @@ const createCacheStartup = async (client: Client) => {
 
         client.on('guildCreate', (guild) => { guildCreateEventHandler(guild) })
 
-        client.on('guildDelete', async (guild) => { guildDeleteEventHandler(guild.id) })
+        client.on('guildDelete',  (guild) => { guildDeleteEventHandler(guild.id) })
     }
     else {
         // Create list of timeLefts till the stockpile expires
