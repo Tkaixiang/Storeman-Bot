@@ -170,7 +170,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
 
         if (process.env.STOCKPILER_MULTI_SERVER === "true") {
             multiServerQueue[body.guildID].splice(0, 1)
-            if (queue.length > 0) {
+            if (multiServerQueue.length > 0) {
                 console.log(eventName + "Finished 1 update event for GuildID: " + body.guildID + ". starting next update in queue, remaining queue: " + multiServerQueue[body.guildID].length)
                 stockpilerUpdateStockpile(multiServerQueue[body.guildID][0].client, multiServerQueue[body.guildID][0].body, multiServerQueue[body.guildID][0].response)
             }
