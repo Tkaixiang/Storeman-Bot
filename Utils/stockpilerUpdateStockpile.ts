@@ -10,12 +10,20 @@ let multiServerQueue: any = {}
 const eventName = "[Stockpiler Update Event]: "
 
 const stockpilerUpdateStockpileEntryPoint = async (client: Client, body: any, response: http.ServerResponse) => {
+    if (body.name === "") {
+        response.writeHead(403, { 'Content-Type': 'application/json' })
+        response.end(JSON.stringify({ success: false, error: "empty-stockpile-name" }))
+        console.log(eventName + "Empty stockpile name received, exiting")
+        return false
+    }
+
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
         if (!body.guildID) {
             response.writeHead(404, { 'Content-Type': 'application/json' })
             response.end(JSON.stringify({ success: false, error: "empty-guild-id" }))
             return false
         }
+
         if (!(body.guildID in multiServerQueue)) multiServerQueue[body.guildID] = []
 
         multiServerQueue[body.guildID].push({ client: client, body: body, response: response })
@@ -52,16 +60,11 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             console.log(eventName + "No GuildID was found with guildID: " + body.guildID)
             response.writeHead(404, { 'Content-Type': 'application/json' })
             response.end(JSON.stringify({ success: false, error: "invalid-guild-id" }))
-            return false
         }
-        if (await argon2.verify(password.password, body.password)) {
-            console.log(eventName + "Password Verified, starting update request")
-            if (body.name === "") {
-                response.writeHead(403, { 'Content-Type': 'application/json' })
-                response.end(JSON.stringify({ success: false, error: "empty-stockpile-name" }))
-                console.log(eventName + "Empty stockpile name received, exiting")
-            }
-            else {
+        else {
+            if (await argon2.verify(password.password, body.password)) {
+                console.log(eventName + "Password Verified, starting update request")
+
                 const cleanName = body.name.replace(/\./g, "").replace(/\$/g, "")
                 const stockpile = await collections.stockpiles.findOne({ name: cleanName })
                 const currentDate = new Date()
@@ -161,14 +164,14 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
 
                 response.writeHead(200, { 'Content-Type': 'application/json' })
                 response.end(JSON.stringify({ success: true }))
+
+            }
+            else {
+                console.log(eventName + "Invalid password received")
+                response.writeHead(403, { 'Content-Type': 'application/json' })
+                response.end(JSON.stringify({ success: false, error: "invalid-password" }))
             }
         }
-        else {
-            console.log(eventName + "Invalid password received")
-            response.writeHead(403, { 'Content-Type': 'application/json' })
-            response.end(JSON.stringify({ success: false, error: "invalid-password" }))
-        }
-        return true
     }
     catch (e) {
         console.log(eventName + "An error occured while processing a request for guild: " + body.guildID)

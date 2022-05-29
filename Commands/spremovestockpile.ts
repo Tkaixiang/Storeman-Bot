@@ -26,7 +26,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         if ("orderSettings" in configObj) {
             let position = -1
             for (let i = 0; i < configObj.orderSettings.length; i++) {
-                if (stockpile.toLowerCase() === cleanedName) {
+                if (configObj.orderSettings[i].toLowerCase() === cleanedName) {
                     position = i
                     break
                 }
@@ -73,6 +73,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         }
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
+        console.log(stockpileMsgs)
         await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
