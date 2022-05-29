@@ -1,7 +1,7 @@
-import { GuildMember, CommandInteraction, Permissions, MessageComponentInteraction } from "discord.js"
+import { GuildMember, CommandInteraction, Permissions, ButtonInteraction } from "discord.js"
 import { getCollections } from './../mongoDB'
 
-const checkPermissions = async (interaction: CommandInteraction | MessageComponentInteraction, roleType: "admin" | "user", member: GuildMember) => {
+const checkPermissions = async (interaction: CommandInteraction | ButtonInteraction, roleType: "admin" | "user", member: GuildMember) => {
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const permsInfo = (await collections.config.findOne({}, { projection: { admin: 1, user: 1 } }))!
     let permsLevel = 0

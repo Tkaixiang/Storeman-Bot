@@ -1,4 +1,4 @@
-import { GuildMember, MessageComponentInteraction } from "discord.js";
+import { ButtonInteraction, GuildMember } from "discord.js";
 import mongoSanitize from "express-mongo-sanitize";
 import { getCollections } from "../mongoDB";
 import checkPermissions from "./checkPermissions";
@@ -6,7 +6,7 @@ import checkTimeNotifs from "./checkTimeNotifs";
 import generateStockpileMsg from "./generateStockpileMsg";
 import updateStockpileMsg from "./updateStockpileMsg";
 
-const buttonHandler = async (interaction: MessageComponentInteraction) => {
+const buttonHandler = async (interaction: ButtonInteraction) => {
     const splitted = interaction.customId.split("==")
     const command = splitted[0]
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
