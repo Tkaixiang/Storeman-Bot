@@ -81,6 +81,7 @@ with open('ItemNumbering.csv', 'rt') as f_input:
 
 
 def SearchImage(image):
+	# "image" is the file path
 	global stockpilename
 	global NewStockpileName
 	global CurrentStockpileName
