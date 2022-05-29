@@ -37,8 +37,7 @@ const commands = [
                     option.setName("maximum_amount").setDescription("The maximum amount of that item").setRequired(false)
                 ).addStringOption((option) =>
                     option.setName("production_location").setDescription("The place to produce this item. Either 'MPF' or 'Factory'")
-                        .addChoice("MPF", "MPF")
-                        .addChoice("Factory", "Factory")
+                        .addChoices({ name: "MPF", value: "MPF" }, { name: "Factory", value: "Factory" })
                         .setRequired(false)
                 )
         )
@@ -52,7 +51,7 @@ const commands = [
         ),
     new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current stockpile and target information')
         .addStringOption(
-            (option) => option.setName("filter").setDescription("View a filtered version of spstatus such as view only targets, or important items only").addChoices([["Targets", "targets"]]).setRequired(false)
+            (option) => option.setName("filter").setDescription("View a filtered version of spstatus such as view only targets, or important items only").addChoices({ name: "Targets", value: "targets" }).setRequired(false)
         )
         .addStringOption((option) => option.setName("stockpile").setDescription("View items in a <stockpile> only").setRequired(false))
     ,
@@ -99,8 +98,7 @@ const commands = [
                 .setDescription("Add <perms> to a specified <role>")
                 .addStringOption(option => option.setName("perms").setDescription("Can be either 'User' or 'Admin'.")
                     .setRequired(true)
-                    .addChoice("User", "user")
-                    .addChoice("Admin", "admin")
+                    .addChoices({ name: "User", value: "user" }, { name: "Admin", value: "admin" })
                 )
                 .addRoleOption(option => option.setName("role").setDescription("The role to operate on").setRequired(true))
         )
@@ -142,6 +140,9 @@ const commands = [
                 .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a pretty name from").setRequired(true))
 
         ),
+    new SlashCommandBuilder().setName('spscan')
+        .setDescription('Scan a screenshot of a stockpile')
+        .addAttachmentOption(option => option.setName("screenshot").setDescription("Screenshot of the stockpile to scan").setRequired(true)),
     new SlashCommandBuilder().setName('spcode')
         .setDescription('Set/remove stockpile codes')
         .addSubcommand(subcommand =>
@@ -186,13 +187,12 @@ const commands = [
         )
     ,
     new SlashCommandBuilder().setName('spdisabletime')
-    .setDescription('Disables the time-check feature on Storeman Bot')
-    .addBooleanOption((option) =>
+        .setDescription('Disables the time-check feature on Storeman Bot')
+        .addBooleanOption((option) =>
             option.setName("disable").setDescription("True to disable time-check and false to enable time-check").setRequired(true)
         )
-,
-]
-    .map(command => command.toJSON());
+].map(command => command.toJSON())
+
 
 const rest = new REST({ version: '9' }).setToken(<string>process.env.STOCKPILER_TOKEN);
 
@@ -201,8 +201,8 @@ const insertCommands = async (guild_id?: string) => {
 
     if (guild_id) {
         await rest.put(Routes.applicationGuildCommands(<string>process.env.STOCKPILER_CLIENT_ID, <string>guild_id), { body: commands })
-        .then(() => console.log('Successfully registered application commands to guild with ID: ' + guild_id))
-        .catch(console.error);
+            .then(() => console.log('Successfully registered application commands to guild with ID: ' + guild_id))
+            .catch(console.error);
     }
     else {
         // Guild based commands for development
