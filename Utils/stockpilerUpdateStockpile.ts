@@ -110,7 +110,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                         else {
                             let newTimeLeft: any;
                             const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
-                            let stockpileTimes: any;
+                            let stockpileTimes: any = {}
                             if (process.env.STOCKPILER_MULTI_SERVER === "true") stockpileTimes = stockpileTimesObj[body.guildID]
                             else stockpileTimes = stockpileTimesObj
                             const timerBP: any = NodeCacheObj.get("timerBP")
@@ -128,6 +128,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                                     break
                                 }
                             }
+                            console.log(stockpileTimes)
                             stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timeNotificationLeft }
 
                             await collections.stockpiles.updateOne({ name: cleanName }, { $set: { items: newStockpileItems, lastUpdated: currentDate, timeLeft: newTimeLeft, upperBound: new Date((new Date()).getTime() + 60 * 60 * 1000 * 48) } })
@@ -167,22 +168,6 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             response.writeHead(403, { 'Content-Type': 'application/json' })
             response.end(JSON.stringify({ success: false, error: "invalid-password" }))
         }
-
-        if (process.env.STOCKPILER_MULTI_SERVER === "true") {
-            multiServerQueue[body.guildID].splice(0, 1)
-            if (multiServerQueue.length > 0) {
-                console.log(eventName + "Finished 1 update event for GuildID: " + body.guildID + ". starting next update in queue, remaining queue: " + multiServerQueue[body.guildID].length)
-                stockpilerUpdateStockpile(multiServerQueue[body.guildID][0].client, multiServerQueue[body.guildID][0].body, multiServerQueue[body.guildID][0].response)
-            }
-        }
-        else {
-            queue.splice(0, 1)
-            if (queue.length > 0) {
-                console.log(eventName + "Finished 1 update event, starting next update in queue, remaining queue: " + queue.length)
-                stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
-            }
-        }
-
         return true
     }
     catch (e) {
@@ -190,6 +175,21 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
         console.log(e)
         response.writeHead(500, { 'Content-Type': 'application/json' })
         response.end(JSON.stringify({ success: false, error: "storeman-bot-error-occured" }))
+    }
+
+    if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+        multiServerQueue[body.guildID].splice(0, 1)
+        if (multiServerQueue.length > 0) {
+            console.log(eventName + "Finished 1 update event for GuildID: " + body.guildID + ". starting next update in queue, remaining queue: " + multiServerQueue[body.guildID].length)
+            stockpilerUpdateStockpile(multiServerQueue[body.guildID][0].client, multiServerQueue[body.guildID][0].body, multiServerQueue[body.guildID][0].response)
+        }
+    }
+    else {
+        queue.splice(0, 1)
+        if (queue.length > 0) {
+            console.log(eventName + "Finished 1 update event, starting next update in queue, remaining queue: " + queue.length)
+            stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
+        }
     }
 
 

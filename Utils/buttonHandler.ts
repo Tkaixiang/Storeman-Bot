@@ -42,18 +42,18 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         await interaction.followUp({ content: "Item `" + lowerToOriginal[cleanitem] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
-        await updateStockpileMsg(interaction.client,interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
     }
     else if (command === "spsettimeleft") {
         if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
         await interaction.update({ content: "Working on it...", components: [] })
-        
+
         const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
         const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[interaction.guildId!] : disableTimeNotif
         if (timeCheckDisabled) {
-            await interaction.followUp({ content: "Error: The time-checking feature of Storeman Bot is disabled for this server. Please use `/spdisabletime` to enable it.", ephemeral: true  })
+            await interaction.followUp({ content: "Error: The time-checking feature of Storeman Bot is disabled for this server. Please use `/spdisabletime` to enable it.", ephemeral: true })
             return false
         }
 
@@ -65,7 +65,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
         if (stockpileExist) {
             const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 48)
-            await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { timeLeft: newTimeLeft }})
+            await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { timeLeft: newTimeLeft } })
             await collections.stockpiles.updateOne({ name: searchQuery }, { $unset: { upperBound: 1 } })
             await interaction.followUp({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
 
@@ -77,7 +77,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
             const timerBP: any = NodeCacheObj.get("timerBP")
             stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timerBP.length - 1 }
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
-            await updateStockpileMsg(interaction.client,interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+            await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
             checkTimeNotifs(interaction.client, true, false, interaction.guildId!)
         }
         else {
@@ -117,7 +117,7 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
         const locationMappings: any = NodeCacheObj.get("locationMappings")
         const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
-    
+
         const cleanitem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
 
         let msg = "Stockpiles in which `" + lowerToOriginal[cleanitem] + "` was found in: \n\n"
@@ -193,12 +193,25 @@ const buttonHandler = async (interaction: MessageComponentInteraction) => {
         await interaction.update({ content: "Working on it...", components: [] })
         await collections.stockpiles.deleteMany({})
         await collections.config.updateOne({}, { $unset: { orderSettings: 1, prettyName: 1, code: 1, stockpileLocations: 1 } })
-        NodeCacheObj.set("prettyName", {})
-        NodeCacheObj.set("stockpileTimes", {})
+
+        if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+            const stockpileTimes: any = NodeCacheObj.get("stockpileTimes")
+            stockpileTimes[interaction.guildId!] = {}
+            NodeCacheObj.set("stockpileTimes", stockpileTimes)
+
+            const prettyName: any = NodeCacheObj.get("prettyName")
+            prettyName[interaction.guildId!] = {}
+            NodeCacheObj.set("prettyName", prettyName)
+        }
+        else {
+            NodeCacheObj.set("prettyName", {})
+            NodeCacheObj.set("stockpileTimes", {})
+        }
+
 
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
-        await updateStockpileMsg(interaction.client,interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         await interaction.followUp({
             content: `All stockpiles have been purged`

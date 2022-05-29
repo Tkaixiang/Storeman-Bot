@@ -79,9 +79,15 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
         let stockpileTimes: any;
         if (process.env.STOCKPILER_MULTI_SERVER === "true") stockpileTimes = stockpileTimesObj[interaction.guildId!]
         else stockpileTimes = stockpileTimesObj
-        
-        delete stockpileTimes[stockpile]
 
+        for (const name in stockpileTimes) {
+            if (name.toLowerCase() === cleanedName) {
+                delete stockpileTimes[stockpile]
+                break
+            }
+        }
+        
+    
         await interaction.editReply({
             content: "Successfully deleted the stockpile " + stockpile
         });
