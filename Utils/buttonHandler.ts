@@ -79,6 +79,8 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
             await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
             checkTimeNotifs(interaction.client, true, false, interaction.guildId!)
+
+            
         }
         else {
             await interaction.followUp({ content: "Error: Stockpile " + cleanName + " does not exist", ephemeral: true })
@@ -103,6 +105,9 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
         if ((await collections.targets.updateOne({}, { $set: updateObj })).modifiedCount === 0) {
             await collections.targets.insertOne(updateObj)
         }
+
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
+        await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
 
         await interaction.followUp({
             content: `Item \`${lowerToOriginal[cleanitem]}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`
