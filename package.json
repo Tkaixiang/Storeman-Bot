@@ -29,7 +29,7 @@
     "mongodb": "^4.6.0",
     "node-cache": "^5.1.2",
     "string-similarity": "^4.0.4",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.3"
   },
   "devDependencies": {
     "@types/string-similarity": "^4.0.0",
