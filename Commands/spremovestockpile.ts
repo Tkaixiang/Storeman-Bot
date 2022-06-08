@@ -20,7 +20,7 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
     await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "").toLowerCase()
-    const searchQuery = new RegExp(cleanedName, "i")
+    const searchQuery = new RegExp(`^${cleanedName}$`, "i")
     if ((await collections.stockpiles.deleteOne({ name: searchQuery })).deletedCount > 0) {
         const configObj = (await collections.config.findOne({}))!
         if ("orderSettings" in configObj) {

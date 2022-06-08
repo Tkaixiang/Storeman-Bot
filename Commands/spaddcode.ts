@@ -21,7 +21,7 @@ const spaddcode = async (interaction: CommandInteraction, client: Client): Promi
     await interaction.reply({content: 'Working on it', ephemeral: true});
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
-    const searchQuery = new RegExp(cleanedName, "i")
+    const searchQuery = new RegExp(`^${cleanedName}$`, "i")
    
     const cleanedCode = code.replace(/\./g, "").replace(/\$/g, "")
     const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })

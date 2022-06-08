@@ -22,7 +22,7 @@ const spaddloc = async (interaction: CommandInteraction, client: Client): Promis
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const locationMappings: any = NodeCacheObj.get("locationMappings")
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
-    const searchQuery = new RegExp(cleanedName, "i")
+    const searchQuery = new RegExp(`^${cleanedName}$`, "i")
 
     const cleanedLocation = location.replace(/\./g, "").replace(/\$/g, "").toLowerCase()
     if (!(cleanedLocation in locationMappings)) {

@@ -33,7 +33,7 @@ const stockpilerUpdateStockpileEntryPoint = async (client: Client, body: any, re
             stockpilerUpdateStockpile(multiServerQueue[body.guildID][0].client, multiServerQueue[body.guildID][0].body, multiServerQueue[body.guildID][0].response)
         }
         else {
-            console.log(eventName + "Update event queued, current length in queue: " + multiServerQueue[body.guildID].length)
+            console.log(eventName + "Update event queued for " + body.guildID +", current length in queue: " + multiServerQueue[body.guildID].length)
         }
     }
     else {
