@@ -8,7 +8,7 @@ const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
 
     const helpEmbed: {fields: Array<any>, [key: string]: any} = {
         title: "Storeman Bot Command Help", description: `
-Version 0.6 29/5/2022
+Version 0.7 28/7/2022
 Your GuildID is: \`${interaction.guildId}\`
 
 👨‍⚖️ - Commands that require at least \`Admin\` permissions
@@ -38,6 +38,10 @@ Currently in alpha testing, contact Tkai#8276 for help.
         {
             name: "/spfind <item>  🙍‍♂️",
             value: "Searches through all the stockpiles for the <item> specified and returns which stockpile has the item."
+        },
+        {
+            name: "/sprefresh <stockpile❓>  🙍‍♂️",
+            value: "Refreshes the timer of **ALL stockpiles** if **no name is specified**, or the timer of \`<stockpile>\`"
         },
         {
             name: "/sptarget set <item> <minimum_amount> <maximum_amount❓> <production_location❓>  👨‍⚖️",
@@ -127,6 +131,7 @@ Currently in alpha testing, contact Tkai#8276 for help.
             name: "/spdisabletime <disabled> 👨‍⚖️",
             value: "Whether or not to disable the time-checking feature of Storeman Bot"
         },
+        
 
     ]
 

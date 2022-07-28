@@ -65,8 +65,7 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
         const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
         if (stockpileExist) {
             const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 48)
-            await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { timeLeft: newTimeLeft } })
-            await collections.stockpiles.updateOne({ name: searchQuery }, { $unset: { upperBound: 1 } })
+            await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { timeLeft: newTimeLeft }, $unset: { upperBound: 1 } })
             await interaction.followUp({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
 
             const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
@@ -79,8 +78,6 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
             const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
             await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
             checkTimeNotifs(interaction.client, true, false, interaction.guildId!)
-
-            
         }
         else {
             await interaction.followUp({ content: "Error: Stockpile " + cleanName + " does not exist", ephemeral: true })

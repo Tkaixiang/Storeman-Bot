@@ -211,6 +211,7 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
             if (newMsgsSent) {
                 let targetMsgIDs = []
                 let targetMsgFuncArray = []
+                
                 for (let i = 0; i < configObj.targetMsg.length; i++) {
                     targetMsgFuncArray.push(deleteTargetMsg(channelObj, configObj.targetMsg[i]))
                 }

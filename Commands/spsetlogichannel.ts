@@ -77,6 +77,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
 
 
     }
+    
     let targetMsgIDs: String[] = []
     for (let i = 0; i < targetMsg.length; i++) {
         const targetMsgID = await channelObj.send(targetMsg[i])

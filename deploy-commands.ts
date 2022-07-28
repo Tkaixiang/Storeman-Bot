@@ -190,6 +190,11 @@ const commands = [
         .setDescription('Disables the time-check feature on Storeman Bot')
         .addBooleanOption((option) =>
             option.setName("disable").setDescription("True to disable time-check and false to enable time-check").setRequired(true)
+        ),
+    new SlashCommandBuilder().setName('sprefresh')
+        .setDescription('Refreshes the timer of ALL stockpiles, or an individual <stockpile> if a name is provided.')
+        .addStringOption((option) =>
+            option.setName("stockpile").setDescription("The stockpile name").setRequired(false)
         )
 ].map(command => command.toJSON())
 

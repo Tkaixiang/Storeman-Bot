@@ -36,6 +36,7 @@ import splistloc from './Commands/splistloc'
 import spfind from './Commands/spfind'
 import spdisabletime from './Commands/spdisabletime'
 import spscan from './Commands/spscan'
+import sprefresh from './Commands/sprefresh'
 
 require('dotenv').config()
 const port = 8090
@@ -433,6 +434,7 @@ const main = async (): Promise<void> => {
                     else if (commandName === "spfind") await spfind(interaction)
                     else if (commandName === "spdisabletime") await spdisabletime(interaction, client)
                     else if (commandName === "spscan") await spscan(interaction, client)
+                    else if (commandName === "sprefresh") await sprefresh(interaction)
 
                 }
                 else if (interaction.isButton()) {
