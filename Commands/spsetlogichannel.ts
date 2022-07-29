@@ -88,7 +88,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
     }
 
     // Send refresh all stockpiles
-    const refreshAllID = await channelObj.send({ content: "=====\nRefresh the timer of **all stockpiles**", components: [refreshAll] })
+    const refreshAllID = await channelObj.send({ content: "\nRefresh the timer of **all stockpiles**", components: [refreshAll] })
 
     let targetMsgIDs: String[] = []
     for (let i = 0; i < targetMsg.length; i++) {
