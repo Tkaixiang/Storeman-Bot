@@ -259,7 +259,7 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
                         editedMsgs = true
                         console.log(eventName + "Refresh stockpile button not found, sending a new 1")
                         const newMsg =  await channelObj.send({ content: "----------\nRefresh the timer of **all stockpiles**", components: [msg[4]] })
-                        await collections.config.updateOne({}, { $set: { refreshAllMsg: newMsg.id } })
+                        await collections.config.updateOne({}, { $set: { refreshAllID: newMsg.id } })
 
                         let targetMsgIDs = []
                         let targetMsgFuncArray = []
