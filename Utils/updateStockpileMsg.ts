@@ -217,7 +217,7 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
                     console.log("Failed to delete new refresh all button")
                 }
                 try {
-                    const refreshAllID = await channelObj.send(msg[4])
+                    const refreshAllID = await channelObj.send({ content: "=====\nRefresh the timer of **all stockpiles**", components: [refreshAll] })
                     updateObj.refreshAllID = refreshAllID.id
 
                 } catch (e) {
