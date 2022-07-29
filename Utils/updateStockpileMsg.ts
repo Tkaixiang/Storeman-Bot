@@ -249,9 +249,18 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
                 if (!timeCheckDisabled) checkTimeNotifsQueue(client, true, false, guildID!)
             }
             else {
+                try {
                 // edit refreshAllID in case the button was pressed
                  const refreshAllMsg = await channelObj.messages.fetch(configObj.refreshAllID)
                  await refreshAllMsg.edit({ content: "----------\nRefresh the timer of **all stockpiles**", components: [msg[4]] })
+                }
+                catch (e: any) {
+                    if (e.code === 10008) {
+                        console.log(eventName + "Refresh stockpile button not found, sending a new 1")
+                        const newMsg =  await channelObj.send({ content: "----------\nRefresh the timer of **all stockpiles**", components: [msg[4]] })
+                        await collections.config.updateOne({}, { $set: { refreshAllMsg: newMsg.id } })
+                    }
+                }
 
                 let targetMsgFuncArray = []
                 for (let i = 0; i < msg[2].length; i++) {
