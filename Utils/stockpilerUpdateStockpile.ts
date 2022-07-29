@@ -159,8 +159,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                 }
 
                 const guildID = process.env.STOCKPILER_MULTI_SERVER === "true" ? body.guildID : "GUILD_ID_PLACEHOLDER"
-                const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, guildID)
-                await updateStockpileMsg(client, guildID, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+                const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, guildID)
+                await updateStockpileMsg(client, guildID, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
 
                 response.writeHead(200, { 'Content-Type': 'application/json' })
                 response.end(JSON.stringify({ success: true }))

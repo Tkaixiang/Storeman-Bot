@@ -44,9 +44,16 @@ const spremovelogichannel = async (interaction: CommandInteraction, client: Clie
                 console.log("Failed to delete a targetMsg")
             }
         }
+        try {
+            const refreshAllID = await channelObj.messages.fetch(configDoc.refreshAllID)
+            if (refreshAllID) await refreshAllID.delete()
+        }
+        catch (e) {
+            console.log("Failed to delete refreshAll msg")
+        }
        
 
-        await collections.config.updateOne({}, { $unset: { channelId: 0, stockpileHeader: 0, stockpileMsgs: 0, targetMsg: 0, stockpileMsgsHeader: 0 } })
+        await collections.config.updateOne({}, { $unset: { channelId: 0, stockpileHeader: 0, stockpileMsgs: 0, targetMsg: 0, stockpileMsgsHeader: 0, refreshAllID: 0 } })
 
         await interaction.editReply({
             content: "Logi channel was successfully deleted",

@@ -72,9 +72,9 @@ const spremovestockpile = async (interaction: CommandInteraction, client: Client
             await collections.config.updateOne({}, { $set: { stockpileLocations: configObj.stockpileLocations } })
         }
 
-        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(true, interaction.guildId)
+        const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, interaction.guildId)
         console.log(stockpileMsgs)
-        await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader])
+        await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
 
         const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
         let stockpileTimes: any;

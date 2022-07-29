@@ -11,7 +11,7 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateStockpileMsg(false, interaction.guildId)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(false, interaction.guildId)
     if (filter) {
         if (filter === "targets") {
             await interaction.editReply(targetMsg)

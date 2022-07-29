@@ -7,9 +7,9 @@ let editedMsgs = false
 let newMsgsSent = false
 const eventName = "[Update Logi Channel]: "
 
-const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
+const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string, MessageActionRow]): Promise<Boolean> => {
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
-     
+
 
         if (!(guildID! in multiServerQueue)) multiServerQueue[guildID!] = []
 
@@ -113,7 +113,7 @@ const deleteTargetMsg = async (channelObj: TextChannel, currentMsgID: string) =>
 
 
 
-const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string]): Promise<Boolean> => {
+const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string, MessageActionRow]): Promise<Boolean> => {
     try {
         const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
 
@@ -207,11 +207,27 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
 
             let updateObj: any = {}
 
-            // Send the target msg last
+            // Send the refresh all stockpiles and target msg last
             if (newMsgsSent) {
+                try {
+                    const refreshAllID = await channelObj.messages.fetch(configObj.refreshAllID)
+                    if (refreshAllID) await refreshAllID.delete()
+                }
+                catch (e) {
+                    console.log("Failed to delete new refresh all button")
+                }
+                try {
+                    const refreshAllID = await channelObj.send(msg[4])
+                    updateObj.refreshAllID = refreshAllID.id
+
+                } catch (e) {
+                    console.log('Failed to send the refresh all button')
+                }
+
+
                 let targetMsgIDs = []
                 let targetMsgFuncArray = []
-                
+
                 for (let i = 0; i < configObj.targetMsg.length; i++) {
                     targetMsgFuncArray.push(deleteTargetMsg(channelObj, configObj.targetMsg[i]))
                 }
@@ -229,7 +245,7 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
 
                 const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
                 const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[guildID!] : disableTimeNotif
-            
+
                 if (!timeCheckDisabled) checkTimeNotifsQueue(client, true, false, guildID!)
             }
             else {

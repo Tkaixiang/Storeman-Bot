@@ -37,7 +37,7 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
             await msg.delete()
         }
         catch (e) {
-            console.log("Failed to delete msg")
+            console.log("Failed to delete stockpile header msg")
         }
         for (let i = 0; i < configDoc.stockpileMsgs.length; i++) {
             try {
@@ -48,23 +48,32 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
                 console.log("Failed to delete msg")
             }
         }
-        try {
-            for (let i = 0; i < configDoc.targetMsg.length; i++) {
-            const targetMsgObj = await newChannelObj.messages.fetch(configDoc.targetMsg[i])
-            if (targetMsgObj) await targetMsgObj.delete()
+
+        for (let i = 0; i < configDoc.targetMsg.length; i++) {
+            try {
+                const targetMsgObj = await newChannelObj.messages.fetch(configDoc.targetMsg[i])
+                if (targetMsgObj) await targetMsgObj.delete()
+            }
+            catch (e) {
+                console.log("Failed to delete target msg")
             }
         }
+
+        try {
+            const refreshAllID = await newChannelObj.messages.fetch(configDoc.refreshAllID)
+            if (refreshAllID) await refreshAllID.delete()
+        }
         catch (e) {
-            console.log("Failed to delete msg")
+            console.log("Failed to delete refreshAll msg")
         }
     }
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader] = await generateMsg(false, interaction.guildId)
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateMsg(false, interaction.guildId)
     const newMsg = await channelObj.send(stockpileHeader)
     const stockpileMsgsHeaderID = await channelObj.send(stockpileMsgsHeader)
     let stockpileMsgIDs: any = []
     let stockpileIndex = 0
     for (let i = 0; i < stockpileMsgs.length; i++) {
-        
+
         if (typeof stockpileMsgs[i] !== "string") {
             const temp = await channelObj.send({ content: stockpileMsgs[i][0], components: [stockpileMsgs[i][1]] })
             stockpileMsgIDs.push(temp.id)
@@ -77,14 +86,17 @@ const spsetlogichannel = async (interaction: CommandInteraction, client: Client)
 
 
     }
-    
+
+    // Send refresh all stockpiles
+    const refreshAllID = await channelObj.send({ content: "=====\nRefresh the timer of **all stockpiles**", components: [refreshAll] })
+
     let targetMsgIDs: String[] = []
     for (let i = 0; i < targetMsg.length; i++) {
         const targetMsgID = await channelObj.send(targetMsg[i])
         targetMsgIDs.push(targetMsgID.id)
     }
-   
-    await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id, stockpileMsgs: stockpileMsgIDs, targetMsg: targetMsgIDs, channelId: channel.id, stockpileMsgsHeader: stockpileMsgsHeaderID.id } })
+
+    await collections.config.updateOne({}, { $set: { stockpileHeader: newMsg.id, stockpileMsgs: stockpileMsgIDs, targetMsg: targetMsgIDs, channelId: channel.id, stockpileMsgsHeader: stockpileMsgsHeaderID.id, refreshAllID: refreshAllID } })
 
 
     await interaction.editReply({
