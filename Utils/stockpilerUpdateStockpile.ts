@@ -96,7 +96,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                             else stockpileTimes = stockpileTimesObj
 
                             const timerBP: any = NodeCacheObj.get("timerBP")
-                            let newTimeLeft = new Date(stockpile.lastUpdated.getTime() + 60 * 60 * 1000 * 48)
+                            let newTimeLeft = new Date(stockpile.lastUpdated.getTime() + 60 * 60 * 1000 * 50)
                             let timeNotificationLeft = 4
                             for (let x = 0; x < timerBP.length; x++) {
                                 const timeLeftProperty: any = newTimeLeft
@@ -107,7 +107,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                                 }
                             }
                             stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timeNotificationLeft }
-                            await collections.stockpiles.updateOne({ name: cleanName }, { $set: { items: newStockpileItems, lastUpdated: currentDate, timeLeft: newTimeLeft, upperBound: new Date((new Date()).getTime() + 60 * 60 * 1000 * 48) } })
+                            await collections.stockpiles.updateOne({ name: cleanName }, { $set: { items: newStockpileItems, lastUpdated: currentDate, timeLeft: newTimeLeft, upperBound: new Date((new Date()).getTime() + 60 * 60 * 1000 * 50) } })
                             console.log(eventName + "upperBound exists. Modifying stockpiler timer based on last scan timing")
                         }
                         else {
@@ -120,7 +120,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
 
 
                             if ("timeLeft" in stockpile) newTimeLeft = stockpile.timeLeft
-                            else newTimeLeft = new Date(stockpile.lastUpdated.getTime() + 60 * 60 * 1000 * 48)
+                            else newTimeLeft = new Date(stockpile.lastUpdated.getTime() + 60 * 60 * 1000 * 50)
 
                             let timeNotificationLeft = 4
                             for (let x = 0; x < timerBP.length; x++) {
@@ -134,7 +134,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                             console.log(stockpileTimes)
                             stockpileTimes[cleanName] = { timeLeft: newTimeLeft, timeNotificationLeft: timeNotificationLeft }
 
-                            await collections.stockpiles.updateOne({ name: cleanName }, { $set: { items: newStockpileItems, lastUpdated: currentDate, timeLeft: newTimeLeft, upperBound: new Date((new Date()).getTime() + 60 * 60 * 1000 * 48) } })
+                            await collections.stockpiles.updateOne({ name: cleanName }, { $set: { items: newStockpileItems, lastUpdated: currentDate, timeLeft: newTimeLeft, upperBound: new Date((new Date()).getTime() + 60 * 60 * 1000 * 50) } })
                             console.log(eventName + "upperBound does not exist. Modifying stockpiler timer based on last updated timing or last scan timing")
                         }
                     }

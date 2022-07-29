@@ -64,7 +64,7 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
 
         const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
         if (stockpileExist) {
-            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 48)
+            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 50)
             await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { timeLeft: newTimeLeft }, $unset: { upperBound: 1 } })
             await interaction.followUp({ content: "Updated the stockpile " + cleanName + " count down timer successfully", ephemeral: true })
 
@@ -221,9 +221,10 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
     }
     else if (command === "sprefreshall") {
         if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
+        await interaction.update({ content: "Working on it...", components: [] })
 
         await collections.stockpiles.find({}).forEach(async (doc: any) => {
-            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 48)
+            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 50)
 
             await collections.stockpiles.updateOne({ name: doc.name }, { $set: { timeLeft: newTimeLeft }, $unset: { upperBound: 1 } })
             const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
@@ -238,7 +239,7 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, interaction.guildId)
         await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
         checkTimeNotifs(interaction.client, true, false, interaction.guildId!)
-        await interaction.followUp("Updated the timers of all your stockpiles.")
+        await interaction.followUp({ content: "Updated the timers of all your stockpiles.", ephemeral: true })
     }
 
     else if (command === "cancel") {

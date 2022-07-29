@@ -27,7 +27,7 @@ const sprefresh = async (interaction: CommandInteraction): Promise<boolean> => {
 
         const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
         if (stockpileExist) {
-            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 48)
+            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 50)
             await collections.stockpiles.updateOne({ name: searchQuery }, { $set: { timeLeft: newTimeLeft }, $unset: { upperBound: 1 } })
             await interaction.editReply({ content: "Updated the stockpile " + cleanName + " count down timer successfully" })
 
@@ -48,7 +48,7 @@ const sprefresh = async (interaction: CommandInteraction): Promise<boolean> => {
     }
     else {
         await collections.stockpiles.find({}).forEach(async (doc: any) => {
-            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 48)
+            const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 50)
 
             await collections.stockpiles.updateOne({ name: doc.name }, { $set: { timeLeft: newTimeLeft }, $unset: { upperBound: 1 } })
             const stockpileTimesObj: any = NodeCacheObj.get("stockpileTimes")
