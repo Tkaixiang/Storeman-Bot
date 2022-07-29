@@ -259,6 +259,29 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
                         console.log(eventName + "Refresh stockpile button not found, sending a new 1")
                         const newMsg =  await channelObj.send({ content: "----------\nRefresh the timer of **all stockpiles**", components: [msg[4]] })
                         await collections.config.updateOne({}, { $set: { refreshAllMsg: newMsg.id } })
+
+                        let targetMsgIDs = []
+                        let targetMsgFuncArray = []
+        
+                        for (let i = 0; i < configObj.targetMsg.length; i++) {
+                            targetMsgFuncArray.push(deleteTargetMsg(channelObj, configObj.targetMsg[i]))
+                        }
+                        await Promise.all(targetMsgFuncArray)
+                        for (let i = 0; i < msg[2].length; i++) {
+                            try {
+                                const targetMsg = await channelObj.send(msg[2][i])
+                                targetMsgIDs.push(targetMsg.id)
+                            }
+                            catch (e) {
+                                console.log(eventName + "Failed to send a new targetMsg")
+                            }
+                        }
+                        updateObj.targetMsg = targetMsgIDs
+        
+                        const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+                        const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[guildID!] : disableTimeNotif
+        
+                        if (!timeCheckDisabled) checkTimeNotifsQueue(client, true, false, guildID!)
                     }
                 }
 
