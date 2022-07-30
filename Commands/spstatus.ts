@@ -18,15 +18,28 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
         }
     }
     else {
+        // find one stockpile given a name
         if (stockpile) {
             const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
             stockpile = stockpile.replace(/\./g, "").replace(/\$/g, "")
+            let code: any = {}
+            let stockpileLocations: any = {}
 
             const stockpiles = await collections.stockpiles.find({}).toArray()
+            const configObj = (await collections.config.findOne({}))!
             const itemListCategoryMapping: any = NodeCacheObj.get("itemListCategoryMapping")
             const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
             const prettyNameObj: any = NodeCacheObj.get("prettyName")
+            let locationMappings: any = NodeCacheObj.get("locationMappings")
+
+
+            if ("code" in configObj) code = configObj.code
+            if ("stockpileLocations" in configObj) stockpileLocations = configObj.stockpileLocations
+
+            const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+            const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[interaction.guildId!] : disableTimeNotif
+
             let prettyName: any;
             if (process.env.STOCKPILER_MULTI_SERVER === "true") prettyName = prettyNameObj[interaction.guildId!]
             else prettyName = prettyNameObj
@@ -36,7 +49,10 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
 
                 if (current.name === stockpile) {
                     let currentStockpileMsg = ""
-                    currentStockpileMsg += `**${current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current ? `[Expiry: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]` : ""} ${current.name in prettyName ? "[a.k.a" + current.name + "]" : ""}\n`
+                    currentStockpileMsg += `**${prettyName && current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current && !timeCheckDisabled ? `[Expiry: ${"upperBound" in current ? `Sometime between: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R> and <t:${Math.floor(current.upperBound.getTime() / 1000)}:R>]` : `<t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]`}` : ""} ${prettyName && current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
+                    if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\`\n`
+                    if (current.name in stockpileLocations) currentStockpileMsg += `**Location:** \`${locationMappings[stockpileLocations[current.name]]}\`\n\n`
+
                     let sortedItems: any = {}
                     for (const item in current.items) {
 
@@ -59,23 +75,23 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
                         const lastEnd = sliced.lastIndexOf("\n")
                         const finalMsg = sliced.slice(0, lastEnd)
 
-                        await interaction.followUp({content: finalMsg, ephemeral: true})
+                        await interaction.followUp({ content: finalMsg, ephemeral: true })
                         currentStockpileMsg = currentStockpileMsg.slice(lastEnd, currentStockpileMsg.length)
                     }
-                    await interaction.followUp({content: currentStockpileMsg, ephemeral: true})
+                    await interaction.followUp({ content: currentStockpileMsg, ephemeral: true })
                     break
                 }
             }
         }
         else {
             await interaction.editReply(stockpileHeader);
-            await interaction.followUp({content: stockpileMsgsHeader, ephemeral: true})
+            await interaction.followUp({ content: stockpileMsgsHeader, ephemeral: true })
             for (let i = 0; i < stockpileMsgs.length; i++) {
-                if (typeof stockpileMsgs[i] !== "string") await interaction.followUp({content: stockpileMsgs[i][0], ephemeral: true});
-                else await interaction.followUp({content: stockpileMsgs[i], ephemeral: true});
+                if (typeof stockpileMsgs[i] !== "string") await interaction.followUp({ content: stockpileMsgs[i][0], ephemeral: true });
+                else await interaction.followUp({ content: stockpileMsgs[i], ephemeral: true });
             }
             for (let i = 0; i < targetMsg.length; i++) {
-                await interaction.followUp({content: targetMsg[i], ephemeral: true});
+                await interaction.followUp({ content: targetMsg[i], ephemeral: true });
             }
         }
 
