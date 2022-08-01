@@ -20,14 +20,14 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
     let code: any = {}
     let stockpileLocations: any = {}
-    const refreshAll =   new MessageActionRow()
-    .addComponents(
-        new MessageButton()
-            .setCustomId('sprefreshall==')
-            .setLabel("Refresh All Stockpiles")
-            .setStyle('SUCCESS')
-    );
- 
+    const refreshAll = new MessageActionRow()
+        .addComponents(
+            new MessageButton()
+                .setCustomId('sprefreshall==')
+                .setLabel("Refresh All Stockpiles")
+                .setStyle('SUCCESS')
+        );
+
 
     if (process.env.STOCKPILER_MULTI_SERVER === "true" || updateMsg || !stockpileMsgs || !targetMsgs) {
         const targets = await collections.targets.findOne({})
