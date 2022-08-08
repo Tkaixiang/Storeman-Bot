@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/Tkaixiang/stockpiler-discord-bot#readme",
   "dependencies": {
-    "@discordjs/builders": "^1.0.0",
+    "@discordjs/builders": "^1.1.0",
     "@discordjs/rest": "^1.0.1",
     "argon2": "^0.28.5",
     "csv-parser": "^3.0.0",
-    "discord-api-types": "^0.36.3",
+    "discord-api-types": "^0.37.1",
     "discord.js": "^13.7.0",
     "dotenv": "^16.0.1",
     "express-mongo-sanitize": "^2.2.0",
@@ -34,6 +34,6 @@
   "devDependencies": {
     "@types/string-similarity": "^4.0.0",
     "nodemon": "^2.0.16",
-    "ts-node": "^10.8.1"
+    "ts-node": "^10.9.1"
   }
 }
