@@ -65,6 +65,10 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             if (await argon2.verify(password.password, body.password)) {
                 console.log(eventName + "Password Verified, starting update request")
 
+                // Reply to the client first 
+                response.writeHead(200, { 'Content-Type': 'application/json' })
+                response.end(JSON.stringify({ success: true }))
+
                 const cleanName = body.name.replace(/\./g, "").replace(/\$/g, "")
                 const stockpile = await collections.stockpiles.findOne({ name: cleanName })
                 const currentDate = new Date()
@@ -160,10 +164,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
 
                 const guildID = process.env.STOCKPILER_MULTI_SERVER === "true" ? body.guildID : "GUILD_ID_PLACEHOLDER"
                 const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, guildID)
-                await updateStockpileMsg(client, guildID, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
+                updateStockpileMsg(client, guildID, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
 
-                response.writeHead(200, { 'Content-Type': 'application/json' })
-                response.end(JSON.stringify({ success: true }))
 
             }
             else {
@@ -186,6 +188,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             console.log(eventName + "Finished 1 update event for GuildID: " + body.guildID + ". starting next update in queue, remaining queue: " + multiServerQueue[body.guildID].length)
             stockpilerUpdateStockpile(multiServerQueue[body.guildID][0].client, multiServerQueue[body.guildID][0].body, multiServerQueue[body.guildID][0].response)
         }
+        else console.log(eventName + "Finished 1 update event for GuildID: " + body.guildID + ". No queue ahead")
     }
     else {
         queue.splice(0, 1)
@@ -193,6 +196,7 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
             console.log(eventName + "Finished 1 update event, starting next update in queue, remaining queue: " + queue.length)
             stockpilerUpdateStockpile(queue[0].client, queue[0].body, queue[0].response)
         }
+        else console.log(eventName + "Finished 1 update event. No queue ahead")
     }
 
 
