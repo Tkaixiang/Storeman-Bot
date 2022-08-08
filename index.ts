@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, Guild, Intents } from 'discord.js'
+import { Interaction, Client, Guild, Intents } from 'discord.js'
 import { insertCommands } from './deploy-commands'
 import { open, getCollections, getMongoClientObj } from './mongoDB'
 import sphelp from './Commands/sphelp'
@@ -123,12 +123,12 @@ const guildDeleteEventHandler = async (guildID: string) => {
         delete prettyName[guildID]
         delete disableTimeNotif[guildID]
         console.log("Deleted the database and config records of the guild successfully")
-    } 
+    }
     else console.log("Delete request received but no such guildID exists in Storeman Bot records.")
 
 
 
-    
+
 }
 
 const createCacheStartup = async (client: Client) => {
@@ -223,7 +223,7 @@ const createCacheStartup = async (client: Client) => {
 
         client.on('guildCreate', (guild) => { guildCreateEventHandler(guild) })
 
-        client.on('guildDelete',  (guild) => { guildDeleteEventHandler(guild.id) })
+        client.on('guildDelete', (guild) => { guildDeleteEventHandler(guild.id) })
     }
     else {
         // Create list of timeLefts till the stockpile expires
@@ -275,6 +275,134 @@ const createCacheStartup = async (client: Client) => {
 }
 
 const main = async (): Promise<void> => {
+
+    let commandCallQueue: Array<Interaction> = []
+    let multiServerCommandQueue: any = {}
+
+    const handleCommand = async (interaction: Interaction) => {
+        try {
+            if (interaction.isCommand()) {
+
+                const commandName = interaction.commandName;
+
+                if (commandName === 'sphelp') await sphelp(interaction)
+                else if (commandName === 'spsetamount') await spsetamount(interaction, client)
+                else if (commandName === 'spstatus') await spstatus(interaction)
+                else if (commandName === 'sptarget') {
+                    if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction, client)
+                }
+                else if (commandName === 'spsetpassword') await spsetpassword(interaction)
+                else if (commandName === 'splogichannel') {
+                    if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
+                }
+                else if (commandName === "spstockpile") {
+                    if (interaction.options.getSubcommand() === 'add') await spaddstockpile(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremovestockpile(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'purge') await sppurgestockpile(interaction, client)
+                }
+                else if (commandName === "sprole") {
+                    if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
+                    else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
+                }
+                else if (commandName === "spnotif") {
+                    if (interaction.options.getSubcommand() === 'add') await spnotif(interaction, client, true)
+                    else if (interaction.options.getSubcommand() === 'remove') await spnotif(interaction, client, false)
+                }
+                else if (commandName === "spprettyname") {
+                    if (interaction.options.getSubcommand() === 'add') await spaddprettyname(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremoveprettyname(interaction, client)
+                }
+                else if (commandName === "spcode") {
+                    if (interaction.options.getSubcommand() === 'add') await spaddcode(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremovecode(interaction, client)
+                }
+                else if (commandName === "sploc") {
+                    if (interaction.options.getSubcommand() === 'add') await spaddloc(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'remove') await spremoveloc(interaction, client)
+                    else if (interaction.options.getSubcommand() === 'list') await splistloc(interaction)
+                }
+                else if (commandName === "spitems") await spitems(interaction)
+                else if (commandName === "spsetorder") await spsetorder(interaction, client)
+                else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
+                else if (commandName === "spfind") await spfind(interaction)
+                else if (commandName === "spdisabletime") await spdisabletime(interaction, client)
+                else if (commandName === "spscan") await spscan(interaction, client)
+                else if (commandName === "sprefresh") await sprefresh(interaction)
+
+            }
+            else if (interaction.isButton()) {
+                buttonHandler(interaction)
+            }
+        }
+        catch (e) {
+            if (interaction.isCommand() || interaction.isButton()) {
+                let errorDump = JSON.stringify(e)
+                if (interaction.isCommand()) {
+                    console.log("[!!!]: An error has occured in the command " + interaction.commandName + ". Please kindly report this to the developer on Discord (Tkai#8276)")
+                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send the logs below this message to the developer on Discord at Tkai#8276" })
+                    while (errorDump.length > 0) {
+                        if (errorDump.length > 2000) {
+                            const sliced = errorDump.slice(0, 2000)
+                            const lastEnd = sliced.lastIndexOf("\n")
+                            const finalMsg = sliced.slice(0, lastEnd)
+
+                            await interaction.followUp({
+                                content: finalMsg
+                            });
+                            errorDump = errorDump.slice(lastEnd, errorDump.length)
+                        }
+                        else {
+                            await interaction.followUp({
+                                content: errorDump
+                            });
+                            errorDump = ""
+                        }
+                    }
+                }
+                else if (interaction.isButton()) {
+                    console.log("[!!!]: An error has occured in a button action. Please kindly report this to the developer on Discord (Tkai#8276)")
+                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot button action. Please kindly send logs below this message to the developer on Discord at Tkai#8276." })
+                }
+                while (errorDump.length > 0) {
+                    if (errorDump.length > 2000) {
+                        const sliced = errorDump.slice(0, 2000)
+                        const lastEnd = sliced.lastIndexOf("\n")
+                        const finalMsg = sliced.slice(0, lastEnd)
+
+                        await interaction.followUp({
+                            content: finalMsg
+                        });
+                        errorDump = errorDump.slice(lastEnd, errorDump.length)
+                    }
+                    else {
+                        await interaction.followUp({
+                            content: errorDump
+                        });
+                        errorDump = ""
+                    }
+                }
+            }
+
+        }
+
+        if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+            multiServerCommandQueue[interaction.guildId!].splice(0, 1)
+            if (multiServerCommandQueue[interaction.guildId!].length > 0) {
+                handleCommand(multiServerCommandQueue[interaction.guildId!][0])
+            }
+            console.log("[Command Queue:] Finished 1 command for " + interaction.guildId + ". Remaining length of queue: " + multiServerCommandQueue[interaction.guildId!].length)
+        }
+        else {
+            commandCallQueue.splice(0, 1)
+            if (commandCallQueue.length > 0) {
+                handleCommand(commandCallQueue[0])
+            }
+            console.log("[Command Queue:] Finished 1 command. Remaining length of queue: " + commandCallQueue.length)
+        }
+        
+    }
 
 
     // Create a new client instance 
@@ -385,111 +513,26 @@ const main = async (): Promise<void> => {
 
 
         client.on('interactionCreate', async (interaction) => {
-            try {
-                if (interaction.isCommand()) {
-
-                    const commandName = interaction.commandName;
-
-                    if (commandName === 'sphelp') await sphelp(interaction)
-                    else if (commandName === 'spsetamount') await spsetamount(interaction, client)
-                    else if (commandName === 'spstatus') await spstatus(interaction)
-                    else if (commandName === 'sptarget') {
-                        if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction, client)
-                        else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction, client)
-                    }
-                    else if (commandName === 'spsetpassword') await spsetpassword(interaction)
-                    else if (commandName === 'splogichannel') {
-                        if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
-                        else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
-                    }
-                    else if (commandName === "spstockpile") {
-                        if (interaction.options.getSubcommand() === 'add') await spaddstockpile(interaction, client)
-                        else if (interaction.options.getSubcommand() === 'remove') await spremovestockpile(interaction, client)
-                        else if (interaction.options.getSubcommand() === 'purge') await sppurgestockpile(interaction, client)
-                    }
-                    else if (commandName === "sprole") {
-                        if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
-                        else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
-                    }
-                    else if (commandName === "spnotif") {
-                        if (interaction.options.getSubcommand() === 'add') await spnotif(interaction, client, true)
-                        else if (interaction.options.getSubcommand() === 'remove') await spnotif(interaction, client, false)
-                    }
-                    else if (commandName === "spprettyname") {
-                        if (interaction.options.getSubcommand() === 'add') await spaddprettyname(interaction, client)
-                        else if (interaction.options.getSubcommand() === 'remove') await spremoveprettyname(interaction, client)
-                    }
-                    else if (commandName === "spcode") {
-                        if (interaction.options.getSubcommand() === 'add') await spaddcode(interaction, client)
-                        else if (interaction.options.getSubcommand() === 'remove') await spremovecode(interaction, client)
-                    }
-                    else if (commandName === "sploc") {
-                        if (interaction.options.getSubcommand() === 'add') await spaddloc(interaction, client)
-                        else if (interaction.options.getSubcommand() === 'remove') await spremoveloc(interaction, client)
-                        else if (interaction.options.getSubcommand() === 'list') await splistloc(interaction)
-                    }
-                    else if (commandName === "spitems") await spitems(interaction)
-                    else if (commandName === "spsetorder") await spsetorder(interaction, client)
-                    else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
-                    else if (commandName === "spfind") await spfind(interaction)
-                    else if (commandName === "spdisabletime") await spdisabletime(interaction, client)
-                    else if (commandName === "spscan") await spscan(interaction, client)
-                    else if (commandName === "sprefresh") await sprefresh(interaction)
-
+            if (process.env.STOCKPILER_MULTI_SERVER === "true") {
+                if (!(interaction.guildId! in multiServerCommandQueue)) {
+                    multiServerCommandQueue[interaction.guildId!] = [interaction]
                 }
-                else if (interaction.isButton()) {
-                    buttonHandler(interaction)
+                else {
+                    multiServerCommandQueue[interaction.guildId!].push(interaction)
+                }
+
+                if (multiServerCommandQueue.length === 1) {
+                    console.log(`[Command Queue:] No queue ahead for ${interaction.guildId}, starting.`)
+                    handleCommand(multiServerCommandQueue[interaction.guildId!][0])
                 }
             }
-            catch (e) {
-                if (interaction.isCommand() || interaction.isButton()) {
-                    let errorDump = JSON.stringify(e)
-                    if (interaction.isCommand()) {
-                        console.log("[!!!]: An error has occured in the command " + interaction.commandName + ". Please kindly report this to the developer on Discord (Tkai#8276)")
-                        interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send the logs below this message to the developer on Discord at Tkai#8276" })
-                        while (errorDump.length > 0) {
-                            if (errorDump.length > 2000) {
-                                const sliced = errorDump.slice(0, 2000)
-                                const lastEnd = sliced.lastIndexOf("\n")
-                                const finalMsg = sliced.slice(0, lastEnd)
-
-                                await interaction.followUp({
-                                    content: finalMsg
-                                });
-                                errorDump = errorDump.slice(lastEnd, errorDump.length)
-                            }
-                            else {
-                                await interaction.followUp({
-                                    content: errorDump
-                                });
-                                errorDump = ""
-                            }
-                        }
-                    }
-                    else if (interaction.isButton()) {
-                        console.log("[!!!]: An error has occured in a button action. Please kindly report this to the developer on Discord (Tkai#8276)")
-                        interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot button action. Please kindly send logs below this message to the developer on Discord at Tkai#8276." })
-                    }
-                    while (errorDump.length > 0) {
-                        if (errorDump.length > 2000) {
-                            const sliced = errorDump.slice(0, 2000)
-                            const lastEnd = sliced.lastIndexOf("\n")
-                            const finalMsg = sliced.slice(0, lastEnd)
-
-                            await interaction.followUp({
-                                content: finalMsg
-                            });
-                            errorDump = errorDump.slice(lastEnd, errorDump.length)
-                        }
-                        else {
-                            await interaction.followUp({
-                                content: errorDump
-                            });
-                            errorDump = ""
-                        }
-                    }
+            else {
+                commandCallQueue.push(interaction)
+                if (commandCallQueue.length === 1) {
+                    console.log("[Command Queue:] No queue ahead, starting.")
+                    handleCommand(commandCallQueue[0])
+                    // kick start the queue
                 }
-
             }
 
         });

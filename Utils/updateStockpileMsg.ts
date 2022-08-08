@@ -24,6 +24,7 @@ const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | nu
             if (multiServerQueue[guildID!].length > 2) {
                 console.log(eventName + "Queue length exceeded allowed quantity, skipping middle ones")
                 multiServerQueue[guildID!].splice(1, multiServerQueue[guildID!].length - 1)
+                
             }
             console.log(eventName + "Update event ahead queued, current length in queue: " + multiServerQueue[guildID!].length)
         }
@@ -330,6 +331,8 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
     }
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
         multiServerQueue[guildID!].splice(0, 1)
+        // popping an item from the start of the array is actually O(n) i.e very slow
+        // all the indexes have to be re-assigned since the removed item is at the front
         if (multiServerQueue[guildID!].length > 0) {
             console.log(eventName + "Finished 1 logi channel update, starting next in queue, remaining queue: " + multiServerQueue[guildID!].length)
             updateStockpileMsg(multiServerQueue[guildID!][0].client, multiServerQueue[guildID!][0].guildID, multiServerQueue[guildID!][0].msg)

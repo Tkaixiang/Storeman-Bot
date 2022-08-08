@@ -18,7 +18,7 @@ const spaddstockpile = async (interaction: CommandInteraction, client: Client): 
         return false
     }
 
-    await interaction.reply({content: 'Working on it', ephemeral: true});
+    await interaction.reply({ content: 'Working on it', ephemeral: true });
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "")
     const stockpileExist = await collections.stockpiles.findOne({ name: cleanedName })
@@ -31,14 +31,14 @@ const spaddstockpile = async (interaction: CommandInteraction, client: Client): 
         }
         const configObj = (await collections.config.findOne({}))!
         if ("orderSettings" in configObj) {
-            await collections.config.updateOne({}, {$push: {orderSettings: cleanedName}})            
+            await collections.config.updateOne({}, { $push: { orderSettings: cleanedName } })
         }
         mongoSanitize.sanitize(insertObj, { replaceWith: "_" })
         await collections.stockpiles.insertOne(insertObj)
         await interaction.editReply({ content: "Added the stockpile `" + stockpile + "` successfully." })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, interaction.guildId)
-        await updateStockpileMsg(client,interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
+        await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
     }
 
 
