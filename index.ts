@@ -521,7 +521,7 @@ const main = async (): Promise<void> => {
                     multiServerCommandQueue[interaction.guildId!].push(interaction)
                 }
 
-                if (multiServerCommandQueue.length === 1) {
+                if (multiServerCommandQueue[interaction.guildId!].length === 1) {
                     console.log(`[Command Queue:] No queue ahead for ${interaction.guildId}, starting.`)
                     handleCommand(multiServerCommandQueue[interaction.guildId!][0])
                 }
