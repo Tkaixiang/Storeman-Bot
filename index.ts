@@ -488,9 +488,9 @@ const main = async (): Promise<void> => {
                 request.on('data', (data) => {
                     body += data
                 })
-                request.on('end', () => {
+                request.on('end', async () => {
                     try {
-                        stockpilerUpdateStockpile(client, JSON.parse(body), response)
+                        await stockpilerUpdateStockpile(client, JSON.parse(body), response)
                     }
                     catch (e) {
                         console.error(e)
