@@ -70,7 +70,8 @@ const stockpilerUpdateStockpile = async (client: Client, body: any, response: ht
                 response.end(JSON.stringify({ success: true }))
 
                 const cleanName = body.name.replace(/\./g, "").replace(/\$/g, "")
-                const stockpile = await collections.stockpiles.findOne({ name: cleanName })
+                const searchQuery = new RegExp(`^${cleanName}$`, "i")
+                const stockpile = await collections.stockpiles.findOne({ name: searchQuery })
                 const currentDate = new Date()
 
 
