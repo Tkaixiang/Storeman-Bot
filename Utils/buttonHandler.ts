@@ -39,7 +39,7 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
             await collections.config.updateOne({}, { $push: { orderSettings: stockpileName.replace(/\./g, "").replace(/\$/g, "") } })
         }
 
-        await interaction.followUp({ content: "Item `" + lowerToOriginal[cleanitem] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`" })
+        await interaction.followUp({ content: "Item `" + lowerToOriginal[cleanitem] + "` has been set to `" + amount + "` crates inside the stockpile `" + stockpileName + "`", ephemeral: true})
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, interaction.guildId)
         await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
@@ -217,7 +217,8 @@ const buttonHandler = async (interaction: ButtonInteraction) => {
         await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
 
         await interaction.followUp({
-            content: `All stockpiles have been purged`
+            content: `All stockpiles have been purged`,
+            ephemeral: true
         });
     }
     else if (command === "sprefreshall") {
