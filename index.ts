@@ -42,6 +42,23 @@ require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
 const currentVersion = 17
+const commandMapping = {
+    'sphelp': [1, sphelp],
+    'spaddcode': [2, spaddcode],
+    'spaddloc': [2, spaddloc],
+    'spaddprettyname': [2, spaddprettyname],
+    'spaddstockpile': [2, spaddstockpile],
+    'spdisabletime': [2, spdisabletime],
+    'spfind': [2, spfind],
+    'spitems': [2, spitems],
+    'splistloc': [2, splistloc],
+    'sppurgestockpile': [2, sppurgestockpile],
+    'sprefresh': [2, sprefresh],
+    'spremovecode': [2, spremovecode],
+    'spremoveloc': [2, spremoveloc],
+    ''
+    
+}
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
 declare global {
