@@ -42,22 +42,57 @@ require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
 const currentVersion = 17
-const commandMapping = {
-    'sphelp': [1, sphelp],
-    'spaddcode': [2, spaddcode],
-    'spaddloc': [2, spaddloc],
-    'spaddprettyname': [2, spaddprettyname],
-    'spaddstockpile': [2, spaddstockpile],
-    'spdisabletime': [2, spdisabletime],
-    'spfind': [2, spfind],
-    'spitems': [2, spitems],
-    'splistloc': [2, splistloc],
-    'sppurgestockpile': [2, sppurgestockpile],
-    'sprefresh': [2, sprefresh],
-    'spremovecode': [2, spremovecode],
-    'spremoveloc': [2, spremoveloc],
-    ''
-    
+const commandMapping: any = {
+    'sphelp': { sub: false, vars: 1, handler: sphelp },
+    'spcode': {
+        sub: true, handler: {
+            'add': { func: spaddcode, vars: 2 },
+            'remove': { func: spremovecode, vars: 2 }
+        }
+    },
+    'sploc': {
+        sub: true, handler: {
+            'add': { func: spaddloc, vars: 2 },
+            'remove': { func: spremoveloc, vars: 2 },
+            'list': { func: splistloc, vars: 1 }
+        }
+    },
+    'spprettyname': {
+        sub: true, handler: {
+            'add': { func: spaddprettyname, vars: 2 },
+            'remove': { func: spremoveprettyname, vars: 2 }
+        }
+    },
+    'sptarget': {
+        sub: true, handler: {
+            'set': { func: spsettarget, vars: 2 },
+            'remove': { func: spremovetarget, vars: 2 }
+        }
+    },
+    'splogichannel': {
+        sub: true, handler: {
+            'set': { func: spsetlogichannel, vars: 2 },
+            'remove': { func: spremovelogichannel, vars: 2 }
+        }
+    },
+    'sprole': { sub: false, vars: 1, handler: sprole },
+    'spnotif': { sub: false, vars: 1, handler: spnotif },
+    'spstockpile': {
+        sub: true, handler: {
+            'add': { func: spaddstockpile, vars: 2 },
+            'remove': { func: spremovestockpile, vars: 2 },
+            'purge': { func: sppurgestockpile, vars: 2 }
+        }
+    },
+    'spdisabletime': { sub: false, vars: 2, handler: spdisabletime },
+    'spfind': { sub: false, vars: 1, handler: spfind },
+    'spitems': { sub: false, vars: 1, handler: spitems },
+    'sprefresh': { sub: false, vars: 1, handler: sprefresh },
+    'spsetamount': { sub: false, vars: 2, handler: spsetamount },
+    'spstatus': { sub: false, vars: 1, handler: spstatus },
+    'spsetpassword': { sub: false, vars: 1, handler: spsetpassword },
+    'spsetorder': { sub: false, vars: 2, handler: spsetorder },
+    'spsettimeleft': { sub: false, vars: 2, handler: spsettimeleft },
 }
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
@@ -301,53 +336,17 @@ const main = async (): Promise<void> => {
             if (interaction.isCommand()) {
 
                 const commandName = interaction.commandName;
-
-                if (commandName === 'sphelp') await sphelp(interaction)
-                else if (commandName === 'spsetamount') await spsetamount(interaction, client)
-                else if (commandName === 'spstatus') await spstatus(interaction)
-                else if (commandName === 'sptarget') {
-                    if (interaction.options.getSubcommand() === 'set') await spsettarget(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremovetarget(interaction, client)
+                const commandMapResult = commandMapping[commandName]
+                if (commandMapResult.sub) {
+                    const subMapResult = commandMapResult.handler[interaction.options.getSubcommand()]
+                    if (subMapResult.vars === 2) subMapResult.func(interaction, client)
+                    else subMapResult.func(interaction)
                 }
-                else if (commandName === 'spsetpassword') await spsetpassword(interaction)
-                else if (commandName === 'splogichannel') {
-                    if (interaction.options.getSubcommand() === 'set') await spsetlogichannel(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremovelogichannel(interaction, client)
+                else {
+                    if (commandMapResult.vars === 2) commandMapResult.handler(interaction, client)
+                    else commandMapResult.handler(interaction)
                 }
-                else if (commandName === "spstockpile") {
-                    if (interaction.options.getSubcommand() === 'add') await spaddstockpile(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremovestockpile(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'purge') await sppurgestockpile(interaction, client)
-                }
-                else if (commandName === "sprole") {
-                    if (interaction.options.getSubcommand() === 'set') await sprole(interaction, client, true)
-                    else if (interaction.options.getSubcommand() === 'remove') await sprole(interaction, client, false)
-                }
-                else if (commandName === "spnotif") {
-                    if (interaction.options.getSubcommand() === 'add') await spnotif(interaction, client, true)
-                    else if (interaction.options.getSubcommand() === 'remove') await spnotif(interaction, client, false)
-                }
-                else if (commandName === "spprettyname") {
-                    if (interaction.options.getSubcommand() === 'add') await spaddprettyname(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremoveprettyname(interaction, client)
-                }
-                else if (commandName === "spcode") {
-                    if (interaction.options.getSubcommand() === 'add') await spaddcode(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremovecode(interaction, client)
-                }
-                else if (commandName === "sploc") {
-                    if (interaction.options.getSubcommand() === 'add') await spaddloc(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'remove') await spremoveloc(interaction, client)
-                    else if (interaction.options.getSubcommand() === 'list') await splistloc(interaction)
-                }
-                else if (commandName === "spitems") await spitems(interaction)
-                else if (commandName === "spsetorder") await spsetorder(interaction, client)
-                else if (commandName === "spsettimeleft") await spsettimeleft(interaction, client)
-                else if (commandName === "spfind") await spfind(interaction)
-                else if (commandName === "spdisabletime") await spdisabletime(interaction, client)
-                else if (commandName === "spscan") await spscan(interaction, client)
-                else if (commandName === "sprefresh") await sprefresh(interaction)
-
+            
             }
             else if (interaction.isButton()) {
                 buttonHandler(interaction)
@@ -418,7 +417,7 @@ const main = async (): Promise<void> => {
             }
             console.log("[Command Queue:] Finished 1 command. Remaining length of queue: " + commandCallQueue.length)
         }
-        
+
     }
 
 

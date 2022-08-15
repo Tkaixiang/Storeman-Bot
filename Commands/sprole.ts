@@ -5,13 +5,14 @@ import mongoSanitize from "express-mongo-sanitize";
 
 const permsList = ["user", "admin"]
 
-const sprole = async (interaction: CommandInteraction, client: Client, set: boolean): Promise<boolean> => {
+const sprole = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
     const role = interaction.options.getRole("role")! // Tell typescript to shut up cause it's gonna return a string and not null
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     await interaction.reply({content: 'Working on it', ephemeral: true});
-    if (set) {
+
+    if (interaction.options.getSubcommand() === 'set') {
         const perms = interaction.options.getString("perms")!
         if (!perms || !role) {
             await interaction.editReply({

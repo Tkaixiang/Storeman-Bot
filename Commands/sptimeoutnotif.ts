@@ -25,7 +25,7 @@ const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, s
 
     const configObj = (await collections.config.findOne({}))!
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
-    if (set) {
+    if (interaction.options.getSubcommand() === 'add') {
         if ("notifRoles" in configObj) {
             for (let i = 0; i < configObj.notifRoles.length; i++) {
                 if (configObj.notifRoles[i] === role.id) {
