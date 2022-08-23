@@ -114,7 +114,7 @@ const deleteTargetMsg = async (channelObj: TextChannel, currentMsgID: string) =>
 
 
 
-const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string, MessageActionRow]): Promise<Boolean> => {
+const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [string, Array<string>, Array<string>, string, MessageActionRow]): Promise<Boolean> => {
     try {
         const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
 

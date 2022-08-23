@@ -11,18 +11,24 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
     await interaction.reply({ content: 'Working on it', ephemeral: true });
 
-    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(false, interaction.guildId)
+    const [stockpileHeader, stockpileMsgs, targetMsgs, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(false, interaction.guildId)
     if (filter) {
         if (filter === "targets") {
-            await interaction.editReply(targetMsg)
+            await interaction.editReply(targetMsgs[0])
+            for (let i = 1; i < targetMsgs.length; i++) {
+                await interaction.followUp({content: targetMsgs[i], ephemeral: true})
+            }
+           
         }
     }
     else {
         // find one stockpile given a name
         if (stockpile) {
+            let found = false
             const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
             stockpile = stockpile.replace(/\./g, "").replace(/\$/g, "")
+            const lowerCaseStockpileName = stockpile.toLowerCase()
             let code: any = {}
             let stockpileLocations: any = {}
 
@@ -47,7 +53,8 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
             for (let i = 0; i < stockpiles.length; i++) {
                 const current = stockpiles[i]
 
-                if (current.name === stockpile) {
+                if (current.name.toLowerCase() === lowerCaseStockpileName) {
+                    found = true
                     let currentStockpileMsg = ""
                     currentStockpileMsg += `**${prettyName && current.name in prettyName ? prettyName[current.name] : current.name}** (last scan: <t:${Math.floor(current.lastUpdated.getTime() / 1000)}:R>) ${"timeLeft" in current && !timeCheckDisabled ? `[Expiry: ${"upperBound" in current ? `Sometime between: <t:${Math.floor(current.timeLeft.getTime() / 1000)}:R> and <t:${Math.floor(current.upperBound.getTime() / 1000)}:R>]` : `<t:${Math.floor(current.timeLeft.getTime() / 1000)}:R>]`}` : ""} ${prettyName && current.name in prettyName ? "[a.k.a " + current.name + "]" : ""}\n`
                     if (current.name in code) currentStockpileMsg += `**Stockpile Code:** \`${code[current.name]}\`\n`
@@ -82,6 +89,10 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
                     break
                 }
             }
+
+            if (!found) {
+                await interaction.editReply("Error: The stockpile `" + stockpile + "` was not found.")
+            }
         }
         else {
             await interaction.editReply(stockpileHeader);
@@ -90,8 +101,8 @@ const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
                 if (typeof stockpileMsgs[i] !== "string") await interaction.followUp({ content: stockpileMsgs[i][0], ephemeral: true });
                 else await interaction.followUp({ content: stockpileMsgs[i], ephemeral: true });
             }
-            for (let i = 0; i < targetMsg.length; i++) {
-                await interaction.followUp({ content: targetMsg[i], ephemeral: true });
+            for (let i = 0; i < targetMsgs.length; i++) {
+                await interaction.followUp({ content: targetMsgs[i], ephemeral: true });
             }
         }
 
