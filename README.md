@@ -33,7 +33,7 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 ### Public Storeman Bot
 1. Invite Storeman Bot to your server using the link **[here](https://discord.com/oauth2/authorize?client_id=946968895170969620&permissions=2147617792&scope=bot%20applications.commands)**
 2. Set a **password** for your bot using `/spsetpassword <password>` and a **logi-channel** using `/splogichannel set <channel>` (run these commands inside your Discord server)
-3. Download Stockpiler from [here](https://github.com/tehruttiger/Stockpiler/releases/tag/v1.3.4b)
+3. Download Stockpiler from [here](https://github.com/tehruttiger/Stockpiler/releases)
 4. Extract the files to any folder and run `Stockpiler.exe`
 5. A menu should appear. Head over to the `Settings` tab, tick the `Send To Bot` option and fill in:
     - `Bot Host` (Enter `http://storeman-bot.tk:8090`)
@@ -45,8 +45,8 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
     - Your `logi-channel` will update automatically with the latest information!
 
 ### I want to run Storeman Bot for my own server!
-1. Setup Storeman Bot by following [here](https://github.com/Tkaixiang/Storeman-Bot/wiki/Setting-up-Storeman-Bot)
-2. Download Stockpiler [here](https://github.com/tehruttiger/Stockpiler/releases/tag/v1.3.4b) 
+1. Setup Storeman Bot by following [here](https://github.com/Tkaixiang/Storeman-Bot/wiki/Setting-up-an-instance-of-Storeman-Bot-for-your-own-server)
+2. Download Stockpiler [here](https://github.com/tehruttiger/Stockpiler/releases) 
 3. Open up Stockpiler by running `Stockpiler.exe` and head over to the `Settings` tab. _Tick_ the **Send to Bot** option. Input the Bot Host & Bot Password (ignore GuildID). Press the right "`Save`" icon to save your settings.
 4. Scan any stockpile by hovering over it on the map and pressing `F3`. You should see a "`Sent to server successfully`"
     - Your `logi-channel` will update automatically with the latest information!
