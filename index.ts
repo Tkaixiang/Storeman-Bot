@@ -1,4 +1,4 @@
-import { Interaction, Client, Guild, Intents } from 'discord.js'
+import { Interaction, Client, Guild, GatewayIntentBits  } from 'discord.js'
 import { insertCommands } from './deploy-commands'
 import { open, getCollections, getMongoClientObj } from './mongoDB'
 import sphelp from './Commands/sphelp'
@@ -333,7 +333,7 @@ const main = async (): Promise<void> => {
 
     const handleCommand = async (interaction: Interaction) => {
         try {
-            if (interaction.isCommand()) {
+            if (interaction.isChatInputCommand()) {
 
                 const commandName = interaction.commandName;
                 const commandMapResult = commandMapping[commandName]
@@ -422,7 +422,7 @@ const main = async (): Promise<void> => {
 
 
     // Create a new client instance 
-    const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
+    const client = new Client({ intents: [GatewayIntentBits.Guilds] })
     global.NodeCacheObj = new NodeCache({ checkperiod: 0, useClones: false });
     const csvData: Array<any> = await new Promise(function (resolve, reject) {
         let fetchData: any = [];

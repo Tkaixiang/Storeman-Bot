@@ -1,11 +1,11 @@
-import { Client, CommandInteraction, GuildMember } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember } from "discord.js";
 import { getCollections } from "../mongoDB";
 import checkPermissions from "../Utils/checkPermissions";
 import fs from "fs";
 import https from "https";
 import generateStockpileMsg from '../Utils/generateStockpileMsg'
 
-const spscan = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const spscan = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
     let scannedImage: any = interaction.options.get("screenshot")!
 
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false

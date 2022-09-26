@@ -1,4 +1,4 @@
-import { Client, Message, MessageActionRow, TextChannel } from "discord.js"
+import { Client, Message, ActionRowBuilder, TextChannel, ButtonBuilder } from "discord.js"
 import { getCollections } from '../mongoDB';
 import checkTimeNotifsQueue from "./checkTimeNotifs";
 let queue: Array<any> = []
@@ -7,7 +7,7 @@ let editedMsgs = false
 let newMsgsSent = false
 const eventName = "[Update Logi Channel]: "
 
-const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string, MessageActionRow]): Promise<Boolean> => {
+const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | null, msg: [string, Array<string>, string, string, ActionRowBuilder]): Promise<Boolean> => {
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
 
 
@@ -49,7 +49,7 @@ const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | nu
     return true
 }
 
-const editStockpileMsg = async (currentMsg: string | [string, MessageActionRow], msgObj: Message): Promise<Boolean> => {
+const editStockpileMsg = async (currentMsg: string | [string, ActionRowBuilder<ButtonBuilder>], msgObj: Message): Promise<Boolean> => {
 
     try {
         if (typeof currentMsg !== "string") await msgObj.edit({ content: currentMsg[0], components: [currentMsg[1]] })
@@ -63,7 +63,7 @@ const editStockpileMsg = async (currentMsg: string | [string, MessageActionRow],
     return true
 }
 
-const newStockpileMsg = async (currentMsg: string | [string, MessageActionRow], configObj: any, channelObj: TextChannel): Promise<Boolean> => {
+const newStockpileMsg = async (currentMsg: string | [string, ActionRowBuilder<ButtonBuilder>], configObj: any, channelObj: TextChannel): Promise<Boolean> => {
 
     try {
         // The issue here is that when adding a new stockpile, a new msg has to be sent
@@ -114,7 +114,7 @@ const deleteTargetMsg = async (channelObj: TextChannel, currentMsgID: string) =>
 
 
 
-const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [string, Array<string>, Array<string>, string, MessageActionRow]): Promise<Boolean> => {
+const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [string, Array<string>, Array<string>, string, ActionRowBuilder<ButtonBuilder>]): Promise<Boolean> => {
     try {
         const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
 

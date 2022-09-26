@@ -1,9 +1,9 @@
-import { CommandInteraction, GuildMember } from "discord.js";
+import { ChatInputCommandInteraction, GuildMember } from "discord.js";
 import { getCollections } from "../mongoDB";
 import checkPermissions from "../Utils/checkPermissions";
 import generateStockpileMsg from '../Utils/generateStockpileMsg'
 
-const spstatus = async (interaction: CommandInteraction): Promise<boolean> => {
+const spstatus = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
     let stockpile = interaction.options.getString("stockpile")!
     let filter = interaction.options.getString("filter")!
 

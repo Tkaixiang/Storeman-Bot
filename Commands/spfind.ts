@@ -1,9 +1,9 @@
-import { CommandInteraction, GuildMember, MessageActionRow, MessageButton } from "discord.js";
+import { ChatInputCommandInteraction, GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { getCollections } from "../mongoDB";
 import checkPermissions from "../Utils/checkPermissions";
 import findBestMatchItem from "../Utils/findBestMatchItem";
 
-const spfind = async (interaction: CommandInteraction): Promise<boolean> => {
+const spfind = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
     const item = interaction.options.getString("item")!
 
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
@@ -91,21 +91,21 @@ const spfind = async (interaction: CommandInteraction): Promise<boolean> => {
     }
     else {
         const bestItem = findBestMatchItem(cleanitem)
-        const row = new MessageActionRow()
+        const row = new ActionRowBuilder<ButtonBuilder>()
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId('spfind==' + bestItem)
                     .setLabel(lowerToOriginal[bestItem])
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
                 ,
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId('spfind==' + bestItem + " Crate==")
                     .setLabel(lowerToOriginal[bestItem] + " Crate")
-                    .setStyle('PRIMARY'),
-                new MessageButton()
+                    .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
                     .setCustomId('cancel')
                     .setLabel('Cancel')
-                    .setStyle('DANGER'),
+                    .setStyle(ButtonStyle.Danger),
             );
 
         await interaction.editReply({

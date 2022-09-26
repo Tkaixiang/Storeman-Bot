@@ -1,8 +1,8 @@
-import { Client, CommandInteraction, GuildMember, TextChannel } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember, TextChannel } from "discord.js";
 import { getCollections } from '../mongoDB';
 import checkPermissions from "../Utils/checkPermissions";
 
-const spremovelogichannel = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const spremovelogichannel = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const configDoc = (await collections.config.findOne({}))!
 

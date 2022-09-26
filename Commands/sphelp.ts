@@ -1,6 +1,6 @@
-import { CommandInteraction, MessageEmbed } from "discord.js";
+import { ChatInputCommandInteraction} from "discord.js";
 
-const sphelp = async (interaction: CommandInteraction): Promise<boolean> => {
+const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
     await interaction.reply({
         content: "Working on it...",
         ephemeral: true

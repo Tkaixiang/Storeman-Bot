@@ -1,22 +1,22 @@
-import { Client, CommandInteraction, GuildMember, MessageActionRow, MessageButton, TextChannel } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import checkPermissions from "../Utils/checkPermissions";
 
-const sppurgestockpile = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const sppurgestockpile = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
 
 
     await interaction.reply({ content: 'Working on it', ephemeral: true });
-    const row = new MessageActionRow()
+    const row = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('sppurgestockpile==')
                 .setLabel('Purge Stockpiles')
-                .setStyle('DANGER'),
-            new MessageButton()
+                .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
                 .setCustomId('cancel')
                 .setLabel('Cancel')
-                .setStyle('PRIMARY'),
+                .setStyle(ButtonStyle.Primary),
         );
     await interaction.editReply({ content: 'Are you sure you want to purge all the stockpiles?', components: [row] });
 

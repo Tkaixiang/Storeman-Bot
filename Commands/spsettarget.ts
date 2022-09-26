@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, GuildMember, MessageActionRow, MessageButton } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { getCollections } from './../mongoDB'
 import generateStockpileMsg from "./../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
@@ -6,7 +6,7 @@ import checkPermissions from "../Utils/checkPermissions";
 import findBestMatchItem from "../Utils/findBestMatchItem";
 import mongoSanitize from "express-mongo-sanitize";
 
-const spsettarget = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const spsettarget = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
     let item = interaction.options.getString("item")! // Tell typescript to shut up and it is non-null
     const minimum_amount = interaction.options.getInteger("minimum_amount")
     let maximum_amount = interaction.options.getInteger("maximum_amount")
@@ -32,21 +32,21 @@ const spsettarget = async (interaction: CommandInteraction, client: Client): Pro
     const cleanitem = item.replace(/\$/g, "").replace(/\./g, "_").toLowerCase()
     if (!itemListBoth.includes(cleanitem)) {
         const bestItem = findBestMatchItem(cleanitem)
-        const row = new MessageActionRow()
+        const row = new ActionRowBuilder<ButtonBuilder>()
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId('spsettarget==' + bestItem + "==" + minimum_amount + "==" + maximum_amount)
                     .setLabel(lowerToOriginal[bestItem])
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
                 ,
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId('spsettarget==' + bestItem + " Crate==" + minimum_amount + "==" + maximum_amount)
                     .setLabel(lowerToOriginal[bestItem] + " Crate")
-                    .setStyle('PRIMARY'),
-                    new MessageButton()
+                    .setStyle(ButtonStyle.Primary),
+                    new ButtonBuilder()
                     .setCustomId('cancel')
                     .setLabel('Cancel')
-                    .setStyle('DANGER'),
+                    .setStyle(ButtonStyle.Danger),
             );
 
 

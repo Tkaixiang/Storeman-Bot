@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, GuildMember, TextChannel } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember, TextChannel } from "discord.js";
 import { getCollections } from './../mongoDB';
 import checkPermissions from "../Utils/checkPermissions";
 import generateStockpileMsg from "../Utils/generateStockpileMsg";
@@ -6,7 +6,7 @@ import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkTimeNotifs from "../Utils/checkTimeNotifs";
 
 
-const spdisabletime = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const spdisabletime = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
     const disable = interaction.options.getBoolean("disable")! // Tell typescript to shut up and it is non-null
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     

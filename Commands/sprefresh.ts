@@ -1,11 +1,11 @@
-import { CommandInteraction, GuildMember } from "discord.js";
+import { ChatInputCommandInteraction, GuildMember } from "discord.js";
 import { getCollections } from "../mongoDB";
 import checkPermissions from "../Utils/checkPermissions";
 import checkTimeNotifs from "../Utils/checkTimeNotifs";
 import generateStockpileMsg from "../Utils/generateStockpileMsg";
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
 
-const sprefresh = async (interaction: CommandInteraction): Promise<boolean> => {
+const sprefresh = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
     const stockpile = interaction.options.getString("stockpile")!
 
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false

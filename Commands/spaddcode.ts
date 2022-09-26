@@ -1,10 +1,10 @@
-import { Client, CommandInteraction, GuildMember } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember } from "discord.js";
 import { getCollections } from '../mongoDB'
 import generateStockpileMsg from "../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
 
-const spaddcode = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const spaddcode = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
     let stockpile = interaction.options.getString("stockpile")! // Tell typescript to shut up and it is non-null
     let code = interaction.options.getString("code")! // Tell typescript to shut up and it is non-null
 

@@ -1,9 +1,9 @@
-import { Client, CommandInteraction, GuildMember, MessageActionRow, MessageButton, TextChannel } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember, ActionRowBuilder, ButtonBuilder, TextChannel } from "discord.js";
 import { getCollections } from '../mongoDB';
 import checkPermissions from "../Utils/checkPermissions";
 import generateMsg from '../Utils/generateStockpileMsg'
 
-const spsetlogichannel = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const spsetlogichannel = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
     try {
         const channel = interaction.options.getChannel("channel")! // Tell typescript to shut up and it is non-null
 

@@ -1,7 +1,7 @@
-import { GuildMember, CommandInteraction, Permissions, ButtonInteraction } from "discord.js"
+import { GuildMember, ChatInputCommandInteraction, PermissionsBitField, ButtonInteraction } from "discord.js"
 import { getCollections } from './../mongoDB'
 
-const checkPermissions = async (interaction: CommandInteraction | ButtonInteraction, roleType: "admin" | "user", member: GuildMember) => {
+const checkPermissions = async (interaction: ChatInputCommandInteraction | ButtonInteraction, roleType: "admin" | "user", member: GuildMember) => {
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const permsInfo = (await collections.config.findOne({}, { projection: { admin: 1, user: 1 } }))!
     let permsLevel = 0
@@ -12,7 +12,7 @@ const checkPermissions = async (interaction: CommandInteraction | ButtonInteract
         }
     }
 
-    if (member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)|| member.id === member.guild.ownerId) permsLevel = 2
+    if (member.permissions.has(PermissionsBitField.Flags.Administrator)|| member.id === member.guild.ownerId) permsLevel = 2
     if ("user" in permsInfo && permsLevel === 0) {
         for (let i = 0; i < permsInfo.user.length; i++) {
             if (member.roles.cache.has(permsInfo.user[i])) permsLevel = 1

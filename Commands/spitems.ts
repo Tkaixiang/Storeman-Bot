@@ -1,6 +1,6 @@
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 
-const spitems = async (interaction: CommandInteraction): Promise<boolean> => {
+const spitems = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
     await interaction.reply({
         content: "Working on it...",
         ephemeral: true

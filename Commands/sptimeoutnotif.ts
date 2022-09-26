@@ -1,9 +1,9 @@
-import { Client, CommandInteraction, GuildMember } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember } from "discord.js";
 import { getCollections } from '../mongoDB'
 import checkPermissions from "../Utils/checkPermissions";
 import checkTimeNotifs from "../Utils/checkTimeNotifs";
 
-const sptimeoutnotif = async (interaction: CommandInteraction, client: Client, set: boolean): Promise<boolean> => {
+const sptimeoutnotif = async (interaction: ChatInputCommandInteraction, client: Client, set: boolean): Promise<boolean> => {
     const role = interaction.options.getRole("role")! // Tell typescript to shut up cause it's gonna return a string and not null
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     if (!role) {

@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, GuildMember, MessageActionRow, MessageButton } from "discord.js";
+import { Client, GuildMember, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction } from "discord.js";
 import generateStockpileMsg from "./../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
@@ -6,7 +6,7 @@ import { getCollections } from './../mongoDB'
 import findBestMatchItem from '../Utils/findBestMatchItem'
 import mongoSanitize from "express-mongo-sanitize";
 
-const spsetamount = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const spsetamount = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
     let item = <string>interaction.options.getString("item") // Tell typescript to shut up cause it's gonna return a string and not null
     const amount = interaction.options.getInteger("amount")
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
@@ -38,21 +38,21 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         }
         else {
             const bestItem = findBestMatchItem(cleanitem)
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder<ButtonBuilder>()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setCustomId('spsetamount==' + bestItem + "==" + amount + "==" + stockpileName)
                         .setLabel(lowerToOriginal[bestItem])
-                        .setStyle('PRIMARY')
+                        .setStyle(ButtonStyle.Primary)
                     ,
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setCustomId('spsetamount==' + bestItem + " Crate==" + amount + "==" + stockpileName)
                         .setLabel(lowerToOriginal[bestItem] + " Crate")
-                        .setStyle('PRIMARY'),
-                    new MessageButton()
+                        .setStyle(ButtonStyle.Primary),
+                    new ButtonBuilder()
                         .setCustomId('cancel')
                         .setLabel('Cancel')
-                        .setStyle('DANGER'),
+                        .setStyle(ButtonStyle.Danger),
                 );
 
             await interaction.editReply({
@@ -75,21 +75,21 @@ const spsetamount = async (interaction: CommandInteraction, client: Client): Pro
         }
         else {
             const bestItem = findBestMatchItem(cleanitem).replace(/\_/g, ".")
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder<ButtonBuilder>()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setCustomId('spsetamount==' + bestItem + "==" + amount + "==" + stockpileName)
                         .setLabel(lowerToOriginal[bestItem])
-                        .setStyle('PRIMARY')
+                        .setStyle(ButtonStyle.Primary)
                     ,
-                    new MessageButton()
+                    new ButtonBuilder()
                         .setCustomId('spsetamount==' + bestItem + " Crate==" + amount + "==" + stockpileName)
                         .setLabel(lowerToOriginal[bestItem] + " Crate")
-                        .setStyle('PRIMARY'),
-                    new MessageButton()
+                        .setStyle(ButtonStyle.Primary),
+                    new ButtonBuilder()
                         .setCustomId('cancel')
                         .setLabel('Cancel')
-                        .setStyle('DANGER'),
+                        .setStyle(ButtonStyle.Danger),
                 );
 
             await interaction.editReply({

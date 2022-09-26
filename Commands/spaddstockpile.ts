@@ -1,11 +1,11 @@
-import { Client, CommandInteraction, GuildMember, TextChannel } from "discord.js";
+import { Client, ChatInputCommandInteraction, GuildMember, TextChannel } from "discord.js";
 import { getCollections } from '../mongoDB'
 import generateStockpileMsg from "../Utils/generateStockpileMsg"
 import updateStockpileMsg from "../Utils/updateStockpileMsg";
 import checkPermissions from "../Utils/checkPermissions";
 import mongoSanitize from "express-mongo-sanitize";
 
-const spaddstockpile = async (interaction: CommandInteraction, client: Client): Promise<boolean> => {
+const spaddstockpile = async (interaction: ChatInputCommandInteraction, client: Client): Promise<boolean> => {
     let stockpile = interaction.options.getString("stockpile")! // Tell typescript to shut up and it is non-null
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false

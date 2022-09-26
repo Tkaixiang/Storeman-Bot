@@ -1,4 +1,4 @@
-import { MessageActionRow, MessageButton } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import { getCollections } from '../mongoDB';
 
 
@@ -20,12 +20,12 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
     let code: any = {}
     let stockpileLocations: any = {}
-    const refreshAll = new MessageActionRow()
+    const refreshAll = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('sprefreshall==')
                 .setLabel("Refresh All Stockpiles")
-                .setStyle('SUCCESS')
+                .setStyle(ButtonStyle.Success)
         );
 
 
@@ -95,12 +95,12 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                 stockpileMsgs.push(currentStockpileMsg)
             }
             else {
-                const row = new MessageActionRow()
+                const row = new ActionRowBuilder<ButtonBuilder>()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonBuilder()
                             .setCustomId('spsettimeleft==' + current.name)
                             .setLabel("Refresh Timer")
-                            .setStyle('PRIMARY')
+                            .setStyle(ButtonStyle.Primary)
                     );
                 const copyOfCurrentMsg = currentStockpileMsg.slice()
                 const finalStockpileMsg = [copyOfCurrentMsg, row]
