@@ -229,6 +229,7 @@ const createCacheStartup = async (client: Client) => {
             let prettyName: any = {}
             let stockpileTimes: any = {}
             let disableTimeNotif: any = {}
+            let stockpileGroups: any = {}
             for (let i = 0; i < configObj.serverIDList.length; i++) {
                 // Create custom notifRoles and prettyNames cache object
                 const serverCollections = getCollections(configObj.serverIDList[i])
@@ -240,6 +241,9 @@ const createCacheStartup = async (client: Client) => {
                 // Create the disable time cache object
                 if ("disableTimeNotif" in serverCollections.config) disableTimeNotif[configObj.serverIDList[i]] = serverCollections.config.disableTimeNotif
                 else disableTimeNotif[configObj.serverIDList[i]] = false
+
+                if ("stockpileGroups" in serverCollections.config) stockpileGroups[configObj.serverIDList[i]] = serverCollections.config.stockpileGroups
+                else stockpileGroups[configObj.serverIDList[i]] = {}
 
 
                 const stockpiles = await serverCollections.stockpiles.find({}).toArray()
@@ -261,10 +265,12 @@ const createCacheStartup = async (client: Client) => {
                 }
             }
 
+
             NodeCacheObj.set("notifRoles", notifRoles)
             NodeCacheObj.set("prettyName", prettyName)
             NodeCacheObj.set("stockpileTimes", stockpileTimes)
             NodeCacheObj.set("disableTimeNotif", disableTimeNotif)
+            NodeCacheObj.set("stockpileGroups", stockpileGroups)
         }
         else {
             for (let i = 0; i < listOfGuildObjs.length; i++) {
@@ -315,6 +321,9 @@ const createCacheStartup = async (client: Client) => {
             if ("disableTimeNotif" in configOptions) disableTimeNotif = configOptions.disableTimeNotif
             NodeCacheObj.set("disableTimeNotif", disableTimeNotif)
 
+            let stockpileGroups: any = {}
+            if ("stockpileGroups" in configOptions) stockpileGroups = configOptions.stockpileGroups
+            NodeCacheObj.set("stockpileGroups", stockpileGroups)
 
             if (configOptions.version) {
                 if (configOptions.version < currentVersion) updateFirstTimeSetup(false)
