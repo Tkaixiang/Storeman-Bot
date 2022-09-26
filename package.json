@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Tkaixiang/stockpiler-discord-bot#readme",
   "dependencies": {
     "@discordjs/builders": "^1.1.0",
-    "@discordjs/rest": "^1.0.1",
+    "@discordjs/rest": "^1.2.0",
     "argon2": "^0.29.1",
     "csv-parser": "^3.0.0",
     "discord-api-types": "^0.37.10",
