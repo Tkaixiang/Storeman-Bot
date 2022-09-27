@@ -35,15 +35,15 @@ const spsettarget = async (interaction: ChatInputCommandInteraction, client: Cli
         const row = new ActionRowBuilder<ButtonBuilder>()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId('spsettarget==' + bestItem + "==" + minimum_amount + "==" + maximum_amount)
+                    .setCustomId('spsettarget==' + bestItem + "==" + minimum_amount + "==" + maximum_amount + "==" + production_location)
                     .setLabel(lowerToOriginal[bestItem])
                     .setStyle(ButtonStyle.Primary)
                 ,
                 new ButtonBuilder()
-                    .setCustomId('spsettarget==' + bestItem + " Crate==" + minimum_amount + "==" + maximum_amount)
+                    .setCustomId('spsettarget==' + bestItem + " Crate==" + minimum_amount + "==" + maximum_amount + "==" + production_location)
                     .setLabel(lowerToOriginal[bestItem] + " Crate")
                     .setStyle(ButtonStyle.Primary),
-                    new ButtonBuilder()
+                new ButtonBuilder()
                     .setCustomId('cancel')
                     .setLabel('Cancel')
                     .setStyle(ButtonStyle.Danger),
@@ -65,7 +65,7 @@ const spsettarget = async (interaction: ChatInputCommandInteraction, client: Cli
     }
 
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, interaction.guildId)
-    await updateStockpileMsg(client,interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
+    await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
 
     await interaction.editReply({
         content: `Item \`${lowerToOriginal[cleanitem]}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`

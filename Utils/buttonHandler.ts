@@ -90,11 +90,12 @@ const spsettarget = async (interaction: ButtonInteraction, collections: any, spl
     let item = splitted[1]! // Tell typescript to shut up and it is non-null
     const minimum_amount = parseInt(splitted[2])
     let maximum_amount = parseInt(splitted[3])
+    let production_location = splitted[4]
 
     const cleanitem = item.replace(/\./g, "_").toLowerCase()
 
     let updateObj: any = {}
-    updateObj[cleanitem] = { min: minimum_amount, max: maximum_amount }
+    updateObj[cleanitem] = { min: minimum_amount, max: maximum_amount, prodLocation: production_location }
     mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
     if ((await collections.targets.updateOne({}, { $set: updateObj })).modifiedCount === 0) {
         await collections.targets.insertOne(updateObj)
