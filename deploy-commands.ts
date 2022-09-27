@@ -195,6 +195,59 @@ const commands = [
         .setDescription('Refreshes the timer of ALL stockpiles, or an individual <stockpile> if a name is provided.')
         .addStringOption((option) =>
             option.setName("stockpile").setDescription("The stockpile name").setRequired(false)
+        ),
+    new SlashCommandBuilder().setName('spgroup')
+        .setDescription('Commands for creating a target list for a list of selected stockpiles')
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("create")
+                .setDescription("Creates a stockpile group with <name>")
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to create").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("Removes stockpile group with <name>")
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove").setRequired(true))
+
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("addstockpile")
+                .setDescription("Adds the stockpile with <stockpileName> to the stockpile group with <name>")
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to add to").setRequired(true))
+                .addStringOption(option => option.setName("stockpile_name").setDescription("The name of the stockpile to add to the stockpile group").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("removestockpile")
+                .setDescription("Removes the stockpile with <stockpileName> from the stockpile group with <name>")
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove from").setRequired(true))
+                .addStringOption(option => option.setName("stockpile_name").setDescription("The name of the stockpile to remove from the stockpile group").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("settarget")
+                .setDescription("Sets targets for the stockpile group with <name>")
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to modify targets").setRequired(true))
+                .addStringOption((option) =>
+                    option.setName("item").setDescription("The item name").setRequired(true)
+                ).addIntegerOption(option =>
+                    option.setName("minimum_amount").setDescription("The minimum amount of that item").setRequired(true)
+                )
+                .addIntegerOption(option =>
+                    option.setName("maximum_amount").setDescription("The maximum amount of that item").setRequired(false)
+                ).addStringOption((option) =>
+                    option.setName("production_location").setDescription("The place to produce this item. Either 'MPF' or 'Factory'")
+                        .addChoices({ name: "MPF", value: "MPF" }, { name: "Factory", value: "Factory" })
+                        .setRequired(false)
+                )
+        ).addSubcommand(subcommand =>
+            subcommand
+                .setName("removetarget")
+                .setDescription("Removes the target <item> from stockpile group with <name>")
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove from").setRequired(true))
+                .addStringOption(option => option.setName("item").setDescription("The name of the item to remove from targets").setRequired(true))
         )
 ].map(command => command.toJSON())
 

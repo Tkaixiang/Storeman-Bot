@@ -7,16 +7,7 @@ const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean
     });
 
     const helpEmbed: {fields: Array<any>, [key: string]: any} = {
-        title: "Storeman Bot Command Help", description: `
-Version 0.7 28/7/2022
-Your GuildID is: \`${interaction.guildId}\`
-
-👨‍⚖️ - Commands that require at least \`Admin\` permissions
-🙍‍♂️ - Commands that require at least \`User\` permissions
-❓ - Denotes an **optional** parameter
-
-Currently in alpha testing, contact Tkai#8276 for help.
-`,
+        title: "Storeman Bot Command Help",
         fields: [],
     }
 
@@ -131,6 +122,30 @@ Currently in alpha testing, contact Tkai#8276 for help.
             name: "/spdisabletime <disabled> 👨‍⚖️",
             value: "Whether or not to disable the time-checking feature of Storeman Bot"
         },
+        {
+            name: "/spgroup create <name> 👨‍⚖️",
+            value: "Creates a stockpile group with <name>"
+        },
+        {
+            name: "/spgroup delete <name> 👨‍⚖️",
+            value: "Removes stockpile group with <name>"
+        },
+        {
+            name: "/spgroup addstockpile <name> <stockpileName> 👨‍⚖️",
+            value: "Adds the stockpile with <stockpileName> to the stockpile group with <name>"
+        },
+        {
+            name: "/spgroup removestockpile <name> 👨‍⚖️",
+            value: "Removes the stockpile with <stockpileName> from the stockpile group with <name>"
+        },
+        {
+            name: "/spgroup settarget <name> <item> <minimum_amount> <maximum_amount❓> <production_location❓> 👨‍⚖️",
+            value: "Sets targets for the stockpile group with <name>, along with \`<minimum_amount>\` that an \`<item>\` should have in **__crates__**. (E.g \`/sptarget set Basic Materials Crate 100\`)"
+        },
+        {
+            name: "/spgroup removetarget <name> <item> 👨‍⚖️",
+            value: "Removes the target <item> from stockpile group targets list with <name>"
+        },
         
 
     ]
@@ -174,6 +189,22 @@ Currently in alpha testing, contact Tkai#8276 for help.
             ephemeral: true
         })
     }
+
+    await interaction.followUp({
+        embeds: [{
+            title: `Storeman Bot Help Menu`,
+            description: `
+            Version 0.8 27/9/2022
+            Your GuildID is: **__\`${interaction.guildId}\`__** (this is the vale you should be inputting into Stockpiler to send scanned data!)
+            
+            👨‍⚖️ - Commands that require at least \`Admin\` permissions
+            🙍‍♂️ - Commands that require at least \`User\` permissions
+            ❓ - Denotes an **optional** parameter
+            
+            Currently in alpha testing, contact Tkai#8276 for help.`
+        }],
+        ephemeral: true
+    })
 
     return true;
 }

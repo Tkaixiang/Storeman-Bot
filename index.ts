@@ -1,4 +1,4 @@
-import { Interaction, Client, Guild, GatewayIntentBits  } from 'discord.js'
+import { Interaction, Client, Guild, GatewayIntentBits } from 'discord.js'
 import { insertCommands } from './deploy-commands'
 import { open, getCollections, getMongoClientObj } from './mongoDB'
 import sphelp from './Commands/sphelp'
@@ -35,13 +35,13 @@ import spremoveloc from './Commands/spremoveloc'
 import splistloc from './Commands/splistloc'
 import spfind from './Commands/spfind'
 import spdisabletime from './Commands/spdisabletime'
-import spscan from './Commands/spscan'
+import spgroup from './Commands/spgroup'
 import sprefresh from './Commands/sprefresh'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 17
+const currentVersion = 18
 const commandMapping: any = {
     'sphelp': { sub: false, vars: 1, handler: sphelp },
     'spcode': {
@@ -93,6 +93,7 @@ const commandMapping: any = {
     'spsetpassword': { sub: false, vars: 1, handler: spsetpassword },
     'spsetorder': { sub: false, vars: 2, handler: spsetorder },
     'spsettimeleft': { sub: false, vars: 2, handler: spsettimeleft },
+    'spgroup': { sub: false, vars: 2, handler: spgroup }
 }
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 
@@ -355,7 +356,7 @@ const main = async (): Promise<void> => {
                     if (commandMapResult.vars === 2) commandMapResult.handler(interaction, client)
                     else commandMapResult.handler(interaction)
                 }
-            
+
             }
             else if (interaction.isButton()) {
                 buttonHandler(interaction)

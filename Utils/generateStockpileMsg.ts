@@ -17,6 +17,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
     let locationMappings: any = NodeCacheObj.get("locationMappings")
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
     let stockpileMsgs = NodeCacheObj.get("stockpileMsgs") as Array<string | any[]>
+    let stockpileGroupMsgs = NodeCacheObj.get("stockpileGroupMsgs") as Array<string>
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
     let code: any = {}
     let stockpileLocations: any = {}
@@ -33,6 +34,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
         const targets = await collections.targets.findOne({})
         const stockpilesList = await collections.stockpiles.find({}).toArray()
         const configObj = (await collections.config.findOne({}))!
+        const stockpileGroups = configObj.stockpileGroups
 
         let stockpiles: Array<any> = []
         if ("orderSettings" in configObj) {
@@ -109,8 +111,80 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
 
         }
 
+
+
         targetMsgs = []
-        let targetMsg = "**__Targets__** \n\n"
+        let stockpileGroupMsg = "----------\n\n**__Stockpile Groups Targets__** \n\n"
+        if (stockpileGroups && Object.keys(stockpileGroups).length > 0) {
+
+            for (const stockpileGroup in stockpileGroups) {
+
+                // Calculate totals for the current stockpileGroup
+                const stockpileGroupTotals: any = {}
+                const currentStockpilesInGroup = stockpileGroups[stockpileGroup].stockpiles
+                let stockpileNames = ""
+
+                for (let i = 0; i < stockpiles.length; i++) {
+                    if (stockpiles[i].name in currentStockpilesInGroup) {
+                        const currentItems = stockpiles[i].items
+                        for (const item in currentItems) {
+                            if (item in stockpileGroupTotals) stockpileGroupTotals[item] += currentItems[item]
+                            else stockpileGroupTotals[item] = currentItems[item]
+                        }
+                        stockpileNames += stockpiles[i].name + ", "
+                    }
+                }
+                stockpileNames = stockpileNames.slice(0, stockpileNames.length-2)
+
+
+                let sortedTargets: any = {}
+                const stockpileGroupTargets = stockpileGroups[stockpileGroup].targets
+                for (const target in stockpileGroups[stockpileGroup].targets) {
+                    const currentCat = itemListCategoryMapping[target]
+                    let icon = "❌"
+                    if (stockpileGroupTotals[target] >= stockpileGroupTargets[target].min) icon = "✅"
+                    else {
+                        const percentage = stockpileGroupTotals[target] / stockpileGroupTargets[target].min
+                        if (percentage >= 0.75) icon = "🟡"
+                        else if (percentage >= 0.5) icon = "🟠"
+                    }
+
+                    const currentMsg = `${target in stockpileGroupTotals ? stockpileGroupTotals[target] : "0"}/${stockpileGroupTargets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${stockpileGroupTargets[target].max === 0 ? "∞" : stockpileGroupTargets[target].max}) ${"prodLocation" in stockpileGroupTargets[target] && typeof stockpileGroupTargets[target].prodLocation === 'string' ? "[" + stockpileGroupTargets[target].prodLocation + "]" : ""}\n`
+
+
+                    if (currentCat in sortedTargets) sortedTargets[currentCat].push(currentMsg)
+                    else sortedTargets[currentCat] = [currentMsg]
+                }
+
+                stockpileGroupMsg += `**\`${stockpileGroup}\`** Group Target ${stockpileNames.length > 0 ? "(\`" + stockpileNames + "\`)" : "(`No Stockpiles❗`)"} \n`
+
+                for (const category in sortedTargets) {
+                    stockpileGroupMsg += "__" + category + "__\n"
+                    for (let i = 0; i < sortedTargets[category].length; i++) {
+                        stockpileGroupMsg += sortedTargets[category][i]
+                    }
+                }
+
+                stockpileGroupMsg += "\n\n"
+            }
+
+
+
+            while (stockpileGroupMsg.length > 2000) {
+
+                const sliced = stockpileGroupMsg.slice(0, 2000)
+                const lastEnd = sliced.lastIndexOf("\n")
+                const finalMsg = sliced.slice(0, lastEnd)
+
+                targetMsgs.push(finalMsg)
+                stockpileGroupMsg = stockpileGroupMsg.slice(lastEnd, stockpileGroupMsg.length)
+            }
+            targetMsgs.push(stockpileGroupMsg)
+        }
+        stockpileGroupMsg += "\n"
+
+
+        let targetMsg = "**__Global Targets__** \n\n"
         if (targets) {
             let sortedTargets: any = {}
             for (const target in targets) {
@@ -153,6 +227,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
 
         NodeCacheObj.set("stockpileMsgs", stockpileMsgs)
         NodeCacheObj.set("targetMsgs", targetMsgs)
+        NodeCacheObj.set("stockpileGroupMsgs", stockpileGroupMsgs)
     }
 
     return [stockpileHeader, stockpileMsgs, targetMsgs, stockpileMsgsHeader, refreshAll]

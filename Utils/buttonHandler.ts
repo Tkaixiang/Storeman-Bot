@@ -110,6 +110,41 @@ const spsettarget = async (interaction: ButtonInteraction, collections: any, spl
     });
 }
 
+const spgroupsettarget = async (interaction: ButtonInteraction, collections: any, splitted: Array<string>) => {
+    if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
+    const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
+
+    await interaction.update({ content: "Working on it...", components: [] })
+
+    let item = splitted[1]! // Tell typescript to shut up and it is non-null
+    const minimum_amount = parseInt(splitted[2])
+    let maximum_amount = parseInt(splitted[3])
+    let production_location = splitted[4]
+    const name = splitted[5]
+
+    const cleanitem = item.replace(/\./g, "_").toLowerCase()
+
+    let updateObj: any = { min: minimum_amount, max: maximum_amount, prodLocation: production_location }
+    mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
+
+    const config = await collections.config.findOne({})
+    const stockpileGroupsObjInitial: any = NodeCacheObj.get("stockpileGroups")
+    const stockpileGroupsObj: any = process.env.STOCKPILER_MULTI_SERVER === "true" ? stockpileGroupsObjInitial[interaction.guildId!] : stockpileGroupsObjInitial
+
+    stockpileGroupsObj[name].targets[cleanitem] = updateObj
+    config.stockpileGroups[name].targets[cleanitem] = updateObj
+
+    await collections.config.updateOne({}, { $set: { stockpileGroups: config.stockpileGroups } })
+
+    const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, interaction.guildId)
+    await updateStockpileMsg(interaction.client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])
+
+    await interaction.followUp({
+        content: `Item \`${lowerToOriginal[cleanitem]}\` has been added with a target of minimum ${minimum_amount} crates and maximum ${maximum_amount !== 0 ? maximum_amount : "unlimited"} crates.`,
+        ephemeral: true
+    });
+}
+
 const spfind = async (interaction: ButtonInteraction, collections: any, splitted: Array<string>) => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
@@ -255,7 +290,8 @@ const commands: any = {
     'sppurgestockpile': sppurgestockpile,
     'spfind': spfind,
     'spsettarget': spsettarget,
-    'cancel': cancel
+    'cancel': cancel,
+    'spgroupsettarget': spgroupsettarget
 }
 
 
