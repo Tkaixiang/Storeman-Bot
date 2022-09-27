@@ -17,6 +17,7 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 - Keep track of **when reserve stockpiles expire** (`/spsettimeleft`, `/spnotif`), with a configurable list of roles being reminded when a reserve stockpile is about to expire ⌚
 - **Locate an item** in your stockpiles using `/spfind <item>` 🔎
 - **Roles** (Admin & User) to control the usage of commands between the QM-Team and normal users 👨‍⚖️
+- **Stockpile Groups** to set different targets for frontline/backline stockpiles etc 🗄️
 
 ### Screenshots
 
@@ -25,6 +26,8 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 ![](screenshots/2.png)
 
 ![](screenshots/3.png)
+
+![](screenshots/4.png)
 
 ## Usage Instructions
 
