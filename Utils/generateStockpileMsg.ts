@@ -165,7 +165,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                     }
                 }
 
-                stockpileGroupMsg += "\n\n"
+                stockpileGroupMsg += "\n-------------\n"
             }
 
 

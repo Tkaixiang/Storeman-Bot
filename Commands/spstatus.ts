@@ -27,9 +27,16 @@ const spstatus = async (interaction: ChatInputCommandInteraction): Promise<boole
                     startSending = true
                 }
 
+                const endPosition = targetMsgs[i].indexOf("\n-------------\n")
+                if (startSending && endPosition !== -1) {
+                    const finalMsg = targetMsgs[i].slice(0, endPosition)
+                    await interaction.followUp({content: finalMsg, ephemeral: true})
+                    break
+                } 
+
                 if (startSending) await interaction.followUp({content: targetMsgs[i], ephemeral: true})
 
-                if (startSending && targetMsgs[i].indexOf("\n\n") !== -1) break
+                
             }
 
             if (!startSending) await interaction.editReply({content: "Error, no stockpile group named `" + stockpileGroup + "` found."})
