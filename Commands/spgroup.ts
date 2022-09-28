@@ -79,6 +79,7 @@ const spgroup = async (interaction: ChatInputCommandInteraction, client: Client)
             return false
         }
 
+        console.log(stockpileGroupsObj)
         if (name in stockpileGroupsObj) {
             if (stockpileName in stockpileGroupsObj[name].stockpiles) {
                 await interaction.editReply({ content: "Stockpile `" + stockpileName + "` already exists in the `" + name + "` stockpile group." })
@@ -94,7 +95,7 @@ const spgroup = async (interaction: ChatInputCommandInteraction, client: Client)
             }
 
             stockpileGroupsObj[name].stockpiles[stockpileName] = true
-            console.log(config.stockpileGroups)
+            
             config.stockpileGroups[name].stockpiles[stockpileName] = true
             await collections.config.updateOne({}, { $set: { stockpileGroups: config.stockpileGroups } })
 
