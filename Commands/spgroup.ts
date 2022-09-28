@@ -13,6 +13,7 @@ const spgroup = async (interaction: ChatInputCommandInteraction, client: Client)
     await interaction.reply({ content: 'Working on it', ephemeral: true });
     const config = await collections.config.findOne({})
     const stockpileGroupsObjInitial: any = NodeCacheObj.get("stockpileGroups")
+    console.log(stockpileGroupsObjInitial)
     const stockpileGroupsObj: any = process.env.STOCKPILER_MULTI_SERVER === "true" ? stockpileGroupsObjInitial[interaction.guildId!] : stockpileGroupsObjInitial
 
     const name = interaction.options.getString("name")!.toLowerCase()
