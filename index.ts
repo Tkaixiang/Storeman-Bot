@@ -243,6 +243,7 @@ const createCacheStartup = async (client: Client) => {
                 if ("disableTimeNotif" in serverCollections.config) disableTimeNotif[configObj.serverIDList[i]] = serverCollections.config.disableTimeNotif
                 else disableTimeNotif[configObj.serverIDList[i]] = false
 
+                console.log(serverCollections.config)
                 if ("stockpileGroups" in serverCollections.config) stockpileGroups[configObj.serverIDList[i]] = serverCollections.config.stockpileGroups
                 else stockpileGroups[configObj.serverIDList[i]] = {}
 
