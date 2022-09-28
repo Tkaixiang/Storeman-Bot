@@ -20,7 +20,7 @@ const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean
         },
         {
             name: "/spstatus <filter❓> <stockpile❓>  🙍‍♂️",
-            value: 'Displays the current stockpile status. <filter> can be "Targets" to display only targets. Specify a <stockpile> to show only details for that stockpile.'
+            value: 'Displays the current stockpile status. \n\nSpecify a `<stockpile>` to show only details for that stockpile, **do not** specify `<filter>` if this option is specified.\n\n `<filter>` can be "Targets" to display only targets or "Group Targets" to filter by a specific stockpile group. Please specify a `<stockpile_group>` if "Group Targets" is selected. '
         },
         {
             name: "/spsetamount <item> <amount> <stockpile>  🙍‍♂️",

@@ -18,7 +18,21 @@ const spstatus = async (interaction: ChatInputCommandInteraction): Promise<boole
             for (let i = 1; i < targetMsgs.length; i++) {
                 await interaction.followUp({content: targetMsgs[i], ephemeral: true})
             }
-           
+        }
+        else if (filter ==="group_targets") {
+            const stockpileGroup = interaction.options.getString("stockpile_group")!.toLowerCase()
+            let startSending = false
+            for (let i = 0; i < targetMsgs.length; i++) {
+                if (targetMsgs[i].indexOf(stockpileGroup) !== -1) {
+                    startSending = true
+                }
+
+                if (startSending) await interaction.followUp({content: targetMsgs[i], ephemeral: true})
+
+                if (startSending && targetMsgs[i].indexOf("\n\n") !== -1) break
+            }
+
+            if (!startSending) await interaction.editReply({content: "Error, no stockpile group named `" + stockpileGroup + "` found."})
         }
     }
     else {

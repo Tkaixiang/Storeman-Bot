@@ -41,7 +41,7 @@ import sprefresh from './Commands/sprefresh'
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 18
+const currentVersion = 19
 const commandMapping: any = {
     'sphelp': { sub: false, vars: 1, handler: sphelp },
     'spcode': {
