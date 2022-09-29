@@ -34,6 +34,11 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
         const stockpilesList = await collections.stockpiles.find({}).toArray()
         const configObj = (await collections.config.findOne({}))!
         const stockpileGroups = configObj.stockpileGroups
+        console.log(stockpileGroups)
+        const stockpileGroupsObjInitial: any = NodeCacheObj.get("stockpileGroups")
+        const stockpileGroupsObj: any = process.env.STOCKPILER_MULTI_SERVER === "true" ? stockpileGroupsObjInitial[guildID!] : stockpileGroupsObjInitial
+    
+        console.log(stockpileGroupsObj)
 
         let stockpiles: Array<any> = []
         if ("orderSettings" in configObj) {
