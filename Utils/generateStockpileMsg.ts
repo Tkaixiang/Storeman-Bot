@@ -183,7 +183,6 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
             }
             targetMsgs.push(stockpileGroupMsg)
         }
-        console.log(targetMsgs)
 
 
         let targetMsg = "**__Global Targets__** \n\n"
