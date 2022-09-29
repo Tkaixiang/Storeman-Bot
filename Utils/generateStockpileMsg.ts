@@ -33,12 +33,10 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
         const targets = await collections.targets.findOne({})
         const stockpilesList = await collections.stockpiles.find({}).toArray()
         const configObj = (await collections.config.findOne({}))!
-        const stockpileGroups = configObj.stockpileGroups
-        console.log(stockpileGroups)
+     
         const stockpileGroupsObjInitial: any = NodeCacheObj.get("stockpileGroups")
-        const stockpileGroupsObj: any = process.env.STOCKPILER_MULTI_SERVER === "true" ? stockpileGroupsObjInitial[guildID!] : stockpileGroupsObjInitial
+        const stockpileGroups: any = process.env.STOCKPILER_MULTI_SERVER === "true" ? stockpileGroupsObjInitial[guildID!] : stockpileGroupsObjInitial
     
-        console.log(stockpileGroupsObj)
 
         let stockpiles: Array<any> = []
         if ("orderSettings" in configObj) {
@@ -129,7 +127,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                 let stockpileNames = ""
 
                 for (let i = 0; i < stockpiles.length; i++) {
-                    if (stockpiles[i].name in currentStockpilesInGroup) {
+                    if (stockpiles[i].name.toLowerCase() in currentStockpilesInGroup) {
                         const currentItems = stockpiles[i].items
                         for (const item in currentItems) {
                             if (item in stockpileGroupTotals) stockpileGroupTotals[item] += currentItems[item]
