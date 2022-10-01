@@ -17,7 +17,6 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
     let locationMappings: any = NodeCacheObj.get("locationMappings")
     let stockpileMsgsHeader = "**__Stockpiles__** \n\n ----------"
     let stockpileMsgs = NodeCacheObj.get("stockpileMsgs") as Array<string | any[]>
-    let stockpileGroupMsgs = NodeCacheObj.get("stockpileGroupMsgs") as Array<string>
     let targetMsgs = NodeCacheObj.get("targetMsgs") as Array<string>
     let code: any = {}
     let stockpileLocations: any = {}
@@ -34,7 +33,10 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
         const targets = await collections.targets.findOne({})
         const stockpilesList = await collections.stockpiles.find({}).toArray()
         const configObj = (await collections.config.findOne({}))!
-        const stockpileGroups = configObj.stockpileGroups
+     
+        const stockpileGroupsObjInitial: any = NodeCacheObj.get("stockpileGroups")
+        const stockpileGroups: any = process.env.STOCKPILER_MULTI_SERVER === "true" ? stockpileGroupsObjInitial[guildID!] : stockpileGroupsObjInitial
+    
 
         let stockpiles: Array<any> = []
         if ("orderSettings" in configObj) {
@@ -125,7 +127,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                 let stockpileNames = ""
 
                 for (let i = 0; i < stockpiles.length; i++) {
-                    if (stockpiles[i].name in currentStockpilesInGroup) {
+                    if (stockpiles[i].name.toLowerCase() in currentStockpilesInGroup) {
                         const currentItems = stockpiles[i].items
                         for (const item in currentItems) {
                             if (item in stockpileGroupTotals) stockpileGroupTotals[item] += currentItems[item]
@@ -181,7 +183,6 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
             }
             targetMsgs.push(stockpileGroupMsg)
         }
-        stockpileGroupMsg += "\n"
 
 
         let targetMsg = "**__Global Targets__** \n\n"
@@ -227,7 +228,6 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
 
         NodeCacheObj.set("stockpileMsgs", stockpileMsgs)
         NodeCacheObj.set("targetMsgs", targetMsgs)
-        NodeCacheObj.set("stockpileGroupMsgs", stockpileGroupMsgs)
     }
 
     return [stockpileHeader, stockpileMsgs, targetMsgs, stockpileMsgsHeader, refreshAll]

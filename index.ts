@@ -141,11 +141,13 @@ const guildCreateEventHandler = async (guild: Guild) => {
         const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
         const notifRoles: any = NodeCacheObj.get("notifRoles")
         const prettyName: any = NodeCacheObj.get("prettyName")
+        const stockpileGroups: any = NodeCacheObj.get("stockpileGroups")
 
         stockpileTimes[guild.id] = {}
         notifRoles[guild.id] = []
         prettyName[guild.id] = {}
         disableTimeNotif[guild.id] = false
+        stockpileGroups[guild.id] = {}
     }
 }
 
@@ -171,10 +173,12 @@ const guildDeleteEventHandler = async (guildID: string) => {
         const notifRoles: any = NodeCacheObj.get("notifRoles")
         const prettyName: any = NodeCacheObj.get("prettyName")
         const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
+        const stockpileGroups: any = NodeCacheObj.get("stockpileGroups")
         delete stockpileTimes[guildID]
         delete notifRoles[guildID]
         delete prettyName[guildID]
         delete disableTimeNotif[guildID]
+        delete stockpileGroups[guildID]
         console.log("Deleted the database and config records of the guild successfully")
     }
     else console.log("Delete request received but no such guildID exists in Storeman Bot records.")
@@ -234,17 +238,17 @@ const createCacheStartup = async (client: Client) => {
             for (let i = 0; i < configObj.serverIDList.length; i++) {
                 // Create custom notifRoles and prettyNames cache object
                 const serverCollections = getCollections(configObj.serverIDList[i])
-                if ("notifRoles" in serverCollections.config) notifRoles[configObj.serverIDList[i]] = serverCollections.config.notifRoles
+                const serverConfigObj = await serverCollections.config.findOne({})
+                if ("notifRoles" in serverConfigObj) notifRoles[configObj.serverIDList[i]] = serverConfigObj.notifRoles
                 else notifRoles[configObj.serverIDList[i]] = []
-                if ("prettyName" in serverCollections.config) prettyName[configObj.serverIDList[i]] = serverCollections.config.prettyName
+                if ("prettyName" in serverConfigObj) prettyName[configObj.serverIDList[i]] = serverConfigObj.prettyName
                 else prettyName[configObj.serverIDList[i]] = {}
 
                 // Create the disable time cache object
-                if ("disableTimeNotif" in serverCollections.config) disableTimeNotif[configObj.serverIDList[i]] = serverCollections.config.disableTimeNotif
+                if ("disableTimeNotif" in serverConfigObj) disableTimeNotif[configObj.serverIDList[i]] = serverConfigObj.disableTimeNotif
                 else disableTimeNotif[configObj.serverIDList[i]] = false
 
-                console.log(serverCollections.config)
-                if ("stockpileGroups" in serverCollections.config) stockpileGroups[configObj.serverIDList[i]] = serverCollections.config.stockpileGroups
+                if ("stockpileGroups" in serverConfigObj) stockpileGroups[configObj.serverIDList[i]] = serverConfigObj.stockpileGroups
                 else stockpileGroups[configObj.serverIDList[i]] = {}
 
 
