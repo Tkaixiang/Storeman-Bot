@@ -327,7 +327,6 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
     catch (e) {
         console.log(e)
         console.log(eventName + "An error occurred updating msgs, skipping this update event for now...")
-        return false
     }
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
         multiServerQueue[guildID!].splice(0, 1)
