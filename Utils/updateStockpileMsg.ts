@@ -24,7 +24,7 @@ const updateStockpileMsgEntryPoint = async (client: Client, guildID: string | nu
             if (multiServerQueue[guildID!].length > 2) {
                 console.log(eventName + "Queue length exceeded allowed quantity, skipping middle ones")
                 multiServerQueue[guildID!].splice(1, multiServerQueue[guildID!].length - 1)
-                
+
             }
             console.log(eventName + "Update event ahead queued, current length in queue: " + multiServerQueue[guildID!].length)
         }
@@ -115,6 +115,7 @@ const deleteTargetMsg = async (channelObj: TextChannel, currentMsgID: string) =>
 
 
 const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [string, Array<string>, Array<string>, string, ActionRowBuilder<ButtonBuilder>]): Promise<Boolean> => {
+    let channelObj = null
     try {
         const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(guildID) : getCollections()
 
@@ -122,7 +123,7 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
 
         // update msg if logi channel is set
         if ("channelId" in configObj) {
-            const channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
+            channelObj = client.channels.cache.get(configObj.channelId) as TextChannel
             let msgObj: Message;
             try {
                 msgObj = await channelObj.messages.fetch(configObj.stockpileHeader)
@@ -251,20 +252,20 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
             }
             else {
                 try {
-                // edit refreshAllID in case the button was pressed
-                 const refreshAllMsg = await channelObj.messages.fetch(configObj.refreshAllID)
-                 await refreshAllMsg.edit({ content: "----------\nRefresh the timer of **all stockpiles**", components: [msg[4]] })
+                    // edit refreshAllID in case the button was pressed
+                    const refreshAllMsg = await channelObj.messages.fetch(configObj.refreshAllID)
+                    await refreshAllMsg.edit({ content: "----------\nRefresh the timer of **all stockpiles**", components: [msg[4]] })
                 }
                 catch (e: any) {
                     if (e.code === 10008) {
                         editedMsgs = true
                         console.log(eventName + "Refresh stockpile button not found, sending a new 1")
-                        const newMsg =  await channelObj.send({ content: "----------\nRefresh the timer of **all stockpiles**", components: [msg[4]] })
+                        const newMsg = await channelObj.send({ content: "----------\nRefresh the timer of **all stockpiles**", components: [msg[4]] })
                         await collections.config.updateOne({}, { $set: { refreshAllID: newMsg.id } })
 
                         let targetMsgIDs = []
                         let targetMsgFuncArray = []
-        
+
                         for (let i = 0; i < configObj.targetMsg.length; i++) {
                             targetMsgFuncArray.push(deleteTargetMsg(channelObj, configObj.targetMsg[i]))
                         }
@@ -279,10 +280,10 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
                             }
                         }
                         updateObj.targetMsg = targetMsgIDs
-        
+
                         const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
                         const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[guildID!] : disableTimeNotif
-        
+
                         if (!timeCheckDisabled) checkTimeNotifsQueue(client, true, false, guildID!)
                     }
                 }
@@ -327,6 +328,30 @@ const updateStockpileMsg = async (client: Client, guildID: string | null, msg: [
     catch (e) {
         console.log(e)
         console.log(eventName + "An error occurred updating msgs, skipping this update event for now...")
+        let errorDump = JSON.stringify(e, Object.getOwnPropertyNames(e))
+        if (channelObj) {
+            await channelObj.send({
+                content: "An error has occurred while updating msgs. Please kindly report this to the developer on Discord (Tkai#8276) with the following logs. \n\n In the meantime, please kindly reset the channel updating using `/splogichannel set <logi_channel>`"
+            })
+            while (errorDump.length > 0) {
+                if (errorDump.length > 2000) {
+                    const sliced = errorDump.slice(0, 2000)
+                    const lastEnd = sliced.lastIndexOf("\n")
+                    const finalMsg = sliced.slice(0, lastEnd)
+
+                    await channelObj.send({
+                        content: finalMsg,
+                    });
+                    errorDump = errorDump.slice(lastEnd, errorDump.length)
+                }
+                else {
+                    await channelObj.send({
+                        content: errorDump,
+                    });
+                    errorDump = ""
+                }
+            }
+        }
     }
     if (process.env.STOCKPILER_MULTI_SERVER === "true") {
         multiServerQueue[guildID!].splice(0, 1)

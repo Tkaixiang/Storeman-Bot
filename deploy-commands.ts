@@ -51,12 +51,12 @@ const commands = [
         ),
     new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current info. Optionally filter by targets/group targets/stockpile')
         .addStringOption(
-            (option) => option.setName("filter").setDescription("View a filtered version of spstatus such as view only targets, or ")
+            (option) => option.setName("filter").setDescription("View a filtered version of spstatus such as viewing only targets ")
             .addChoices({ name: "Targets", value: "targets" }, { name: "Group Targets", value: "group_targets" })
             .setRequired(false)
         )
-        .addStringOption((option) => option.setName("stockpile_group").setDescription("View targets for a specific <stockpile_group> (For use with Group Targets filter)").setRequired(false))
-        .addStringOption((option) => option.setName("stockpile").setDescription("View items in a <stockpile> only (For use without filter)").setRequired(false))
+        .addStringOption((option) => option.setName("stockpile_group").setDescription("View targets for a specific <stockpile_group>").setRequired(false))
+        .addStringOption((option) => option.setName("stockpile").setDescription("View items in a <stockpile> only").setRequired(false))
     ,
     new SlashCommandBuilder().setName('spsetpassword').setDescription('Sets the password the Stockpiler app uses to update information to the database.')
         .addStringOption((option) => option.setName("password").setDescription("The new password").setRequired(true)),

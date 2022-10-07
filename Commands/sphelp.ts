@@ -19,8 +19,8 @@ const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean
             value: "Displays this message."
         },
         {
-            name: "/spstatus <filter❓> <stockpile❓>  🙍‍♂️",
-            value: 'Displays the current stockpile status. \n\nSpecify a `<stockpile>` to show only details for that stockpile, **do not** specify `<filter>` if this option is specified.\n\n `<filter>` can be "Targets" to display only targets or "Group Targets" to filter by a specific stockpile group. Please specify a `<stockpile_group>` if "Group Targets" is selected. '
+            name: "/spstatus <filter❓> <stockpile❓> <stockpile_group❓>  🙍‍♂️",
+            value: 'Displays the current full stockpile status if no options are specified. \n\nSpecify a `<stockpile>` to show only details for that stockpile, **do not** specify `<filter>` if this option is specified.\n\n `<filter>` can be "Targets" to display only targets or "Group Targets" to display stockpile group targets.\n\n Specify a `<stockpile_group>` to show that stockpile group target only.'
         },
         {
             name: "/spsetamount <item> <amount> <stockpile>  🙍‍♂️",
@@ -194,7 +194,7 @@ const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean
         embeds: [{
             title: `Storeman Bot Help Menu`,
             description: `
-            Version 0.8 27/9/2022
+            Version 0.8.1 7/10/2022
             Your GuildID is: **__\`${interaction.guildId}\`__** (this is the vale you should be inputting into Stockpiler to send scanned data!)
             
             👨‍⚖️ - Commands that require at least \`Admin\` permissions

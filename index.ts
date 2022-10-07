@@ -41,7 +41,7 @@ import sprefresh from './Commands/sprefresh'
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 19
+const currentVersion = 20
 const commandMapping: any = {
     'sphelp': { sub: false, vars: 1, handler: sphelp },
     'spcode': {
@@ -349,52 +349,34 @@ const main = async (): Promise<void> => {
     const handleCommand = async (interaction: Interaction) => {
         try {
             if (interaction.isChatInputCommand()) {
-
                 const commandName = interaction.commandName;
                 const commandMapResult = commandMapping[commandName]
                 if (commandMapResult.sub) {
                     const subMapResult = commandMapResult.handler[interaction.options.getSubcommand()]
-                    if (subMapResult.vars === 2) subMapResult.func(interaction, client)
-                    else subMapResult.func(interaction)
+                    if (subMapResult.vars === 2) await subMapResult.func(interaction, client)
+                    else await subMapResult.func(interaction)
                 }
                 else {
-                    if (commandMapResult.vars === 2) commandMapResult.handler(interaction, client)
-                    else commandMapResult.handler(interaction)
+                    if (commandMapResult.vars === 2) await commandMapResult.handler(interaction, client)
+                    else await commandMapResult.handler(interaction)
                 }
 
             }
             else if (interaction.isButton()) {
-                buttonHandler(interaction)
+                await buttonHandler(interaction)
             }
         }
         catch (e) {
-            if (interaction.isCommand() || interaction.isButton()) {
-                let errorDump = JSON.stringify(e)
-                if (interaction.isCommand()) {
+            if (interaction.isChatInputCommand() || interaction.isButton()) {
+                let errorDump = JSON.stringify(e, Object.getOwnPropertyNames(e))
+                if (interaction.isChatInputCommand()) {
                     console.log("[!!!]: An error has occured in the command " + interaction.commandName + ". Please kindly report this to the developer on Discord (Tkai#8276)")
-                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send the logs below this message to the developer on Discord at Tkai#8276" })
-                    while (errorDump.length > 0) {
-                        if (errorDump.length > 2000) {
-                            const sliced = errorDump.slice(0, 2000)
-                            const lastEnd = sliced.lastIndexOf("\n")
-                            const finalMsg = sliced.slice(0, lastEnd)
-
-                            await interaction.followUp({
-                                content: finalMsg
-                            });
-                            errorDump = errorDump.slice(lastEnd, errorDump.length)
-                        }
-                        else {
-                            await interaction.followUp({
-                                content: errorDump
-                            });
-                            errorDump = ""
-                        }
-                    }
+                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot for the command `" + interaction.commandName + "`. Please kindly send the logs below this message to the developer on Discord at Tkai#8276", ephemeral: true })
                 }
                 else if (interaction.isButton()) {
                     console.log("[!!!]: An error has occured in a button action. Please kindly report this to the developer on Discord (Tkai#8276)")
-                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot button action. Please kindly send logs below this message to the developer on Discord at Tkai#8276." })
+                    interaction.followUp({ content: "[❗❗❗] An error has occurred in Storeman Bot button action. Please kindly send logs below this message to the developer on Discord at Tkai#8276.", ephemeral: true })
+
                 }
                 while (errorDump.length > 0) {
                     if (errorDump.length > 2000) {
@@ -403,17 +385,20 @@ const main = async (): Promise<void> => {
                         const finalMsg = sliced.slice(0, lastEnd)
 
                         await interaction.followUp({
-                            content: finalMsg
+                            content: finalMsg,
+                            ephemeral: true
                         });
                         errorDump = errorDump.slice(lastEnd, errorDump.length)
                     }
                     else {
                         await interaction.followUp({
-                            content: errorDump
+                            content: errorDump,
+                            ephemeral: true
                         });
                         errorDump = ""
                     }
                 }
+
             }
 
         }
