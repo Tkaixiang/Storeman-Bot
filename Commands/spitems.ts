@@ -1,10 +1,7 @@
 import { ChatInputCommandInteraction } from "discord.js";
 
 const spitems = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
-    await interaction.reply({
-        content: "Working on it...",
-        ephemeral: true
-    });
+    
     let msg =  `**__Items List__** 
 **Add a "\`Crate\`" at the end to specify crated versions of the items**
 - Dusk ce.III

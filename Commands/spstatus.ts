@@ -10,7 +10,7 @@ const spstatus = async (interaction: ChatInputCommandInteraction): Promise<boole
 
 
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
 
     const [stockpileHeader, stockpileMsgs, targetMsgs, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(false, interaction.guildId)
     if (filter) {

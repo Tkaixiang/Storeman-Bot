@@ -8,7 +8,7 @@ const spremovelogichannel = async (interaction: ChatInputCommandInteraction, cli
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
 
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
     if ("channelId" in configDoc) {
         const channelObj = client.channels.cache.get(configDoc.channelId) as TextChannel
         try {

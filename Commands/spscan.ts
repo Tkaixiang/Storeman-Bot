@@ -9,7 +9,7 @@ const spscan = async (interaction: ChatInputCommandInteraction, client: Client):
     let scannedImage: any = interaction.options.get("screenshot")!
 
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
 
     console.log(scannedImage)
     let fileName = process.env.STOCKPILER_MULTI_SERVER === "true" ? interaction.guildId! : "scanImage"

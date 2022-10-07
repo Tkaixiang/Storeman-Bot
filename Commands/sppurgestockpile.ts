@@ -6,7 +6,7 @@ const sppurgestockpile = async (interaction: ChatInputCommandInteraction, client
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
 
 
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
     const row = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()

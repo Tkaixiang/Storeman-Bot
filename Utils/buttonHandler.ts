@@ -12,7 +12,6 @@ const spsetamount = async (interaction: ButtonInteraction, collections: any, spl
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
 
-    await interaction.update({ content: "Working on it...", components: [] })
     const item = splitted[1]
     const amount = parseInt(splitted[2])
     const stockpileName = splitted[3]
@@ -44,7 +43,7 @@ const spsetamount = async (interaction: ButtonInteraction, collections: any, spl
 const spsettimeleft = async (interaction: ButtonInteraction, collections: any, splitted: Array<string>) => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
-    await interaction.update({ content: "Working on it...", components: [] })
+    
 
     const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
     const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[interaction.guildId!] : disableTimeNotif
@@ -85,7 +84,7 @@ const spsettarget = async (interaction: ButtonInteraction, collections: any, spl
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
 
-    await interaction.update({ content: "Working on it...", components: [] })
+    
 
     let item = splitted[1]! // Tell typescript to shut up and it is non-null
     const minimum_amount = parseInt(splitted[2])
@@ -114,7 +113,7 @@ const spgroupsettarget = async (interaction: ButtonInteraction, collections: any
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
 
-    await interaction.update({ content: "Working on it...", components: [] })
+    
 
     let item = splitted[1]! // Tell typescript to shut up and it is non-null
     const minimum_amount = parseInt(splitted[2])
@@ -148,7 +147,7 @@ const spgroupsettarget = async (interaction: ButtonInteraction, collections: any
 const spfind = async (interaction: ButtonInteraction, collections: any, splitted: Array<string>) => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
-    await interaction.update({ content: "Working on it...", components: [] })
+    
 
     let item = splitted[1]! // Tell typescript to shut up and it is non-null
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
@@ -227,7 +226,7 @@ const spfind = async (interaction: ButtonInteraction, collections: any, splitted
 const sppurgestockpile = async (interaction: ButtonInteraction, collections: any, splitted: Array<string>) => {
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
 
-    await interaction.update({ content: "Working on it...", components: [] })
+    
     await collections.stockpiles.deleteMany({})
     await collections.config.updateOne({}, { $unset: { orderSettings: 1, prettyName: 1, code: 1, stockpileLocations: 1 } })
 
@@ -258,7 +257,7 @@ const sppurgestockpile = async (interaction: ButtonInteraction, collections: any
 
 const sprefreshall = async (interaction: ButtonInteraction, collections: any, splitted: Array<string>) => {
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
-    await interaction.update({ content: "Working on it...", components: [] })
+    
 
     await collections.stockpiles.find({}).forEach(async (doc: any) => {
         const newTimeLeft = new Date((new Date()).getTime() + 60 * 60 * 1000 * 50)

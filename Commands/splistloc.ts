@@ -1,10 +1,7 @@
 import { ChatInputCommandInteraction } from "discord.js";
 
 const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
-    await interaction.reply({
-        content: "Working on it...",
-        ephemeral: true
-    });
+    
 
     let msg = "**__Location Mappings__** \n<Location Code> - <Full Location Name>**\n\n"
     const locationMappings: any = NodeCacheObj.get("locationMappings")

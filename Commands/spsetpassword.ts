@@ -9,9 +9,8 @@ const spsetpassword = async (interaction: ChatInputCommandInteraction): Promise<
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     
     if (!password) {
-        await interaction.reply({
-            content: "Missing parameters",
-            ephemeral: true
+        await interaction.editReply({
+            content: "Missing parameters"
         });
         return false
     }
@@ -19,9 +18,8 @@ const spsetpassword = async (interaction: ChatInputCommandInteraction): Promise<
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     await collections.config.updateOne({}, { $set: { password: await argon2.hash(password) } })
 
-    await interaction.reply({
-        content: "Password successfully changed.",
-        ephemeral: true
+    await interaction.editReply({
+        content: "Password successfully changed."
     });
 
     return true;

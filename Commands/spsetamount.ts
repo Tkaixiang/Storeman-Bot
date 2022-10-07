@@ -16,14 +16,13 @@ const spsetamount = async (interaction: ChatInputCommandInteraction, client: Cli
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
     if (!amount || !stockpileName || !item) {
-        await interaction.reply({
-            content: "Missing parameters",
-            ephemeral: true
+        await interaction.editReply({
+            content: "Missing parameters"
         });
         return false
     }
 
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
     const searchQuery = new RegExp(stockpileName.replace(/\./g, "").replace(/\$/g, ""), "i")
     const stockpileExist = await collections.stockpiles.findOne({ name: searchQuery })
     const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>

@@ -10,14 +10,13 @@ const spremovecode = async (interaction: ChatInputCommandInteraction, client: Cl
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
 
     if (!stockpile) {
-        await interaction.reply({
-            content: "Missing parameters",
-            ephemeral: true
+        await interaction.editReply({
+            content: "Missing parameters"
         });
         return false
     }
 
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const cleanedName = stockpile.replace(/\./g, "").replace(/\$/g, "").toLowerCase()
     const searchQuery = new RegExp(`^${cleanedName}$`, "i")

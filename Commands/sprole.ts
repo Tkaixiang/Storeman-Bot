@@ -10,7 +10,7 @@ const sprole = async (interaction: ChatInputCommandInteraction, client: Client):
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
-    await interaction.reply({content: 'Working on it', ephemeral: true});
+    
 
     if (interaction.options.getSubcommand() === 'set') {
         const perms = interaction.options.getString("perms")!

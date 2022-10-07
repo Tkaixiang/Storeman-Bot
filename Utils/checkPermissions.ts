@@ -22,7 +22,7 @@ const checkPermissions = async (interaction: ChatInputCommandInteraction | Butto
     if (roleType === "admin") {
         if (permsLevel === 2) return true
         else {
-            interaction.reply({ content: "Insufficient perms, you need at least '" + roleType + "'👨‍⚖️  to use this command", ephemeral: true })
+            interaction.editReply({ content: "Insufficient perms, you need at least '" + roleType + "'👨‍⚖️  to use this command" })
             return false
         }
 
@@ -30,7 +30,7 @@ const checkPermissions = async (interaction: ChatInputCommandInteraction | Butto
     else {
         if (permsLevel >= 1) return true
         else {
-            interaction.reply({ content: "Insufficient perms, you need at least '" + roleType + "'🙍‍♂️ to use this command", ephemeral: true })
+            interaction.editReply({ content: "Insufficient perms, you need at least '" + roleType + "'🙍‍♂️ to use this command" })
             return false
         }
 

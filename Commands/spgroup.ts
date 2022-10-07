@@ -10,7 +10,7 @@ const spgroup = async (interaction: ChatInputCommandInteraction, client: Client)
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
     const config = await collections.config.findOne({})
     const stockpileGroupsObjInitial: any = NodeCacheObj.get("stockpileGroups")
     const stockpileGroupsObj: any = process.env.STOCKPILER_MULTI_SERVER === "true" ? stockpileGroupsObjInitial[interaction.guildId!] : stockpileGroupsObjInitial

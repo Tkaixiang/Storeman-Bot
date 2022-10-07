@@ -12,9 +12,8 @@ const spdisabletime = async (interaction: ChatInputCommandInteraction, client: C
     
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     if (typeof disable !== "boolean") {
-        await interaction.reply({
-            content: "Missing parameters",
-            ephemeral: true
+        await interaction.editReply({
+            content: "Missing parameters"
         });
         return false
     }
@@ -40,9 +39,8 @@ const spdisabletime = async (interaction: ChatInputCommandInteraction, client: C
         }
     }
 
-    await interaction.reply({
+    await interaction.editReply({
         content: `Successfully ${disable ? "disabled" : "enabled"} the time-checking feature of Storeman Bot`,
-        ephemeral: true
     });
 
     const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, interaction.guildId)

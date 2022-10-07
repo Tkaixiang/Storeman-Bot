@@ -12,8 +12,6 @@ const sprefresh = async (interaction: ChatInputCommandInteraction): Promise<bool
 
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
 
-    await interaction.reply({ content: "Working on it...", ephemeral: true })
-
     if (stockpile) {
         const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
         const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[interaction.guildId!] : disableTimeNotif

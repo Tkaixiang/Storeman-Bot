@@ -8,10 +8,7 @@ const spfind = async (interaction: ChatInputCommandInteraction): Promise<boolean
 
     if (!(await checkPermissions(interaction, "user", interaction.member as GuildMember))) return false
 
-    await interaction.reply({
-        content: "Working on it...",
-        ephemeral: true
-    });
+    
     const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>
     const lowerToOriginal: any = NodeCacheObj.get("lowerToOriginal")
     const locationMappings: any = NodeCacheObj.get("locationMappings")

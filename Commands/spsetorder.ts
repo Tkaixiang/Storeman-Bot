@@ -11,14 +11,12 @@ const spsetorder = async (interaction: ChatInputCommandInteraction, client: Clie
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
     
     if (!stockpile || !order) {
-        await interaction.reply({
-            content: "Missing parameters",
-            ephemeral: true
+        await interaction.editReply({
+            content: "Missing parameters"
         });
         return false
     }
 
-    await interaction.reply({content: "Working on it", ephemeral: true})
     stockpile = stockpile.toLowerCase()
 
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()

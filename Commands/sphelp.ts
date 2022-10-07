@@ -1,10 +1,7 @@
 import { ChatInputCommandInteraction} from "discord.js";
 
 const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
-    await interaction.reply({
-        content: "Working on it...",
-        ephemeral: true
-    });
+    
 
     const helpEmbed: {fields: Array<any>, [key: string]: any} = {
         title: "Storeman Bot Command Help",

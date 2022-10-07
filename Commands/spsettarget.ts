@@ -17,14 +17,13 @@ const spsettarget = async (interaction: ChatInputCommandInteraction, client: Cli
     if (!(await checkPermissions(interaction, "admin", interaction.member as GuildMember))) return false
 
     if (!minimum_amount || !item) {
-        await interaction.reply({
-            content: "Missing parameters",
-            ephemeral: true
+        await interaction.editReply({
+            content: "Missing parameters"
         });
         return false
     }
 
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
 
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     const itemListBoth = NodeCacheObj.get("itemListBoth") as Array<string>

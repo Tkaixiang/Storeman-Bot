@@ -7,14 +7,13 @@ const sptimeoutnotif = async (interaction: ChatInputCommandInteraction, client: 
     const role = interaction.options.getRole("role")! // Tell typescript to shut up cause it's gonna return a string and not null
     const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
     if (!role) {
-        await interaction.reply({
-            content: "Missing parameters",
-            ephemeral: true
+        await interaction.editReply({
+            content: "Missing parameters"
         });
         return false
     }
 
-    await interaction.reply({ content: 'Working on it', ephemeral: true });
+    
 
     const disableTimeNotif: any = NodeCacheObj.get("disableTimeNotif")
     const timeCheckDisabled = process.env.STOCKPILER_MULTI_SERVER === "true" ? disableTimeNotif[interaction.guildId!] : disableTimeNotif
