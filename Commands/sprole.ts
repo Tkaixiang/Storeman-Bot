@@ -27,12 +27,31 @@ const sprole = async (interaction: ChatInputCommandInteraction, client: Client):
             return false
         }
 
+        const configObj = (await collections.config.findOne({}))!
+
+        if (perms === "admin" && "admin" in configObj) {
+            for (let i = 0; i < configObj.individualAdminPerms.length; i++) {
+                if (configObj.individualAdminPerms[i] === role.id) {
+                    await interaction.editReply({content: "Error: The role `" + role.name + "` already has `" + perms + "`"})
+                    return false
+                }
+            }
+        }
+        else if (perms === "user" && "user" in configObj) {
+            for (let i = 0; i < configObj.individualUserPerms.length; i++) {
+                if (configObj.individualUserPerms[i] === role.id) {
+                    await interaction.editReply({content: "Error: The role `" + role.name + "` already has `" + perms + "`"})
+                    return false
+                }
+            }
+        }
+
        
         let updateObj: any = {}
         updateObj[perms] = role.id
         mongoSanitize.sanitize(updateObj, { replaceWith: "_" })
         await collections.config.updateOne({}, {$push: updateObj})
-        await interaction.editReply({content: "Successfully added " + role.name + " to " + "'" + perms +"' perms."})
+        await interaction.editReply({content: "Successfully added `" + role.name + "` to " + "`" + perms +"` perms."})
 
     }
     else {
@@ -42,7 +61,7 @@ const sprole = async (interaction: ChatInputCommandInteraction, client: Client):
             for (let i = 0; i < configObj.admin.length; i++) {
                 if (configObj.admin[i] === role.id) {
                     mongoSanitize.sanitize(configObj, { replaceWith: "_" })
-                    configObj.admin.slice(i, 1)
+                    configObj.admin.splice(i, 1)
                     await collections.config.updateOne({}, {$set: {admin: configObj.admin}})
                     removed = true
                     break
@@ -53,14 +72,14 @@ const sprole = async (interaction: ChatInputCommandInteraction, client: Client):
             for (let i = 0; i < configObj.user.length; i++) {
                 if (configObj.user[i] === role.id) {
                     mongoSanitize.sanitize(configObj, { replaceWith: "_" })
-                    configObj.user.slice(i, 1)
+                    configObj.user.splice(i, 1)
                     await collections.config.updateOne({}, {$set: {user: configObj.user}})
                     removed = true
                     break
                 } 
             }
         }
-        if (removed) await interaction.editReply({content: "Successfully removed '" + role.name + "' removed any permissions."})
+        if (removed) await interaction.editReply({content: "Successfully removed any permissions from `" + role.name + "`."})
         else await interaction.editReply({content: "'" + role.name + "' does not have any permissions in Stockpiler Bot."})
     }
 

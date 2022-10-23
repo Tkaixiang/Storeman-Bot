@@ -37,11 +37,12 @@ import spfind from './Commands/spfind'
 import spdisabletime from './Commands/spdisabletime'
 import spgroup from './Commands/spgroup'
 import sprefresh from './Commands/sprefresh'
+import spuser from './Commands/spuser'
 
 require('dotenv').config()
 const port = 8090
 const host = '0.0.0.0'
-const currentVersion = 20
+const currentVersion = 21
 const commandMapping: any = {
     'sphelp': { sub: false, vars: 1, handler: sphelp },
     'spcode': {
@@ -93,7 +94,8 @@ const commandMapping: any = {
     'spsetpassword': { sub: false, vars: 1, handler: spsetpassword },
     'spsetorder': { sub: false, vars: 2, handler: spsetorder },
     'spsettimeleft': { sub: false, vars: 2, handler: spsettimeleft },
-    'spgroup': { sub: false, vars: 2, handler: spgroup }
+    'spgroup': { sub: false, vars: 2, handler: spgroup },
+    'spuser': { sub: false, vars: 1, handler: spuser },
 }
 const timerBP = [60 * 5, 60 * 10, 60 * 30, 60 * 60, 60 * 60 * 6, 60 * 60 * 12] // Timer breakpoints in seconds
 

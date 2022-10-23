@@ -52,8 +52,8 @@ const commands = [
     new SlashCommandBuilder().setName('spstatus').setDescription('Returns the current info. Optionally filter by targets/group targets/stockpile')
         .addStringOption(
             (option) => option.setName("filter").setDescription("View a filtered version of spstatus such as viewing only targets ")
-            .addChoices({ name: "Targets", value: "targets" }, { name: "Group Targets", value: "group_targets" })
-            .setRequired(false)
+                .addChoices({ name: "Targets", value: "targets" }, { name: "Group Targets", value: "group_targets" })
+                .setRequired(false)
         )
         .addStringOption((option) => option.setName("stockpile_group").setDescription("View targets for a specific <stockpile_group>").setRequired(false))
         .addStringOption((option) => option.setName("stockpile").setDescription("View items in a <stockpile> only").setRequired(false))
@@ -94,7 +94,7 @@ const commands = [
                 .setDescription("Removes logi message from the set channel.")
         ),
     new SlashCommandBuilder().setName('sprole')
-        .setDescription('Role and permissions settings')
+        .setDescription('Permission settings for roles')
         .addSubcommand(subcommand =>
             subcommand
                 .setName("set")
@@ -110,6 +110,25 @@ const commands = [
                 .setName("remove")
                 .setDescription("Remove any perms from a specified <role>")
                 .addRoleOption(option => option.setName("role").setDescription("The role to operate on").setRequired(true))
+
+        ),
+    new SlashCommandBuilder().setName('spuser')
+        .setDescription('Permission settings for users')
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("set")
+                .setDescription("Add <perms> to a specified <user>")
+                .addStringOption(option => option.setName("perms").setDescription("Can be either 'User' or 'Admin'.")
+                    .setRequired(true)
+                    .addChoices({ name: "User", value: "user" }, { name: "Admin", value: "admin" })
+                )
+                .addUserOption(option => option.setName("user").setDescription("The <user> to operate on").setRequired(true))
+        )
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName("remove")
+                .setDescription("Remove any perms from a specified <user>")
+                .addUserOption(option => option.setName("user").setDescription("The role to operate on").setRequired(true))
 
         ),
     new SlashCommandBuilder().setName('spnotif')

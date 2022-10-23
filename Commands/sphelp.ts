@@ -72,6 +72,14 @@ const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean
             value: "Removes a role from whatever permissions they have."
         },
         {
+            name: "/spuser add <perms> <user>  👨‍⚖️",
+            value: 'Add a user which will be allowed to have <perms>. <perms> can be either "Admin" or "User".'
+        },
+        {
+            name: "/spuser remove <user>  👨‍⚖️",
+            value: "Removes a user from whatever permissions they have."
+        },
+        {
             name: "/spsetorder <stockpile> <order>  👨‍⚖️",
             value: "Sets the <order> of a <stockpile> in the logi channel message."
         },
@@ -191,7 +199,7 @@ const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean
         embeds: [{
             title: `Storeman Bot Help Menu`,
             description: `
-            Version 0.8.1 7/10/2022
+            Version 0.8.2 23/10/2022
             Your GuildID is: **__\`${interaction.guildId}\`__** (this is the vale you should be inputting into Stockpiler to send scanned data!)
             
             👨‍⚖️ - Commands that require at least \`Admin\` permissions
