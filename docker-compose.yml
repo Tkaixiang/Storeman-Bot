@@ -10,7 +10,7 @@ services:
     environment:
       MONGODB_URI: mongodb://mongo:27017/
     ports: 
-      - "8090:8090"
+      - "80:80"
     secrets:
       - source: dotenv
         target: /app/.env
