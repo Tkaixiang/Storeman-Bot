@@ -40,7 +40,7 @@ import sprefresh from './Commands/sprefresh'
 import spuser from './Commands/spuser'
 
 require('dotenv').config()
-const port = 8090
+const port = process.env.NODE_ENV === "development" ? 8090 : 80
 const host = '0.0.0.0'
 const currentVersion = 21
 const commandMapping: any = {
