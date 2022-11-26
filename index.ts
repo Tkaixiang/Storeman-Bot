@@ -41,6 +41,7 @@ import spuser from './Commands/spuser'
 
 require('dotenv').config()
 const port = process.env.NODE_ENV === "development" ? 8090 : 80
+console.log(process.env.NODE_ENV)
 console.log(port)
 const host = '0.0.0.0'
 const currentVersion = 21
