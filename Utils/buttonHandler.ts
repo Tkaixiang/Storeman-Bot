@@ -295,11 +295,18 @@ const commands: any = {
 
 
 const buttonHandler = async (interaction: ButtonInteraction) => {
-    const splitted = interaction.customId.split("==")
-    const command = splitted[0]
-    const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
+    try {
+        const splitted = interaction.customId.split("==")
+        const command = splitted[0]
+        const collections = process.env.STOCKPILER_MULTI_SERVER === "true" ? getCollections(interaction.guildId) : getCollections()
+    
+        commands[command](interaction, collections, splitted)
+    }
+    catch (e) {
+        console.log("Error occured in buttonHandler")
+        console.log(e)
+    }
 
-    commands[command](interaction, collections, splitted)
 }
 
 export default buttonHandler
