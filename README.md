@@ -1,6 +1,8 @@
 # Storeman Bot - The Foxhole Stockpile Discord Companion Bot
 ### [Discord Invite Link](https://discord.com/oauth2/authorize?client_id=946968895170969620&permissions=2147617792&scope=bot%20applications.commands)
 
+**__Notice:__** `Bot Host` has been changed to `http://storeman-bot.tk`
+
 ## What is this?
 
 This is a companion bot to the amazing Foxhole [Stockpiler](https://github.com/tehruttiger/Stockpiler/tree/master) app that uses image recognition to scan for stockpile items.
@@ -39,7 +41,7 @@ Gone are the days of QM-Teams manually inputting amounts using eye-power into sp
 3. Download Stockpiler from [here](https://github.com/tehruttiger/Stockpiler/releases)
 4. Extract the files to any folder and run `Stockpiler.exe`
 5. A menu should appear. Head over to the `Settings` tab, tick the `Send To Bot` option and fill in:
-    - `Bot Host` (Enter `http://storeman-bot.tk:8090`)
+    - `Bot Host` (Enter `http://storeman-bot.tk`)
     - `Bot Password` (The password you set above)
     - `GuildID` 
     - (Press the right "`Save`" icon to save your settings)
