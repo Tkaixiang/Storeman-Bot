@@ -1,7 +1,7 @@
 # Storeman Bot - The Foxhole Stockpile Discord Companion Bot
 ### [Discord Invite Link](https://discord.com/oauth2/authorize?client_id=946968895170969620&permissions=2147617792&scope=bot%20applications.commands)
 
-❗❗❗**__Notice:__** `Bot Host` has been changed to `http://storeman-bot.tk`❗❗❗
+❗❗❗**Notice:** `Bot Host` has been changed to `http://storeman-bot.tk`❗❗❗
 
 ## What is this?
 
