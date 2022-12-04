@@ -41,8 +41,6 @@ import spuser from './Commands/spuser'
 
 require('dotenv').config()
 const port = process.env.NODE_ENV === "development" ? 8090 : 80
-console.log(process.env.NODE_ENV)
-console.log(port)
 const host = '0.0.0.0'
 const currentVersion = 21
 const commandMapping: any = {
@@ -503,7 +501,7 @@ const main = async (): Promise<void> => {
 
         // Start HTTP server
         const server = http.createServer((request, response) => {
-            if (request.method == 'POST') {
+            if (request.method === 'POST') {
                 let body = ''
                 request.on('data', (data) => {
                     body += data
@@ -517,6 +515,16 @@ const main = async (): Promise<void> => {
                     }
 
                 })
+            }
+            else if (request.method === "GET") {
+                response.writeHead(200, {'Content-Type': 'text/html'});
+                response.write(`
+                    <html>
+                        <h1>Storeman Bot</h1>
+                        <p>If you are seeing this page, it means you have reached the Storeman Bot sanity check web page. Please use the <a href="https://github.com/tehruttiger/Stockpiler">Stockpiler</a> app to communicate with our servers instead!</p>
+                    </html>
+                `)
+                response.end()
             }
         })
 
