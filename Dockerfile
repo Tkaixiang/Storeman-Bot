@@ -22,5 +22,7 @@ COPY --from=npm /app/node_modules ./node_modules
 COPY . .
 RUN npx tsc
 
+ENV NODE_ENV=development
+
 EXPOSE 8090
 CMD ["node", "index.js"]
