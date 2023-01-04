@@ -510,8 +510,10 @@ const main = async (): Promise<void> => {
                         await stockpilerUpdateStockpile(client, JSON.parse(body), response)
                     }
                     catch (e) {
-                        console.error(e)
-                    }
+                        console.error(e);
+			response.writeHead(403, { 'Content-Type': 'application/json' })
+        response.end(JSON.stringify({ success: false, error: "invalid-json" }))
+             	}
 
                 })
             }
