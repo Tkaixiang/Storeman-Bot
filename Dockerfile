@@ -22,5 +22,5 @@ COPY --from=npm /app/node_modules ./node_modules
 COPY . .
 RUN npx tsc
 
-EXPOSE 8090
+EXPOSE 80
 CMD ["node", "index.js"]
