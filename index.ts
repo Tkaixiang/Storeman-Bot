@@ -40,7 +40,6 @@ import sprefresh from './Commands/sprefresh'
 import spuser from './Commands/spuser'
 
 require('dotenv').config()
-const port = process.env.NODE_ENV === "development" ? 8090 : 80
 const host = '0.0.0.0'
 const currentVersion = 21
 const commandMapping: any = {
@@ -528,8 +527,8 @@ const main = async (): Promise<void> => {
             }
         })
 
-        server.listen(port, host)
-        console.log(`HTTP server now listening at http://${host}:${port}`)
+        server.listen(parseInt(process.env.APP_PORT!), host)
+        console.log(`HTTP server now listening at http://${host}:${process.env.APP_PORT}`)
 
         // This is called once client(the bot) is ready
         client.once('ready', async () => {
