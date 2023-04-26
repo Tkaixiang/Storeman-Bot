@@ -148,7 +148,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                     else {
                         const percentage = stockpileGroupTotals[target] / stockpileGroupTargets[target].min
                         if (percentage >= 0.75) icon = "🟡"
-                        else if (percentage >= 0.5) icon = "🟠"
+                        else if (percentage >= 0.5) icon = "🔴"
                     }
 
                     const currentMsg = `${target in stockpileGroupTotals ? stockpileGroupTotals[target] : "0"}/${stockpileGroupTargets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${stockpileGroupTargets[target].max === 0 ? "∞" : stockpileGroupTargets[target].max}) ${"prodLocation" in stockpileGroupTargets[target] && typeof stockpileGroupTargets[target].prodLocation === 'string' ? "[" + stockpileGroupTargets[target].prodLocation + "]" : ""}\n`
@@ -196,7 +196,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                     else {
                         const percentage = totals[target] / targets[target].min
                         if (percentage >= 0.75) icon = "🟡"
-                        else if (percentage >= 0.5) icon = "🟠"
+                        else if (percentage >= 0.5) icon = "🔴"
                     }
 
                     const currentMsg = `${target in totals ? totals[target] : "0"}/${targets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${targets[target].max === 0 ? "∞" : targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
