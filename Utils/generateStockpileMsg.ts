@@ -144,12 +144,19 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                 for (const target in stockpileGroups[stockpileGroup].targets) {
                     const currentCat = itemListCategoryMapping[target]
                     let icon = "❌"
-                    if (stockpileGroupTotals[target] >= stockpileGroupTargets[target].min) icon = "✅"
-                    else {
-                        const percentage = stockpileGroupTotals[target] / stockpileGroupTargets[target].min
-                        if (percentage >= 0.75) icon = "🟡"
-                        else if (percentage >= 0.5) icon = "🔴"
+
+                    if ("max" in stockpileGroupTargets[target] && stockpileGroupTotals[target] > stockpileGroupTargets[target].max) {
+                      icon = "🟢"  
                     }
+                    else {
+                        if (stockpileGroupTotals[target] >= stockpileGroupTargets[target].min) icon = "✅"
+                        else {
+                            const percentage = stockpileGroupTotals[target] / stockpileGroupTargets[target].min
+                            if (percentage >= 0.75) icon = "🟡"
+                            else if (percentage >= 0.5) icon = "🔴"
+                        }
+                    }
+                    
 
                     const currentMsg = `${target in stockpileGroupTotals ? stockpileGroupTotals[target] : "0"}/${stockpileGroupTargets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${stockpileGroupTargets[target].max === 0 ? "∞" : stockpileGroupTargets[target].max}) ${"prodLocation" in stockpileGroupTargets[target] && typeof stockpileGroupTargets[target].prodLocation === 'string' ? "[" + stockpileGroupTargets[target].prodLocation + "]" : ""}\n`
 
@@ -191,14 +198,19 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
             for (const target in targets) {
                 if (target !== "_id") {
                     const currentCat = itemListCategoryMapping[target]
+                    
                     let icon = "❌"
-                    if (totals[target] >= targets[target].min) icon = "✅"
-                    else {
-                        const percentage = totals[target] / targets[target].min
-                        if (percentage >= 0.75) icon = "🟡"
-                        else if (percentage >= 0.5) icon = "🔴"
-                    }
 
+                    if ("max" in targets[target] && totals[target] >= targets[target].max) icon = "🟢"
+                    else {
+                        if (totals[target] >= targets[target].min) icon = "✅"
+                        else {
+                            const percentage = totals[target] / targets[target].min
+                            if (percentage >= 0.75) icon = "🟡"
+                            else if (percentage >= 0.5) icon = "🔴"
+                        }
+                    }
+                   
                     const currentMsg = `${target in totals ? totals[target] : "0"}/${targets[target].min} ${icon} - \`${lowerToOriginal[target]}\` (Max: ${targets[target].max === 0 ? "∞" : targets[target].max}) ${"prodLocation" in targets[target] && typeof targets[target].prodLocation === 'string' ? "[" + targets[target].prodLocation + "]" : ""}\n`
 
                     if (currentCat in sortedTargets) sortedTargets[currentCat].push(currentMsg)
