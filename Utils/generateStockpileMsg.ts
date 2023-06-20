@@ -145,7 +145,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                     const currentCat = itemListCategoryMapping[target]
                     let icon = "❌"
 
-                    if ("max" in stockpileGroupTargets[target] && stockpileGroupTotals[target] > stockpileGroupTargets[target].max) {
+                    if ("max" in stockpileGroupTargets[target] && stockpileGroupTargets[target].max != 0 && stockpileGroupTotals[target] > stockpileGroupTargets[target].max) {
                       icon = "🟢"  
                     }
                     else {
