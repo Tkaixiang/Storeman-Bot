@@ -201,7 +201,7 @@ const generateMsg = async (updateMsg: boolean, guildID: string | null): Promise<
                     
                     let icon = "❌"
 
-                    if ("max" in targets[target] && totals[target] >= targets[target].max) icon = "🟢"
+                    if ("max" in targets[target] && targets[target].max != 0 && totals[target] >= targets[target].max) icon = "🟢"
                     else {
                         if (totals[target] >= targets[target].min) icon = "✅"
                         else {
