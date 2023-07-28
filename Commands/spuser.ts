@@ -30,19 +30,29 @@ const spuser = async (interaction: ChatInputCommandInteraction, client: Client):
 
         const realSettingName = perms === 'user' ? 'individualUserPerms' : 'individualAdminPerms'
 
-        if (perms === "admin" && "individualAdminPerms" in configObj) {
+        if ("individualAdminPerms" in configObj) {
             for (let i = 0; i < configObj.individualAdminPerms.length; i++) {
                 if (configObj.individualAdminPerms[i] === userObj.id) {
-                    await interaction.editReply({content: "Error: The user `" + userObj.username + "` already has `" + perms + "`"})
+                    if (perms === "admin") {
+		    await interaction.editReply({content: "Error: The user `" + userObj.username + "` already has `" + perms + "`"})
                     return false
+		    }
+		    else {
+		      delete configObj.individualAdminPerms[i]
+		    }
                 }
             }
         }
-        else if (perms === "user" && "individualUserPerms" in configObj) {
+        else if ("individualUserPerms" in configObj) {
             for (let i = 0; i < configObj.individualUserPerms.length; i++) {
                 if (configObj.individualUserPerms[i] === userObj.id) {
-                    await interaction.editReply({content: "Error: The user `" + userObj.username + "` already has `" + perms + "`"})
+if (perms === "user") {                    
+await interaction.editReply({content: "Error: The user `" + userObj.username + "` already has `" + perms + "`"})
                     return false
+}
+else {
+	delete configObj.individualUserPerms[i]
+}
                 }
             }
         }
