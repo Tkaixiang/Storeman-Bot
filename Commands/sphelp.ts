@@ -199,14 +199,14 @@ const sphelp = async (interaction: ChatInputCommandInteraction): Promise<boolean
         embeds: [{
             title: `Storeman Bot Help Menu`,
             description: `
-            Version 0.8.2 23/10/2022
+            Version 0.9 28/7/2023
             Your GuildID is: **__\`${interaction.guildId}\`__** (this is the vale you should be inputting into Stockpiler to send scanned data!)
             
             👨‍⚖️ - Commands that require at least \`Admin\` permissions
             🙍‍♂️ - Commands that require at least \`User\` permissions
             ❓ - Denotes an **optional** parameter
             
-            Currently in alpha testing, contact Tkai#8276 for help.`
+            Currently in beta testing, contact Tkai#8276 for help.`
         }],
         ephemeral: true
     })

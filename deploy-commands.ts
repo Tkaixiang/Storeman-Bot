@@ -274,7 +274,7 @@ const commands = [
 ].map(command => command.toJSON())
 
 
-const rest = new REST({ version: '10' }).setToken(<string>process.env.STOCKPILER_TOKEN);
+const rest = new REST({ version: '11' }).setToken(<string>process.env.STOCKPILER_TOKEN);
 
 
 const insertCommands = async (guild_id?: string) => {
