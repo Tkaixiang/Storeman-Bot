@@ -13,17 +13,17 @@ const checkPermissions = async (interaction: ChatInputCommandInteraction | Butto
     }
 
     if (member.permissions.has(PermissionsBitField.Flags.Administrator)|| member.id === member.guild.ownerId) permsLevel = 2
-    if (permsLevel === 0 && "user" in permsInfo) {
+    if (permsLevel < 1 && "user" in permsInfo) {
         for (let i = 0; i < permsInfo.user.length; i++) {
             if (member.roles.cache.has(permsInfo.user[i])) permsLevel = 1
         }
     }
     
-    if (permsLevel === 0 && "individualUserPerms" in permsInfo) {
+    if (permsLevel < 1 && "individualUserPerms" in permsInfo) {
         if (permsInfo.individualUserPerms.includes(member.id)) permsLevel = 1
     }
 
-    if (permsLevel === 0 && "individualAdminPerms" in permsInfo) {
+    if (permsLevel < 2 && "individualAdminPerms" in permsInfo) {
         if (permsInfo.individualAdminPerms.includes(member.id)) permsLevel = 2
     }
 
