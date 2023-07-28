@@ -38,6 +38,7 @@ import spdisabletime from './Commands/spdisabletime'
 import spgroup from './Commands/spgroup'
 import sprefresh from './Commands/sprefresh'
 import spuser from './Commands/spuser'
+import autoCompleteHandler from './Utils/autoCompleteHandler'
 
 require('dotenv').config()
 const host = '0.0.0.0'
@@ -365,6 +366,9 @@ const main = async (): Promise<void> => {
             }
             else if (interaction.isButton()) {
                 await buttonHandler(interaction)
+            }
+            else if (interaction.isAutocomplete()) {
+                await autoCompleteHandler(interaction)
             }
         }
         catch (e) {

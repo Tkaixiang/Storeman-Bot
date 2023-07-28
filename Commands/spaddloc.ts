@@ -42,7 +42,7 @@ const spaddloc = async (interaction: ChatInputCommandInteraction, client: Client
             locationObj[stockpileExist.name] = cleanedLocation
             await collections.config.updateOne({}, { $set: { stockpileLocations: locationObj } })
         }
-        await interaction.editReply({ content: "Added the code `" + locationMappings[cleanedLocation] + "` to stockpile `" + stockpileExist.name + "` successfully." })
+        await interaction.editReply({ content: "Added the location `" + locationMappings[cleanedLocation] + "` to stockpile `" + stockpileExist.name + "` successfully." })
 
         const [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll] = await generateStockpileMsg(true, interaction.guildId)
         await updateStockpileMsg(client, interaction.guildId, [stockpileHeader, stockpileMsgs, targetMsg, stockpileMsgsHeader, refreshAll])

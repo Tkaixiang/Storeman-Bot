@@ -1,769 +1,734 @@
 Hex,Loc,Major,X,Y,Code,Translation
-Allods Bight,Allod's Children,0,47.005857456860326,-32.910389280000004,ABAC,Allods Bight - Allod's Children
-Allods Bight,Blunder Bight,0,71.10404066118886,-22.59145836,ABBB,Allods Bight - Blunder Bight
-Allods Bight,Breath of Cetus,0,71.28883246902807,-41.0807268,ABBC,Allods Bight - Breath of Cetus
-Allods Bight,Belaying Trace,1,52.596667632684174,-38.2144932,ABBT,Allods Bight - Belaying Trace
-Allods Bight,A Captain's Repose,0,67.01572871961298,-48.081294,ABCR,Allods Bight - A Captain's Repose
-Allods Bight,Gangrenous Hollow,0,55.14212136922225,-44.5134204,ABGH,Allods Bight - Gangrenous Hollow
-Allods Bight,Harpy's Perch,0,63.236187119913296,-32.3934192,ABHP,Allods Bight - Harpy's Perch
-Allods Bight,Homesick,1,57.03433976470929,-31.775641919999998,ABHS,Allods Bight - Homesick
-Allods Bight,The List,0,51.776559727192776,-47.07345492,ABLI,Allods Bight - The List
-Allods Bight,Mercy's Wail,1,63.6532789493464,-38.5330572,ABMW,Allods Bight - Mercy's Wail
-Allods Bight,Rumhold,1,53.024677617587884,-26.770996079999996,ABRH,Allods Bight - Rumhold
-Allods Bight,The Rumroad,0,50.17779466331639,-28.23259212,ABRR,Allods Bight - The Rumroad
-Allods Bight,The Stone Plank,1,73.34623031465003,-34.058904479999995,ABSP,Allods Bight - The Stone Plank
-Allods Bight,Scurvyshire,1,57.844716315943444,-25.55883252,ABSS,Allods Bight - Scurvyshire
-Allods Bight,The Turncoat,1,58.51554000940706,-44.30811024,ABTC,Allods Bight - The Turncoat
-Allods Bight,Titan's End,0,64.69357900990242,-21.925065816,ABTE,Allods Bight - Titan's End
-Allods Bight,Witch's Last Flight,0,68.051080795986,-27.7069338,ABWL,Allods Bight - Witch's Last Flight
-Acrithia,Astero's Spear,0,37.33523541343975,-78.71946948,ACAP,Acrithia - Astero's Spear
-Acrithia,The Brinehold,1,31.84099178131605,-90.049428,ACBH,Acrithia - The Brinehold
-Acrithia,Camp Omicron,1,40.876734619580134,-76.44629664,ACCO,Acrithia - Camp Omicron
-Acrithia,Duelling Kegs,0,24.61952380512183,-97.639371,ACDK,Acrithia - Duelling Kegs
-Acrithia,Fated Heel,0,35.62002415807831,-84.1702788,ACFH,Acrithia - Fated Heel
-Acrithia,Final March,0,44.74748615337046,-82.53030852,ACFM,Acrithia - Final March
-Acrithia,Heir Apparent,1,30.226552627579622,-75.389873904,ACHA,Acrithia - Heir Apparent
-Acrithia,Legion Ranch,1,42.49010128745652,-88.70107680000001,ACLR,Acrithia - Legion Ranch
-Acrithia,Nereid Keep,1,40.87761671841541,-94.85788176,ACNK,Acrithia - Nereid Keep
-Acrithia,Patridia,1,27.504568134170057,-93.947976,ACPA,Acrithia - Patridia
-Acrithia,Riverlands,0,31.910193307897273,-101.90793096,ACRL,Acrithia - Riverlands
-Acrithia,Swordfort,1,22.434262366219443,-82.56176784,ACSF,Acrithia - Swordfort
-Acrithia,Thetus Ring,1,29.02125144883982,-83.64756456,ACTR,Acrithia - Thetus Ring
-Acrithia,Weary Slumber,0,24.242017511921475,-77.35676688,ACWS,Acrithia - Weary Slumber
-Ash Fields,The Ashfort,1,-50.93809729243122,-69.17775624000001,AFAF,Ash Fields - The Ashfort
-Ash Fields,Ashtown,1,-60.97406455392205,-73.8905544,AFAS,Ash Fields - Ashtown
-Ash Fields,Mount Blackmoth,0,-57.52680650934961,-62.0433144,AFBL,Ash Fields - Mount Blackmoth
-Ash Fields,Mount Brimstone,0,-64.95285615165406,-83.0504772,AFBR,Ash Fields - Mount Brimstone
-Ash Fields,The Calamity,1,-71.2667346315526,-70.11416664000001,AFCA,Ash Fields - The Calamity
-Ash Fields,Cometa,1,-70.78116000734138,-62.0810946,AFCO,Ash Fields - Cometa
-Ash Fields,Electi,1,-63.17794484618548,-58.807368,AFEL,Ash Fields - Electi
-Ash Fields,Gunslinger's Pass,0,-65.52633678839948,-87.06782412,AFGP,Ash Fields - Gunslinger's Pass
-Ash Fields,Camp Omega,1,-52.85228709882243,-58.57632612,AFOM,Ash Fields - Camp Omega
-Ash Fields,Omega Valley,0,-50.89057203529657,-65.07514259999999,AFOV,Ash Fields - Omega Valley
-Ash Fields,The Red River,0,-60.80370848889752,-66.49824960000001,AFRR,Ash Fields - The Red River
-Ash Fields,Sootflow,1,-52.56384493660824,-79.96287132,AFSF,Ash Fields - Sootflow
-Ash Fields,The Stillness,0,-66.655382144029,-69.02563068,AFST,Ash Fields - The Stillness
-Ash Fields,Tar Creek,0,-71.5824358093763,-75.490614,AFTC,Ash Fields - Tar Creek
-Ash Fields,Twin Flames,0,-49.38608762374655,-75.5112384,AFTF,Ash Fields - Twin Flames
-Ash Fields,Wasteful Calm,0,-63.40258241357077,-77.8421016,AFWC,Ash Fields - Wasteful Calm
-Basin Sionnach,Basinhome,1,-5.3060030059263035,97.71100919999999,BSBH,Basin Sionnach - Basinhome
-Basin Sionnach,Basin Sionnach,0,-4.544215883842975,112.75056000000001,BSBS,Basin Sionnach - Basin Sionnach
-Basin Sionnach,Cunning Cross,0,8.833696299070034,118.00978667999999,BSCC,Basin Sionnach - Cunning Cross
-Basin Sionnach,Cuttail Station,1,5.629539622055635,114.46341659999999,BSCS,Basin Sionnach - Cuttail Station
-Basin Sionnach,The Den,1,-3.064700023914547,107.574642,BSDE,Basin Sionnach - The Den
-Basin Sionnach,The Foxfields,0,-3.3858280633285283,119.23725096000001,BSFF,Basin Sionnach - The Foxfields
-Basin Sionnach,Lamplight,1,9.329977491425193,105.1425108,BSLL,Basin Sionnach - Lamplight
-Basin Sionnach,Radiant Shore,0,-10.080613614265019,102.18773664,BSRS,Basin Sionnach - Radiant Shore
-Basin Sionnach,Sess,1,-10.692050273843428,111.17541671999999,BSSE,Basin Sionnach - Sess
-Basin Sionnach,Stoic,1,15.567823374921517,110.5202142,BSST,Basin Sionnach - Stoic
-Basin Sionnach,Torchwood,0,10.448906146133801,99.6054552,BSTW,Basin Sionnach - Torchwood
-Callums Cape,Camp Hollow,1,-51.12297722701551,79.8125184,CCCH,Callums Cape - Camp Hollow
-Callums Cape,Callum's Keep,1,-65.783240799561,81.53333424,CCCK,Callums Cape - Callum's Keep
-Callums Cape,The Dreg,0,-60.31267915171904,81.28638756000001,CCDR,Callums Cape - The Dreg
-Callums Cape,The Gunwall,0,-64.11032082092188,76.4397324,CCGW,Callums Cape - The Gunwall
-Callums Cape,Hollowhill,0,-56.68784571579205,84.17356668,CCHH,Callums Cape - Hollowhill
-Callums Cape,Holdout,1,-52.846403807203345,69.4670292,CCHO,Callums Cape - Holdout
-Callums Cape,Ire,1,-62.42349178147765,59.417046,CCIR,Callums Cape - Ire
-Callums Cape,Lookout,1,-51.105551410250726,61.943533200000005,CCLO,Callums Cape - Lookout
-Callums Cape,Naofa,1,-76.25696270236298,71.865756,CCNA,Callums Cape - Naofa
-Callums Cape,Princefal Burn,0,-74.11964055002029,70.31336256,CCPB,Callums Cape - Princefal Burn
-Callums Cape,The River Vein,0,-59.32680109748529,72.02908368,CCRV,Callums Cape - The River Vein
-Callums Cape,Scouts Jest,1,-72.48683777792982,63.2249856,CCSJ,Callums Cape - Scouts Jest
-Callums Cape,Trail of the Dead,0,-64.80019028362959,67.552416,CCTD,Callums Cape - Trail of the Dead
-Callums Cape,Valta Downs,0,-55.349717163285476,60.082628400000004,CCVD,Callums Cape - Valta Downs
-Callums Cape,Vex,0,-66.57693437598071,58.566621600000005,CCVX,Callums Cape - Vex
-Callahans Passage,Chapel Access,0,16.04082497303856,35.16527304,CPCA,Callahans Passage - Chapel Access
-Callahans Passage,Callahan's Eye,0,-7.169937288853866,44.559239039999994,CPCE,Callahans Passage - Callahan's Eye
-Callahans Passage,Cragsfield,0,3.6543864769802674,46.83652452,CPCF,Callahans Passage - Cragsfield
-Callahans Passage,Cragsroad,0,-1.4574444469794585,41.28816708,CPCG,Callahans Passage - Cragsroad
-Callahans Passage,Crumbling Post,1,-5.290359677288601,27.9042552,CPCP,Callahans Passage - Crumbling Post
-Callahans Passage,The Crumbling Passage,1,-1.067441615048594,25.7499144,CPCR,Callahans Passage - The Crumbling Passage
-Callahans Passage,Cragstown,1,1.478435296142795,48.968328240000005,CPCT,Callahans Passage - Cragstown
-Callahans Passage,The Key,0,9.953519939071928,20.291526000000005,CPKE,Callahans Passage - The Key
-Callahans Passage,The Latch,1,10.226523708899965,29.4072138,CPLA,Callahans Passage - The Latch
-Callahans Passage,Lochan Berth,1,3.391005981439079,38.74511952,CPLB,Callahans Passage - Lochan Berth
-Callahans Passage,Lingering Lashes,0,-3.538351348930526,48.12507216,CPLL,Callahans Passage - Lingering Lashes
-Callahans Passage,The Lance,0,-4.001705978305674,51.31016208,CPLN,Callahans Passage - The Lance
-Callahans Passage,Lochan,0,2.838497015871713,35.7154812,CPLO,Callahans Passage - Lochan
-Callahans Passage,Lost Tops,0,-9.811725197155766,22.641176520000002,CPLT,Callahans Passage - Lost Tops
-Callahans Passage,Overlook Hill,1,1.8334094096695104,30.666553200000003,CPOH,Callahans Passage - Overlook Hill
-Callahans Passage,The Procession,1,11.234645868117031,38.18532132,CPPR,Callahans Passage - The Procession
-Callahans Passage,The Rust Road,0,-11.586642322315068,28.837665,CPRR,Callahans Passage - The Rust Road
-Callahans Passage,Sioc Approach,0,5.8488712942790535,29.803695840000003,CPSA,Callahans Passage - Sioc Approach
-Callahans Passage,Soured Fields,0,-16.21694704833915,34.842348,CPSF,Callahans Passage - Soured Fields
-Callahans Passage,Solas Gateway,0,-10.338541059607717,38.76493464,CPSG,Callahans Passage - Solas Gateway
-Callahans Passage,Solas Gorge,1,-11.932683626288863,42.09370308,CPSO,Callahans Passage - Solas Gorge
-Callahans Passage,Scath Passing,1,-5.488204220013641,34.85364948,CPSP,Callahans Passage - Scath Passing
-Callahans Passage,The Stern,0,12.453513577294231,25.7393844,CPST,Callahans Passage - The Stern
-Callahans Passage,Twisted Mumble,0,8.076075244153138,47.803653,CPTM,Callahans Passage - Twisted Mumble
-Callahans Passage,White Chapel,1,11.736764625949956,44.388453600000005,CPWC,Callahans Passage - White Chapel
-Callahans Passage,Whispering Gulch,0,0.6246829272526568,16.382509199999994,CPWG,Callahans Passage - Whispering Gulch
-Callahans Passage,Winding Crag,0,1.6336298197822572,45.16201872,CPWI,Callahans Passage - Winding Crag
-Clanshead Valley,The Bastard's Channel,0,64.60943210187692,71.2696302,CVBC,Clanshead Valley - The Bastard's Channel
-Clanshead Valley,Bramble Field,0,58.64129895311018,70.6007088,CVBF,Clanshead Valley - Bramble Field
-Clanshead Valley,Fort Ealar,1,57.727707277227964,64.24678296,CVEA,Clanshead Valley - Fort Ealar
-Clanshead Valley,Fort Esterwild,1,72.10176012325567,68.9082264,CVES,Clanshead Valley - Fort Esterwild
-Clanshead Valley,Fallen Crown,1,54.35566249974373,74.3132142,CVFC,Clanshead Valley - Fallen Crown
-Clanshead Valley,The King,1,65.58627550197025,76.1720724,CVKI,Clanshead Valley - The King
-Clanshead Valley,Lost Orphans,0,53.24422960667401,67.8651012,CVLO,Clanshead Valley - Lost Orphans
-Clanshead Valley,The Pike,1,66.84365875567333,59.5281456,CVPI,Clanshead Valley - The Pike
-Clanshead Valley,Sweetholt,1,74.75938839829514,77.5447686,CVSH,Clanshead Valley - Sweetholt
-Clanshead Valley,Throne of Druiminn,0,68.75958657112689,83.70253692,CVTD,Clanshead Valley - Throne of Druiminn
-Clanshead Valley,Tallowild,0,55.17175481864285,81.543132,CVTW,Clanshead Valley - Tallowild
-Clanshead Valley,The Weathered Advance,0,57.379649866114164,59.13219960000001,CVWA,Clanshead Valley - The Weathered Advance
-Clanshead Valley,Fort Windham,1,59.24226973032488,84.95159616,CVWI,Clanshead Valley - Fort Windham
-DeadLands,The Abbey Drag,0,11.341773903385487,13.35581208,DLAD,DeadLands - The Abbey Drag
-DeadLands,Abandoned Ward,1,-3.0983835623794995,0.09549360000000107,DLAW,DeadLands - Abandoned Ward
-DeadLands,Border Concourse,0,13.909492113824385,3.9540258,DLBC,DeadLands - Border Concourse
-DeadLands,The Blade,0,3.8767028191552875,4.253429880000002,DLBD,DeadLands - The Blade
-DeadLands,Brine Glen,1,10.163359280049544,-7.9928712,DLBG,DeadLands - Brine Glen
-DeadLands,Callahan's Belt,0,7.373653539960937,6.818354639999999,DLBL,DeadLands - Callahan's Belt
-DeadLands,Border Thicket,0,3.9177648940604826,6.319059119999999,DLBO,DeadLands - Border Thicket
-DeadLands,Biting Tarn,0,14.164574977484797,-7.393566959999999,DLBT,DeadLands - Biting Tarn
-DeadLands,The Boneyard,0,4.708290895963316,8.221023360000004,DLBY,DeadLands - The Boneyard
-DeadLands,Callahan's Boot,1,2.761999259904627,0.3320243999999981,DLCB,DeadLands - Callahan's Boot
-DeadLands,Coracoid Footpath,0,-15.544028515634011,3.5920915200000003,DLCF,DeadLands - Coracoid Footpath
-DeadLands,Callahan's Gate,1,5.9738146498979035,14.027995260000004,DLCG,DeadLands - Callahan's Gate
-DeadLands,Cemetary Junction,0,-6.5177802533535765,-2.8581552000000023,DLCJ,DeadLands - Cemetary Junction
-DeadLands,Cemetary Lane,0,-4.100753788710726,-5.708264399999997,DLCL,DeadLands - Cemetary Lane
-DeadLands,Crumbling Passage,0,-2.6591153857906633,14.585618736,DLCP,DeadLands - Crumbling Passage
-DeadLands,The Crossing,0,-2.6387809707457386,1.9218383999999986,DLCR,DeadLands - The Crossing
-DeadLands,Carpal Trail,0,-7.885808298284802,2.9088720000000023,DLCT,DeadLands - Carpal Trail
-DeadLands,The Great March,0,-5.1878084130740625,-13.732199999999999,DLGM,DeadLands - The Great March
-DeadLands,Hope's Causeway,0,1.961154530674687,-2.860479360000001,DLHC,DeadLands - Hope's Causeway
-DeadLands,Iron's End,1,-0.8279538597314016,8.56532232,DLIE,DeadLands - Iron's End
-DeadLands,The Iron Passage,0,0.002972435104073412,6.644029320000001,DLIP,DeadLands - The Iron Passage
-DeadLands,The Iron Road,0,1.9408841322276125,13.232859480000002,DLIR,DeadLands - The Iron Road
-DeadLands,Jaspar Range,0,-8.024908882948464,-5.875797600000002,DLJR,DeadLands - Jaspar Range
-DeadLands,Liberation Point,1,-9.900272207052819,-1.8637451999999968,DLLP,DeadLands - Liberation Point
-DeadLands,Marrow Copse,0,-5.368280347635121,6.729152400000004,DLMA,DeadLands - Marrow Copse
-DeadLands,Mandible Crossroads,0,-11.631994340660452,5.9160337200000015,DLMC,DeadLands - Mandible Crossroads
-DeadLands,Mercy's End,0,5.8941484880295505,-11.903597999999999,DLME,DeadLands - Mercy's End
-DeadLands,Mercy Meadow,0,-14.71531636369968,-1.509798240000002,DLMM,DeadLands - Mercy Meadow
-DeadLands,Overgrown Pasture,0,-13.368858171013402,-5.163375600000002,DLOP,DeadLands - Overgrown Pasture
-DeadLands,Pommel Annex,0,0.3096842692364987,3.8396026799999987,DLPA,DeadLands - Pommel Annex
-DeadLands,The Pits,1,-0.6653496227371605,-4.6720728000000005,DLPI,DeadLands - The Pits
-DeadLands,The Plaza,0,-2.1418026625815507,3.5625700800000004,DLPL,DeadLands - The Plaza
-DeadLands,Path to the Sun,0,-8.653773022060438,-14.154807599999998,DLPS,DeadLands - Path to the Sun
-DeadLands,The Steppes,0,7.762511971282226,-0.9787788000000006,DLSE,DeadLands - The Steppes
-DeadLands,The Salt Farms,1,-1.0040930345563126,-12.154082399999998,DLSF,DeadLands - The Salt Farms
-DeadLands,Sunhaven Gateway,0,-3.903369001552047,-2.1792326399999986,DLSG,DeadLands - Sunhaven Gateway
-DeadLands,The Shorn Fields,0,-1.0638292498843285,-14.901175440000001,DLSH,DeadLands - The Shorn Fields
-DeadLands,The Salt March,1,14.207062876614785,0.6507532799999964,DLSM,DeadLands - The Salt March
-DeadLands,The Spine,1,-7.239335853534955,9.510184079999998,DLSP,DeadLands - The Spine
-DeadLands,The Salt Trail,0,-3.207018481850543,-8.824215599999999,DLST,DeadLands - The Salt Trail
-DeadLands,Sun's Hollow,1,-8.636960766973722,-7.975360800000001,DLSU,DeadLands - Sun's Hollow
-DeadLands,Tarsal Pathway,0,-11.474217537113,3.028682879999998,DLTP,DeadLands - Tarsal Pathway
-The Drowned Vale,The Baths,1,34.803270888591015,-18.93853944,DVBA,The Drowned Vale - The Baths
-The Drowned Vale,Bootnap,1,44.782354830279985,-20.098062000000002,DVBN,The Drowned Vale - Bootnap
-The Drowned Vale,Coaldrifter Stead,1,38.708958857118446,-29.6224794,DVCS,The Drowned Vale - Coaldrifter Stead
-The Drowned Vale,Esterfal,0,43.883721837992255,-25.0401096,DVEF,The Drowned Vale - Esterfal
-The Drowned Vale,Eastmarch,1,20.885318427464163,-19.0011492,DVEM,The Drowned Vale - Eastmarch
-The Drowned Vale,Fleetsfall River,0,31.37822327793419,-3.00673836,DVFR,The Drowned Vale - Fleetsfall River
-The Drowned Vale,Loggerhead,1,28.429740994572,-7.486110720000003,DVLH,The Drowned Vale - Loggerhead
-The Drowned Vale,Linger,0,31.31368872761295,-12.411453599999998,DVLI,The Drowned Vale - Linger
-The Drowned Vale,The Other Vein,0,16.202837472194908,-21.6040176,DVOV,The Drowned Vale - The Other Vein
-The Drowned Vale,The Saltcaps,1,37.49057792350021,-6.094413360000001,DVSC,The Drowned Vale - The Saltcaps
-The Drowned Vale,Sop Fields,0,32.78819258676053,-24.2352612,DVSF,The Drowned Vale - Sop Fields
-The Drowned Vale,Sprite's Game,0,24.746588853697915,-15.585739199999999,DVSG,The Drowned Vale - Sprite's Game
-The Drowned Vale,Splinter Pens,1,30.795571640008802,-28.831147200000004,DVSP,The Drowned Vale - Splinter Pens
-The Drowned Vale,Singing Serpents,1,38.74589934392196,-11.25898848,DVSS,The Drowned Vale - Singing Serpents
-The Drowned Vale,The Turtlerocks,0,35.26330081180001,-12.904220159999998,DVTR,The Drowned Vale - The Turtlerocks
-The Drowned Vale,Vessel,1,26.28784747517392,-25.740792000000003,DVVE,The Drowned Vale - Vessel
-The Drowned Vale,The Wash,1,27.0359101037862,-18.438681600000002,DVWA,The Drowned Vale - The Wash
-The Drowned Vale,Wisp's Warning,1,24.928691133043124,-10.576484280000003,DVWI,The Drowned Vale - Wisp's Warning
-The Drowned Vale,The Willow Wood,0,23.954782935530325,-30.1490748,DVWW,The Drowned Vale - The Willow Wood
-Endless Shore,Balor's Crown,0,76.83673531229837,5.957381520000002,ESBC,Endless Shore - Balor's Crown
-Endless Shore,Battered Landing,0,55.05393642722602,-1.804066559999999,ESBL,Endless Shore - Battered Landing
-Endless Shore,Brackish Point,1,54.949283007587354,12.428110440000001,ESBP,Endless Shore - Brackish Point
-Endless Shore,The Dark Road,0,77.14470503100928,0.17902547999999996,ESDA,Endless Shore - The Dark Road
-Endless Shore,The Dannan Coast,0,70.40233394757003,8.8242336,ESDC,Endless Shore - The Dannan Coast
-Endless Shore,Dearg's Fang,0,67.07629673502082,4.80811392,ESDF,Endless Shore - Dearg's Fang
-Endless Shore,Dannan Ridge,1,73.48382027388136,9.934857000000001,ESDR,Endless Shore - Dannan Ridge
-Endless Shore,The Evil Eye,1,73.27899002383924,1.4640397199999988,ESEE,Endless Shore - The Evil Eye
-Endless Shore,Enduring Wake,1,50.90953555363066,-4.0407047999999985,ESEW,Endless Shore - Enduring Wake
-Endless Shore,Iron Junction,1,57.29907167557258,-10.643979600000002,ESIJ,Endless Shore - Iron Junction
-Endless Shore,The Old Jack Tar,1,47.396006196751216,-0.2181945600000006,ESJT,Endless Shore - The Old Jack Tar
-Endless Shore,Kelpie's Mane,0,74.61307305991559,-4.867713719999999,ESKM,Endless Shore - Kelpie's Mane
-Endless Shore,Kelpie's Tail,0,72.25978135381308,-6.295296959999998,ESKT,Endless Shore - Kelpie's Tail
-Endless Shore,Liegehearth,0,54.9416093296895,1.7536391999999985,ESLH,Endless Shore - Liegehearth
-Endless Shore,Merrow's Rest,0,75.16546812582186,-9.75883572,ESMR,Endless Shore - Merrow's Rest
-Endless Shore,The North Star,0,54.92949314931633,8.5808502,ESNS,Endless Shore - The North Star
-Endless Shore,The Overland,1,66.25784910415152,-10.679762520000002,ESOL,Endless Shore - The Overland
-Endless Shore,The Selkie Bluffs,0,66.43175060789713,-1.4611557600000005,ESSB,Endless Shore - The Selkie Bluffs
-Endless Shore,Saltbrook Channel,1,54.98077044419237,4.2614733599999965,ESSC,Endless Shore - Saltbrook Channel
-Endless Shore,Sidhe Fall,0,62.48947840077628,7.30712376,ESSF,Endless Shore - Sidhe Fall
-Endless Shore,The Styx,0,61.67200141117954,-5.009936400000001,ESST,Endless Shore - The Styx
-Endless Shore,Tuatha Watchpost,1,77.85070002529952,-1.8266579999999983,ESTW,Endless Shore - Tuatha Watchpost
-Endless Shore,Vulpine Watch,1,68.47678992459691,12.687973200000002,ESVW,Endless Shore - Vulpine Watch
-Endless Shore,Woodbind,1,71.42367885978021,-8.412101999999999,ESWB,Endless Shore - Woodbind
-Endless Shore,Wellchurch,1,63.74658397209387,1.4596945199999993,ESWC,Endless Shore - Wellchurch
-Endless Shore,The Whispering Waves,0,69.82467892981431,-2.8841796000000013,ESWW,Endless Shore - The Whispering Waves
-Farranac Coast,Apollo's Landing,0,-64.41701436459778,-2.8715493599999977,FCAL,Farranac Coast - Apollo's Landing
-Farranac Coast,The Bay of Artemis,0,-67.72344878036319,-6.747606000000001,FCBA,Farranac Coast - The Bay of Artemis
-Farranac Coast,The Bone Haft,1,-61.60915409932862,10.670552280000003,FCBH,Farranac Coast - The Bone Haft
-Farranac Coast,Cormac Beach,0,-62.702462812747925,-10.205275319999998,FCCB,Farranac Coast - Cormac Beach
-Farranac Coast,Carrion Fields,0,-56.721310184470866,1.5172387200000017,FCCF,Farranac Coast - Carrion Fields
-Farranac Coast,Cora Lushlands,0,-59.66302375184114,-13.2160068,FCCL,Farranac Coast - Cora Lushlands
-Farranac Coast,Gulf of the Daughters,0,-81.65306228048019,-2.9987546400000014,FCGD,Farranac Coast - Gulf of the Daughters
-Farranac Coast,Huskhollow,1,-57.99044630356972,-2.26010664,FCHH,Farranac Coast - Huskhollow
-Farranac Coast,Hermes Inlet,0,-71.09900865103833,2.437380000000001,FCHI,Farranac Coast - Hermes Inlet
-Farranac Coast,The Heart Road,0,-54.65914476507801,-15.0092784,FCHR,Farranac Coast - The Heart Road
-Farranac Coast,The Iron Beach,0,-68.41575710917202,8.54577648,FCIB,Farranac Coast - The Iron Beach
-Farranac Coast,Iuxta Homestead,1,-52.726731428602086,10.963216079999999,FCIH,Farranac Coast - Iuxta Homestead
-Farranac Coast,The Jade Cove,1,-64.3850808902688,-5.364921599999999,FCJC,Farranac Coast - The Jade Cove
-Farranac Coast,Kardia,0,-56.327095559232255,-13.146484680000002,FCKR,Farranac Coast - Kardia
-Farranac Coast,Liberation Street,0,-47.789792187193626,-12.449674799999999,FCLS,Farranac Coast - Liberation Street
-Farranac Coast,Mooring Dens,0,-57.72903411056626,7.734417839999999,FCMD,Farranac Coast - Mooring Dens
-Farranac Coast,McCarthy Fields,0,-57.34992698672752,-10.1193048,FCMF,Farranac Coast - McCarthy Fields
-Farranac Coast,The Mirror,0,-48.0707668548381,3.199995359999999,FCMI,Farranac Coast - The Mirror
-Farranac Coast,Macha's Keening,1,-53.17013491113501,-10.168866000000001,FCMK,Farranac Coast - Macha's Keening
-Farranac Coast,Mara,1,-46.81336863621604,0.566102879999999,FCMR,Farranac Coast - Mara
-Farranac Coast,Pleading Wharf,1,-56.320016321171565,-7.8288854400000005,FCPW,Farranac Coast - Pleading Wharf
-Farranac Coast,The Reaping Fields,0,-55.29447873749454,-0.717136919999998,FCRF,Farranac Coast - The Reaping Fields
-Farranac Coast,The River Mercy,0,-58.420740101386244,-5.4773928000000005,FCRM,Farranac Coast - The River Mercy
-Farranac Coast,Scarp of Ambrose,1,-62.523673600187436,4.3437290399999995,FCSA,Farranac Coast - Scarp of Ambrose
-Farranac Coast,Sunder Beach,0,-67.54958843014478,2.8848996000000007,FCSB,Farranac Coast - Sunder Beach
-Farranac Coast,Scythe,1,-49.57420247498312,5.453923320000001,FCSC,Farranac Coast - Scythe
-Farranac Coast,The Spearhead,1,-71.78966335630017,10.7472852,FCSH,Farranac Coast - The Spearhead
-Farranac Coast,Sickle Hill,0,-62.98525405527938,2.0072246400000004,FCSI,Farranac Coast - Sickle Hill
-Farranac Coast,The Snag,0,-45.211160393898275,-10.333947599999998,FCSN,Farranac Coast - The Snag
-Farranac Coast,Skeleton Road,0,-57.66041039613444,5.255144999999999,FCSR,Farranac Coast - Skeleton Road
-Farranac Coast,Terra,1,-56.917266237559396,3.4144070400000004,FCTE,Farranac Coast - Terra
-Farranac Coast,Transient Valley,0,-56.310678211729666,11.74442328,FCTV,Farranac Coast - Transient Valley
-Farranac Coast,Victa,1,-63.99034373994255,-13.481067600000001,FCVC,Farranac Coast - Victa
-Farranac Coast,The Winged Walk,0,-49.17764708700113,-5.440179599999999,FCWW,Farranac Coast - The Winged Walk
-The Fingers,Fort Barley,1,100.85025074628255,-50.04704736,FIBA,The Fingers - Fort Barley
-The Fingers,Captain's Dread,0,109.46100692896857,-51.7955184,FICD,The Fingers - Captain's Dread
-The Fingers,Cementum,0,83.55311981393338,-48.0196548,FICE,The Fingers - Cementum
-The Fingers,Cavitatis,0,91.62301971462908,-58.031737199999995,FICV,The Fingers - Cavitatis
-The Fingers,Headsman's Villa,1,81.35771590119406,-51.976917,FIHV,The Fingers - Headsman's Villa
-The Fingers,Mount Talio,0,90.86158302106514,-51.4684764,FIMT,The Fingers - Mount Talio
-The Fingers,The Old Captain,1,108.10848586563546,-56.4294924,FIOC,The Fingers - The Old Captain
-The Fingers,Plankhouse,1,87.79180300262387,-58.3355664,FIPH,The Fingers - Plankhouse
-The Fingers,The Routed,1,94.15942715764533,-42.58090404,FIRO,The Fingers - The Routed
-The Fingers,Second Man,1,104.13128636900576,-41.26859388,FISM,The Fingers - Second Man
-The Fingers,Titancall,1,97.48821334267225,-66.80040120000001,FITC,The Fingers - Titancall
-The Fingers,Tears of Tethys,0,98.03141080309811,-55.1657916,FITT,The Fingers - Tears of Tethys
-The Fingers,The Tusk,1,85.63914721232787,-42.41227859999999,FITU,The Fingers - The Tusk
-The Fingers,The Wary Nymphae,0,103.10177684641684,-65.055645,FIWN,The Fingers - The Wary Nymphae
-Fishermans Row,Arcadia,1,-97.3516405260948,-26.31434148,FRAR,Fishermans Row - Arcadia
-Fishermans Row,Bident Crossroads,0,-95.46880846034415,-22.1695164,FRBC,Fishermans Row - Bident Crossroads
-Fishermans Row,Black Well,1,-97.38127896382173,-11.038161599999999,FRBW,Fishermans Row - Black Well
-Fishermans Row,Cat Step,0,-87.73053324264849,-1.1827247760000006,FRCS,Fishermans Row - Cat Step
-Fishermans Row,Dankana Post,0,-100.84505370633107,-22.9178232,FRDP,Fishermans Row - Dankana Post
-Fishermans Row,The Dire Strings,0,-78.51156118350175,-22.108604399999997,FRDS,Fishermans Row - The Dire Strings
-Fishermans Row,Eidolo,1,-94.26862029558829,-18.82872,FREI,Fishermans Row - Eidolo
-Fishermans Row,Fort Ember,1,-92.5705555118374,-25.389966599999997,FREM,Fishermans Row - Fort Ember
-Fishermans Row,Hangmen's Court,1,-81.34667131915216,-19.2981024,FRHC,Fishermans Row - Hangmen's Court
-Fishermans Row,Heart of Rites,0,-98.76060884811844,-16.87385952,FRHR,Fishermans Row - Heart of Rites
-Fishermans Row,Liberty Hill,0,-98.25901053691217,-12.882165119999996,FRLH,Fishermans Row - Liberty Hill
-Fishermans Row,Lake Nerites,0,-99.93774937488034,-19.54406412,FRLN,Fishermans Row - Lake Nerites
-Fishermans Row,A Lost Sot,0,-75.84596990879754,-17.76399984,FRLS,Fishermans Row - A Lost Sot
-Fishermans Row,Oceanwatch,1,-91.46705153167255,-12.0174588,FROW,Fishermans Row - Oceanwatch
-Fishermans Row,Partisan Island,1,-85.66521646073431,-7.263486360000002,FRPI,Fishermans Row - Partisan Island
-Fishermans Row,Peripti Landing,1,-101.30173938584083,-16.3449864,FRPL,Fishermans Row - Peripti Landing
-Fishermans Row,Progonos Watch,0,-92.73532592085363,-15.6656664,FRPW,Fishermans Row - Progonos Watch
-Fishermans Row,House Roloi,0,-102.7184158882144,-27.859508639999998,FRRO,Fishermans Row - House Roloi
-Fishermans Row,The Rite Road,0,-94.80752989103495,-13.862763360000002,FRRR,Fishermans Row - The Rite Road
-Fishermans Row,The Satyr Stone,1,-85.64045575520963,-23.181098400000003,FRSS,Fishermans Row - The Satyr Stone
-Fishermans Row,Torch of Demeter,0,-95.86982090002824,-24.547791599999996,FRTD,Fishermans Row - Torch of Demeter
-Fishermans Row,The Three Sisters,1,-85.05641030135837,-12.701001599999998,FRTS,Fishermans Row - The Three Sisters
-Godcrofts,Anchor Beach,1,87.61411953129893,2.913301800000003,GCAB,Godcrofts - Anchor Beach
-Godcrofts,Argosa,0,92.05132193114503,19.334829600000006,GCAR,Godcrofts - Argosa
-Godcrofts,The Axehead,1,83.58134323543254,24.011633880000005,GCAX,Godcrofts - The Axehead
-Godcrofts,Barreller's Bay,0,100.91611925285375,19.46343348,GCBB,Godcrofts - Barreller's Bay
-Godcrofts,Bagh Mor,0,92.55063684513067,5.815573199999999,GCBM,Godcrofts - Bagh Mor
-Godcrofts,Blackwatch,1,87.72693963977733,7.232083200000002,GCBW,Godcrofts - Blackwatch
-Godcrofts,Chamil Ravine,0,93.23257781062571,25.069905,GCCR,Godcrofts - Chamil Ravine
-Godcrofts,The Dice Road,0,96.93533482674458,23.932225439999996,GCDR,Godcrofts - The Dice Road
-Godcrofts,Den of Thieves,0,86.92417150276658,12.968502119999997,GCDT,Godcrofts - Den of Thieves
-Godcrofts,Exile,0,90.71396074642823,12.8945808,GCEX,Godcrofts - Exile
-Godcrofts,The Fleece Road,1,101.03038264462907,3.6659988000000006,GCFR,Godcrofts - The Fleece Road
-Godcrofts,Isawa,1,99.36037500549982,6.90773544,GCIS,Godcrofts - Isawa
-Godcrofts,The Kris Ford,0,98.29105838273883,9.860671439999997,GCKF,Godcrofts - The Kris Ford
-Godcrofts,Kolas,0,79.8823498964365,12.715230599999998,GCKO,Godcrofts - Kolas
-Godcrofts,Lipsia,0,92.60770099103684,28.29947724,GCLI,Godcrofts - Lipsia
-Godcrofts,Perpetua Channel,0,78.16811925896027,23.594833800000004,GCPC,Godcrofts - Perpetua Channel
-Godcrofts,Peripti Depths,0,84.36927822789131,8.945598240000002,GCPD,Godcrofts - Peripti Depths
-Godcrofts,Protos,1,80.61376031145669,17.889170399999998,GCPO,Godcrofts - Protos
-Godcrofts,Promithiens,1,96.04363932147945,13.086518400000003,GCPR,Godcrofts - Promithiens
-Godcrofts,Primus Trames,0,86.88136352064737,18.999699120000002,GCPT,Godcrofts - Primus Trames
-Godcrofts,Saegio,0,92.5211218679853,20.54855232,GCSA,Godcrofts - Saegio
-Godcrofts,Skodio,1,98.19460947992951,27.079988760000006,GCSK,Godcrofts - Skodio
-Godcrofts,Ursa Trail,0,97.96156827915404,2.1507174000000013,GCUT,Godcrofts - Ursa Trail
-Godcrofts,Vicit Lagoon,0,87.44652906643987,22.810628879999996,GCVL,Godcrofts - Vicit Lagoon
-Great March,The Black Wing,0,0.25227551450166175,-80.4725136,GMBW,Great March - The Black Wing
-Great March,Dendro Field,1,12.059844755906106,-70.6149342,GMDF,Great March - Dendro Field
-Great March,Dalton Meadow,0,-15.871849781337513,-77.0414292,GMDM,Great March - Dalton Meadow
-Great March,Eristown,0,12.471539653586895,-85.4204904,GMER,Great March - Eristown
-Great March,Fengari,0,5.353297194345572,-80.972073,GMFE,Great March - Fengari
-Great March,Fateless Grove,0,-1.14619574824372,-57.266933256,GMFG,Great March - Fateless Grove
-Great March,Halting Valley,0,12.778211996960906,-66.4662672,GMHV,Great March - Halting Valley
-Great March,Jackboot Creek,0,-9.628862201095874,-77.16447108,GMJC,Great March - Jackboot Creek
-Great March,Jack Field,0,-2.6830625816920453,-87.9459858,GMJF,Great March - Jack Field
-Great March,Leto,1,-9.774611782399631,-72.1470528,GMLE,Great March - Leto
-Great March,Lionsfort,1,8.919058691070259,-58.39778448,GMLF,Great March - Lionsfort
-Great March,Legacy Pasture,0,12.251952746356473,-82.0103904,GMLP,Great March - Legacy Pasture
-Great March,The Midmarch,0,-7.861490720638729,-54.92283192,GMMM,Great March - The Midmarch
-Great March,Mors Range,0,9.04690898220047,-80.02557936,GMMR,Great March - Mors Range
-Great March,Myrmidon's Stay,1,5.186054248160531,-62.27047548,GMMS,Great March - Myrmidon's Stay
-Great March,Milowood,0,12.172659460385972,-79.0915536,GMMW,Great March - Milowood
-Great March,Remnant Acreage,0,1.7568293466480505,-72.56405988,GMRA,Great March - Remnant Acreage
-Great March,The River Senti,0,-7.297437982849079,-67.62414887999999,GMRS,Great March - The River Senti
-Great March,Remnant Villa,1,2.909079471920794,-69.82095852,GMRV,Great March - Remnant Villa
-Great March,Serpent Charm,0,-8.320511758893337,-84.102408,GMSC,Great March - Serpent Charm
-Great March,Camp Senti,1,-4.429955817605206,-67.03866,GMSE,Great March - Camp Senti
-Great March,Sitaria,1,2.345700155485126,-76.2442092,GMSI,Great March - Sitaria
-Great March,Schala Estate,0,-6.054343316924056,-76.891644,GMSL,Great March - Schala Estate
-Great March,Scrabbling Motte,0,-11.858268072520604,-60.41183832,GMSM,Great March - Scrabbling Motte
-Great March,The Spice Road,0,-4.411032261866099,-69.7606128,GMSR,Great March - The Spice Road
-Great March,The Swan,1,-2.9650901976634536,-85.444686,GMSW,Great March - The Swan
-Great March,Violet Fields,0,-14.417379376086526,-65.82905352,GMVF,Great March - Violet Fields
-Great March,Violethome,1,-6.988720433881488,-60.92329068,GMVH,Great March - Violethome
-Great March,The White Wing,0,3.017184383844718,-84.18237228,GMWW,Great March - The White Wing
-Great March,Zealous Approach,0,-1.9523659101686448,-75.95400599999999,GMZA,Great March - Zealous Approach
-Howl County,Austriaca Reservoir,0,32.087641081748316,88.27785,HCAR,Howl County - Austriaca Reservoir
-Howl County,Coldbutt,1,42.421459900492025,93.17639932,HCCB,Howl County - Coldbutt
-Howl County,Checkpoint Titim,0,32.2109686418098,93.13733375999999,HCCT,Howl County - Checkpoint Titim
-Howl County,The Hunting Grounds,0,20.227320500948558,83.67061319999999,HCHG,Howl County - The Hunting Grounds
-Howl County,Hungry Wolf,1,18.51206227236922,91.43857692,HCHW,Howl County - Hungry Wolf
-Howl County,Little Lamb,1,35.60760618517243,78.6453894,HCLL,Howl County - Little Lamb
-Howl County,Fort Red,1,47.12227995389033,93.179745,HCRE,Howl County - Fort Red
-Howl County,Fort Rider,1,25.7842559198983,77.15692656,HCRI,Howl County - Fort Rider
-Howl County,Slipgate Outpost,1,27.967082649621503,94.11663708,HCSO,Howl County - Slipgate Outpost
-Howl County,Sickleshire,1,40.25949032436192,84.31553016,HCSS,Howl County - Sickleshire
-Howl County,Snakewall,0,27.217254160569887,103.28079852,HCSW,Howl County - Snakewall
-Howl County,Teller Farm,1,27.822415946482636,84.7376532,HCTF,Howl County - Teller Farm
-Howl County,Viperwalk,0,43.05918597925232,78.9990876,HCVW,Howl County - Viperwalk
-Howl County,Great Warden Dam,1,38.421459900492025,95.17639932,HCWD,Howl County - Great Warden Dam
-The Heartlands,Barrony Road,0,-30.798402863396507,-43.26719544,HLBA,The Heartlands - Barrony Road
-The Heartlands,The Blemish,1,-24.19182761168008,-52.80525,HLBL,The Heartlands - The Blemish
-The Heartlands,The Breach,1,-36.035560411177784,-45.750546,HLBR,The Heartlands - The Breach
-The Heartlands,Barronshire ,0,-38.53807730101656,-55.0549044,HLBS,The Heartlands - Barronshire 
-The Heartlands,Barronswall,1,-34.810197095780005,-50.73922548,HLBW,The Heartlands - Barronswall
-The Heartlands,Crater Basin,0,-39.62590843839794,-43.3548918,HLCB,The Heartlands - Crater Basin
-The Heartlands,Cageroad,0,-47.689146040303356,-56.9409822,HLCR,The Heartlands - Cageroad
-The Heartlands,Deeplaw Post,1,-41.06911067535114,-51.637601520000004,HLDP,The Heartlands - Deeplaw Post
-The Heartlands,Erimos Ranch,0,-29.849053345002194,-66.45432456,HLER,The Heartlands - Erimos Ranch
-The Heartlands,The Fuming Pen,0,-43.06713354216152,-60.7368096,HLFP,The Heartlands - The Fuming Pen
-The Heartlands,Greenfield Orchard,1,-20.759353244288533,-43.36343352,HLGO,The Heartlands - Greenfield Orchard
-The Heartlands,Harvester's Range,0,-31.479320810402577,-55.6214832,HLHR,The Heartlands - Harvester's Range
-The Heartlands,Janus Field,0,-34.087922348103326,-67.450437,HLJF,The Heartlands - Janus Field
-The Heartlands,Kos Meadows,0,-41.45605276565894,-67.49356896,HLKM,The Heartlands - Kos Meadows
-The Heartlands,Lower Barrony Field,0,-31.943032103680018,-47.36126772,HLLB,The Heartlands - Lower Barrony Field
-The Heartlands,Loftmire,0,-28.247154377676623,-51.911892720000004,HLLM,The Heartlands - Loftmire
-The Heartlands,Oleander Fields,0,-23.05184788858441,-59.031108,HLOF,The Heartlands - Oleander Fields
-The Heartlands,Oleander Homestead,1,-16.7652288399876,-53.6646492,HLOH,The Heartlands - Oleander Homestead
-The Heartlands,The Orchard Wall,0,-22.13926218781123,-44.990826840000004,HLOW,The Heartlands - The Orchard Wall
-The Heartlands,Pandora Compound,0,-32.872210158369384,-61.562538,HLPC,The Heartlands - Pandora Compound
-The Heartlands,Providence Field,0,-25.744334032536365,-48.532071599999995,HLPF,The Heartlands - Providence Field
-The Heartlands,The Plough,1,-28.41984247590847,-44.989656839999995,HLPL,The Heartlands - The Plough
-The Heartlands,Fort Providence,1,-19.664135256623027,-49.6534932,HLPR,The Heartlands - Fort Providence
-The Heartlands,Proexi,1,-24.04789585233988,-66.0616524,HLPX,The Heartlands - Proexi
-The Heartlands,Barrony Ranch,1,-35.6571420893042,-39.9541536,HLRA,The Heartlands - Barrony Ranch
-The Heartlands,The Rollcage,0,-44.666059894609106,-48.352991040000006,HLRC,The Heartlands - The Rollcage
-The Heartlands,The Salt Crossing,0,-18.53129005864983,-38.55049272,HLSC,The Heartlands - The Salt Crossing
-The Heartlands,18th Sideroad,0,-27.74957082167824,-38.8511478,HLSR,The Heartlands - 18th Sideroad
-The Heartlands,Upper Barrony Field,0,-31.579574128169696,-39.3380523,HLUB,The Heartlands - Upper Barrony Field
-The Heartlands,Upper Heartlands,0,-37.66206503083974,-40.09288572,HLUH,The Heartlands - Upper Heartlands
-Kalokai,Bleary,0,-11.245375243187254,-110.7972144,KABL,Kalokai - Bleary
-Kalokai,Baccae Ridge,1,-1.2723167598476515,-116.09683559999999,KABR,Kalokai - Baccae Ridge
-Kalokai,Clarity Meadow,0,9.001630541373395,-117.981252,KACM,Kalokai - Clarity Meadow
-Kalokai,Camp Tau,1,8.560416509625302,-111.3891552,KACT,Kalokai - Camp Tau
-Kalokai,Hallow,1,0.07879178141084964,-106.3001664,KAHA,Kalokai - Hallow
-Kalokai,Lost Greensward,1,3.1588980096387154,-122.4229212,KALG,Kalokai - Lost Greensward
-Kalokai,Night's Regret,1,-11.049196379082838,-107.0591436,KANR,Kalokai - Night's Regret
-Kalokai,Sweethearth,1,7.20988079220988,-97.73555256,KASH,Kalokai - Sweethearth
-Kalokai,South March,0,-3.3364346854748597,-108.85848696,KASM,Kalokai - South March
-Kalokai,Sourtooth,1,6.783929315049956,-93.548915496,KAST,Kalokai - Sourtooth
-Kalokai,The Stumble,0,-5.953383738119642,-97.3234278,KASU,Kalokai - The Stumble
-Kalokai,Vinum Rillet,0,-6.771315079284218,-119.39781132,KAVI,Kalokai - Vinum Rillet
-Kalokai,The Vineroad,0,14.244494295899187,-104.63027328,KAVR,Kalokai - The Vineroad
-The Linn of Mercy,Blackroad,0,-31.8403045859753,30.069030599999998,LIBR,The Linn of Mercy - Blackroad
-The Linn of Mercy,The Crimson Gardens,1,-41.6332166217416,13.37719572,LICG,The Linn of Mercy - The Crimson Gardens
-The Linn of Mercy,The Drone,0,-43.13009303476039,27.98573004,LIDR,The Linn of Mercy - The Drone
-The Linn of Mercy,Fort Duncan,1,-20.55134669019345,8.421753599999999,LIDU,The Linn of Mercy - Fort Duncan
-The Linn of Mercy,The First Coin,1,-34.19966997072167,10.1357712,LIFC,The Linn of Mercy - The First Coin
-The Linn of Mercy,Gallant Gough Boulevard,0,-47.094532443808696,20.512081800000004,LIGG,The Linn of Mercy - Gallant Gough Boulevard
-The Linn of Mercy,The Great Scale,0,-34.08647407650007,25.52948532,LIGS,The Linn of Mercy - The Great Scale
-The Linn of Mercy,Hardline,1,-36.21554307602672,14.803425000000004,LIHL,The Linn of Mercy - Hardline
-The Linn of Mercy,Lathair,1,-21.001980307053426,24.771304800000003,LILA,The Linn of Mercy - Lathair
-The Linn of Mercy,The Last Grove,1,-35.268866458438644,4.1547816,LILG,The Linn of Mercy - The Last Grove
-The Linn of Mercy,The Long Whine,1,-36.30199208742158,28.441295999999994,LILW,The Linn of Mercy - The Long Whine
-The Linn of Mercy,Mudhole,0,-27.48186920578233,25.11402408,LIMH,The Linn of Mercy - Mudhole
-The Linn of Mercy,Merciful Strait,0,-16.178616486839523,11.6891118,LIMS,The Linn of Mercy - Merciful Strait
-The Linn of Mercy,Nathair,0,-26.490671954236507,21.11519052,LINA,The Linn of Mercy - Nathair
-The Linn of Mercy,Outwich Ranch,1,-16.382954141631977,18.4747464,LIOR,The Linn of Mercy - Outwich Ranch
-The Linn of Mercy,The Prairie Bazaar,1,-25.63997866420067,9.345571200000002,LIPB,The Linn of Mercy - The Prairie Bazaar
-The Linn of Mercy,Solas Burn,0,-20.791717791422506,27.885146759999998,LISB,The Linn of Mercy - Solas Burn
-The Linn of Mercy,Rotdust,1,-26.830483694993763,30.535605360000005,LITD,The Linn of Mercy - Rotdust
-The Linn of Mercy,Ulster Falls,1,-31.884242003785126,19.791811080000002,LIUF,The Linn of Mercy - Ulster Falls
-Loch Mor,Bastard's Blade,0,-42.413992563238466,-29.11636584,LMBB,Loch Mor - Bastard's Blade
-Loch Mor,Chattering Prairie,0,-24.330298838362303,-11.034117720000001,LMCP,Loch Mor - Chattering Prairie
-Loch Mor,Escape,0,-21.249687128426757,-32.5924488,LMES,Loch Mor - Escape
-Loch Mor,Fallen Fields,0,-29.93265070794747,-19.1439972,LMFF,Loch Mor - Fallen Fields
-Loch Mor,Feirmor,1,-30.288086655501523,-15.632868959999996,LMFM,Loch Mor - Feirmor
-Loch Mor,The Founding Fields,0,-29.660248029031695,-33.495138,LMFO,Loch Mor - The Founding Fields
-Loch Mor,The Glean,0,-45.3328251851845,-17.87850576,LMGL,Loch Mor - The Glean
-Loch Mor,Loch Mor,0,-31.9095210774755,-9.7424928,LMLM,Loch Mor - Loch Mor
-Loch Mor,Lake Severspring,0,-45.58196198770456,-24.4324242,LMLS,Loch Mor - Lake Severspring
-Loch Mor,Missing Bones,0,-15.658731044642877,-11.058236999999998,LMMB,Loch Mor - Missing Bones
-Loch Mor,Moon's Copse,1,-19.137295699716027,-18.2880468,LMMC,Loch Mor - Moon's Copse
-Loch Mor,Market Road,1,-42.68939529271702,-18.5447016,LMMR,Loch Mor - Market Road
-Loch Mor,Mercy's Wish,1,-32.28363906360405,-4.69296288,LMMW,Loch Mor - Mercy's Wish
-Loch Mor,Ousterdown,0,-42.6411754139265,-23.827382280000002,LMOD,Loch Mor - Ousterdown
-Loch Mor,Pockfields,0,-28.926021299398403,-23.789561040000002,LMPF,Loch Mor - Pockfields
-Loch Mor,The Roilfort,1,-26.896221258523912,-27.331115399999998,LMRF,Loch Mor - The Roilfort
-Loch Mor,Rip,0,-30.93397505271906,-28.1308716,LMRI,Loch Mor - Rip
-Loch Mor,The Reaping Road,0,-38.698505805068365,-1.212178680000001,LMRR,Loch Mor - The Reaping Road
-Loch Mor,Tomb of the First,1,-40.10477088075561,-7.45064172,LMTF,Loch Mor - Tomb of the First
-Loch Mor,Tear,0,-23.051230585676596,-27.9931104,LMTR,Loch Mor - Tear
-Loch Mor,Westmarch,1,-25.01277646247957,-5.64326316,LMWM,Loch Mor - Westmarch
-Loch Mor,Widow's Wail,0,-37.24333288000983,-27.44640108,LMWW,Loch Mor - Widow's Wail
-Morgens Crossing,Allsight,1,97.77059928531472,66.65779296,MCAS,Morgens Crossing - Allsight
-Morgens Crossing,Bastard's Block,1,98.7766637681724,59.838440399999996,MCBB,Morgens Crossing - Bastard's Block
-Morgens Crossing,The Bastard Sea,0,88.16534109814205,49.2123924,MCBS,Morgens Crossing - The Bastard Sea
-Morgens Crossing,Callum's Descent,0,85.63349546126074,40.140032399999996,MCCD,Morgens Crossing - Callum's Descent
-Morgens Crossing,Crimson Thread,0,89.9677982468339,63.38089368,MCCT,Morgens Crossing - Crimson Thread
-Morgens Crossing,Eversus,1,88.46036200501558,67.617215496,MCEV,Morgens Crossing - Eversus
-Morgens Crossing,Lividus,1,99.09467661028592,52.6196484,MCLI,Morgens Crossing - Lividus
-Morgens Crossing,Quietus,1,85.77167445633071,58.94261928,MCQU,Morgens Crossing - Quietus
-Morgens Crossing,Rising Calm,0,93.37196189736557,58.243893119999996,MCRC,Morgens Crossing - Rising Calm
-Morgens Crossing,Ultimus,0,106.4014512757264,46.87586640000001,MCUL,Morgens Crossing - Ultimus
-Morgens Crossing,Velian Storm,0,99.84450842487509,56.813565600000004,MCVS,Morgens Crossing - Velian Storm
-Morgens Crossing,Warmonger Bay,1,98.86354967206296,41.352498,MCWB,Morgens Crossing - Warmonger Bay
-Marban Hollow,Bubble Basin,0,27.121052178923705,20.702623680000002,MHBB,Marban Hollow - Bubble Basin
-Marban Hollow,Bleating Plateau,0,22.415286017571717,14.730541199999998,MHBP,Marban Hollow - Bleating Plateau
-Marban Hollow,Checkpoint Bua,1,37.671854638148496,20.9522052,MHCB,Marban Hollow - Checkpoint Bua
-Marban Hollow,The Claim,0,41.800380642554195,11.9935872,MHCL,Marban Hollow - The Claim
-Marban Hollow,The Clutch,0,32.55447172924816,26.099729280000005,MHCT,Marban Hollow - The Clutch
-Marban Hollow,The Curse,0,37.16245877277062,17.526736800000002,MHCU,Marban Hollow - The Curse
-Marban Hollow,Deepfleet Valley,0,35.99921733020117,12.28431132,MHDV,Marban Hollow - Deepfleet Valley
-Marban Hollow,Gaping Maw,0,34.57106107220316,31.66787628,MHGM,Marban Hollow - Gaping Maw
-Marban Hollow,Lockheed Breakers,0,34.155583791250834,5.614230240000001,MHLB,Marban Hollow - Lockheed Breakers
-Marban Hollow,Lughbone Dam,0,36.37868610624852,21.046770719999998,MHLD,Marban Hollow - Lughbone Dam
-Marban Hollow,Lockheed,1,37.812820017993616,3.644276399999999,MHLH,Marban Hollow - Lockheed
-Marban Hollow,Mount Mac Tire,0,23.795652638199805,2.9858630400000017,MHMT,Marban Hollow - Mount Mac Tire
-Marban Hollow,Maiden's Veil,1,32.69200515434113,17.229340800000003,MHMV,Marban Hollow - Maiden's Veil
-Marban Hollow,Mox,1,40.70633449118306,31.772334599999994,MHMX,Marban Hollow - Mox
-Marban Hollow,Oster Wall,1,44.40752725757659,19.034227440000002,MHOW,Marban Hollow - Oster Wall
-Marban Hollow,Pilgrimage,0,27.666240389265766,32.33288232,MHPI,Marban Hollow - Pilgrimage
-Marban Hollow,Sanctum,1,20.552335262374726,26.201095199999997,MHSA,Marban Hollow - Sanctum
-Marban Hollow,Slender Cove,0,41.17807280072309,25.568173439999995,MHSC,Marban Hollow - Slender Cove
-Marban Hollow,The Spitrocks,1,25.938626541609622,9.8159076,MHSR,Marban Hollow - The Spitrocks
-The Moors,Borderlane,1,-24.445455552662136,69.50319768,MOBL,The Moors - Borderlane
-The Moors,Gravekeeper's Holdfast,1,-33.53701213471338,47.3490702,MOGH,The Moors - Gravekeeper's Holdfast
-The Moors,The Graveyard,0,-35.62273524642201,52.5709044,MOGY,The Moors - The Graveyard
-The Moors,Headstone,1,-31.414179349478363,54.17258939999999,MOHS,The Moors - Headstone
-The Moors,Luch's Workshop,1,-21.171487112925995,64.71391176,MOLW,The Moors - Luch's Workshop
-The Moors,Lyon's Wood,0,-14.398599234154283,57.853148399999995,MOLY,The Moors - Lyon's Wood
-The Moors,MacConmara Barrows,1,-26.94457041758671,43.0021476,MOMB,The Moors - MacConmara Barrows
-The Moors,Morrighan's Grave,1,-20.887968409055365,50.1480648,MOMG,The Moors - Morrighan's Grave
-The Moors,The Mound,0,-29.170344386314067,49.147891200000004,MOMO,The Moors - The Mound
-The Moors,Moon's Walk,0,-33.68563747461396,59.68851839999999,MOMW,The Moors - Moon's Walk
-The Moors,Ogmaran,1,-33.2517890928481,65.86443576,MOOG,The Moors - Ogmaran
-The Moors,Riverhill,0,-23.79242223801728,63.41625684,MORH,The Moors - Riverhill
-The Moors,Reaching River,1,-41.76924898232271,62.25267744,MORR,The Moors - Reaching River
-The Moors,Scath Copse,0,-15.24882112924233,51.85360188,MOSC,The Moors - Scath Copse
-The Moors,The Spade,1,-41.02070290368901,56.28024468000001,MOSP,The Moors - The Spade
-The Moors,The Cut,1,-40.70759439807814,45.302963039999995,MOTC,The Moors - The Cut
-The Moors,Wiccwalk,1,-19.051142661163162,43.4655648,MOWA,The Moors - Wiccwalk
-The Moors,The Wind Hills,1,-35.56034151089892,39.81273012,MOWH,The Moors - The Wind Hills
-The Moors,Wiccwood,0,-24.442063920052785,55.74825,MOWO,The Moors - Wiccwood
-Nevish Line,The Aging Ocean,0,-106.83916304459721,56.37816144,NLAO,Nevish Line - The Aging Ocean
-Nevish Line,The Arrow,0,-80.61664723759836,51.7415544,NLAR,Nevish Line - The Arrow
-Nevish Line,Blinding Stones,1,-97.26858855130781,64.53259596000001,NLBS,Nevish Line - Blinding Stones
-Nevish Line,Blackcoat Way,1,-99.0568776629578,47.05855919999999,NLBW,Nevish Line - Blackcoat Way
-Nevish Line,Grief Mother,1,-84.40050372226986,48.662702280000005,NLGM,Nevish Line - Grief Mother
-Nevish Line,Mistle Shrine,1,-79.1424572260571,56.2648392,NLMS,Nevish Line - Mistle Shrine
-Nevish Line,Nevish Trail,0,-98.72933507730104,69.12209052,NLNT,Nevish Line - Nevish Trail
-Nevish Line,Princefal,1,-90.13183116175391,53.795462400000005,NLPF,Nevish Line - Princefal
-Nevish Line,Plumage,0,-85.11207148611041,43.78129452,NLPL,Nevish Line - Plumage
-Nevish Line,The Scrying Belt,1,-88.7941607020449,63.662030279999996,NLSB,Nevish Line - The Scrying Belt
-Nevish Line,Tomb Father,1,-98.65240292299141,41.9155092,NLTF,Nevish Line - Tomb Father
-Nevish Line,Tear Road,0,-97.90341080663376,54.948666239999994,NLTR,Nevish Line - Tear Road
-Nevish Line,Unruly,1,-85.98170204972776,69.227037,NLUN,Nevish Line - Unruly
-The Oarbreaker Isles,Base Akri,1,-75.62977089294674,17.567617319999997,OIAK,The Oarbreaker Isles - Base Akri
-The Oarbreaker Isles,Barrenson,0,-104.8320535621222,15.051130200000003,OIBS,The Oarbreaker Isles - Barrenson
-The Oarbreaker Isles,Castor,0,-102.86602111947136,17.871371999999994,OICA,The Oarbreaker Isles - Castor
-The Oarbreaker Isles,The Conclave,1,-92.29336821577078,13.506552,OICC,The Oarbreaker Isles - The Conclave
-The Oarbreaker Isles,Crach Woods,0,-95.04356989529663,23.18671296,OICW,The Oarbreaker Isles - Crach Woods
-The Oarbreaker Isles,The Dirk,0,-95.26752240194651,7.616854799999999,OIDR,The Oarbreaker Isles - The Dirk
-The Oarbreaker Isles,The Emblem,0,-83.39771655666823,26.843785920000002,OIEM,The Oarbreaker Isles - The Emblem
-The Oarbreaker Isles,Fogwood,0,-83.60052529557183,31.317474239999996,OIFW,The Oarbreaker Isles - Fogwood
-The Oarbreaker Isles,Gold,1,-92.85041363024928,29.97184032,OIGO,The Oarbreaker Isles - Gold
-The Oarbreaker Isles,Grisly Refuge,0,-100.80353727985803,12.484767600000001,OIGR,The Oarbreaker Isles - Grisly Refuge
-The Oarbreaker Isles,The Ides,1,-78.09103324239456,21.846866399999996,OIID,The Oarbreaker Isles - The Ides
-The Oarbreaker Isles,Integrum,1,-85.73389712499669,8.144064,OIIN,The Oarbreaker Isles - Integrum
-The Oarbreaker Isles,Kofteri Channel,0,-94.4841271839364,5.9375246399999995,OIKC,The Oarbreaker Isles - Kofteri Channel
-The Oarbreaker Isles,Lion's Head,1,-99.88110092116798,3.7129625999999973,OILH,The Oarbreaker Isles - Lion's Head
-The Oarbreaker Isles,Martius,0,-78.46680152653258,25.753625999999997,OIMA,The Oarbreaker Isles - Martius
-The Oarbreaker Isles,Mount Marce,0,-89.52404552671379,24.75559296,OIMM,The Oarbreaker Isles - Mount Marce
-The Oarbreaker Isles,Neptune's Throne,0,-88.52239943618419,29.59228692,OINT,The Oarbreaker Isles - Neptune's Throne
-The Oarbreaker Isles,Oasis,0,-90.02943578211205,2.998116000000003,OIOA,The Oarbreaker Isles - Oasis
-The Oarbreaker Isles,Obitum,0,-89.76469805155806,8.950705200000002,OIOB,The Oarbreaker Isles - Obitum
-The Oarbreaker Isles,Posterus,1,-80.4974998782379,11.678742,OIPO,The Oarbreaker Isles - Posterus
-The Oarbreaker Isles,Pollux,0,-104.7437380927771,17.507667600000005,OIPX,The Oarbreaker Isles - Pollux
-The Oarbreaker Isles,Reliqua,1,-86.35823770165554,28.309757039999994,OIRL,The Oarbreaker Isles - Reliqua
-The Oarbreaker Isles,Sandalwood Beach,0,-92.16559482769644,25.273612800000002,OISB,The Oarbreaker Isles - Sandalwood Beach
-The Oarbreaker Isles,Skelter Course,1,-88.45480455993207,20.6716014,OISC,The Oarbreaker Isles - Skelter Course
-The Oarbreaker Isles,Sheep's Head,0,-95.78035853592041,1.3837716000000029,OISH,The Oarbreaker Isles - Sheep's Head
-The Oarbreaker Isles,Silver,0,-102.18843951801286,26.007105600000003,OISI,The Oarbreaker Isles - Silver
-The Oarbreaker Isles,Skull Beach,0,-93.33138446341398,19.760824080000006,OISK,The Oarbreaker Isles - Skull Beach
-Origin,Arise,1,-95.97531484928281,-52.684880400000004,ORAR,Origin - Arise
-Origin,Cado,0,-103.30485115648791,-53.1893034,ORCD,Origin - Cado
-Origin,Dormio,1,-79.8274680784035,-57.2745546,ORDO,Origin - Dormio
-Origin,The Dreamer's Road,0,-89.62615366304972,-53.428524120000006,ORDR,Origin - The Dreamer's Road
-Origin,The Echo,0,-83.09225346188603,-60.020427600000005,OREC,Origin - The Echo
-Origin,Exorior,0,-89.73239461117657,-67.91476320000001,OREX,Origin - Exorior
-Origin,Finis,1,-102.77847966899114,-46.371388679999995,ORFI,Origin - Finis
-Origin,Initium,1,-87.94135153874254,-48.1291812,ORIN,Origin - Initium
-Origin,The Sundering,0,-94.1148935810852,-58.877478,ORSU,Origin - The Sundering
-Origin,Teichotima,1,-100.1951418243696,-64.08155052000001,ORTE,Origin - Teichotima
-Origin,Temple Field,0,-83.71742168170279,-54.73041696,ORTF,Origin - Temple Field
-Origin,World Star,1,-87.08366007062381,-63.963342,ORWS,Origin - World Star
-Red River,Climb,1,-21.675383786271873,-77.16743928,RRCL,Red River - Climb
-Red River,Cannonsmoke,1,-32.7947912285008,-95.21051292,RRCS,Red River - Cannonsmoke
-Red River,Camp Upsilon,1,-40.13421602161241,-81.74530872,RRCU,Red River - Camp Upsilon
-Red River,Fragment Knolls,0,-43.78576848898914,-85.17060648,RRFK,Red River - Fragment Knolls
-Red River,Gunpowder Lane,0,-25.694191161657248,-80.76461832,RRGL,Red River - Gunpowder Lane
-Red River,Judicium,1,-21.17593252524667,-85.21881551999999,RRJU,Red River - Judicium
-Red River,Fort Matchwood,1,-28.510611776273667,-86.08054680000001,RRMA,Red River - Fort Matchwood
-Red River,Minos,1,-35.891256607324124,-89.0115534,RRMI,Red River - Minos
-Red River,Penance,1,-30.27944732463743,-77.98289796,RRPE,Red River - Penance
-Red River,Perish,0,-39.28690563464985,-98.96579424,RRPR,Red River - Perish
-Red River,Red Crossing,0,-25.482703185438954,-102.08269296,RRRC,Red River - Red Crossing
-Red River,Twelve Drops,0,-21.52216504762962,-88.4799108,RRTD,Red River - Twelve Drops
-Red River,Victoria Hill,1,-19.02491373080992,-92.280429,RRVH,Red River - Victoria Hill
-Reaching Trail,The Ark,1,10.82710290406808,69.91569,RTAR,Reaching Trail - The Ark
-Reaching Trail,The Bait,0,9.472534972372639,69.9216192,RTBA,Reaching Trail - The Bait
-Reaching Trail,Brodytown,1,-1.5379602836919766,78.3801252,RTBT,Reaching Trail - Brodytown
-Reaching Trail,Caragtais,0,-1.2701214893721087,70.9413696,RTCA,Reaching Trail - Caragtais
-Reaching Trail,The Chicken Coop,0,-6.667937834680565,75.0761784,RTCC,Reaching Trail - The Chicken Coop
-Reaching Trail,The Cairns,0,5.071583010288304,81.40020912,RTCR,Reaching Trail - The Cairns
-Reaching Trail,Dugan's Approach,0,8.777160913634404,84.46078080000001,RTDA,Reaching Trail - Dugan's Approach
-Reaching Trail,The Deckard,0,-2.2285102345209644,88.51643586,RTDE,Reaching Trail - The Deckard
-Reaching Trail,Dwyersfield,0,-11.323302564608877,80.38313172,RTDF,Reaching Trail - Dwyersfield
-Reaching Trail,Dwyerstown,1,-13.738905699180101,76.89913092,RTDT,Reaching Trail - Dwyerstown
-Reaching Trail,Duffy's Farm,0,-8.696007348952197,69.5491542,RTDU,Reaching Trail - Duffy's Farm
-Reaching Trail,Elksford,1,-6.261517655247113,72.10171439999999,RTEL,Reaching Trail - Elksford
-Reaching Trail,Camp Eos,0,11.2631249403154,64.66504464,RTEO,Reaching Trail - Camp Eos
-Reaching Trail,Featherfield,0,-1.6816214274139973,61.250004000000004,RTFF,Reaching Trail - Featherfield
-Reaching Trail,Fisherman's Floe,0,6.607650883340117,69.9396732,RTFI,Reaching Trail - Fisherman's Floe
-Reaching Trail,Harpy,1,-1.5710897044625725,57.010842,RTHA,Reaching Trail - Harpy
-Reaching Trail,Hookhall,0,-4.755446546593296,66.60627840000001,RTHH,Reaching Trail - Hookhall
-Reaching Trail,Humidus,0,-8.679534298695637,65.97563616,RTHU,Reaching Trail - Humidus
-Reaching Trail,Ice Ranch,1,9.273129921152005,76.0358628,RTIR,Reaching Trail - Ice Ranch
-Reaching Trail,The Knot,0,-1.333571914451877,66.3004656,RTKN,Reaching Trail - The Knot
-Reaching Trail,Limestone Holdfast,1,-7.783116945800948,84.39920964000001,RTLH,Reaching Trail - Limestone Holdfast
-Reaching Trail,Fort Mac Conaill,1,9.186994341671287,59.4620496,RTMC,Reaching Trail - Fort Mac Conaill
-Reaching Trail,Mac Conaill's Pass,0,5.658220304968005,54.50526000000001,RTMP,Reaching Trail - Mac Conaill's Pass
-Reaching Trail,Mousetrap,1,14.92232614405836,70.80611868,RTMT,Reaching Trail - Mousetrap
-Reaching Trail,Nightchurch,1,-4.27749571721667,63.184390199999996,RTNC,Reaching Trail - Nightchurch
-Reaching Trail,Pitfall,0,16.49134593731401,76.37101272,RTPF,Reaching Trail - Pitfall
-Reaching Trail,Puncta,0,-12.296832066533113,68.8022316,RTPU,Reaching Trail - Puncta
-Reaching Trail,Reprieve,1,2.6421776478057915,65.66181983999999,RTRE,Reaching Trail - Reprieve
-Reaching Trail,The Rousing Fields,0,-10.149772324550275,73.15697628,RTRF,Reaching Trail - The Rousing Fields
-Reaching Trail,The Reaching Heights,0,2.709929655707171,70.289316,RTRH,Reaching Trail - The Reaching Heights
-Reaching Trail,The Rime Ledge,0,17.385891428259946,63.169687440000004,RTRL,Reaching Trail - The Rime Ledge
-Reaching Trail,The Scar,0,-7.767614952509142,70.4275848,RTSC,Reaching Trail - The Scar
-Reaching Trail,The Squeeze,0,-6.798123068863447,51.9654852,RTSQ,Reaching Trail - The Squeeze
-Reaching Trail,Scorpion,0,-5.926896662914039,58.92593256000001,RTSR,Reaching Trail - Scorpion
-Reaching Trail,Thylak,0,-15.091245105024496,63.339652799999996,RTTH,Reaching Trail - Thylak
-Reaching Trail,Windy Way,0,-10.560099179221217,87.170001264,RTWW,Reaching Trail - Windy Way
-Shackled Chasm,Autumn Pyres,0,32.393091705764704,-47.7508032,SCAP,Shackled Chasm - Autumn Pyres
-Shackled Chasm,The Blue,0,33.66395419454447,-67.5114012,SCBL,Shackled Chasm - The Blue
-Shackled Chasm,The Bell Toll,1,36.99720283527202,-49.7850804,SCBT,Shackled Chasm - The Bell Toll
-Shackled Chasm,A Careless Net,0,29.14935323374729,-67.325418,SCCN,Shackled Chasm - A Careless Net
-Shackled Chasm,Firstmarch,1,46.17694893193362,-49.94382096,SCFM,Shackled Chasm - Firstmarch
-Shackled Chasm,The Foolish Maidens,0,14.308319051799486,-56.6294058,SCFO,Shackled Chasm - The Foolish Maidens
-Shackled Chasm,The First Rung,0,25.924577808227397,-51.922143000000005,SCFR,Shackled Chasm - The First Rung
-Shackled Chasm,Final Step,0,23.773924407229018,-42.185073599999996,SCFS,Shackled Chasm - Final Step
-Shackled Chasm,Gorgon Grove,1,20.461768404107914,-48.81764808,SCGG,Shackled Chasm - Gorgon Grove
-Shackled Chasm,The Grave of Rastus,1,38.21875591602128,-41.66252568,SCGR,Shackled Chasm - The Grave of Rastus
-Shackled Chasm,Hades Ladder,0,28.117269329402056,-46.7120916,SCHL,Shackled Chasm - Hades Ladder
-Shackled Chasm,Legion's Dawn,0,25.569935832763534,-70.1378172,SCLD,Shackled Chasm - Legion's Dawn
-Shackled Chasm,Limewood Holdfast,1,30.77962901299155,-53.098261199999996,SCLH,Shackled Chasm - Limewood Holdfast
-Shackled Chasm,Manky Hills,0,47.971570282772035,-57.150387359999996,SCMH,Shackled Chasm - Manky Hills
-Shackled Chasm,A New Spring,0,38.41776273412023,-45.47303532,SCNS,Shackled Chasm - A New Spring
-Shackled Chasm,The Plunging,0,19.187018777623763,-63.06631704,SCPL,Shackled Chasm - The Plunging
-Shackled Chasm,Reflection,1,20.168341261105482,-57.75565464,SCRE,Shackled Chasm - Reflection
-Shackled Chasm,Silk Farms,1,29.4424461602259,-59.94358416,SCSF,Shackled Chasm - Silk Farms
-Shackled Chasm,Southreach,0,31.025223286635907,-39.40091856,SCSO,Shackled Chasm - Southreach
-Shackled Chasm,Simo's Run,1,40.89000018886921,-66.9231108,SCSR,Shackled Chasm - Simo's Run
-Shackled Chasm,Savages,1,27.401704269425764,-42.648847200000006,SCSV,Shackled Chasm - Savages
-Shackled Chasm,The Vanguard,1,39.97353691131211,-58.3984584,SCVA,Shackled Chasm - The Vanguard
-Shackled Chasm,Widow's Web,0,33.120719321821156,-60.2226504,SCWW,Shackled Chasm - Widow's Web
-Stonecradle,Buckler Sound,1,-61.12884213829112,35.4719592,STBS,Stonecradle - Buckler Sound
-Stonecradle,The Cord,1,-58.97137595792828,29.006562599999995,STCO,Stonecradle - The Cord
-Stonecradle,The Dais,1,-57.69679551816701,50.31957258,STDA,Stonecradle - The Dais
-Stonecradle,Daihbi Point,0,-69.80987981587788,49.817218319999995,STDP,Stonecradle - Daihbi Point
-Stonecradle,Fading Lights,1,-51.839513343956554,29.10379176,STFL,Stonecradle - Fading Lights
-Stonecradle,The Heir's Knife,1,-70.86338433897048,26.206336800000003,STHK,Stonecradle - The Heir's Knife
-Stonecradle,The Long Fast,1,-65.01362120516178,21.966674400000002,STLF,Stonecradle - The Long Fast
-Stonecradle,Longing,0,-66.97378864665006,27.6452838,STLO,Stonecradle - Longing
-Stonecradle,The Loneliest Shore,0,-60.52342096044943,44.843884560000006,STLS,Stonecradle - The Loneliest Shore
-Stonecradle,The Pram,0,-66.08432873400328,36.81532188,STPR,Stonecradle - The Pram
-Stonecradle,The Roiling Comets,0,-46.75639968382226,34.4048868,STRC,Stonecradle - The Roiling Comets
-Stonecradle,The Reach,1,-53.21081330214531,46.609610759999995,STRE,Stonecradle - The Reach
-Stonecradle,Trammel Pool,1,-50.115866446906004,37.41048576,STTP,Stonecradle - Trammel Pool
-Stonecradle,World's End,1,-73.41936090770284,34.1216406,STWE,Stonecradle - World's End
-Stonecradle,The Whorl,0,-69.65990721757714,41.52797064,STWH,Stonecradle - The Whorl
-Speaking Woods,Cursed Court,0,-30.73812624821653,92.0642256,SWCC,Speaking Woods - Cursed Court
-Speaking Woods,Calmland,0,-16.664351568237556,97.36049448,SWCL,Speaking Woods - Calmland
-Speaking Woods,Fort Blather,1,-20.341072950873304,79.098426,SWFB,Speaking Woods - Fort Blather
-Speaking Woods,The Filament,1,-38.42180528456072,90.85860072,SWFI,Speaking Woods - The Filament
-Speaking Woods,Hush,1,-32.194152589348974,99.97875108,SWHU,Speaking Woods - Hush
-Speaking Woods,Inari Base,1,-20.283674172751113,102.33388188,SWIB,Speaking Woods - Inari Base
-Speaking Woods,Mount Rell,0,-43.74529835976794,87.67252296000001,SWMR,Speaking Woods - Mount Rell
-Speaking Woods,Mute,0,-38.69247743687364,97.45547687999999,SWMU,Speaking Woods - Mute
-Speaking Woods,Rell Foothills,0,-37.98743146786188,84.0316194,SWRF,Speaking Woods - Rell Foothills
-Speaking Woods,Reaching River,0,-21.662939209065588,83.52505944,SWRR,Speaking Woods - Reaching River
-Speaking Woods,Sotto Bank,1,-27.790021829058524,88.4454516,SWSB,Speaking Woods - Sotto Bank
-Speaking Woods,Stem,1,-34.81372174989137,82.32592104,SWST,Speaking Woods - Stem
-Speaking Woods,Tine,1,-25.3551650791463,96.2793162,SWTI,Speaking Woods - Tine
-Speaking Woods,Wound,1,-14.457586372149045,91.7357616,SWWO,Speaking Woods - Wound
-Terminus,Aspisa,0,61.53129500757116,-87.33803184,TEAS,Terminus - Aspisa
-Terminus,Bloody Palm Fort,1,77.99580569939506,-72.83029176,TEBP,Terminus - Bloody Palm Fort
-Terminus,Bay of the Ward,0,64.34133973531883,-66.69941652,TEBW,Terminus - Bay of the Ward
-Terminus,Cerberus Wake,1,53.2813322134331,-80.2938528,TECW,Terminus - Cerberus Wake
-Terminus,Dogbone,0,51.0604297415251,-69.28070256,TEDB,Terminus - Dogbone
-Terminus,The Legion's Bounty,0,54.598339861264066,-76.34682216,TELB,Terminus - The Legion's Bounty
-Terminus,Martyr's Fang,0,62.64132410810235,-69.61230936,TEMF,Terminus - Martyr's Fang
-Terminus,The Phalanx,0,57.96785016344262,-76.2766848,TEPH,Terminus - The Phalanx
-Terminus,The Respite,0,59.16043199243602,-80.746668,TERE,Terminus - The Respite
-Terminus,Rising Loom,0,62.69306614685108,-79.35192359999999,TERL,Terminus - Rising Loom
-Terminus,Sever,0,76.6726740741648,-68.603625,TESE,Terminus - Sever
-Terminus,Thunderbolt,1,56.68082140524531,-57.2513796,TETB,Terminus - Thunderbolt
-Terminus,Therizo,1,61.197019039758956,-80.5904784,TETH,Terminus - Therizo
-Terminus,Thunder Plains,0,54.497474228895456,-63.42757632,TETP,Terminus - Thunder Plains
-Terminus,Three Siblings,0,74.50027498312349,-80.8234776,TETS,Terminus - Three Siblings
-Terminus,Winding Bolas,1,74.72756092547559,-64.2057264,TEWB,Terminus - Winding Bolas
-Terminus,Warlord's Stead,1,52.86151261182418,-66.92406552,TEWS,Terminus - Warlord's Stead
-Tempest Island,Alchimio Estate,1,86.33138944607789,-3.434085000000003,TIAE,Tempest Island - Alchimio Estate
-Tempest Island,Cirris Valve,0,103.17189164874787,-17.46143712,TICV,Tempest Island - Cirris Valve
-Tempest Island,Eros Lagoon,0,84.85083186151175,-29.506806,TIEL,Tempest Island - Eros Lagoon
-Tempest Island,The Gale,1,93.76272045770477,-28.6312104,TIGA,Tempest Island - The Gale
-Tempest Island,Isle of Psyche,1,84.13769319687077,-25.5818232,TIIP,Tempest Island - Isle of Psyche
-Tempest Island,The Iris,1,99.58069353099137,-17.299439279999998,TIIR,Tempest Island - The Iris
-Tempest Island,Lost Airchal,1,98.69139324414701,-3.586875120000002,TILA,Tempest Island - Lost Airchal
-Tempest Island,Liar's Haven,1,101.57463180630529,-23.7456756,TILI,Tempest Island - Liar's Haven
-Tempest Island,The Outwood,0,99.01977511234308,-14.295746880000003,TIOW,Tempest Island - The Outwood
-Tempest Island,Plana Fada,0,98.5682751929512,-6.633730439999997,TIPF,Tempest Island - Plana Fada
-Tempest Island,Reef,1,103.25340057411142,-11.273553,TIRF,Tempest Island - Reef
-Tempest Island,The Rush,1,95.26936688435484,-13.49607096,TIRU,Tempest Island - The Rush
-Tempest Island,Sclera,0,95.73589116670784,-20.9484396,TISC,Tempest Island - Sclera
-Tempest Island,Surge Field,0,98.91245585866547,-20.928148200000003,TISF,Tempest Island - Surge Field
-Tempest Island,Surge Gate,1,90.20612289539278,-15.79406328,TISG,Tempest Island - Surge Gate
-Tempest Island,Stratos Valve,0,94.54090788391076,-17.74845828,TISV,Tempest Island - Stratos Valve
-Umbral Wildwood,Adze Crossroads,0,-5.143867669726685,-31.91497308,UWAC,Umbral Wildwood - Adze Crossroads
-Umbral Wildwood,Atropos' Fate,1,3.819291570267282,-46.2360096,UWAF,Umbral Wildwood - Atropos' Fate
-Umbral Wildwood,Amethyst,1,13.997402698972707,-31.99842864,UWAM,Umbral Wildwood - Amethyst
-Umbral Wildwood,Clotho's Refuge,1,5.497554856365724,-29.663406720000005,UWCR,Umbral Wildwood - Clotho's Refuge
-Umbral Wildwood,Dredgefield,0,12.590442585937403,-48.82722264,UWDF,Umbral Wildwood - Dredgefield
-Umbral Wildwood,The Dredgewood,0,12.624960002943148,-41.82206508,UWDW,Umbral Wildwood - The Dredgewood
-Umbral Wildwood,The Foundry,1,-8.52814086447643,-26.0877492,UWFO,Umbral Wildwood - The Foundry
-Umbral Wildwood,The Frontier,0,5.422244732996372,-43.979652,UWFR,Umbral Wildwood - The Frontier
-Umbral Wildwood,The Gap,0,-2.3863755805056996,-37.1465712,UWGA,Umbral Wildwood - The Gap
-Umbral Wildwood,Golden Concourse,0,-13.72478214120299,-43.65496656,UWGC,Umbral Wildwood - Golden Concourse
-Umbral Wildwood,GoldenRoot Ranch,1,-13.485655622402227,-37.8182736,UWGR,Umbral Wildwood - GoldenRoot Ranch
-Umbral Wildwood,Hermit's Rest,1,7.902334613286548,-40.2358824,UWHR,Umbral Wildwood - Hermit's Rest
-Umbral Wildwood,Leatherback Pathway,0,9.555677568057881,-31.46541336,UWLP,Umbral Wildwood - Leatherback Pathway
-Umbral Wildwood,Lachesis' Tally ,1,14.941256766564763,-37.6110054,UWLT,Umbral Wildwood - Lachesis' Tally 
-Umbral Wildwood,Sentry,1,-3.5392958015948786,-47.7102996,UWSE,Umbral Wildwood - Sentry
-Umbral Wildwood,Steely Fields,0,-13.044349722679302,-29.62635048,UWSF,Umbral Wildwood - Steely Fields
-Umbral Wildwood,Stray,1,8.130938299893042,-24.6430008,UWST,Umbral Wildwood - Stray
-Umbral Wildwood,Thunderfoot,1,-5.619834400262226,-36.528521760000004,UWTF,Umbral Wildwood - Thunderfoot
-Umbral Wildwood,Thunder Row,0,-9.156638778765652,-41.87398212,UWTR,Umbral Wildwood - Thunder Row
-Umbral Wildwood,The Strands,0,1.0747794697982194,-26.562302640000002,UWTS,Umbral Wildwood - The Strands
-Umbral Wildwood,Terrapin Woods,0,10.348159817424815,-35.67418776,UWTW,Umbral Wildwood - Terrapin Woods
-Umbral Wildwood,Vagrant Bastion,1,1.1029758713047961,-23.8177404,UWVB,Umbral Wildwood - Vagrant Bastion
-Umbral Wildwood,Wasting Holt,0,2.880421652079079,-51.8406084,UWWH,Umbral Wildwood - Wasting Holt
-Umbral Wildwood,Weaver's Trail,0,2.8659156572836615,-34.063446240000005,UWWT,Umbral Wildwood - Weaver's Trail
-Viper Pit,Afric's Approach,0,22.002859917322006,47.727082800000005,VPAA,Viper Pit - Afric's Approach
-Viper Pit,Austriaca River,0,31.515009704154878,41.2734204,VPAR,Viper Pit - Austriaca River
-Viper Pit,The Bloody Bowery,0,22.667470675256837,55.52149392,VPBB,Viper Pit - The Bloody Bowery
-Viper Pit,Blackthroat,1,27.087050220238282,42.179629320000004,VPBT,Viper Pit - Blackthroat
-Viper Pit,Deadsteps,0,33.74150988714483,64.40335812000001,VPDS,Viper Pit - Deadsteps
-Viper Pit,Earl Crowley,1,45.117724899946325,53.500399200000004,VPEC,Viper Pit - Earl Crowley
-Viper Pit,Earl's Welcome,0,17.241228050658627,57.24803592000001,VPEW,Viper Pit - Earl's Welcome
-Viper Pit,Fleck Crossing,1,33.299895128121904,52.64691479999999,VPFC,Viper Pit - Fleck Crossing
-Viper Pit,The Friars,1,22.36076133527758,42.6332664,VPFR,Viper Pit - The Friars
-Viper Pit,Hardcaps,0,30.245535627302445,70.840959696,VPHC,Viper Pit - Hardcaps
-Viper Pit,Kirknell,1,22.928697885234058,52.268868,VPKN,Viper Pit - Kirknell
-Viper Pit,The Lady's Lake,0,19.30660011963458,49.219052399999995,VPLL,Viper Pit - The Lady's Lake
-Viper Pit,Lake Mioira,0,20.060577632472672,68.36621544,VPLM,Viper Pit - Lake Mioira
-Viper Pit,Moltworth,1,37.093252673575265,46.425699359999996,VPMW,Viper Pit - Moltworth
-Viper Pit,Path of the Charmed,0,39.52674803155274,38.0941344,VPPC,Viper Pit - Path of the Charmed
-Viper Pit,The Rockaway,0,43.621699824540464,46.62636119999999,VPRA,Viper Pit - The Rockaway
-Viper Pit,Serenity's Blight,1,29.62937670440229,59.3589348,VPSB,Viper Pit - Serenity's Blight
-Viper Pit,Snakehead Lake,0,27.876855411877045,64.50100056,VPSL,Viper Pit - Snakehead Lake
-Viper Pit,The Slithering Scales,0,35.234368635110386,56.4685722,VPSS,Viper Pit - The Slithering Scales
-Viper Pit,Twin Fangs,0,26.567758802186603,57.55236372,VPTF,Viper Pit - Twin Fangs
-Viper Pit,The Tongue,0,40.013101247242986,66.4312392,VPTO,Viper Pit - The Tongue
-Viper Pit,Fort Viper,1,25.38762238178387,50.434523999999996,VPVI,Viper Pit - Fort Viper
-Weathered Expanse,Barrowsfield,0,60.25656699708108,37.2456792,WEBF,Weathered Expanse - Barrowsfield
-Weathered Expanse,Bannerwatch,0,44.21739546781562,22.555920959999995,WEBW,Weathered Expanse - Bannerwatch
-Weathered Expanse,Crow's Nest,1,53.577929009413396,35.191985759999994,WECN,Weathered Expanse - Crow's Nest
-Weathered Expanse,Dullahan's Crest,0,48.55626587921442,31.791461760000004,WEDC,Weathered Expanse - Dullahan's Crest
-Weathered Expanse,Eapoe,0,60.68053811662966,29.8146852,WEEA,Weathered Expanse - Eapoe
-Weathered Expanse,Foxcatcher,1,63.82357432331064,25.9891164,WEFC,Weathered Expanse - Foxcatcher
-Weathered Expanse,Frostmarch,1,48.793792398761184,37.325012400000006,WEFM,Weathered Expanse - Frostmarch
-Weathered Expanse,Huntsfort,1,62.550107107244415,34.740918,WEHF,Weathered Expanse - Huntsfort
-Weathered Expanse,The Ivory Bank,0,59.88312284799872,20.62716372,WEIB,Weathered Expanse - The Ivory Bank
-Weathered Expanse,The Ivory Sea,0,49.69915212212925,27.874026,WEIS,Weathered Expanse - The Ivory Sea
-Weathered Expanse,Kirkyard,0,54.691865200874275,31.577472,WEKY,Weathered Expanse - Kirkyard
-Weathered Expanse,Necropolis,1,56.79507024779386,29.206044,WENE,Weathered Expanse - Necropolis
-Weathered Expanse,Port of Rime,1,70.70659028791358,49.32841788,WEPR,Weathered Expanse - Port of Rime
-Weathered Expanse,Revenant's Path,0,65.19463110156602,48.47422716,WERP,Weathered Expanse - Revenant's Path
-Weathered Expanse,Rime Wastes,0,52.24105543163995,39.94344072,WERW,Weathered Expanse - Rime Wastes
-Weathered Expanse,Shattered Advance,1,58.542627759832726,42.89355072,WESA,Weathered Expanse - Shattered Advance
-Weathered Expanse,The Spear,0,71.49861153463758,42.897279600000005,WESP,Weathered Expanse - The Spear
-Weathered Expanse,The Stand,0,46.06288611164183,40.85726256,WEST,Weathered Expanse - The Stand
-Weathered Expanse,Spirit Watch,1,69.47316379103235,27.881319599999998,WESW,Weathered Expanse - Spirit Watch
-Weathered Expanse,Wraith's Gate,0,64.33231090086913,38.4042258,WEWG,Weathered Expanse - Wraith's Gate
-Weathered Expanse,The Weathering Halls,1,61.515361110089984,48.341376,WEWH,Weathered Expanse - The Weathering Halls
-Weathered Expanse,Wightwalk,1,71.05927643160554,36.07672932,WEWI,Weathered Expanse - Wightwalk
-Weathered Expanse,The Weathered Wall,0,49.85556628666538,47.321623079999995,WEWW,Weathered Expanse - The Weathered Wall
-Westgate,Ash Step,0,-55.50472088420797,-55.504404,WGAS,Westgate - Ash Step
-Westgate,The Bulwark,0,-50.389978867814946,-41.1573492,WGBW,Westgate - The Bulwark
-Westgate,Candle Hills,0,-66.5181264013215,-49.538736,WGCA,Westgate - Candle Hills
-Westgate,Ceo Highlands,0,-54.325870199760715,-50.5714608,WGCH,Westgate - Ceo Highlands
-Westgate,Cobber's Lane,0,-48.34239967181093,-28.9741428,WGCL,Westgate - Cobber's Lane
-Westgate,Cattle March,0,-64.3955667258578,-24.436764,WGCM,Westgate - Cattle March
-Westgate,Coasthill,0,-51.2061709528406,-36.8378208,WGCO,Westgate - Coasthill
-Westgate,Cinder Road,0,-65.07627142276846,-55.364576400000004,WGCR,Westgate - Cinder Road
-Westgate,Coastway,0,-60.996757190782496,-53.58525984,WGCW,Westgate - Coastway
-Westgate,The Divide,0,-62.274804087748,-50.3946324,WGDI,Westgate - The Divide
-Westgate,Ember Hills,0,-59.268986627169284,-56.1296556,WGEH,Westgate - Ember Hills
-Westgate,Fields of Badb,0,-60.97912602207397,-23.40668376,WGFB,Westgate - Fields of Badb
-Westgate,Fand's Chain,0,-71.70134165157216,-23.069245679999998,WGFC,Westgate - Fand's Chain
-Westgate,Flidais' Pasture,0,-53.57061983742515,-25.92646632,WGFP,Westgate - Flidais' Pasture
-Westgate,The Gallows,1,-67.23364490377207,-21.8212488,WGGA,Westgate - The Gallows
-Westgate,Hillcrest,0,-55.663931410131894,-40.5122184,WGHC,Westgate - Hillcrest
-Westgate,The Hem,0,-49.48510134739171,-44.79310296,WGHE,Westgate - The Hem
-Westgate,Holdfast,1,-63.047607052967464,-27.99781812,WGHF,Westgate - Holdfast
-Westgate,Handsome Hideaway,0,-68.46738483256745,-35.974594800000006,WGHH,Westgate - Handsome Hideaway
-Westgate,Inkwell Lane,0,-57.70901437451205,-21.810034440000003,WGIL,Westgate - Inkwell Lane
-Westgate,The Knight's Edge,0,-58.2663786249032,-28.41100488,WGKE,Westgate - The Knight's Edge
-Westgate,The King's Road,0,-51.90231819905933,-32.7545856,WGKI,Westgate - The King's Road
-Westgate,Killian Quarter,0,-49.54880617609409,-23.76274896,WGKQ,Westgate - Killian Quarter
-Westgate,Kardia Road,0,-57.79100965974236,-24.436764,WGKR,Westgate - Kardia Road
-Westgate,Kingstone,1,-55.601698547487814,-32.791969800000004,WGKS,Westgate - Kingstone
-Westgate,Lord's Mouth,1,-47.87886795756122,-33.506967599999996,WGLM,Westgate - Lord's Mouth
-Westgate,Lost Partition,1,-48.47486123644715,-38.7235368,WGLP,Westgate - Lost Partition
-Westgate,Longstone,1,-55.52195381979483,-44.043822,WGLS,Westgate - Longstone
-Westgate,Reaver's Cove,0,-62.60664160515128,-36.8766756,WGRC,Westgate - Reaver's Cove
-Westgate,Rancher's Fast,1,-53.484914499365026,-24.54551388,WGRF,Westgate - Rancher's Fast
-Westgate,Sanctuary,1,-72.56959170141386,-27.60902352,WGSA,Westgate - Sanctuary
-Westgate,Sanctified Path,0,-56.02014428639619,-47.6003052,WGSP,Westgate - Sanctified Path
-Westgate,Siochana Valley,0,-58.224381242561904,-50.3946324,WGSV,Westgate - Siochana Valley
-Westgate,Triton's Curse,0,-74.00093091453991,-49.807913400000004,WGTC,Westgate - Triton's Curse
-Westgate,Taswell Point,0,-59.50523032060593,-46.55506104,WGTP,Westgate - Taswell Point
-Westgate,Western Heartlands,0,-52.42755359979039,-30.374604,WGWH,Westgate - Western Heartlands
-Westgate,Westgate Keep,1,-57.578918098458644,-38.292434639999996,WGWK,Westgate - Westgate Keep
-Westgate,Wire Road,0,-53.62183560985651,-27.3990888,WGWR,Westgate - Wire Road
-Westgate,Warden Walk,0,-46.19293972310099,-37.1773368,WGWW,Westgate - Warden Walk
-Westgate,Wyattwick,1,-70.28229736646261,-47.390556239999995,WGWY,Westgate - Wyattwick
-Westgate,Zeus' Demise,1,-65.64459498215737,-45.8052048,WGZD,Westgate - Zeus' Demise
+Allods Bight,Allod's Children,0,47.00585746,-32.91038928,ABAC,Allods Bight - Allod's Children
+Allods Bight,Blunder Bight,0,71.10404066,-22.59145836,ABBB,Allods Bight - Blunder Bight
+Allods Bight,Breath of Cetus,0,71.28883247,-41.0807268,ABBC,Allods Bight - Breath of Cetus
+Allods Bight,Belaying Trace,1,52.59666763,-38.2144932,ABBT,Allods Bight - Belaying Trace
+Allods Bight,A Captain's Repose,0,67.01572872,-48.081294,ABCR,Allods Bight - A Captain's Repose
+Allods Bight,Gangrenous Hollow,0,55.14212137,-44.5134204,ABGH,Allods Bight - Gangrenous Hollow
+Allods Bight,Harpy's Perch,0,63.23618712,-32.3934192,ABHP,Allods Bight - Harpy's Perch
+Allods Bight,Homesick,1,57.03433976,-31.77564192,ABHS,Allods Bight - Homesick
+Allods Bight,The List,0,51.77655973,-47.07345492,ABLI,Allods Bight - The List
+Allods Bight,Mercy's Wail,1,63.65327895,-38.5330572,ABMW,Allods Bight - Mercy's Wail
+Allods Bight,Rumhold,1,53.02467762,-26.77099608,ABRH,Allods Bight - Rumhold
+Allods Bight,The Rumroad,0,50.17779466,-28.23259212,ABRR,Allods Bight - The Rumroad
+Allods Bight,The Stone Plank,1,73.34623031,-34.05890448,ABSP,Allods Bight - The Stone Plank
+Allods Bight,Scurvyshire,1,57.84471632,-25.55883252,ABSS,Allods Bight - Scurvyshire
+Allods Bight,The Turncoat,1,58.51554001,-44.30811024,ABTC,Allods Bight - The Turncoat
+Allods Bight,Titan's End,0,64.69357901,-21.92506582,ABTE,Allods Bight - Titan's End
+Allods Bight,Witch's Last Flight,0,68.0510808,-27.7069338,ABWL,Allods Bight - Witch's Last Flight
+Acrithia,Astero's Spear,0,37.33523541,-78.71946948,ACAP,Acrithia - Astero's Spear
+Acrithia,The Brinehold,1,31.84099178,-90.049428,ACBH,Acrithia - The Brinehold
+Acrithia,Camp Omicron,1,40.87673462,-76.44629664,ACCO,Acrithia - Camp Omicron
+Acrithia,Duelling Kegs,0,24.61952381,-97.639371,ACDK,Acrithia - Duelling Kegs
+Acrithia,Fated Heel,0,35.62002416,-84.1702788,ACFH,Acrithia - Fated Heel
+Acrithia,Final March,0,44.74748615,-82.53030852,ACFM,Acrithia - Final March
+Acrithia,Heir Apparent,1,30.22655263,-75.3898739,ACHA,Acrithia - Heir Apparent
+Acrithia,Legion Ranch,1,42.49010129,-88.7010768,ACLR,Acrithia - Legion Ranch
+Acrithia,Nereid Keep,1,40.87761672,-94.85788176,ACNK,Acrithia - Nereid Keep
+Acrithia,Patridia,1,27.50456813,-93.947976,ACPA,Acrithia - Patridia
+Acrithia,Riverlands,0,31.91019331,-101.907931,ACRL,Acrithia - Riverlands
+Acrithia,Swordfort,1,22.43426237,-82.56176784,ACSF,Acrithia - Swordfort
+Acrithia,Thetus Ring,1,29.02125145,-83.64756456,ACTR,Acrithia - Thetus Ring
+Acrithia,Weary Slumber,0,24.24201751,-77.35676688,ACWS,Acrithia - Weary Slumber
+Ash Fields,The Ashfort,1,-50.93809729,-69.17775624,AFAF,Ash Fields - The Ashfort
+Ash Fields,Ashtown,1,-60.97406455,-73.8905544,AFAS,Ash Fields - Ashtown
+Ash Fields,Mount Blackmoth,0,-57.52680651,-62.0433144,AFBL,Ash Fields - Mount Blackmoth
+Ash Fields,Mount Brimstone,0,-64.95285615,-83.0504772,AFBR,Ash Fields - Mount Brimstone
+Ash Fields,The Calamity,1,-71.26673463,-70.11416664,AFCA,Ash Fields - The Calamity
+Ash Fields,Cometa,1,-70.78116001,-62.0810946,AFCO,Ash Fields - Cometa
+Ash Fields,Electi,1,-63.17794485,-58.807368,AFEL,Ash Fields - Electi
+Ash Fields,Gunslinger's Pass,0,-65.52633679,-87.06782412,AFGP,Ash Fields - Gunslinger's Pass
+Ash Fields,Camp Omega,1,-52.8522871,-58.57632612,AFOM,Ash Fields - Camp Omega
+Ash Fields,Omega Valley,0,-50.89057204,-65.0751426,AFOV,Ash Fields - Omega Valley
+Ash Fields,The Red River,0,-60.80370849,-66.4982496,AFRR,Ash Fields - The Red River
+Ash Fields,Sootflow,1,-52.56384494,-79.96287132,AFSF,Ash Fields - Sootflow
+Ash Fields,The Stillness,0,-66.65538214,-69.02563068,AFST,Ash Fields - The Stillness
+Ash Fields,Tar Creek,0,-71.58243581,-75.490614,AFTC,Ash Fields - Tar Creek
+Ash Fields,Twin Flames,0,-49.38608762,-75.5112384,AFTF,Ash Fields - Twin Flames
+Ash Fields,Wasteful Calm,0,-63.40258241,-77.8421016,AFWC,Ash Fields - Wasteful Calm
+Basin Sionnach,Basinhome,1,-5.306003006,97.7110092,BSBH,Basin Sionnach - Basinhome
+Basin Sionnach,Basin Sionnach,0,-4.544215884,112.75056,BSBS,Basin Sionnach - Basin Sionnach
+Basin Sionnach,Cunning Cross,0,8.833696299,118.0097867,BSCC,Basin Sionnach - Cunning Cross
+Basin Sionnach,Cuttail Station,1,5.629539622,114.4634166,BSCS,Basin Sionnach - Cuttail Station
+Basin Sionnach,The Den,1,-3.064700024,107.574642,BSDE,Basin Sionnach - The Den
+Basin Sionnach,The Foxfields,0,-3.385828063,119.237251,BSFF,Basin Sionnach - The Foxfields
+Basin Sionnach,Lamplight,1,9.329977491,105.1425108,BSLL,Basin Sionnach - Lamplight
+Basin Sionnach,Radiant Shore,0,-10.08061361,102.1877366,BSRS,Basin Sionnach - Radiant Shore
+Basin Sionnach,Sess,1,-10.69205027,111.1754167,BSSE,Basin Sionnach - Sess
+Basin Sionnach,Stoic,1,15.56782337,110.5202142,BSST,Basin Sionnach - Stoic
+Basin Sionnach,Torchwood,0,10.44890615,99.6054552,BSTW,Basin Sionnach - Torchwood
+Callums Cape,Camp Hollow,1,-51.12297723,79.8125184,CCCH,Callums Cape - Camp Hollow
+Callums Cape,Callum's Keep,1,-65.7832408,81.53333424,CCCK,Callums Cape - Callum's Keep
+Callums Cape,The Dreg,0,-60.31267915,81.28638756,CCDR,Callums Cape - The Dreg
+Callums Cape,The Gunwall,0,-64.11032082,76.4397324,CCGW,Callums Cape - The Gunwall
+Callums Cape,Hollowhill,0,-56.68784572,84.17356668,CCHH,Callums Cape - Hollowhill
+Callums Cape,Holdout,1,-52.84640381,69.4670292,CCHO,Callums Cape - Holdout
+Callums Cape,Ire,1,-62.42349178,59.417046,CCIR,Callums Cape - Ire
+Callums Cape,Lookout,1,-51.10555141,61.9435332,CCLO,Callums Cape - Lookout
+Callums Cape,Naofa,1,-76.2569627,71.865756,CCNA,Callums Cape - Naofa
+Callums Cape,Princefal Burn,0,-74.11964055,70.31336256,CCPB,Callums Cape - Princefal Burn
+Callums Cape,The River Vein,0,-59.3268011,72.02908368,CCRV,Callums Cape - The River Vein
+Callums Cape,Scouts Jest,1,-72.48683778,63.2249856,CCSJ,Callums Cape - Scouts Jest
+Callums Cape,Trail of the Dead,0,-64.80019028,67.552416,CCTD,Callums Cape - Trail of the Dead
+Callums Cape,Valta Downs,0,-55.34971716,60.0826284,CCVD,Callums Cape - Valta Downs
+Callums Cape,Vex,0,-66.57693438,58.5666216,CCVX,Callums Cape - Vex
+Callahans Passage,Chapel Access,0,16.04082497,35.16527304,CPCA,Callahans Passage - Chapel Access
+Callahans Passage,Callahan's Eye,0,-7.169937289,44.55923904,CPCE,Callahans Passage - Callahan's Eye
+Callahans Passage,Cragsfield,0,3.654386477,46.83652452,CPCF,Callahans Passage - Cragsfield
+Callahans Passage,Cragsroad,0,-1.457444447,41.28816708,CPCG,Callahans Passage - Cragsroad
+Callahans Passage,Crumbling Post,1,-5.290359677,27.9042552,CPCP,Callahans Passage - Crumbling Post
+Callahans Passage,The Crumbling Passage,1,-1.067441615,25.7499144,CPCR,Callahans Passage - The Crumbling Passage
+Callahans Passage,Cragstown,1,1.478435296,48.96832824,CPCT,Callahans Passage - Cragstown
+Callahans Passage,The Key,0,9.953519939,20.291526,CPKE,Callahans Passage - The Key
+Callahans Passage,The Latch,1,10.22652371,29.4072138,CPLA,Callahans Passage - The Latch
+Callahans Passage,Lochan Berth,1,3.391005981,38.74511952,CPLB,Callahans Passage - Lochan Berth
+Callahans Passage,Lingering Lashes,0,-3.538351349,48.12507216,CPLL,Callahans Passage - Lingering Lashes
+Callahans Passage,The Lance,0,-4.001705978,51.31016208,CPLN,Callahans Passage - The Lance
+Callahans Passage,Lochan,0,2.838497016,35.7154812,CPLO,Callahans Passage - Lochan
+Callahans Passage,Lost Tops,0,-9.811725197,22.64117652,CPLT,Callahans Passage - Lost Tops
+Callahans Passage,Overlook Hill,1,1.83340941,30.6665532,CPOH,Callahans Passage - Overlook Hill
+Callahans Passage,The Procession,1,11.23464587,38.18532132,CPPR,Callahans Passage - The Procession
+Callahans Passage,The Rust Road,0,-11.58664232,28.837665,CPRR,Callahans Passage - The Rust Road
+Callahans Passage,Sioc Approach,0,5.848871294,29.80369584,CPSA,Callahans Passage - Sioc Approach
+Callahans Passage,Soured Fields,0,-16.21694705,34.842348,CPSF,Callahans Passage - Soured Fields
+Callahans Passage,Solas Gateway,0,-10.33854106,38.76493464,CPSG,Callahans Passage - Solas Gateway
+Callahans Passage,Solas Gorge,1,-11.93268363,42.09370308,CPSO,Callahans Passage - Solas Gorge
+Callahans Passage,Scath Passing,1,-5.48820422,34.85364948,CPSP,Callahans Passage - Scath Passing
+Callahans Passage,The Stern,0,12.45351358,25.7393844,CPST,Callahans Passage - The Stern
+Callahans Passage,Twisted Mumble,0,8.076075244,47.803653,CPTM,Callahans Passage - Twisted Mumble
+Callahans Passage,White Chapel,1,11.73676463,44.3884536,CPWC,Callahans Passage - White Chapel
+Callahans Passage,Whispering Gulch,0,0.624682927,16.3825092,CPWG,Callahans Passage - Whispering Gulch
+Callahans Passage,Winding Crag,0,1.63362982,45.16201872,CPWI,Callahans Passage - Winding Crag
+Clanshead Valley,The Bastard's Channel,0,64.6094321,71.2696302,CVBC,Clanshead Valley - The Bastard's Channel
+Clanshead Valley,Bramble Field,0,58.64129895,70.6007088,CVBF,Clanshead Valley - Bramble Field
+Clanshead Valley,Fort Ealar,1,57.72770728,64.24678296,CVEA,Clanshead Valley - Fort Ealar
+Clanshead Valley,Fort Esterwild,1,72.10176012,68.9082264,CVES,Clanshead Valley - Fort Esterwild
+Clanshead Valley,Fallen Crown,1,54.3556625,74.3132142,CVFC,Clanshead Valley - Fallen Crown
+Clanshead Valley,The King,1,65.5862755,76.1720724,CVKI,Clanshead Valley - The King
+Clanshead Valley,Lost Orphans,0,53.24422961,67.8651012,CVLO,Clanshead Valley - Lost Orphans
+Clanshead Valley,The Pike,1,66.84365876,59.5281456,CVPI,Clanshead Valley - The Pike
+Clanshead Valley,Sweetholt,1,74.7593884,77.5447686,CVSH,Clanshead Valley - Sweetholt
+Clanshead Valley,Throne of Druiminn,0,68.75958657,83.70253692,CVTD,Clanshead Valley - Throne of Druiminn
+Clanshead Valley,Tallowild,0,55.17175482,81.543132,CVTW,Clanshead Valley - Tallowild
+Clanshead Valley,The Weathered Advance,0,57.37964987,59.1321996,CVWA,Clanshead Valley - The Weathered Advance
+Clanshead Valley,Fort Windham,1,59.24226973,84.95159616,CVWI,Clanshead Valley - Fort Windham
+DeadLands,The Abbey Drag,0,11.3417739,13.35581208,DLAD,DeadLands - The Abbey Drag
+DeadLands,Abandoned Ward,1,-3.098383562,0.0954936,DLAW,DeadLands - Abandoned Ward
+DeadLands,Border Concourse,0,13.90949211,3.9540258,DLBC,DeadLands - Border Concourse
+DeadLands,The Blade,0,3.876702819,4.25342988,DLBD,DeadLands - The Blade
+DeadLands,Brine Glen,1,10.16335928,-7.9928712,DLBG,DeadLands - Brine Glen
+DeadLands,Callahan's Belt,0,7.37365354,6.81835464,DLBL,DeadLands - Callahan's Belt
+DeadLands,Border Thicket,0,3.917764894,6.31905912,DLBO,DeadLands - Border Thicket
+DeadLands,Biting Tarn,0,14.16457498,-7.39356696,DLBT,DeadLands - Biting Tarn
+DeadLands,The Boneyard,0,4.708290896,8.22102336,DLBY,DeadLands - The Boneyard
+DeadLands,Callahan's Boot,1,2.76199926,0.3320244,DLCB,DeadLands - Callahan's Boot
+DeadLands,Coracoid Footpath,0,-15.54402852,3.59209152,DLCF,DeadLands - Coracoid Footpath
+DeadLands,Callahan's Gate,1,5.97381465,14.02799526,DLCG,DeadLands - Callahan's Gate
+DeadLands,Cemetary Junction,0,-6.517780253,-2.8581552,DLCJ,DeadLands - Cemetary Junction
+DeadLands,Cemetary Lane,0,-4.100753789,-5.7082644,DLCL,DeadLands - Cemetary Lane
+DeadLands,Crumbling Passage,0,-2.659115386,14.58561874,DLCP,DeadLands - Crumbling Passage
+DeadLands,The Crossing,0,-2.638780971,1.9218384,DLCR,DeadLands - The Crossing
+DeadLands,Carpal Trail,0,-7.885808298,2.908872,DLCT,DeadLands - Carpal Trail
+DeadLands,The Great March,0,-5.187808413,-13.7322,DLGM,DeadLands - The Great March
+DeadLands,Hope's Causeway,0,1.961154531,-2.86047936,DLHC,DeadLands - Hope's Causeway
+DeadLands,Iron's End,1,-0.82795386,8.56532232,DLIE,DeadLands - Iron's End
+DeadLands,The Iron Passage,0,0.002972435,6.64402932,DLIP,DeadLands - The Iron Passage
+DeadLands,The Iron Road,0,1.940884132,13.23285948,DLIR,DeadLands - The Iron Road
+DeadLands,Jaspar Range,0,-8.024908883,-5.8757976,DLJR,DeadLands - Jaspar Range
+DeadLands,Liberation Point,1,-9.900272207,-1.8637452,DLLP,DeadLands - Liberation Point
+DeadLands,Marrow Copse,0,-5.368280348,6.7291524,DLMA,DeadLands - Marrow Copse
+DeadLands,Mandible Crossroads,0,-11.63199434,5.91603372,DLMC,DeadLands - Mandible Crossroads
+DeadLands,Mercy's End,0,5.894148488,-11.903598,DLME,DeadLands - Mercy's End
+DeadLands,Mercy Meadow,0,-14.71531636,-1.50979824,DLMM,DeadLands - Mercy Meadow
+DeadLands,Overgrown Pasture,0,-13.36885817,-5.1633756,DLOP,DeadLands - Overgrown Pasture
+DeadLands,Pommel Annex,0,0.309684269,3.83960268,DLPA,DeadLands - Pommel Annex
+DeadLands,The Pits,1,-0.665349623,-4.6720728,DLPI,DeadLands - The Pits
+DeadLands,The Plaza,0,-2.141802663,3.56257008,DLPL,DeadLands - The Plaza
+DeadLands,Path to the Sun,0,-8.653773022,-14.1548076,DLPS,DeadLands - Path to the Sun
+DeadLands,The Steppes,0,7.762511971,-0.9787788,DLSE,DeadLands - The Steppes
+DeadLands,The Salt Farms,1,-1.004093035,-12.1540824,DLSF,DeadLands - The Salt Farms
+DeadLands,Sunhaven Gateway,0,-3.903369002,-2.17923264,DLSG,DeadLands - Sunhaven Gateway
+DeadLands,The Shorn Fields,0,-1.06382925,-14.90117544,DLSH,DeadLands - The Shorn Fields
+DeadLands,The Salt March,1,14.20706288,0.65075328,DLSM,DeadLands - The Salt March
+DeadLands,The Spine,1,-7.239335854,9.51018408,DLSP,DeadLands - The Spine
+DeadLands,The Salt Trail,0,-3.207018482,-8.8242156,DLST,DeadLands - The Salt Trail
+DeadLands,Sun's Hollow,1,-8.636960767,-7.9753608,DLSU,DeadLands - Sun's Hollow
+DeadLands,Tarsal Pathway,0,-11.47421754,3.02868288,DLTP,DeadLands - Tarsal Pathway
+The Drowned Vale,The Baths,1,34.80327089,-18.93853944,DVBA,The Drowned Vale - The Baths
+The Drowned Vale,Bootnap,1,44.78235483,-20.098062,DVBN,The Drowned Vale - Bootnap
+The Drowned Vale,Coaldrifter Stead,1,38.70895886,-29.6224794,DVCS,The Drowned Vale - Coaldrifter Stead
+The Drowned Vale,Esterfal,0,43.88372184,-25.0401096,DVEF,The Drowned Vale - Esterfal
+The Drowned Vale,Eastmarch,1,20.88531843,-19.0011492,DVEM,The Drowned Vale - Eastmarch
+The Drowned Vale,Fleetsfall River,0,31.37822328,-3.00673836,DVFR,The Drowned Vale - Fleetsfall River
+The Drowned Vale,Loggerhead,1,28.42974099,-7.48611072,DVLH,The Drowned Vale - Loggerhead
+The Drowned Vale,Linger,0,31.31368873,-12.4114536,DVLI,The Drowned Vale - Linger
+The Drowned Vale,The Other Vein,0,16.20283747,-21.6040176,DVOV,The Drowned Vale - The Other Vein
+The Drowned Vale,The Saltcaps,1,37.49057792,-6.09441336,DVSC,The Drowned Vale - The Saltcaps
+The Drowned Vale,Sop Fields,0,32.78819259,-24.2352612,DVSF,The Drowned Vale - Sop Fields
+The Drowned Vale,Sprite's Game,0,24.74658885,-15.5857392,DVSG,The Drowned Vale - Sprite's Game
+The Drowned Vale,Splinter Pens,1,30.79557164,-28.8311472,DVSP,The Drowned Vale - Splinter Pens
+The Drowned Vale,Singing Serpents,1,38.74589934,-11.25898848,DVSS,The Drowned Vale - Singing Serpents
+The Drowned Vale,The Turtlerocks,0,35.26330081,-12.90422016,DVTR,The Drowned Vale - The Turtlerocks
+The Drowned Vale,Vessel,1,26.28784748,-25.740792,DVVE,The Drowned Vale - Vessel
+The Drowned Vale,The Wash,1,27.0359101,-18.4386816,DVWA,The Drowned Vale - The Wash
+The Drowned Vale,Wisp's Warning,1,24.92869113,-10.57648428,DVWI,The Drowned Vale - Wisp's Warning
+The Drowned Vale,The Willow Wood,0,23.95478294,-30.1490748,DVWW,The Drowned Vale - The Willow Wood
+Endless Shore,Balor's Crown,0,76.83673531,5.95738152,ESBC,Endless Shore - Balor's Crown
+Endless Shore,Battered Landing,0,55.05393643,-1.80406656,ESBL,Endless Shore - Battered Landing
+Endless Shore,Brackish Point,1,54.94928301,12.42811044,ESBP,Endless Shore - Brackish Point
+Endless Shore,The Dark Road,0,77.14470503,0.17902548,ESDA,Endless Shore - The Dark Road
+Endless Shore,The Dannan Coast,0,70.40233395,8.8242336,ESDC,Endless Shore - The Dannan Coast
+Endless Shore,Dearg's Fang,0,67.07629674,4.80811392,ESDF,Endless Shore - Dearg's Fang
+Endless Shore,Dannan Ridge,1,73.48382027,9.934857,ESDR,Endless Shore - Dannan Ridge
+Endless Shore,The Evil Eye,1,73.27899002,1.46403972,ESEE,Endless Shore - The Evil Eye
+Endless Shore,Enduring Wake,1,50.90953555,-4.0407048,ESEW,Endless Shore - Enduring Wake
+Endless Shore,Iron Junction,1,57.29907168,-10.6439796,ESIJ,Endless Shore - Iron Junction
+Endless Shore,The Old Jack Tar,1,47.3960062,-0.21819456,ESJT,Endless Shore - The Old Jack Tar
+Endless Shore,Kelpie's Mane,0,74.61307306,-4.86771372,ESKM,Endless Shore - Kelpie's Mane
+Endless Shore,Kelpie's Tail,0,72.25978135,-6.29529696,ESKT,Endless Shore - Kelpie's Tail
+Endless Shore,Liegehearth,0,54.94160933,1.7536392,ESLH,Endless Shore - Liegehearth
+Endless Shore,Merrow's Rest,0,75.16546813,-9.75883572,ESMR,Endless Shore - Merrow's Rest
+Endless Shore,The North Star,0,54.92949315,8.5808502,ESNS,Endless Shore - The North Star
+Endless Shore,The Overland,1,66.2578491,-10.67976252,ESOL,Endless Shore - The Overland
+Endless Shore,The Selkie Bluffs,0,66.43175061,-1.46115576,ESSB,Endless Shore - The Selkie Bluffs
+Endless Shore,Saltbrook Channel,1,54.98077044,4.26147336,ESSC,Endless Shore - Saltbrook Channel
+Endless Shore,Sidhe Fall,0,62.4894784,7.30712376,ESSF,Endless Shore - Sidhe Fall
+Endless Shore,The Styx,0,61.67200141,-5.0099364,ESST,Endless Shore - The Styx
+Endless Shore,Tuatha Watchpost,1,77.85070003,-1.826658,ESTW,Endless Shore - Tuatha Watchpost
+Endless Shore,Vulpine Watch,1,68.47678992,12.6879732,ESVW,Endless Shore - Vulpine Watch
+Endless Shore,Woodbind,1,71.42367886,-8.412102,ESWB,Endless Shore - Woodbind
+Endless Shore,Wellchurch,1,63.74658397,1.45969452,ESWC,Endless Shore - Wellchurch
+Endless Shore,The Whispering Waves,0,69.82467893,-2.8841796,ESWW,Endless Shore - The Whispering Waves
+Farranac Coast,Apollo's Landing,0,-64.41701436,-2.87154936,FCAL,Farranac Coast - Apollo's Landing
+Farranac Coast,The Bay of Artemis,0,-67.72344878,-6.747606,FCBA,Farranac Coast - The Bay of Artemis
+Farranac Coast,The Bone Haft,1,-61.6091541,10.67055228,FCBH,Farranac Coast - The Bone Haft
+Farranac Coast,Cormac Beach,0,-62.70246281,-10.20527532,FCCB,Farranac Coast - Cormac Beach
+Farranac Coast,Carrion Fields,0,-56.72131018,1.51723872,FCCF,Farranac Coast - Carrion Fields
+Farranac Coast,Cora Lushlands,0,-59.66302375,-13.2160068,FCCL,Farranac Coast - Cora Lushlands
+Farranac Coast,Gulf of the Daughters,0,-81.65306228,-2.99875464,FCGD,Farranac Coast - Gulf of the Daughters
+Farranac Coast,Huskhollow,1,-57.9904463,-2.26010664,FCHH,Farranac Coast - Huskhollow
+Farranac Coast,Hermes Inlet,0,-71.09900865,2.43738,FCHI,Farranac Coast - Hermes Inlet
+Farranac Coast,The Heart Road,0,-54.65914477,-15.0092784,FCHR,Farranac Coast - The Heart Road
+Farranac Coast,The Iron Beach,0,-68.41575711,8.54577648,FCIB,Farranac Coast - The Iron Beach
+Farranac Coast,Iuxta Homestead,1,-52.72673143,10.96321608,FCIH,Farranac Coast - Iuxta Homestead
+Farranac Coast,The Jade Cove,1,-64.38508089,-5.3649216,FCJC,Farranac Coast - The Jade Cove
+Farranac Coast,Kardia,0,-56.32709556,-13.14648468,FCKR,Farranac Coast - Kardia
+Farranac Coast,Liberation Street,0,-47.78979219,-12.4496748,FCLS,Farranac Coast - Liberation Street
+Farranac Coast,Mooring Dens,0,-57.72903411,7.73441784,FCMD,Farranac Coast - Mooring Dens
+Farranac Coast,McCarthy Fields,0,-57.34992699,-10.1193048,FCMF,Farranac Coast - McCarthy Fields
+Farranac Coast,The Mirror,0,-48.07076685,3.19999536,FCMI,Farranac Coast - The Mirror
+Farranac Coast,Macha's Keening,1,-53.17013491,-10.168866,FCMK,Farranac Coast - Macha's Keening
+Farranac Coast,Mara,1,-46.81336864,0.56610288,FCMR,Farranac Coast - Mara
+Farranac Coast,Pleading Wharf,1,-56.32001632,-7.82888544,FCPW,Farranac Coast - Pleading Wharf
+Farranac Coast,The Reaping Fields,0,-55.29447874,-0.71713692,FCRF,Farranac Coast - The Reaping Fields
+Farranac Coast,The River Mercy,0,-58.4207401,-5.4773928,FCRM,Farranac Coast - The River Mercy
+Farranac Coast,Scarp of Ambrose,1,-62.5236736,4.34372904,FCSA,Farranac Coast - Scarp of Ambrose
+Farranac Coast,Sunder Beach,0,-67.54958843,2.8848996,FCSB,Farranac Coast - Sunder Beach
+Farranac Coast,Scythe,1,-49.57420247,5.45392332,FCSC,Farranac Coast - Scythe
+Farranac Coast,The Spearhead,1,-71.78966336,10.7472852,FCSH,Farranac Coast - The Spearhead
+Farranac Coast,Sickle Hill,0,-62.98525406,2.00722464,FCSI,Farranac Coast - Sickle Hill
+Farranac Coast,The Snag,0,-45.21116039,-10.3339476,FCSN,Farranac Coast - The Snag
+Farranac Coast,Skeleton Road,0,-57.6604104,5.255145,FCSR,Farranac Coast - Skeleton Road
+Farranac Coast,Terra,1,-56.91726624,3.41440704,FCTE,Farranac Coast - Terra
+Farranac Coast,Transient Valley,0,-56.31067821,11.74442328,FCTV,Farranac Coast - Transient Valley
+Farranac Coast,Victa,1,-63.99034374,-13.4810676,FCVC,Farranac Coast - Victa
+Farranac Coast,The Winged Walk,0,-49.17764709,-5.4401796,FCWW,Farranac Coast - The Winged Walk
+The Fingers,Fort Barley,1,100.8502507,-50.04704736,FIBA,The Fingers - Fort Barley
+The Fingers,Captain's Dread,0,109.4610069,-51.7955184,FICD,The Fingers - Captain's Dread
+The Fingers,Cementum,0,83.55311981,-48.0196548,FICE,The Fingers - Cementum
+The Fingers,Cavitatis,0,91.62301971,-58.0317372,FICV,The Fingers - Cavitatis
+The Fingers,Headsman's Villa,1,81.3577159,-51.976917,FIHV,The Fingers - Headsman's Villa
+The Fingers,Mount Talio,0,90.86158302,-51.4684764,FIMT,The Fingers - Mount Talio
+The Fingers,The Old Captain,1,108.1084859,-56.4294924,FIOC,The Fingers - The Old Captain
+The Fingers,Plankhouse,1,87.791803,-58.3355664,FIPH,The Fingers - Plankhouse
+The Fingers,The Routed,1,94.15942716,-42.58090404,FIRO,The Fingers - The Routed
+The Fingers,Second Man,1,104.1312864,-41.26859388,FISM,The Fingers - Second Man
+The Fingers,Titancall,1,97.48821334,-66.8004012,FITC,The Fingers - Titancall
+The Fingers,Tears of Tethys,0,98.0314108,-55.1657916,FITT,The Fingers - Tears of Tethys
+The Fingers,The Tusk,1,85.63914721,-42.4122786,FITU,The Fingers - The Tusk
+The Fingers,The Wary Nymphae,0,103.1017768,-65.055645,FIWN,The Fingers - The Wary Nymphae
+Godcrofts,Anchor Beach,1,87.61411953,2.9133018,GCAB,Godcrofts - Anchor Beach
+Godcrofts,Argosa,0,92.05132193,19.3348296,GCAR,Godcrofts - Argosa
+Godcrofts,The Axehead,1,83.58134324,24.01163388,GCAX,Godcrofts - The Axehead
+Godcrofts,Barreller's Bay,0,100.9161193,19.46343348,GCBB,Godcrofts - Barreller's Bay
+Godcrofts,Bagh Mor,0,92.55063685,5.8155732,GCBM,Godcrofts - Bagh Mor
+Godcrofts,Blackwatch,1,87.72693964,7.2320832,GCBW,Godcrofts - Blackwatch
+Godcrofts,Chamil Ravine,0,93.23257781,25.069905,GCCR,Godcrofts - Chamil Ravine
+Godcrofts,The Dice Road,0,96.93533483,23.93222544,GCDR,Godcrofts - The Dice Road
+Godcrofts,Den of Thieves,0,86.9241715,12.96850212,GCDT,Godcrofts - Den of Thieves
+Godcrofts,Exile,0,90.71396075,12.8945808,GCEX,Godcrofts - Exile
+Godcrofts,The Fleece Road,1,101.0303826,3.6659988,GCFR,Godcrofts - The Fleece Road
+Godcrofts,Isawa,1,99.36037501,6.90773544,GCIS,Godcrofts - Isawa
+Godcrofts,The Kris Ford,0,98.29105838,9.86067144,GCKF,Godcrofts - The Kris Ford
+Godcrofts,Kolas,0,79.8823499,12.7152306,GCKO,Godcrofts - Kolas
+Godcrofts,Lipsia,0,92.60770099,28.29947724,GCLI,Godcrofts - Lipsia
+Godcrofts,Perpetua Channel,0,78.16811926,23.5948338,GCPC,Godcrofts - Perpetua Channel
+Godcrofts,Peripti Depths,0,84.36927823,8.94559824,GCPD,Godcrofts - Peripti Depths
+Godcrofts,Protos,1,80.61376031,17.8891704,GCPO,Godcrofts - Protos
+Godcrofts,Promithiens,1,96.04363932,13.0865184,GCPR,Godcrofts - Promithiens
+Godcrofts,Primus Trames,0,86.88136352,18.99969912,GCPT,Godcrofts - Primus Trames
+Godcrofts,Saegio,0,92.52112187,20.54855232,GCSA,Godcrofts - Saegio
+Godcrofts,Skodio,1,98.19460948,27.07998876,GCSK,Godcrofts - Skodio
+Godcrofts,Ursa Trail,0,97.96156828,2.1507174,GCUT,Godcrofts - Ursa Trail
+Godcrofts,Vicit Lagoon,0,87.44652907,22.81062888,GCVL,Godcrofts - Vicit Lagoon
+Great March,The Black Wing,0,0.252275515,-80.4725136,GMBW,Great March - The Black Wing
+Great March,Dendro Field,1,12.05984476,-70.6149342,GMDF,Great March - Dendro Field
+Great March,Dalton Meadow,0,-15.87184978,-77.0414292,GMDM,Great March - Dalton Meadow
+Great March,Eristown,0,12.47153965,-85.4204904,GMER,Great March - Eristown
+Great March,Fengari,0,5.353297194,-80.972073,GMFE,Great March - Fengari
+Great March,Fateless Grove,0,-1.146195748,-57.26693326,GMFG,Great March - Fateless Grove
+Great March,Halting Valley,0,12.778212,-66.4662672,GMHV,Great March - Halting Valley
+Great March,Jackboot Creek,0,-9.628862201,-77.16447108,GMJC,Great March - Jackboot Creek
+Great March,Jack Field,0,-2.683062582,-87.9459858,GMJF,Great March - Jack Field
+Great March,Leto,1,-9.774611782,-72.1470528,GMLE,Great March - Leto
+Great March,Lionsfort,1,8.919058691,-58.39778448,GMLF,Great March - Lionsfort
+Great March,Legacy Pasture,0,12.25195275,-82.0103904,GMLP,Great March - Legacy Pasture
+Great March,The Midmarch,0,-7.861490721,-54.92283192,GMMM,Great March - The Midmarch
+Great March,Mors Range,0,9.046908982,-80.02557936,GMMR,Great March - Mors Range
+Great March,Myrmidon's Stay,1,5.186054248,-62.27047548,GMMS,Great March - Myrmidon's Stay
+Great March,Milowood,0,12.17265946,-79.0915536,GMMW,Great March - Milowood
+Great March,Remnant Acreage,0,1.756829347,-72.56405988,GMRA,Great March - Remnant Acreage
+Great March,The River Senti,0,-7.297437983,-67.62414888,GMRS,Great March - The River Senti
+Great March,Remnant Villa,1,2.909079472,-69.82095852,GMRV,Great March - Remnant Villa
+Great March,Serpent Charm,0,-8.320511759,-84.102408,GMSC,Great March - Serpent Charm
+Great March,Camp Senti,1,-4.429955818,-67.03866,GMSE,Great March - Camp Senti
+Great March,Sitaria,1,2.345700155,-76.2442092,GMSI,Great March - Sitaria
+Great March,Schala Estate,0,-6.054343317,-76.891644,GMSL,Great March - Schala Estate
+Great March,Scrabbling Motte,0,-11.85826807,-60.41183832,GMSM,Great March - Scrabbling Motte
+Great March,The Spice Road,0,-4.411032262,-69.7606128,GMSR,Great March - The Spice Road
+Great March,The Swan,1,-2.965090198,-85.444686,GMSW,Great March - The Swan
+Great March,Violet Fields,0,-14.41737938,-65.82905352,GMVF,Great March - Violet Fields
+Great March,Violethome,1,-6.988720434,-60.92329068,GMVH,Great March - Violethome
+Great March,The White Wing,0,3.017184384,-84.18237228,GMWW,Great March - The White Wing
+Great March,Zealous Approach,0,-1.95236591,-75.954006,GMZA,Great March - Zealous Approach
+Howl County,Austriaca Reservoir,0,32.08764108,88.27785,HCAR,Howl County - Austriaca Reservoir
+Howl County,Coldbutt,1,42.4214599,93.17639932,HCCB,Howl County - Coldbutt
+Howl County,Checkpoint Titim,0,32.21096864,93.13733376,HCCT,Howl County - Checkpoint Titim
+Howl County,The Hunting Grounds,0,20.2273205,83.6706132,HCHG,Howl County - The Hunting Grounds
+Howl County,Hungry Wolf,1,18.51206227,91.43857692,HCHW,Howl County - Hungry Wolf
+Howl County,Little Lamb,1,35.60760619,78.6453894,HCLL,Howl County - Little Lamb
+Howl County,Fort Red,1,47.12227995,93.179745,HCRE,Howl County - Fort Red
+Howl County,Fort Rider,1,25.78425592,77.15692656,HCRI,Howl County - Fort Rider
+Howl County,Slipgate Outpost,1,27.96708265,94.11663708,HCSO,Howl County - Slipgate Outpost
+Howl County,Sickleshire,1,40.25949032,84.31553016,HCSS,Howl County - Sickleshire
+Howl County,Snakewall,0,27.21725416,103.2807985,HCSW,Howl County - Snakewall
+Howl County,Teller Farm,1,27.82241595,84.7376532,HCTF,Howl County - Teller Farm
+Howl County,Viperwalk,0,43.05918598,78.9990876,HCVW,Howl County - Viperwalk
+Howl County,Great Warden Dam,1,38.4214599,95.17639932,HCWD,Howl County - Great Warden Dam
+The Heartlands,Barrony Road,0,-30.79840286,-43.26719544,HLBA,The Heartlands - Barrony Road
+The Heartlands,The Blemish,1,-24.19182761,-52.80525,HLBL,The Heartlands - The Blemish
+The Heartlands,The Breach,1,-36.03556041,-45.750546,HLBR,The Heartlands - The Breach
+The Heartlands,Barronshire ,0,-38.5380773,-55.0549044,HLBS,The Heartlands - Barronshire 
+The Heartlands,Barronswall,1,-34.8101971,-50.73922548,HLBW,The Heartlands - Barronswall
+The Heartlands,Crater Basin,0,-39.62590844,-43.3548918,HLCB,The Heartlands - Crater Basin
+The Heartlands,Cageroad,0,-47.68914604,-56.9409822,HLCR,The Heartlands - Cageroad
+The Heartlands,Deeplaw Post,1,-41.06911068,-51.63760152,HLDP,The Heartlands - Deeplaw Post
+The Heartlands,Erimos Ranch,0,-29.84905335,-66.45432456,HLER,The Heartlands - Erimos Ranch
+The Heartlands,The Fuming Pen,0,-43.06713354,-60.7368096,HLFP,The Heartlands - The Fuming Pen
+The Heartlands,Greenfield Orchard,1,-20.75935324,-43.36343352,HLGO,The Heartlands - Greenfield Orchard
+The Heartlands,Harvester's Range,0,-31.47932081,-55.6214832,HLHR,The Heartlands - Harvester's Range
+The Heartlands,Janus Field,0,-34.08792235,-67.450437,HLJF,The Heartlands - Janus Field
+The Heartlands,Kos Meadows,0,-41.45605277,-67.49356896,HLKM,The Heartlands - Kos Meadows
+The Heartlands,Lower Barrony Field,0,-31.9430321,-47.36126772,HLLB,The Heartlands - Lower Barrony Field
+The Heartlands,Loftmire,0,-28.24715438,-51.91189272,HLLM,The Heartlands - Loftmire
+The Heartlands,Oleander Fields,0,-23.05184789,-59.031108,HLOF,The Heartlands - Oleander Fields
+The Heartlands,Oleander Homestead,1,-16.76522884,-53.6646492,HLOH,The Heartlands - Oleander Homestead
+The Heartlands,The Orchard Wall,0,-22.13926219,-44.99082684,HLOW,The Heartlands - The Orchard Wall
+The Heartlands,Pandora Compound,0,-32.87221016,-61.562538,HLPC,The Heartlands - Pandora Compound
+The Heartlands,Providence Field,0,-25.74433403,-48.5320716,HLPF,The Heartlands - Providence Field
+The Heartlands,The Plough,1,-28.41984248,-44.98965684,HLPL,The Heartlands - The Plough
+The Heartlands,Fort Providence,1,-19.66413526,-49.6534932,HLPR,The Heartlands - Fort Providence
+The Heartlands,Proexi,1,-24.04789585,-66.0616524,HLPX,The Heartlands - Proexi
+The Heartlands,Barrony Ranch,1,-35.65714209,-39.9541536,HLRA,The Heartlands - Barrony Ranch
+The Heartlands,The Rollcage,0,-44.66605989,-48.35299104,HLRC,The Heartlands - The Rollcage
+The Heartlands,The Salt Crossing,0,-18.53129006,-38.55049272,HLSC,The Heartlands - The Salt Crossing
+The Heartlands,18th Sideroad,0,-27.74957082,-38.8511478,HLSR,The Heartlands - 18th Sideroad
+The Heartlands,Upper Barrony Field,0,-31.57957413,-39.3380523,HLUB,The Heartlands - Upper Barrony Field
+The Heartlands,Upper Heartlands,0,-37.66206503,-40.09288572,HLUH,The Heartlands - Upper Heartlands
+Kalokai,Bleary,0,-11.24537524,-110.7972144,KABL,Kalokai - Bleary
+Kalokai,Baccae Ridge,1,-1.27231676,-116.0968356,KABR,Kalokai - Baccae Ridge
+Kalokai,Clarity Meadow,0,9.001630541,-117.981252,KACM,Kalokai - Clarity Meadow
+Kalokai,Camp Tau,1,8.56041651,-111.3891552,KACT,Kalokai - Camp Tau
+Kalokai,Hallow,1,0.078791781,-106.3001664,KAHA,Kalokai - Hallow
+Kalokai,Lost Greensward,1,3.15889801,-122.4229212,KALG,Kalokai - Lost Greensward
+Kalokai,Night's Regret,1,-11.04919638,-107.0591436,KANR,Kalokai - Night's Regret
+Kalokai,Sweethearth,1,7.209880792,-97.73555256,KASH,Kalokai - Sweethearth
+Kalokai,South March,0,-3.336434685,-108.858487,KASM,Kalokai - South March
+Kalokai,Sourtooth,1,6.783929315,-93.5489155,KAST,Kalokai - Sourtooth
+Kalokai,The Stumble,0,-5.953383738,-97.3234278,KASU,Kalokai - The Stumble
+Kalokai,Vinum Rillet,0,-6.771315079,-119.3978113,KAVI,Kalokai - Vinum Rillet
+Kalokai,The Vineroad,0,14.2444943,-104.6302733,KAVR,Kalokai - The Vineroad
+The Linn of Mercy,Blackroad,0,-31.84030459,30.0690306,LIBR,The Linn of Mercy - Blackroad
+The Linn of Mercy,The Crimson Gardens,1,-41.63321662,13.37719572,LICG,The Linn of Mercy - The Crimson Gardens
+The Linn of Mercy,The Drone,0,-43.13009303,27.98573004,LIDR,The Linn of Mercy - The Drone
+The Linn of Mercy,Fort Duncan,1,-20.55134669,8.4217536,LIDU,The Linn of Mercy - Fort Duncan
+The Linn of Mercy,The First Coin,1,-34.19966997,10.1357712,LIFC,The Linn of Mercy - The First Coin
+The Linn of Mercy,Gallant Gough Boulevard,0,-47.09453244,20.5120818,LIGG,The Linn of Mercy - Gallant Gough Boulevard
+The Linn of Mercy,The Great Scale,0,-34.08647408,25.52948532,LIGS,The Linn of Mercy - The Great Scale
+The Linn of Mercy,Hardline,1,-36.21554308,14.803425,LIHL,The Linn of Mercy - Hardline
+The Linn of Mercy,Lathair,1,-21.00198031,24.7713048,LILA,The Linn of Mercy - Lathair
+The Linn of Mercy,The Last Grove,1,-35.26886646,4.1547816,LILG,The Linn of Mercy - The Last Grove
+The Linn of Mercy,The Long Whine,1,-36.30199209,28.441296,LILW,The Linn of Mercy - The Long Whine
+The Linn of Mercy,Mudhole,0,-27.48186921,25.11402408,LIMH,The Linn of Mercy - Mudhole
+The Linn of Mercy,Merciful Strait,0,-16.17861649,11.6891118,LIMS,The Linn of Mercy - Merciful Strait
+The Linn of Mercy,Nathair,0,-26.49067195,21.11519052,LINA,The Linn of Mercy - Nathair
+The Linn of Mercy,Outwich Ranch,1,-16.38295414,18.4747464,LIOR,The Linn of Mercy - Outwich Ranch
+The Linn of Mercy,The Prairie Bazaar,1,-25.63997866,9.3455712,LIPB,The Linn of Mercy - The Prairie Bazaar
+The Linn of Mercy,Solas Burn,0,-20.79171779,27.88514676,LISB,The Linn of Mercy - Solas Burn
+The Linn of Mercy,Rotdust,1,-26.83048369,30.53560536,LITD,The Linn of Mercy - Rotdust
+The Linn of Mercy,Ulster Falls,1,-31.884242,19.79181108,LIUF,The Linn of Mercy - Ulster Falls
+Loch Mor,Bastard's Blade,0,-42.41399256,-29.11636584,LMBB,Loch Mor - Bastard's Blade
+Loch Mor,Chattering Prairie,0,-24.33029884,-11.03411772,LMCP,Loch Mor - Chattering Prairie
+Loch Mor,Escape,0,-21.24968713,-32.5924488,LMES,Loch Mor - Escape
+Loch Mor,Fallen Fields,0,-29.93265071,-19.1439972,LMFF,Loch Mor - Fallen Fields
+Loch Mor,Feirmor,1,-30.28808666,-15.63286896,LMFM,Loch Mor - Feirmor
+Loch Mor,The Founding Fields,0,-29.66024803,-33.495138,LMFO,Loch Mor - The Founding Fields
+Loch Mor,The Glean,0,-45.33282519,-17.87850576,LMGL,Loch Mor - The Glean
+Loch Mor,Loch Mor,0,-31.90952108,-9.7424928,LMLM,Loch Mor - Loch Mor
+Loch Mor,Lake Severspring,0,-45.58196199,-24.4324242,LMLS,Loch Mor - Lake Severspring
+Loch Mor,Missing Bones,0,-15.65873104,-11.058237,LMMB,Loch Mor - Missing Bones
+Loch Mor,Moon's Copse,1,-19.1372957,-18.2880468,LMMC,Loch Mor - Moon's Copse
+Loch Mor,Market Road,1,-42.68939529,-18.5447016,LMMR,Loch Mor - Market Road
+Loch Mor,Mercy's Wish,1,-32.28363906,-4.69296288,LMMW,Loch Mor - Mercy's Wish
+Loch Mor,Ousterdown,0,-42.64117541,-23.82738228,LMOD,Loch Mor - Ousterdown
+Loch Mor,Pockfields,0,-28.9260213,-23.78956104,LMPF,Loch Mor - Pockfields
+Loch Mor,The Roilfort,1,-26.89622126,-27.3311154,LMRF,Loch Mor - The Roilfort
+Loch Mor,Rip,0,-30.93397505,-28.1308716,LMRI,Loch Mor - Rip
+Loch Mor,The Reaping Road,0,-38.69850581,-1.21217868,LMRR,Loch Mor - The Reaping Road
+Loch Mor,Tomb of the First,1,-40.10477088,-7.45064172,LMTF,Loch Mor - Tomb of the First
+Loch Mor,Tear,0,-23.05123059,-27.9931104,LMTR,Loch Mor - Tear
+Loch Mor,Westmarch,1,-25.01277646,-5.64326316,LMWM,Loch Mor - Westmarch
+Loch Mor,Widow's Wail,0,-37.24333288,-27.44640108,LMWW,Loch Mor - Widow's Wail
+Morgens Crossing,Allsight,1,97.77059929,66.65779296,MCAS,Morgens Crossing - Allsight
+Morgens Crossing,Bastard's Block,1,98.77666377,59.8384404,MCBB,Morgens Crossing - Bastard's Block
+Morgens Crossing,The Bastard Sea,0,88.1653411,49.2123924,MCBS,Morgens Crossing - The Bastard Sea
+Morgens Crossing,Callum's Descent,0,85.63349546,40.1400324,MCCD,Morgens Crossing - Callum's Descent
+Morgens Crossing,Crimson Thread,0,89.96779825,63.38089368,MCCT,Morgens Crossing - Crimson Thread
+Morgens Crossing,Eversus,1,88.46036201,67.6172155,MCEV,Morgens Crossing - Eversus
+Morgens Crossing,Lividus,1,99.09467661,52.6196484,MCLI,Morgens Crossing - Lividus
+Morgens Crossing,Quietus,1,85.77167446,58.94261928,MCQU,Morgens Crossing - Quietus
+Morgens Crossing,Rising Calm,0,93.3719619,58.24389312,MCRC,Morgens Crossing - Rising Calm
+Morgens Crossing,Ultimus,0,106.4014513,46.8758664,MCUL,Morgens Crossing - Ultimus
+Morgens Crossing,Velian Storm,0,99.84450842,56.8135656,MCVS,Morgens Crossing - Velian Storm
+Morgens Crossing,Warmonger Bay,1,98.86354967,41.352498,MCWB,Morgens Crossing - Warmonger Bay
+Marban Hollow,Bubble Basin,0,27.12105218,20.70262368,MHBB,Marban Hollow - Bubble Basin
+Marban Hollow,Bleating Plateau,0,22.41528602,14.7305412,MHBP,Marban Hollow - Bleating Plateau
+Marban Hollow,Checkpoint Bua,1,37.67185464,20.9522052,MHCB,Marban Hollow - Checkpoint Bua
+Marban Hollow,The Claim,0,41.80038064,11.9935872,MHCL,Marban Hollow - The Claim
+Marban Hollow,The Clutch,0,32.55447173,26.09972928,MHCT,Marban Hollow - The Clutch
+Marban Hollow,The Curse,0,37.16245877,17.5267368,MHCU,Marban Hollow - The Curse
+Marban Hollow,Deepfleet Valley,0,35.99921733,12.28431132,MHDV,Marban Hollow - Deepfleet Valley
+Marban Hollow,Gaping Maw,0,34.57106107,31.66787628,MHGM,Marban Hollow - Gaping Maw
+Marban Hollow,Lockheed Breakers,0,34.15558379,5.61423024,MHLB,Marban Hollow - Lockheed Breakers
+Marban Hollow,Lughbone Dam,0,36.37868611,21.04677072,MHLD,Marban Hollow - Lughbone Dam
+Marban Hollow,Lockheed,1,37.81282002,3.6442764,MHLH,Marban Hollow - Lockheed
+Marban Hollow,Mount Mac Tire,0,23.79565264,2.98586304,MHMT,Marban Hollow - Mount Mac Tire
+Marban Hollow,Maiden's Veil,1,32.69200515,17.2293408,MHMV,Marban Hollow - Maiden's Veil
+Marban Hollow,Mox,1,40.70633449,31.7723346,MHMX,Marban Hollow - Mox
+Marban Hollow,Oster Wall,1,44.40752726,19.03422744,MHOW,Marban Hollow - Oster Wall
+Marban Hollow,Pilgrimage,0,27.66624039,32.33288232,MHPI,Marban Hollow - Pilgrimage
+Marban Hollow,Sanctum,1,20.55233526,26.2010952,MHSA,Marban Hollow - Sanctum
+Marban Hollow,Slender Cove,0,41.1780728,25.56817344,MHSC,Marban Hollow - Slender Cove
+Marban Hollow,The Spitrocks,1,25.93862654,9.8159076,MHSR,Marban Hollow - The Spitrocks
+The Moors,Borderlane,1,-24.44545555,69.50319768,MOBL,The Moors - Borderlane
+The Moors,Gravekeeper's Holdfast,1,-33.53701213,47.3490702,MOGH,The Moors - Gravekeeper's Holdfast
+The Moors,The Graveyard,0,-35.62273525,52.5709044,MOGY,The Moors - The Graveyard
+The Moors,Headstone,1,-31.41417935,54.1725894,MOHS,The Moors - Headstone
+The Moors,Luch's Workshop,1,-21.17148711,64.71391176,MOLW,The Moors - Luch's Workshop
+The Moors,Lyon's Wood,0,-14.39859923,57.8531484,MOLY,The Moors - Lyon's Wood
+The Moors,MacConmara Barrows,1,-26.94457042,43.0021476,MOMB,The Moors - MacConmara Barrows
+The Moors,Morrighan's Grave,1,-20.88796841,50.1480648,MOMG,The Moors - Morrighan's Grave
+The Moors,The Mound,0,-29.17034439,49.1478912,MOMO,The Moors - The Mound
+The Moors,Moon's Walk,0,-33.68563747,59.6885184,MOMW,The Moors - Moon's Walk
+The Moors,Ogmaran,1,-33.25178909,65.86443576,MOOG,The Moors - Ogmaran
+The Moors,Riverhill,0,-23.79242224,63.41625684,MORH,The Moors - Riverhill
+The Moors,Reaching River,1,-41.76924898,62.25267744,MORR,The Moors - Reaching River
+The Moors,Scath Copse,0,-15.24882113,51.85360188,MOSC,The Moors - Scath Copse
+The Moors,The Spade,1,-41.0207029,56.28024468,MOSP,The Moors - The Spade
+The Moors,The Cut,1,-40.7075944,45.30296304,MOTC,The Moors - The Cut
+The Moors,Wiccwalk,1,-19.05114266,43.4655648,MOWA,The Moors - Wiccwalk
+The Moors,The Wind Hills,1,-35.56034151,39.81273012,MOWH,The Moors - The Wind Hills
+The Moors,Wiccwood,0,-24.44206392,55.74825,MOWO,The Moors - Wiccwood
+Nevish Line,The Aging Ocean,0,-106.839163,56.37816144,NLAO,Nevish Line - The Aging Ocean
+Nevish Line,The Arrow,0,-80.61664724,51.7415544,NLAR,Nevish Line - The Arrow
+Nevish Line,Blinding Stones,1,-97.26858855,64.53259596,NLBS,Nevish Line - Blinding Stones
+Nevish Line,Blackcoat Way,1,-99.05687766,47.0585592,NLBW,Nevish Line - Blackcoat Way
+Nevish Line,Grief Mother,1,-84.40050372,48.66270228,NLGM,Nevish Line - Grief Mother
+Nevish Line,Mistle Shrine,1,-79.14245723,56.2648392,NLMS,Nevish Line - Mistle Shrine
+Nevish Line,Nevish Trail,0,-98.72933508,69.12209052,NLNT,Nevish Line - Nevish Trail
+Nevish Line,Princefal,1,-90.13183116,53.7954624,NLPF,Nevish Line - Princefal
+Nevish Line,Plumage,0,-85.11207149,43.78129452,NLPL,Nevish Line - Plumage
+Nevish Line,The Scrying Belt,1,-88.7941607,63.66203028,NLSB,Nevish Line - The Scrying Belt
+Nevish Line,Tomb Father,1,-98.65240292,41.9155092,NLTF,Nevish Line - Tomb Father
+Nevish Line,Tear Road,0,-97.90341081,54.94866624,NLTR,Nevish Line - Tear Road
+Nevish Line,Unruly,1,-85.98170205,69.227037,NLUN,Nevish Line - Unruly
+Origin,Arise,1,-95.97531485,-52.6848804,ORAR,Origin - Arise
+Origin,Cado,0,-103.3048512,-53.1893034,ORCD,Origin - Cado
+Origin,Dormio,1,-79.82746808,-57.2745546,ORDO,Origin - Dormio
+Origin,The Dreamer's Road,0,-89.62615366,-53.42852412,ORDR,Origin - The Dreamer's Road
+Origin,The Echo,0,-83.09225346,-60.0204276,OREC,Origin - The Echo
+Origin,Exorior,0,-89.73239461,-67.9147632,OREX,Origin - Exorior
+Origin,Finis,1,-102.7784797,-46.37138868,ORFI,Origin - Finis
+Origin,Initium,1,-87.94135154,-48.1291812,ORIN,Origin - Initium
+Origin,The Sundering,0,-94.11489358,-58.877478,ORSU,Origin - The Sundering
+Origin,Teichotima,1,-100.1951418,-64.08155052,ORTE,Origin - Teichotima
+Origin,Temple Field,0,-83.71742168,-54.73041696,ORTF,Origin - Temple Field
+Origin,World Star,1,-87.08366007,-63.963342,ORWS,Origin - World Star
+Red River,Climb,1,-21.67538379,-77.16743928,RRCL,Red River - Climb
+Red River,Cannonsmoke,1,-32.79479123,-95.21051292,RRCS,Red River - Cannonsmoke
+Red River,Camp Upsilon,1,-40.13421602,-81.74530872,RRCU,Red River - Camp Upsilon
+Red River,Fragment Knolls,0,-43.78576849,-85.17060648,RRFK,Red River - Fragment Knolls
+Red River,Gunpowder Lane,0,-25.69419116,-80.76461832,RRGL,Red River - Gunpowder Lane
+Red River,Judicium,1,-21.17593253,-85.21881552,RRJU,Red River - Judicium
+Red River,Fort Matchwood,1,-28.51061178,-86.0805468,RRMA,Red River - Fort Matchwood
+Red River,Minos,1,-35.89125661,-89.0115534,RRMI,Red River - Minos
+Red River,Penance,1,-30.27944732,-77.98289796,RRPE,Red River - Penance
+Red River,Perish,0,-39.28690563,-98.96579424,RRPR,Red River - Perish
+Red River,Red Crossing,0,-25.48270319,-102.082693,RRRC,Red River - Red Crossing
+Red River,Twelve Drops,0,-21.52216505,-88.4799108,RRTD,Red River - Twelve Drops
+Red River,Victoria Hill,1,-19.02491373,-92.280429,RRVH,Red River - Victoria Hill
+Reaching Trail,The Ark,1,10.8271029,69.91569,RTAR,Reaching Trail - The Ark
+Reaching Trail,The Bait,0,9.472534972,69.9216192,RTBA,Reaching Trail - The Bait
+Reaching Trail,Brodytown,1,-1.537960284,78.3801252,RTBT,Reaching Trail - Brodytown
+Reaching Trail,Caragtais,0,-1.270121489,70.9413696,RTCA,Reaching Trail - Caragtais
+Reaching Trail,The Chicken Coop,0,-6.667937835,75.0761784,RTCC,Reaching Trail - The Chicken Coop
+Reaching Trail,The Cairns,0,5.07158301,81.40020912,RTCR,Reaching Trail - The Cairns
+Reaching Trail,Dugan's Approach,0,8.777160914,84.4607808,RTDA,Reaching Trail - Dugan's Approach
+Reaching Trail,The Deckard,0,-2.228510235,88.51643586,RTDE,Reaching Trail - The Deckard
+Reaching Trail,Dwyersfield,0,-11.32330256,80.38313172,RTDF,Reaching Trail - Dwyersfield
+Reaching Trail,Dwyerstown,1,-13.7389057,76.89913092,RTDT,Reaching Trail - Dwyerstown
+Reaching Trail,Duffy's Farm,0,-8.696007349,69.5491542,RTDU,Reaching Trail - Duffy's Farm
+Reaching Trail,Elksford,1,-6.261517655,72.1017144,RTEL,Reaching Trail - Elksford
+Reaching Trail,Camp Eos,0,11.26312494,64.66504464,RTEO,Reaching Trail - Camp Eos
+Reaching Trail,Featherfield,0,-1.681621427,61.250004,RTFF,Reaching Trail - Featherfield
+Reaching Trail,Fisherman's Floe,0,6.607650883,69.9396732,RTFI,Reaching Trail - Fisherman's Floe
+Reaching Trail,Harpy,1,-1.571089704,57.010842,RTHA,Reaching Trail - Harpy
+Reaching Trail,Hookhall,0,-4.755446547,66.6062784,RTHH,Reaching Trail - Hookhall
+Reaching Trail,Humidus,0,-8.679534299,65.97563616,RTHU,Reaching Trail - Humidus
+Reaching Trail,Ice Ranch,1,9.273129921,76.0358628,RTIR,Reaching Trail - Ice Ranch
+Reaching Trail,The Knot,0,-1.333571914,66.3004656,RTKN,Reaching Trail - The Knot
+Reaching Trail,Limestone Holdfast,1,-7.783116946,84.39920964,RTLH,Reaching Trail - Limestone Holdfast
+Reaching Trail,Fort Mac Conaill,1,9.186994342,59.4620496,RTMC,Reaching Trail - Fort Mac Conaill
+Reaching Trail,Mac Conaill's Pass,0,5.658220305,54.50526,RTMP,Reaching Trail - Mac Conaill's Pass
+Reaching Trail,Mousetrap,1,14.92232614,70.80611868,RTMT,Reaching Trail - Mousetrap
+Reaching Trail,Nightchurch,1,-4.277495717,63.1843902,RTNC,Reaching Trail - Nightchurch
+Reaching Trail,Pitfall,0,16.49134594,76.37101272,RTPF,Reaching Trail - Pitfall
+Reaching Trail,Puncta,0,-12.29683207,68.8022316,RTPU,Reaching Trail - Puncta
+Reaching Trail,Reprieve,1,2.642177648,65.66181984,RTRE,Reaching Trail - Reprieve
+Reaching Trail,The Rousing Fields,0,-10.14977232,73.15697628,RTRF,Reaching Trail - The Rousing Fields
+Reaching Trail,The Reaching Heights,0,2.709929656,70.289316,RTRH,Reaching Trail - The Reaching Heights
+Reaching Trail,The Rime Ledge,0,17.38589143,63.16968744,RTRL,Reaching Trail - The Rime Ledge
+Reaching Trail,The Scar,0,-7.767614953,70.4275848,RTSC,Reaching Trail - The Scar
+Reaching Trail,The Squeeze,0,-6.798123069,51.9654852,RTSQ,Reaching Trail - The Squeeze
+Reaching Trail,Scorpion,0,-5.926896663,58.92593256,RTSR,Reaching Trail - Scorpion
+Reaching Trail,Thylak,0,-15.09124511,63.3396528,RTTH,Reaching Trail - Thylak
+Reaching Trail,Windy Way,0,-10.56009918,87.17000126,RTWW,Reaching Trail - Windy Way
+Shackled Chasm,Autumn Pyres,0,32.39309171,-47.7508032,SCAP,Shackled Chasm - Autumn Pyres
+Shackled Chasm,The Blue,0,33.66395419,-67.5114012,SCBL,Shackled Chasm - The Blue
+Shackled Chasm,The Bell Toll,1,36.99720284,-49.7850804,SCBT,Shackled Chasm - The Bell Toll
+Shackled Chasm,A Careless Net,0,29.14935323,-67.325418,SCCN,Shackled Chasm - A Careless Net
+Shackled Chasm,Firstmarch,1,46.17694893,-49.94382096,SCFM,Shackled Chasm - Firstmarch
+Shackled Chasm,The Foolish Maidens,0,14.30831905,-56.6294058,SCFO,Shackled Chasm - The Foolish Maidens
+Shackled Chasm,The First Rung,0,25.92457781,-51.922143,SCFR,Shackled Chasm - The First Rung
+Shackled Chasm,Final Step,0,23.77392441,-42.1850736,SCFS,Shackled Chasm - Final Step
+Shackled Chasm,Gorgon Grove,1,20.4617684,-48.81764808,SCGG,Shackled Chasm - Gorgon Grove
+Shackled Chasm,The Grave of Rastus,1,38.21875592,-41.66252568,SCGR,Shackled Chasm - The Grave of Rastus
+Shackled Chasm,Hades Ladder,0,28.11726933,-46.7120916,SCHL,Shackled Chasm - Hades Ladder
+Shackled Chasm,Legion's Dawn,0,25.56993583,-70.1378172,SCLD,Shackled Chasm - Legion's Dawn
+Shackled Chasm,Limewood Holdfast,1,30.77962901,-53.0982612,SCLH,Shackled Chasm - Limewood Holdfast
+Shackled Chasm,Manky Hills,0,47.97157028,-57.15038736,SCMH,Shackled Chasm - Manky Hills
+Shackled Chasm,A New Spring,0,38.41776273,-45.47303532,SCNS,Shackled Chasm - A New Spring
+Shackled Chasm,The Plunging,0,19.18701878,-63.06631704,SCPL,Shackled Chasm - The Plunging
+Shackled Chasm,Reflection,1,20.16834126,-57.75565464,SCRE,Shackled Chasm - Reflection
+Shackled Chasm,Silk Farms,1,29.44244616,-59.94358416,SCSF,Shackled Chasm - Silk Farms
+Shackled Chasm,Southreach,0,31.02522329,-39.40091856,SCSO,Shackled Chasm - Southreach
+Shackled Chasm,Simo's Run,1,40.89000019,-66.9231108,SCSR,Shackled Chasm - Simo's Run
+Shackled Chasm,Savages,1,27.40170427,-42.6488472,SCSV,Shackled Chasm - Savages
+Shackled Chasm,The Vanguard,1,39.97353691,-58.3984584,SCVA,Shackled Chasm - The Vanguard
+Shackled Chasm,Widow's Web,0,33.12071932,-60.2226504,SCWW,Shackled Chasm - Widow's Web
+Stonecradle,Buckler Sound,1,-61.12884214,35.4719592,STBS,Stonecradle - Buckler Sound
+Stonecradle,The Cord,1,-58.97137596,29.0065626,STCO,Stonecradle - The Cord
+Stonecradle,The Dais,1,-57.69679552,50.31957258,STDA,Stonecradle - The Dais
+Stonecradle,Daihbi Point,0,-69.80987982,49.81721832,STDP,Stonecradle - Daihbi Point
+Stonecradle,Fading Lights,1,-51.83951334,29.10379176,STFL,Stonecradle - Fading Lights
+Stonecradle,The Heir's Knife,1,-70.86338434,26.2063368,STHK,Stonecradle - The Heir's Knife
+Stonecradle,The Long Fast,1,-65.01362121,21.9666744,STLF,Stonecradle - The Long Fast
+Stonecradle,Longing,0,-66.97378865,27.6452838,STLO,Stonecradle - Longing
+Stonecradle,The Loneliest Shore,0,-60.52342096,44.84388456,STLS,Stonecradle - The Loneliest Shore
+Stonecradle,The Pram,0,-66.08432873,36.81532188,STPR,Stonecradle - The Pram
+Stonecradle,The Roiling Comets,0,-46.75639968,34.4048868,STRC,Stonecradle - The Roiling Comets
+Stonecradle,The Reach,1,-53.2108133,46.60961076,STRE,Stonecradle - The Reach
+Stonecradle,Trammel Pool,1,-50.11586645,37.41048576,STTP,Stonecradle - Trammel Pool
+Stonecradle,World's End,1,-73.41936091,34.1216406,STWE,Stonecradle - World's End
+Stonecradle,The Whorl,0,-69.65990722,41.52797064,STWH,Stonecradle - The Whorl
+Speaking Woods,Cursed Court,0,-30.73812625,92.0642256,SWCC,Speaking Woods - Cursed Court
+Speaking Woods,Calmland,0,-16.66435157,97.36049448,SWCL,Speaking Woods - Calmland
+Speaking Woods,Fort Blather,1,-20.34107295,79.098426,SWFB,Speaking Woods - Fort Blather
+Speaking Woods,The Filament,1,-38.42180528,90.85860072,SWFI,Speaking Woods - The Filament
+Speaking Woods,Hush,1,-32.19415259,99.97875108,SWHU,Speaking Woods - Hush
+Speaking Woods,Inari Base,1,-20.28367417,102.3338819,SWIB,Speaking Woods - Inari Base
+Speaking Woods,Mount Rell,0,-43.74529836,87.67252296,SWMR,Speaking Woods - Mount Rell
+Speaking Woods,Mute,0,-38.69247744,97.45547688,SWMU,Speaking Woods - Mute
+Speaking Woods,Rell Foothills,0,-37.98743147,84.0316194,SWRF,Speaking Woods - Rell Foothills
+Speaking Woods,Reaching River,0,-21.66293921,83.52505944,SWRR,Speaking Woods - Reaching River
+Speaking Woods,Sotto Bank,1,-27.79002183,88.4454516,SWSB,Speaking Woods - Sotto Bank
+Speaking Woods,Stem,1,-34.81372175,82.32592104,SWST,Speaking Woods - Stem
+Speaking Woods,Tine,1,-25.35516508,96.2793162,SWTI,Speaking Woods - Tine
+Speaking Woods,Wound,1,-14.45758637,91.7357616,SWWO,Speaking Woods - Wound
+Terminus,Aspisa,0,61.53129501,-87.33803184,TEAS,Terminus - Aspisa
+Terminus,Bloody Palm Fort,1,77.9958057,-72.83029176,TEBP,Terminus - Bloody Palm Fort
+Terminus,Bay of the Ward,0,64.34133974,-66.69941652,TEBW,Terminus - Bay of the Ward
+Terminus,Cerberus Wake,1,53.28133221,-80.2938528,TECW,Terminus - Cerberus Wake
+Terminus,Dogbone,0,51.06042974,-69.28070256,TEDB,Terminus - Dogbone
+Terminus,The Legion's Bounty,0,54.59833986,-76.34682216,TELB,Terminus - The Legion's Bounty
+Terminus,Martyr's Fang,0,62.64132411,-69.61230936,TEMF,Terminus - Martyr's Fang
+Terminus,The Phalanx,0,57.96785016,-76.2766848,TEPH,Terminus - The Phalanx
+Terminus,The Respite,0,59.16043199,-80.746668,TERE,Terminus - The Respite
+Terminus,Rising Loom,0,62.69306615,-79.3519236,TERL,Terminus - Rising Loom
+Terminus,Sever,0,76.67267407,-68.603625,TESE,Terminus - Sever
+Terminus,Thunderbolt,1,56.68082141,-57.2513796,TETB,Terminus - Thunderbolt
+Terminus,Therizo,1,61.19701904,-80.5904784,TETH,Terminus - Therizo
+Terminus,Thunder Plains,0,54.49747423,-63.42757632,TETP,Terminus - Thunder Plains
+Terminus,Three Siblings,0,74.50027498,-80.8234776,TETS,Terminus - Three Siblings
+Terminus,Winding Bolas,1,74.72756093,-64.2057264,TEWB,Terminus - Winding Bolas
+Terminus,Warlord's Stead,1,52.86151261,-66.92406552,TEWS,Terminus - Warlord's Stead
+Tempest Island,Alchimio Estate,1,86.33138945,-3.434085,TIAE,Tempest Island - Alchimio Estate
+Tempest Island,Cirris Valve,0,103.1718916,-17.46143712,TICV,Tempest Island - Cirris Valve
+Tempest Island,Eros Lagoon,0,84.85083186,-29.506806,TIEL,Tempest Island - Eros Lagoon
+Tempest Island,The Gale,1,93.76272046,-28.6312104,TIGA,Tempest Island - The Gale
+Tempest Island,Isle of Psyche,1,84.1376932,-25.5818232,TIIP,Tempest Island - Isle of Psyche
+Tempest Island,The Iris,1,99.58069353,-17.29943928,TIIR,Tempest Island - The Iris
+Tempest Island,Lost Airchal,1,98.69139324,-3.58687512,TILA,Tempest Island - Lost Airchal
+Tempest Island,Liar's Haven,1,101.5746318,-23.7456756,TILI,Tempest Island - Liar's Haven
+Tempest Island,The Outwood,0,99.01977511,-14.29574688,TIOW,Tempest Island - The Outwood
+Tempest Island,Plana Fada,0,98.56827519,-6.63373044,TIPF,Tempest Island - Plana Fada
+Tempest Island,Reef,1,103.2534006,-11.273553,TIRF,Tempest Island - Reef
+Tempest Island,The Rush,1,95.26936688,-13.49607096,TIRU,Tempest Island - The Rush
+Tempest Island,Sclera,0,95.73589117,-20.9484396,TISC,Tempest Island - Sclera
+Tempest Island,Surge Field,0,98.91245586,-20.9281482,TISF,Tempest Island - Surge Field
+Tempest Island,Surge Gate,1,90.2061229,-15.79406328,TISG,Tempest Island - Surge Gate
+Tempest Island,Stratos Valve,0,94.54090788,-17.74845828,TISV,Tempest Island - Stratos Valve
+Umbral Wildwood,Adze Crossroads,0,-5.14386767,-31.91497308,UWAC,Umbral Wildwood - Adze Crossroads
+Umbral Wildwood,Atropos' Fate,1,3.81929157,-46.2360096,UWAF,Umbral Wildwood - Atropos' Fate
+Umbral Wildwood,Amethyst,1,13.9974027,-31.99842864,UWAM,Umbral Wildwood - Amethyst
+Umbral Wildwood,Clotho's Refuge,1,5.497554856,-29.66340672,UWCR,Umbral Wildwood - Clotho's Refuge
+Umbral Wildwood,Dredgefield,0,12.59044259,-48.82722264,UWDF,Umbral Wildwood - Dredgefield
+Umbral Wildwood,The Dredgewood,0,12.62496,-41.82206508,UWDW,Umbral Wildwood - The Dredgewood
+Umbral Wildwood,The Foundry,1,-8.528140864,-26.0877492,UWFO,Umbral Wildwood - The Foundry
+Umbral Wildwood,The Frontier,0,5.422244733,-43.979652,UWFR,Umbral Wildwood - The Frontier
+Umbral Wildwood,The Gap,0,-2.386375581,-37.1465712,UWGA,Umbral Wildwood - The Gap
+Umbral Wildwood,Golden Concourse,0,-13.72478214,-43.65496656,UWGC,Umbral Wildwood - Golden Concourse
+Umbral Wildwood,GoldenRoot Ranch,1,-13.48565562,-37.8182736,UWGR,Umbral Wildwood - GoldenRoot Ranch
+Umbral Wildwood,Hermit's Rest,1,7.902334613,-40.2358824,UWHR,Umbral Wildwood - Hermit's Rest
+Umbral Wildwood,Leatherback Pathway,0,9.555677568,-31.46541336,UWLP,Umbral Wildwood - Leatherback Pathway
+Umbral Wildwood,Lachesis' Tally ,1,14.94125677,-37.6110054,UWLT,Umbral Wildwood - Lachesis' Tally 
+Umbral Wildwood,Sentry,1,-3.539295802,-47.7102996,UWSE,Umbral Wildwood - Sentry
+Umbral Wildwood,Steely Fields,0,-13.04434972,-29.62635048,UWSF,Umbral Wildwood - Steely Fields
+Umbral Wildwood,Stray,1,8.1309383,-24.6430008,UWST,Umbral Wildwood - Stray
+Umbral Wildwood,Thunderfoot,1,-5.6198344,-36.52852176,UWTF,Umbral Wildwood - Thunderfoot
+Umbral Wildwood,Thunder Row,0,-9.156638779,-41.87398212,UWTR,Umbral Wildwood - Thunder Row
+Umbral Wildwood,The Strands,0,1.07477947,-26.56230264,UWTS,Umbral Wildwood - The Strands
+Umbral Wildwood,Terrapin Woods,0,10.34815982,-35.67418776,UWTW,Umbral Wildwood - Terrapin Woods
+Umbral Wildwood,Vagrant Bastion,1,1.102975871,-23.8177404,UWVB,Umbral Wildwood - Vagrant Bastion
+Umbral Wildwood,Wasting Holt,0,2.880421652,-51.8406084,UWWH,Umbral Wildwood - Wasting Holt
+Umbral Wildwood,Weaver's Trail,0,2.865915657,-34.06344624,UWWT,Umbral Wildwood - Weaver's Trail
+Viper Pit,Afric's Approach,0,22.00285992,47.7270828,VPAA,Viper Pit - Afric's Approach
+Viper Pit,Austriaca River,0,31.5150097,41.2734204,VPAR,Viper Pit - Austriaca River
+Viper Pit,The Bloody Bowery,0,22.66747068,55.52149392,VPBB,Viper Pit - The Bloody Bowery
+Viper Pit,Blackthroat,1,27.08705022,42.17962932,VPBT,Viper Pit - Blackthroat
+Viper Pit,Deadsteps,0,33.74150989,64.40335812,VPDS,Viper Pit - Deadsteps
+Viper Pit,Earl Crowley,1,45.1177249,53.5003992,VPEC,Viper Pit - Earl Crowley
+Viper Pit,Earl's Welcome,0,17.24122805,57.24803592,VPEW,Viper Pit - Earl's Welcome
+Viper Pit,Fleck Crossing,1,33.29989513,52.6469148,VPFC,Viper Pit - Fleck Crossing
+Viper Pit,The Friars,1,22.36076134,42.6332664,VPFR,Viper Pit - The Friars
+Viper Pit,Hardcaps,0,30.24553563,70.8409597,VPHC,Viper Pit - Hardcaps
+Viper Pit,Kirknell,1,22.92869789,52.268868,VPKN,Viper Pit - Kirknell
+Viper Pit,The Lady's Lake,0,19.30660012,49.2190524,VPLL,Viper Pit - The Lady's Lake
+Viper Pit,Lake Mioira,0,20.06057763,68.36621544,VPLM,Viper Pit - Lake Mioira
+Viper Pit,Moltworth,1,37.09325267,46.42569936,VPMW,Viper Pit - Moltworth
+Viper Pit,Path of the Charmed,0,39.52674803,38.0941344,VPPC,Viper Pit - Path of the Charmed
+Viper Pit,The Rockaway,0,43.62169982,46.6263612,VPRA,Viper Pit - The Rockaway
+Viper Pit,Serenity's Blight,1,29.6293767,59.3589348,VPSB,Viper Pit - Serenity's Blight
+Viper Pit,Snakehead Lake,0,27.87685541,64.50100056,VPSL,Viper Pit - Snakehead Lake
+Viper Pit,The Slithering Scales,0,35.23436864,56.4685722,VPSS,Viper Pit - The Slithering Scales
+Viper Pit,Twin Fangs,0,26.5677588,57.55236372,VPTF,Viper Pit - Twin Fangs
+Viper Pit,The Tongue,0,40.01310125,66.4312392,VPTO,Viper Pit - The Tongue
+Viper Pit,Fort Viper,1,25.38762238,50.434524,VPVI,Viper Pit - Fort Viper
+Weathered Expanse,Barrowsfield,0,60.256567,37.2456792,WEBF,Weathered Expanse - Barrowsfield
+Weathered Expanse,Bannerwatch,0,44.21739547,22.55592096,WEBW,Weathered Expanse - Bannerwatch
+Weathered Expanse,Crow's Nest,1,53.57792901,35.19198576,WECN,Weathered Expanse - Crow's Nest
+Weathered Expanse,Dullahan's Crest,0,48.55626588,31.79146176,WEDC,Weathered Expanse - Dullahan's Crest
+Weathered Expanse,Eapoe,0,60.68053812,29.8146852,WEEA,Weathered Expanse - Eapoe
+Weathered Expanse,Foxcatcher,1,63.82357432,25.9891164,WEFC,Weathered Expanse - Foxcatcher
+Weathered Expanse,Frostmarch,1,48.7937924,37.3250124,WEFM,Weathered Expanse - Frostmarch
+Weathered Expanse,Huntsfort,1,62.55010711,34.740918,WEHF,Weathered Expanse - Huntsfort
+Weathered Expanse,The Ivory Bank,0,59.88312285,20.62716372,WEIB,Weathered Expanse - The Ivory Bank
+Weathered Expanse,The Ivory Sea,0,49.69915212,27.874026,WEIS,Weathered Expanse - The Ivory Sea
+Weathered Expanse,Kirkyard,0,54.6918652,31.577472,WEKY,Weathered Expanse - Kirkyard
+Weathered Expanse,Necropolis,1,56.79507025,29.206044,WENE,Weathered Expanse - Necropolis
+Weathered Expanse,Port of Rime,1,70.70659029,49.32841788,WEPR,Weathered Expanse - Port of Rime
+Weathered Expanse,Revenant's Path,0,65.1946311,48.47422716,WERP,Weathered Expanse - Revenant's Path
+Weathered Expanse,Rime Wastes,0,52.24105543,39.94344072,WERW,Weathered Expanse - Rime Wastes
+Weathered Expanse,Shattered Advance,1,58.54262776,42.89355072,WESA,Weathered Expanse - Shattered Advance
+Weathered Expanse,The Spear,0,71.49861153,42.8972796,WESP,Weathered Expanse - The Spear
+Weathered Expanse,The Stand,0,46.06288611,40.85726256,WEST,Weathered Expanse - The Stand
+Weathered Expanse,Spirit Watch,1,69.47316379,27.8813196,WESW,Weathered Expanse - Spirit Watch
+Weathered Expanse,Wraith's Gate,0,64.3323109,38.4042258,WEWG,Weathered Expanse - Wraith's Gate
+Weathered Expanse,The Weathering Halls,1,61.51536111,48.341376,WEWH,Weathered Expanse - The Weathering Halls
+Weathered Expanse,Wightwalk,1,71.05927643,36.07672932,WEWI,Weathered Expanse - Wightwalk
+Weathered Expanse,The Weathered Wall,0,49.85556629,47.32162308,WEWW,Weathered Expanse - The Weathered Wall
+Westgate,Ash Step,0,-55.50472088,-55.504404,WGAS,Westgate - Ash Step
+Westgate,The Bulwark,0,-50.38997887,-41.1573492,WGBW,Westgate - The Bulwark
+Westgate,Candle Hills,0,-66.5181264,-49.538736,WGCA,Westgate - Candle Hills
+Westgate,Ceo Highlands,0,-54.3258702,-50.5714608,WGCH,Westgate - Ceo Highlands
+Westgate,Cobber's Lane,0,-48.34239967,-28.9741428,WGCL,Westgate - Cobber's Lane
+Westgate,Cattle March,0,-64.39556673,-24.436764,WGCM,Westgate - Cattle March
+Westgate,Coasthill,0,-51.20617095,-36.8378208,WGCO,Westgate - Coasthill
+Westgate,Cinder Road,0,-65.07627142,-55.3645764,WGCR,Westgate - Cinder Road
+Westgate,Coastway,0,-60.99675719,-53.58525984,WGCW,Westgate - Coastway
+Westgate,The Divide,0,-62.27480409,-50.3946324,WGDI,Westgate - The Divide
+Westgate,Ember Hills,0,-59.26898663,-56.1296556,WGEH,Westgate - Ember Hills
+Westgate,Fields of Badb,0,-60.97912602,-23.40668376,WGFB,Westgate - Fields of Badb
+Westgate,Fand's Chain,0,-71.70134165,-23.06924568,WGFC,Westgate - Fand's Chain
+Westgate,Flidais' Pasture,0,-53.57061984,-25.92646632,WGFP,Westgate - Flidais' Pasture
+Westgate,The Gallows,1,-67.2336449,-21.8212488,WGGA,Westgate - The Gallows
+Westgate,Hillcrest,0,-55.66393141,-40.5122184,WGHC,Westgate - Hillcrest
+Westgate,The Hem,0,-49.48510135,-44.79310296,WGHE,Westgate - The Hem
+Westgate,Holdfast,1,-63.04760705,-27.99781812,WGHF,Westgate - Holdfast
+Westgate,Handsome Hideaway,0,-68.46738483,-35.9745948,WGHH,Westgate - Handsome Hideaway
+Westgate,Inkwell Lane,0,-57.70901437,-21.81003444,WGIL,Westgate - Inkwell Lane
+Westgate,The Knight's Edge,0,-58.26637862,-28.41100488,WGKE,Westgate - The Knight's Edge
+Westgate,The King's Road,0,-51.9023182,-32.7545856,WGKI,Westgate - The King's Road
+Westgate,Killian Quarter,0,-49.54880618,-23.76274896,WGKQ,Westgate - Killian Quarter
+Westgate,Kardia Road,0,-57.79100966,-24.436764,WGKR,Westgate - Kardia Road
+Westgate,Kingstone,1,-55.60169855,-32.7919698,WGKS,Westgate - Kingstone
+Westgate,Lord's Mouth,1,-47.87886796,-33.5069676,WGLM,Westgate - Lord's Mouth
+Westgate,Lost Partition,1,-48.47486124,-38.7235368,WGLP,Westgate - Lost Partition
+Westgate,Longstone,1,-55.52195382,-44.043822,WGLS,Westgate - Longstone
+Westgate,Reaver's Cove,0,-62.60664161,-36.8766756,WGRC,Westgate - Reaver's Cove
+Westgate,Rancher's Fast,1,-53.4849145,-24.54551388,WGRF,Westgate - Rancher's Fast
+Westgate,Sanctuary,1,-72.5695917,-27.60902352,WGSA,Westgate - Sanctuary
+Westgate,Sanctified Path,0,-56.02014429,-47.6003052,WGSP,Westgate - Sanctified Path
+Westgate,Siochana Valley,0,-58.22438124,-50.3946324,WGSV,Westgate - Siochana Valley
+Westgate,Triton's Curse,0,-74.00093091,-49.8079134,WGTC,Westgate - Triton's Curse
+Westgate,Taswell Point,0,-59.50523032,-46.55506104,WGTP,Westgate - Taswell Point
+Westgate,Western Heartlands,0,-52.4275536,-30.374604,WGWH,Westgate - Western Heartlands
+Westgate,Westgate Keep,1,-57.5789181,-38.29243464,WGWK,Westgate - Westgate Keep
+Westgate,Wire Road,0,-53.62183561,-27.3990888,WGWR,Westgate - Wire Road
+Westgate,Warden Walk,0,-46.19293972,-37.1773368,WGWW,Westgate - Warden Walk
+Westgate,Wyattwick,1,-70.28229737,-47.39055624,WGWY,Westgate - Wyattwick
+Westgate,Zeus' Demise,1,-65.64459498,-45.8052048,WGZD,Westgate - Zeus' Demise
+King's Cage,The Bailie,0,0,0,KGTB,King's Cage - The Bailie
+King's Cage,Den of Knaves,0,0,0,KGDOK,King's Cage - Den of Knaves
+King's Cage,Slipchain,0,0,0,KGSC,King's Cage - Slipchain
+King's Cage,The Manacle,0,0,0,KGTM,King's Cage - The Manacle
+King's Cage,Eastknife,0,0,0,KGEK,King's Cage - Eastknife
+King's Cage,Gibbet Fields,0,0,0,KGGF,King's Cage - Gibbet Fields
+King's Cage,Scalethold,0,0,0,KGSH,King's Cage - Scarlethold
+Sableport,Talonsfort,0,0,0,SPTF,Sableport - Talonsfort
+Sableport,The Pendant,0,0,0,SPTP,Sableport - The Pendant
+Sableport,Cinderwick,0,0,0,SPCW,Sableport - Cinderwick
+Sableport,The Whetstone,0,0,0,SPTW,Sableport - The Whetstone
+Sableport,The Robin's Nest,0,0,0,SPTRN,Sableport - The Robin's Nest
+Sableport,Light's End,0,0,0,SPLE,Sableport - Light's End
+Sableport,Barronhome,0,0,0,SPBH,Sableport - Barronhome

@@ -13,12 +13,12 @@ const commands = [
         ).addIntegerOption(option =>
             option.setName("amount").setDescription("The amount of that item").setRequired(true)
         ).addStringOption(option =>
-            option.setName("stockpile").setDescription("The name of the stockpile").setRequired(true))
+            option.setName("stockpile").setDescription("The name of the stockpile").setRequired(true).setAutocomplete(true))
     ,
     new SlashCommandBuilder().setName('spsettimeleft')
         .setDescription('Sets the time left for a reserve <stockpile> before it expires. NOTE: <time> is a UNIX TIMESTAMP')
         .addStringOption((option) =>
-            option.setName("stockpile").setDescription("The stockpile name").setRequired(true)
+            option.setName("stockpile").setDescription("The stockpile name").setRequired(true).setAutocomplete(true)
         ).addIntegerOption(option =>
             option.setName("time").setDescription("The time till the reserve stockpile expires. A Unix Timestamp.").setRequired(true))
     ,
@@ -56,14 +56,14 @@ const commands = [
                 .setRequired(false)
         )
         .addStringOption((option) => option.setName("stockpile_group").setDescription("View targets for a specific <stockpile_group>").setRequired(false))
-        .addStringOption((option) => option.setName("stockpile").setDescription("View items in a <stockpile> only").setRequired(false))
+        .addStringOption((option) => option.setName("stockpile").setDescription("View items in a <stockpile> only").setRequired(false).setAutocomplete(true))
     ,
     new SlashCommandBuilder().setName('spsetpassword').setDescription('Sets the password the Stockpiler app uses to update information to the database.')
         .addStringOption((option) => option.setName("password").setDescription("The new password").setRequired(true)),
     new SlashCommandBuilder().setName('spsetorder').setDescription('Sets the order of a <stockpile> to <order> number in the list')
-        .addStringOption((option) => option.setName("stockpile").setDescription("The name of the stockpile to set the order of").setRequired(true))
+        .addStringOption((option) => option.setName("stockpile").setDescription("The name of the stockpile to set the order of").setRequired(true).setAutocomplete(true))
         .addIntegerOption((option) => option.setName("order").setDescription("The order number to set to (1-N), where N is the number of stockpiles in the list").setRequired(true)),
-    new SlashCommandBuilder().setName('spstockpile').setDescription('Removes the stockpile specified by <name>')
+    new SlashCommandBuilder().setName('spstockpile').setDescription('Commands to manage stockpiles')
         .addSubcommand(subcommand =>
             subcommand
                 .setName("add")
@@ -74,7 +74,7 @@ const commands = [
             subcommand
                 .setName("remove")
                 .setDescription("Deletes stockpile with the name <stockpile>")
-                .addStringOption((option) => option.setName("stockpile").setDescription("Stockpile name").setRequired(true))
+                .addStringOption((option) => option.setName("stockpile").setDescription("Stockpile name").setRequired(true).setAutocomplete(true))
         ).addSubcommand(subcommand =>
             subcommand
                 .setName("purge")
@@ -152,14 +152,14 @@ const commands = [
             subcommand
                 .setName("add")
                 .setDescription("Adds a <pretty_name> to the <stockpile>. Pretty names are alternative names")
-                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to add a pretty name to").setRequired(true))
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to add a pretty name to").setRequired(true).setAutocomplete(true))
                 .addStringOption(option => option.setName("pretty_name").setDescription("The pretty name to add").setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("remove")
                 .setDescription("Removes a pretty name from the <stockpile>. Pretty names are alternative names")
-                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a pretty name from").setRequired(true))
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a pretty name from").setRequired(true).setAutocomplete(true))
 
         ),
     new SlashCommandBuilder().setName('spscan')
@@ -171,14 +171,14 @@ const commands = [
             subcommand
                 .setName("add")
                 .setDescription("Adds a <code> to a <stockpile>")
-                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to add a code to").setRequired(true))
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to add a code to").setRequired(true).setAutocomplete(true))
                 .addStringOption(option => option.setName("code").setDescription("The stockpile code to add").setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("remove")
                 .setDescription("Removes a code from the <stockpile>")
-                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a code from").setRequired(true))
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a code from").setRequired(true).setAutocomplete(true))
 
         ),
     new SlashCommandBuilder().setName('sploc')
@@ -187,14 +187,14 @@ const commands = [
             subcommand
                 .setName("add")
                 .setDescription("Adds a <location> to a <stockpile>")
-                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to add a location to").setRequired(true))
-                .addStringOption(option => option.setName("location").setDescription("The location to set to").setRequired(true))
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to add a location to").setRequired(true).setAutocomplete(true))
+                .addStringOption(option => option.setName("location").setDescription("The location to set to").setRequired(true).setAutocomplete(true))
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("remove")
                 .setDescription("Removes a location from the <stockpile>")
-                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a location from").setRequired(true))
+                .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a location from").setRequired(true).setAutocomplete(true))
 
         )
         .addSubcommand(subcommand =>
@@ -216,7 +216,7 @@ const commands = [
     new SlashCommandBuilder().setName('sprefresh')
         .setDescription('Refreshes the timer of ALL stockpiles, or an individual <stockpile> if a name is provided.')
         .addStringOption((option) =>
-            option.setName("stockpile").setDescription("The stockpile name").setRequired(false)
+            option.setName("stockpile").setDescription("The stockpile name").setRequired(false).setAutocomplete(true)
         ),
     new SlashCommandBuilder().setName('spgroup')
         .setDescription('Commands for creating a target list for a list of selected stockpiles')
@@ -230,28 +230,28 @@ const commands = [
             subcommand
                 .setName("remove")
                 .setDescription("Removes stockpile group with <name>")
-                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove").setRequired(true))
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove").setRequired(true).setAutocomplete(true))
 
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("addstockpile")
                 .setDescription("Adds the stockpile with <stockpileName> to the stockpile group with <name>")
-                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to add to").setRequired(true))
-                .addStringOption(option => option.setName("stockpile_name").setDescription("The name of the stockpile to add to the stockpile group").setRequired(true))
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to add to").setRequired(true).setAutocomplete(true))
+                .addStringOption(option => option.setName("stockpile_name").setDescription("The name of the stockpile to add to the stockpile group").setRequired(true).setAutocomplete(true))
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("removestockpile")
                 .setDescription("Removes the stockpile with <stockpileName> from the stockpile group with <name>")
-                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove from").setRequired(true))
-                .addStringOption(option => option.setName("stockpile_name").setDescription("The name of the stockpile to remove from the stockpile group").setRequired(true))
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove from").setRequired(true).setAutocomplete(true))
+                .addStringOption(option => option.setName("stockpile_name").setDescription("The name of the stockpile to remove from the stockpile group").setRequired(true).setAutocomplete(true))
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("settarget")
                 .setDescription("Sets targets for the stockpile group with <name>")
-                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to modify targets").setRequired(true))
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to modify targets").setRequired(true).setAutocomplete(true))
                 .addStringOption((option) =>
                     option.setName("item").setDescription("The item name").setRequired(true)
                 ).addIntegerOption(option =>
@@ -268,7 +268,7 @@ const commands = [
             subcommand
                 .setName("removetarget")
                 .setDescription("Removes the target <item> from stockpile group with <name>")
-                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove from").setRequired(true))
+                .addStringOption(option => option.setName("name").setDescription("The name of the stockpile group to remove from").setRequired(true).setAutocomplete(true))
                 .addStringOption(option => option.setName("item").setDescription("The name of the item to remove from targets").setRequired(true))
         )
 ].map(command => command.toJSON())
