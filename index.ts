@@ -41,7 +41,7 @@ import spuser from './Commands/spuser'
 import autoCompleteHandler from './Utils/autoCompleteHandler'
 
 require('dotenv').config()
-const host = '0.0.0.0'
+const host = process.env.APP_HOST ? process.env.APP_HOST : '0.0.0.0' 
 const currentVersion = 21
 const commandMapping: any = {
     'sphelp': { sub: false, vars: 1, handler: sphelp },
