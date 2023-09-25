@@ -22,7 +22,7 @@
     "@discordjs/rest": "^1.7.1",
     "argon2": "^0.29.1",
     "csv-parser": "^3.0.0",
-    "discord-api-types": "^0.37.37",
+    "discord-api-types": "^0.37.58",
     "discord.js": "^14.11.0",
     "dotenv": "^16.0.3",
     "express-mongo-sanitize": "^2.2.0",
