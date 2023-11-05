@@ -5,8 +5,6 @@ FROM node:lts-alpine AS base
 WORKDIR /app/
 ENV NODE_ENV=production
 
-RUN npm install -g npm@9.5.1
-
 
 FROM base AS npm
 
