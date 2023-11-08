@@ -30,16 +30,16 @@ const sprole = async (interaction: ChatInputCommandInteraction, client: Client):
         const configObj = (await collections.config.findOne({}))!
 
         if (perms === "admin" && "admin" in configObj) {
-            for (let i = 0; i < configObj.individualAdminPerms.length; i++) {
-                if (configObj.individualAdminPerms[i] === role.id) {
+            for (let i = 0; i < configObj.admin.length; i++) {
+                if (configObj.admin[i] === role.id) {
                     await interaction.editReply({content: "Error: The role `" + role.name + "` already has `" + perms + "`"})
                     return false
                 }
             }
         }
         else if (perms === "user" && "user" in configObj) {
-            for (let i = 0; i < configObj.individualUserPerms.length; i++) {
-                if (configObj.individualUserPerms[i] === role.id) {
+            for (let i = 0; i < configObj.user.length; i++) {
+                if (configObj.user[i] === role.id) {
                     await interaction.editReply({content: "Error: The role `" + role.name + "` already has `" + perms + "`"})
                     return false
                 }
