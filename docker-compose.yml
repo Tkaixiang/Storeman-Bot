@@ -6,8 +6,6 @@ services:
     image: ghcr.io/tkaixiang/storeman-bot:latest
     restart: unless-stopped
     network_mode: "host" 
-    ports: 
-      - "127.0.0.1:8888:8888"
     secrets:
       - source: dotenv
         target: /app/.env
