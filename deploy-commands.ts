@@ -162,9 +162,9 @@ const commands = [
                 .addStringOption(option => option.setName("stockpile").setDescription("The stockpile to remove a pretty name from").setRequired(true).setAutocomplete(true))
 
         ),
-    new SlashCommandBuilder().setName('spscan')
+    /*new SlashCommandBuilder().setName('spscan')
         .setDescription('Scan a screenshot of a stockpile')
-        .addAttachmentOption(option => option.setName("screenshot").setDescription("Screenshot of the stockpile to scan").setRequired(true)),
+        .addAttachmentOption(option => option.setName("screenshot").setDescription("Screenshot of the stockpile to scan").setRequired(true)),*/
     new SlashCommandBuilder().setName('spcode')
         .setDescription('Set/remove stockpile codes')
         .addSubcommand(subcommand =>
