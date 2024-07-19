@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction } from "discord.js";
-import { UPDATE_DATA, UPDATE_DATE, VERSION } from "../constants";
+import { UPDATE_DATE, VERSION } from "../constants";
 
 const sphelp = async (
   interaction: ChatInputCommandInteraction,
