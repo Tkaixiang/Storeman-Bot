@@ -39,6 +39,7 @@ import spgroup from "./Commands/spgroup";
 import sprefresh from "./Commands/sprefresh";
 import spuser from "./Commands/spuser";
 import autoCompleteHandler from "./Utils/autoCompleteHandler";
+import { UPDATE_DATE, VERSION } from "./constants";
 
 require("dotenv").config();
 const host = process.env.APP_HOST ? process.env.APP_HOST : "0.0.0.0";
@@ -119,7 +120,7 @@ const updateFirstTimeSetup = async (newInstance: boolean): Promise<void> => {
     console.info(
       "Generated a random password since none was previously set: " +
         password +
-        ". You can change this using /spsetpassword via the bot"
+        ". You can change this using /spsetpassword via the bot",
     );
     await collections.config.insertOne({
       version: currentVersion,
@@ -129,7 +130,7 @@ const updateFirstTimeSetup = async (newInstance: boolean): Promise<void> => {
   } else {
     await collections.config.updateOne(
       {},
-      { $set: { version: currentVersion } }
+      { $set: { version: currentVersion } },
     );
     console.info("Completed Storeman Bot update");
   }
@@ -144,7 +145,7 @@ const guildCreateEventHandler = async (guild: Guild) => {
       "Bot has joined a new server named: " +
         guild.name +
         " with ID: " +
-        guild.id
+        guild.id,
     );
     const password = crypto.randomBytes(32).toString("hex");
     await collections.config.insertOne({
@@ -158,7 +159,7 @@ const guildCreateEventHandler = async (guild: Guild) => {
     const globalCollection = getCollections("global-settings");
     await globalCollection.config.updateOne(
       {},
-      { $push: { serverIDList: guild.id } }
+      { $push: { serverIDList: guild.id } },
     );
 
     const stockpileTimes: any = NodeCacheObj.get("stockpileTimes");
@@ -177,7 +178,7 @@ const guildCreateEventHandler = async (guild: Guild) => {
 
 const guildDeleteEventHandler = async (guildID: string) => {
   console.log(
-    "Bot has been kicked (or deleted) from the server with ID:" + guildID
+    "Bot has been kicked (or deleted) from the server with ID:" + guildID,
   );
   const mongoClient = getMongoClientObj();
   const db = mongoClient.db("stockpiler-" + guildID);
@@ -196,7 +197,7 @@ const guildDeleteEventHandler = async (guildID: string) => {
   if (found) {
     await collections.config.updateOne(
       {},
-      { $set: { serverIDList: configObj.serverIDList } }
+      { $set: { serverIDList: configObj.serverIDList } },
     );
     const stockpileTimes: any = NodeCacheObj.get("stockpileTimes");
     const notifRoles: any = NodeCacheObj.get("notifRoles");
@@ -209,11 +210,11 @@ const guildDeleteEventHandler = async (guildID: string) => {
     delete disableTimeNotif[guildID];
     delete stockpileGroups[guildID];
     console.log(
-      "Deleted the database and config records of the guild successfully"
+      "Deleted the database and config records of the guild successfully",
     );
   } else
     console.log(
-      "Delete request received but no such guildID exists in Storeman Bot records."
+      "Delete request received but no such guildID exists in Storeman Bot records.",
     );
 };
 
@@ -257,7 +258,7 @@ const createCacheStartup = async (client: Client) => {
           insertCommands(configObj.serverIDList[i]);
           await collections.config.updateOne(
             {},
-            { $set: { version: currentVersion } }
+            { $set: { version: currentVersion } },
           );
         }
       }
@@ -427,7 +428,7 @@ const main = async (): Promise<void> => {
           console.log(
             "[!!!]: An error has occured in the command " +
               interaction.commandName +
-              ". Please kindly report this to the developer on Discord (Tkai#8276)"
+              ". Please kindly report this to the developer on Discord (Tkai#8276)",
           );
           interaction.followUp({
             content:
@@ -438,7 +439,7 @@ const main = async (): Promise<void> => {
           });
         } else if (interaction.isButton()) {
           console.log(
-            "[!!!]: An error has occured in a button action. Please kindly report this to the developer on Discord (Tkai#8276)"
+            "[!!!]: An error has occured in a button action. Please kindly report this to the developer on Discord (Tkai#8276)",
           );
           interaction.followUp({
             content:
@@ -477,7 +478,7 @@ const main = async (): Promise<void> => {
         "[Command Queue:] Finished 1 command for " +
           interaction.guildId +
           ". Remaining length of queue: " +
-          multiServerCommandQueue[interaction.guildId!].length
+          multiServerCommandQueue[interaction.guildId!].length,
       );
     } else {
       commandCallQueue.splice(0, 1);
@@ -486,7 +487,7 @@ const main = async (): Promise<void> => {
       }
       console.log(
         "[Command Queue:] Finished 1 command. Remaining length of queue: " +
-          commandCallQueue.length
+          commandCallQueue.length,
       );
     }
   };
@@ -580,7 +581,7 @@ const main = async (): Promise<void> => {
           } catch (e) {
             response.writeHead(403, { "Content-Type": "application/json" });
             response.end(
-              JSON.stringify({ success: false, error: "invalid-json" })
+              JSON.stringify({ success: false, error: "invalid-json" }),
             );
           }
         });
@@ -588,7 +589,7 @@ const main = async (): Promise<void> => {
         response.writeHead(200, { "Content-Type": "text/html" });
         response.write(`
                     <html>
-                        <h1>Storeman Bot</h1>
+                        <h1>Storeman Bot - ${VERSION} (${UPDATE_DATE})</h1>
                         <p>If you are seeing this page, it means you have reached the Storeman Bot sanity check web page. Please use the <a href="https://github.com/tehruttiger/Stockpiler">Stockpiler</a> app to communicate with our servers instead!</p>
                     </html>
                 `);
@@ -598,7 +599,7 @@ const main = async (): Promise<void> => {
 
     server.listen(parseInt(process.env.APP_PORT!), host);
     console.log(
-      `HTTP server now listening at http://${host}:${process.env.APP_PORT}`
+      `HTTP server now listening at http://${host}:${process.env.APP_PORT}`,
     );
 
     // This is called once client(the bot) is ready
@@ -629,7 +630,7 @@ const main = async (): Promise<void> => {
 
         if (multiServerCommandQueue[interaction.guildId!].length === 1) {
           console.log(
-            `[Command Queue:] No queue ahead for ${interaction.guildId}, starting.`
+            `[Command Queue:] No queue ahead for ${interaction.guildId}, starting.`,
           );
           handleCommand(multiServerCommandQueue[interaction.guildId!][0]);
         }
